@@ -66,6 +66,8 @@ func main() {
 
 The same code is in `example_test.go`, so `make test` checks that it compiles.
 
+The full API, with the spec's descriptions as doc comments, is in the [Go reference](https://pkg.go.dev/github.com/psyb0t/go-intercom) and in `go doc github.com/psyb0t/go-intercom`.
+
 Method names follow the spec's operation IDs: `IdentifyAdminWithResponse` calls `GET /me`, `ListContactsWithResponse` lists contacts, and `ListConversationsWithResponse` lists conversations. Methods return transport and decoding errors; check `StatusCode()`, `Body` and the typed status field for API errors.
 
 ## Auth
@@ -95,13 +97,13 @@ make generate
 - oapi-codegen runs with `config.yaml`, generating every operation. The config maps `number` to `float64` and prefixes enum values to avoid name collisions.
 - `scripts/split-gen.sh` splits the generated output at declaration boundaries and runs goimports. Smaller files keep linting practical.
 
-The initial client uses [Intercom API 2.17](https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.17/api.intercom.io.yaml), an OpenAPI 3.0.1 document with 258 operations across 182 paths.
+The client is generated from [Intercom API 2.17](https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.17/api.intercom.io.yaml), an OpenAPI 3.0.1 document with 258 operations across 182 paths.
 
 `.github/workflows/regen.yml` does the same every day in CI. When the new spec changes the client, it runs `make lint`, `make test` and `make sec`. If a check fails, Claude edits the code and the checks run again, up to three times, and a review step reads the result. A passing change is committed with a CHANGELOG entry and tagged as the next release: a patch version for fixes and additions, a minor version for breaking changes.
 
 ## Agent integrations
 
-The [skill](.agents/skills/go-intercom) teaches a coding agent how to use go-intercom when it writes Go. It works in any agent that reads `.agents/skills/`. The marketplace commands below require publication of the repository and its catalog entries.
+The [skill](.agents/skills/go-intercom) teaches a coding agent how to use go-intercom when it writes Go. It works in any agent that reads `.agents/skills/`, and installs natively in the clients below.
 
 ### Claude Code
 
@@ -121,7 +123,7 @@ Codex also picks the skill up with no install in any checkout of this repo.
 
 ### OpenClaw
 
-The release workflow publishes the skill to ClawHub. After publication:
+The skill is published to ClawHub on every release:
 
 ```bash
 openclaw skills install @psyb0t/go-intercom

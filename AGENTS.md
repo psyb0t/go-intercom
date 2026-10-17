@@ -37,7 +37,7 @@ make sec       # gitleaks, govulncheck, semgrep
 
 ## Project-specific landmines
 
-- The initial spec is Intercom API 2.17, OpenAPI 3.0.1. It contains 258 HTTP operations across 182 paths. Generate all operations.
+- The spec is Intercom API 2.17, OpenAPI 3.0.1. It contains 258 HTTP operations across 182 paths. Generate all operations.
 - Reporting export status and download paths omit their `job_identifier` parameter declarations. The patch adds required string path parameters before generation; without it oapi-codegen rejects the spec.
 - Inline `type` enums on `conversation_attribute_list` and `ticket` collide with component Go names. The patch sets `x-go-type-name` to `ConversationAttributeListObjectType` and `TicketObjectType`. JSON field names and enum values stay unchanged.
 - Contact create and update bodies wrap a single component reference in `oneOf`. The resulting body types lose their JSON marshaling methods and send `{}`. The patch replaces those wrappers with direct references; POST and PUT tests check the serialized fields.

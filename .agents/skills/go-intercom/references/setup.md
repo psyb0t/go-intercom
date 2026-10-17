@@ -34,7 +34,7 @@ The spec declares HTTP bearer authentication. In a request editor set `req.Heade
 
 ## Main operations
 
-The client covers all 258 operations in the initial spec. Representative generated methods:
+The client covers all 258 operations in the spec (Intercom API 2.17). Representative generated methods:
 
 | Method | Endpoint |
 |---|---|
@@ -52,7 +52,7 @@ The client covers all 258 operations in the initial spec. Representative generat
 | `ListTagsWithResponse` | `GET /tags` |
 | `ListTeamsWithResponse` | `GET /teams` |
 
-Operation IDs determine names. Reporting export operations without IDs receive names derived from their HTTP method and path. Read generated signatures for each endpoint's params and body types.
+Operation IDs determine names. Reporting export operations without IDs receive names derived from their HTTP method and path. Read each endpoint's params and body types with `go doc github.com/psyb0t/go-intercom <Method>`, or list every method with `go doc github.com/psyb0t/go-intercom ClientWithResponsesInterface`.
 
 ## Responses
 
