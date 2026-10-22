@@ -4,7 +4,7 @@ This module is unofficial and not affiliated with Intercom.
 
 ## Requirements
 
-- Go 1.26.9 or newer, per the module's `go.mod`.
+- Go 1.26.10 or newer, per the module's `go.mod`.
 - An Intercom access token with the scopes needed for the requested operations, exported as `INTERCOM_ACCESS_TOKEN`.
 
 ## Install

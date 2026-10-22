@@ -14,6 +14,150 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// DeleteContentSnippetWithResponse Delete a content snippet
+//
+// You can delete a single content snippet by its id.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /content_snippets/{id} (the `DeleteContentSnippet` operationId).
+func (c *ClientWithResponses) DeleteContentSnippetWithResponse(ctx context.Context, id string, params *DeleteContentSnippetParams, reqEditors ...RequestEditorFn) (*DeleteContentSnippetResponse, error) {
+	rsp, err := c.DeleteContentSnippet(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteContentSnippetResponse(rsp)
+}
+
+// GetContentSnippetWithResponse Retrieve a content snippet
+//
+// You can fetch a single content snippet by its id.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /content_snippets/{id} (the `GetContentSnippet` operationId).
+func (c *ClientWithResponses) GetContentSnippetWithResponse(ctx context.Context, id string, params *GetContentSnippetParams, reqEditors ...RequestEditorFn) (*GetContentSnippetResponse, error) {
+	rsp, err := c.GetContentSnippet(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetContentSnippetResponse(rsp)
+}
+
+// UpdateContentSnippetWithBodyWithResponse Update a content snippet
+//
+// You can update an existing content snippet.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /content_snippets/{id} (the `UpdateContentSnippet` operationId).
+func (c *ClientWithResponses) UpdateContentSnippetWithBodyWithResponse(ctx context.Context, id string, params *UpdateContentSnippetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateContentSnippetResponse, error) {
+	rsp, err := c.UpdateContentSnippetWithBody(ctx, id, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateContentSnippetResponse(rsp)
+}
+
+// UpdateContentSnippetWithResponse Update a content snippet
+//
+// You can update an existing content snippet.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /content_snippets/{id} (the `UpdateContentSnippet` operationId).
+func (c *ClientWithResponses) UpdateContentSnippetWithResponse(ctx context.Context, id string, params *UpdateContentSnippetParams, body UpdateContentSnippetJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateContentSnippetResponse, error) {
+	rsp, err := c.UpdateContentSnippet(ctx, id, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateContentSnippetResponse(rsp)
+}
+
+// ListConversationsWithResponse List all conversations
+//
+// You can fetch a list of all conversations.
+//
+// You can optionally request the result page size and the cursor to start after to fetch the result.
+// {% admonition type="warning" name="Pagination" %}
+//
+//	You can use pagination to limit the number of results returned. The default is `20` results per page.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
+//
+// {% /admonition %}
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /conversations (the `ListConversations` operationId).
+func (c *ClientWithResponses) ListConversationsWithResponse(ctx context.Context, params *ListConversationsParams, reqEditors ...RequestEditorFn) (*ListConversationsResponse, error) {
+	rsp, err := c.ListConversations(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListConversationsResponse(rsp)
+}
+
+// CreateConversationWithBodyWithResponse Creates a conversation
+//
+// You can create a conversation that has been initiated by a contact (ie. user or lead).
+// The conversation can be an in-app message only.
+//
+// {% admonition type="info" name="Sending for visitors" %}
+// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
+// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
+// {% /admonition %}
+//
+// This will return the Message model that has been created.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /conversations (the `CreateConversation` operationId).
+func (c *ClientWithResponses) CreateConversationWithBodyWithResponse(ctx context.Context, params *CreateConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateConversationResponse, error) {
+	rsp, err := c.CreateConversationWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateConversationResponse(rsp)
+}
+
+// CreateConversationWithResponse Creates a conversation
+//
+// You can create a conversation that has been initiated by a contact (ie. user or lead).
+// The conversation can be an in-app message only.
+//
+// {% admonition type="info" name="Sending for visitors" %}
+// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
+// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
+// {% /admonition %}
+//
+// This will return the Message model that has been created.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /conversations (the `CreateConversation` operationId).
+func (c *ClientWithResponses) CreateConversationWithResponse(ctx context.Context, params *CreateConversationParams, body CreateConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateConversationResponse, error) {
+	rsp, err := c.CreateConversation(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateConversationResponse(rsp)
+}
+
+// ListConversationAttributesWithResponse List all conversation attributes
+//
+// You can fetch a list of all conversation attributes for your workspace.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /conversations/attributes (the `ListConversationAttributes` operationId).
+func (c *ClientWithResponses) ListConversationAttributesWithResponse(ctx context.Context, params *ListConversationAttributesParams, reqEditors ...RequestEditorFn) (*ListConversationAttributesResponse, error) {
+	rsp, err := c.ListConversationAttributes(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListConversationAttributesResponse(rsp)
+}
+
 // CreateConversationAttributeWithBodyWithResponse Create a conversation attribute
 //
 // Create a new conversation attribute.
@@ -2490,7 +2634,7 @@ func (c *ClientWithResponses) UpdateFolderWithResponse(ctx context.Context, id i
 //
 // You can fetch a list of all collections by making a GET request to `https://api.intercom.io/help_center/collections`.
 //
-// Collections will be returned in descending order on the `updated_at` attribute. This means if you need to iterate through results then we'll show the most recently updated collections first.
+// Requires the `read_articles_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -2505,7 +2649,9 @@ func (c *ClientWithResponses) ListAllCollectionsWithResponse(ctx context.Context
 
 // CreateCollectionWithBodyWithResponse Create a collection
 //
-// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections.`
+// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -2520,7 +2666,9 @@ func (c *ClientWithResponses) CreateCollectionWithBodyWithResponse(ctx context.C
 
 // CreateCollectionWithResponse Create a collection
 //
-// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections.`
+// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -2535,7 +2683,9 @@ func (c *ClientWithResponses) CreateCollectionWithResponse(ctx context.Context, 
 
 // DeleteCollectionWithResponse Delete a collection
 //
-// You can delete a single collection by making a DELETE request to `https://api.intercom.io/collections/<id>`.
+// You can delete a single collection by making a DELETE request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -2552,6 +2702,8 @@ func (c *ClientWithResponses) DeleteCollectionWithResponse(ctx context.Context, 
 //
 // You can fetch the details of a single collection by making a GET request to `https://api.intercom.io/help_center/collections/<id>`.
 //
+// Requires the `read_articles_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /help_center/collections/{collection_id} (the `RetrieveCollection` operationId).
@@ -2565,7 +2717,9 @@ func (c *ClientWithResponses) RetrieveCollectionWithResponse(ctx context.Context
 
 // UpdateCollectionWithBodyWithResponse Update a collection
 //
-// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/collections/<id>`.
+// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -2580,7 +2734,9 @@ func (c *ClientWithResponses) UpdateCollectionWithBodyWithResponse(ctx context.C
 
 // UpdateCollectionWithResponse Update a collection
 //
-// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/collections/<id>`.
+// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -2597,6 +2753,8 @@ func (c *ClientWithResponses) UpdateCollectionWithResponse(ctx context.Context, 
 //
 // You can list all Help Centers by making a GET request to `https://api.intercom.io/help_center/help_centers`.
 //
+// Requires the `read_articles_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /help_center/help_centers (the `ListHelpCenters` operationId).
@@ -2610,7 +2768,9 @@ func (c *ClientWithResponses) ListHelpCentersWithResponse(ctx context.Context, p
 
 // RetrieveHelpCenterWithResponse Retrieve a Help Center
 //
-// You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_center/<id>`.
+// You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_centers/<id>`.
+//
+// Requires the `read_articles_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -2627,7 +2787,7 @@ func (c *ClientWithResponses) RetrieveHelpCenterWithResponse(ctx context.Context
 //
 // You can fetch a list of all URL redirects for a help center by making a GET request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects`.
 //
-// Redirects are returned in descending order on the `updated_at` attribute.
+// Redirects are returned in ascending alphabetical order of `from_url`.
 //
 // Requires the `read_help_center_redirects_scope` OAuth scope.
 //
@@ -3602,6 +3762,21 @@ func (c *ClientWithResponses) ListSubscriptionTypesWithResponse(ctx context.Cont
 	return ParseListSubscriptionTypesResponse(rsp)
 }
 
+// GetSubscriptionTypeWithResponse Retrieve a subscription type
+//
+// You can fetch the details of a single subscription type by making a GET request to `https://api.intercom.io/subscription_types/<id>`.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /subscription_types/{id} (the `GetSubscriptionType` operationId).
+func (c *ClientWithResponses) GetSubscriptionTypeWithResponse(ctx context.Context, id string, params *GetSubscriptionTypeParams, reqEditors ...RequestEditorFn) (*GetSubscriptionTypeResponse, error) {
+	rsp, err := c.GetSubscriptionType(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSubscriptionTypeResponse(rsp)
+}
+
 // ListTagsWithResponse List all tags
 //
 // You can fetch a list of all tags for a given workspace.
@@ -4001,7 +4176,7 @@ func (c *ClientWithResponses) EnqueueCreateTicketWithResponse(ctx context.Contex
 //
 //	Search queries can be complex, so optimizing them can help the performance of your search.
 //	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `20` results per page.
+//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
 //	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
 //
 // {% /admonition %}
@@ -4016,21 +4191,20 @@ func (c *ClientWithResponses) EnqueueCreateTicketWithResponse(ctx context.Contex
 // ### Accepted Fields
 //
 // Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
-// The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
+// Fields not in the table below, such as `source.body`, are rejected with a `400` error.
 //
 // | Field                                     | Type                                                                                     |
 // | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
-// | id                                        | String                                                                                   |
+// | id                                        | Integer                                                                                  |
 // | created_at                                | Date (UNIX timestamp)                                                                    |
 // | updated_at                                | Date (UNIX timestamp)                                                                    |
 // | title                           | String                                                                                   |
 // | description                     | String                                                                                   |
 // | category                                  | String                                                                                   |
-// | ticket_type_id                            | String                                                                                   |
+// | ticket_type_id                            | Integer                                                                                  |
 // | contact_ids                               | String                                                                                   |
-// | teammate_ids                              | String                                                                                   |
-// | admin_assignee_id                         | String                                                                                   |
-// | team_assignee_id                          | String                                                                                   |
+// | admin_assignee_id                         | Integer                                                                                  |
+// | team_assignee_id                          | Integer                                                                                  |
 // | open                                      | Boolean                                                                                  |
 // | state                                     | String                                                                                   |
 // | snoozed_until                             | Date (UNIX timestamp)                                                                    |
@@ -4042,6 +4216,10 @@ func (c *ClientWithResponses) EnqueueCreateTicketWithResponse(ctx context.Contex
 // * For **Back-office** category tickets, use the term `task`.
 // * For **Tracker** category tickets, use the term `tracker`.
 // {% /admonition %}
+//
+// ### Sorting
+//
+// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`, and any other value is treated as `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
 //
 // ### Accepted Operators
 //
@@ -4088,7 +4266,7 @@ func (c *ClientWithResponses) SearchTicketsWithBodyWithResponse(ctx context.Cont
 //
 //	Search queries can be complex, so optimizing them can help the performance of your search.
 //	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `20` results per page.
+//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
 //	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
 //
 // {% /admonition %}
@@ -4103,21 +4281,20 @@ func (c *ClientWithResponses) SearchTicketsWithBodyWithResponse(ctx context.Cont
 // ### Accepted Fields
 //
 // Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
-// The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
+// Fields not in the table below, such as `source.body`, are rejected with a `400` error.
 //
 // | Field                                     | Type                                                                                     |
 // | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
-// | id                                        | String                                                                                   |
+// | id                                        | Integer                                                                                  |
 // | created_at                                | Date (UNIX timestamp)                                                                    |
 // | updated_at                                | Date (UNIX timestamp)                                                                    |
 // | title                           | String                                                                                   |
 // | description                     | String                                                                                   |
 // | category                                  | String                                                                                   |
-// | ticket_type_id                            | String                                                                                   |
+// | ticket_type_id                            | Integer                                                                                  |
 // | contact_ids                               | String                                                                                   |
-// | teammate_ids                              | String                                                                                   |
-// | admin_assignee_id                         | String                                                                                   |
-// | team_assignee_id                          | String                                                                                   |
+// | admin_assignee_id                         | Integer                                                                                  |
+// | team_assignee_id                          | Integer                                                                                  |
 // | open                                      | Boolean                                                                                  |
 // | state                                     | String                                                                                   |
 // | snoozed_until                             | Date (UNIX timestamp)                                                                    |
@@ -4129,6 +4306,10 @@ func (c *ClientWithResponses) SearchTicketsWithBodyWithResponse(ctx context.Cont
 // * For **Back-office** category tickets, use the term `task`.
 // * For **Tracker** category tickets, use the term `tracker`.
 // {% /admonition %}
+//
+// ### Sorting
+//
+// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`, and any other value is treated as `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
 //
 // ### Accepted Operators
 //
@@ -5069,6 +5250,13 @@ func ParseListArticlesResponse(rsp *http.Response) (*ListArticlesResponse, error
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -5116,6 +5304,20 @@ func ParseCreateArticleResponse(rsp *http.Response) (*CreateArticleResponse, err
 		}
 		response.JSON401 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	}
 
 	return response, nil
@@ -5141,6 +5343,13 @@ func ParseSearchArticlesResponse(rsp *http.Response) (*SearchArticlesResponse, e
 			return nil, err
 		}
 		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
@@ -5188,6 +5397,13 @@ func ParseDeleteArticleResponse(rsp *http.Response) (*DeleteArticleResponse, err
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	}
 
@@ -5255,6 +5471,13 @@ func ParseUpdateArticleResponse(rsp *http.Response) (*UpdateArticleResponse, err
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -5268,6 +5491,13 @@ func ParseUpdateArticleResponse(rsp *http.Response) (*UpdateArticleResponse, err
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	}
 
@@ -6156,6 +6386,13 @@ func ParseShowCallTranscriptResponse(rsp *http.Response) (*ShowCallTranscriptRes
 	}
 
 	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest []CallTranscriptTurn
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -6163,19 +6400,6 @@ func ParseShowCallTranscriptResponse(rsp *http.Response) (*ShowCallTranscriptRes
 		}
 		response.JSON404 = &dest
 
-	}
-
-	switch {
-	case rsp.StatusCode == 200:
-		var headers ShowCallTranscriptResponse200Headers
-		if values := rsp.Header.Values("Content-Disposition"); len(values) > 0 {
-			var value string
-			if err := runtime.BindStyledParameterWithOptions("simple", "Content-Disposition", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			}
-			headers.ContentDisposition = &value
-		}
-		response.Headers200 = &headers
 	}
 
 	return response, nil
@@ -6196,7 +6420,7 @@ func ParseRetrieveCompanyResponse(rsp *http.Response) (*RetrieveCompanyResponse,
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CompanyList
+		var dest RetrieveCompany200JSONResponseBody
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10785,7 +11009,7 @@ func ParseGetCustomObjectInstancesByIdResponse(rsp *http.Response) (*GetCustomOb
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CustomObjectInstance
+		var dest GetCustomObjectInstancesById200JSONResponseBody
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10799,7 +11023,7 @@ func ParseGetCustomObjectInstancesByIdResponse(rsp *http.Response) (*GetCustomOb
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
+		var dest TypeNotFound
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11764,7 +11988,7 @@ func ParseLisDataEventsResponse(rsp *http.Response) (*LisDataEventsResponse, err
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataEventSummary
+		var dest LisDataEvents200JSONResponseBody
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -13071,6 +13295,13 @@ func ParseListAllCollectionsResponse(rsp *http.Response) (*ListAllCollectionsRes
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -13223,6 +13454,13 @@ func ParseUpdateCollectionResponse(rsp *http.Response) (*UpdateCollectionRespons
 			return nil, err
 		}
 		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
@@ -15142,6 +15380,46 @@ func ParseListSubscriptionTypesResponse(rsp *http.Response) (*ListSubscriptionTy
 			return nil, err
 		}
 		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSubscriptionTypeResponse parses an HTTP response from a GetSubscriptionTypeWithResponse call
+func ParseGetSubscriptionTypeResponse(rsp *http.Response) (*GetSubscriptionTypeResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSubscriptionTypeResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SubscriptionType
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
 
 	}
 

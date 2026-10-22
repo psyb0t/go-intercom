@@ -922,6 +922,30 @@ func (e AudienceListType) Valid() bool {
 	}
 }
 
+// Defines values for AwayStatusReasonAssociatedToPhoneStatus.
+const (
+	AwayStatusReasonAssociatedToPhoneStatusCoaching    AwayStatusReasonAssociatedToPhoneStatus = "coaching"
+	AwayStatusReasonAssociatedToPhoneStatusLessThannil AwayStatusReasonAssociatedToPhoneStatus = "<nil>"
+	AwayStatusReasonAssociatedToPhoneStatusOnACall     AwayStatusReasonAssociatedToPhoneStatus = "on_a_call"
+	AwayStatusReasonAssociatedToPhoneStatusWrapUp      AwayStatusReasonAssociatedToPhoneStatus = "wrap_up"
+)
+
+// Valid indicates whether the value is a known member of the AwayStatusReasonAssociatedToPhoneStatus enum.
+func (e AwayStatusReasonAssociatedToPhoneStatus) Valid() bool {
+	switch e {
+	case AwayStatusReasonAssociatedToPhoneStatusCoaching:
+		return true
+	case AwayStatusReasonAssociatedToPhoneStatusLessThannil:
+		return true
+	case AwayStatusReasonAssociatedToPhoneStatusOnACall:
+		return true
+	case AwayStatusReasonAssociatedToPhoneStatusWrapUp:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AwayStatusReasonListType.
 const (
 	AwayStatusReasonListTypeList AwayStatusReasonListType = "list"
@@ -961,6 +985,21 @@ const (
 func (e CloseConversationRequestType) Valid() bool {
 	switch e {
 	case CloseConversationRequestTypeAdmin:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CollectionType.
+const (
+	CollectionTypeCollection CollectionType = "collection"
+)
+
+// Valid indicates whether the value is a known member of the CollectionType enum.
+func (e CollectionType) Valid() bool {
+	switch e {
+	case CollectionTypeCollection:
 		return true
 	default:
 		return false
@@ -3715,6 +3754,36 @@ func (e DataConnectorVersionListType) Valid() bool {
 	}
 }
 
+// Defines values for DataEventType.
+const (
+	DataEventTypeEvent DataEventType = "event"
+)
+
+// Valid indicates whether the value is a known member of the DataEventType enum.
+func (e DataEventType) Valid() bool {
+	switch e {
+	case DataEventTypeEvent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DataEventListType.
+const (
+	DataEventListTypeEventList DataEventListType = "event.list"
+)
+
+// Valid indicates whether the value is a known member of the DataEventListType enum.
+func (e DataEventListType) Valid() bool {
+	switch e {
+	case DataEventListTypeEventList:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for DataEventSummaryType.
 const (
 	DataEventSummaryTypeEventSummary DataEventSummaryType = "event.summary"
@@ -4438,21 +4507,6 @@ const (
 func (e InternalArticleListType) Valid() bool {
 	switch e {
 	case InternalArticleListTypeList:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for InternalArticleListItemType.
-const (
-	InternalArticleListItemTypeInternalArticle InternalArticleListItemType = "internal_article"
-)
-
-// Valid indicates whether the value is a known member of the InternalArticleListItemType enum.
-func (e InternalArticleListItemType) Valid() bool {
-	switch e {
-	case InternalArticleListItemTypeInternalArticle:
 		return true
 	default:
 		return false
@@ -5187,10 +5241,10 @@ func (e SingleFilterSearchRequestOperator) Valid() bool {
 
 // Defines values for SlaAppliedSlaStatus.
 const (
-	SlaAppliedSlaStatusActive    SlaAppliedSlaStatus = "active"
-	SlaAppliedSlaStatusCancelled SlaAppliedSlaStatus = "cancelled"
-	SlaAppliedSlaStatusHit       SlaAppliedSlaStatus = "hit"
-	SlaAppliedSlaStatusMissed    SlaAppliedSlaStatus = "missed"
+	SlaAppliedSlaStatusActive   SlaAppliedSlaStatus = "active"
+	SlaAppliedSlaStatusCanceled SlaAppliedSlaStatus = "canceled"
+	SlaAppliedSlaStatusHit      SlaAppliedSlaStatus = "hit"
+	SlaAppliedSlaStatusMissed   SlaAppliedSlaStatus = "missed"
 )
 
 // Valid indicates whether the value is a known member of the SlaAppliedSlaStatus enum.
@@ -5198,7 +5252,7 @@ func (e SlaAppliedSlaStatus) Valid() bool {
 	switch e {
 	case SlaAppliedSlaStatusActive:
 		return true
-	case SlaAppliedSlaStatusCancelled:
+	case SlaAppliedSlaStatusCanceled:
 		return true
 	case SlaAppliedSlaStatusHit:
 		return true
@@ -5704,7 +5758,7 @@ func (e UpdateContentImportSourceRequestStatus) Valid() bool {
 // Defines values for UpdateContentImportSourceRequestSyncBehavior.
 const (
 	UpdateContentImportSourceRequestSyncBehaviorApi       UpdateContentImportSourceRequestSyncBehavior = "api"
-	UpdateContentImportSourceRequestSyncBehaviorAutomated UpdateContentImportSourceRequestSyncBehavior = "automated"
+	UpdateContentImportSourceRequestSyncBehaviorAutomatic UpdateContentImportSourceRequestSyncBehavior = "automatic"
 	UpdateContentImportSourceRequestSyncBehaviorManual    UpdateContentImportSourceRequestSyncBehavior = "manual"
 )
 
@@ -5713,7 +5767,7 @@ func (e UpdateContentImportSourceRequestSyncBehavior) Valid() bool {
 	switch e {
 	case UpdateContentImportSourceRequestSyncBehaviorApi:
 		return true
-	case UpdateContentImportSourceRequestSyncBehaviorAutomated:
+	case UpdateContentImportSourceRequestSyncBehaviorAutomatic:
 		return true
 	case UpdateContentImportSourceRequestSyncBehaviorManual:
 		return true
@@ -6067,6 +6121,27 @@ func (e WorkflowExportWorkflowState) Valid() bool {
 	case WorkflowExportWorkflowStateLive:
 		return true
 	case WorkflowExportWorkflowStatePaused:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SearchArticlesParamsState.
+const (
+	SearchArticlesParamsStateAll       SearchArticlesParamsState = "all"
+	SearchArticlesParamsStateDraft     SearchArticlesParamsState = "draft"
+	SearchArticlesParamsStatePublished SearchArticlesParamsState = "published"
+)
+
+// Valid indicates whether the value is a known member of the SearchArticlesParamsState enum.
+func (e SearchArticlesParamsState) Valid() bool {
+	switch e {
+	case SearchArticlesParamsStateAll:
+		return true
+	case SearchArticlesParamsStateDraft:
+		return true
+	case SearchArticlesParamsStatePublished:
 		return true
 	default:
 		return false
@@ -7282,19 +7357,19 @@ type AiCallResponse struct {
 	UserPhoneNumber *string `json:"user_phone_number,omitempty"`
 }
 
-// AiTopicSubtopicList The topics Fin detected in a conversation, returned under the "AI Topic and Subtopic" key of a conversation's custom attributes. Generated by Fin and returned in responses only; it cannot be set on a request.
-type AiTopicSubtopicList = []struct {
-	// Id The unique identifier for the subtopic.
+// AiTopicSubtopic A single AI-generated topic and subtopic classification for a conversation. Surfaced inside `custom_attributes` under the "AI Topic and Subtopic" key as an array of these objects. Requires the AI add-on; the key is omitted when the conversation has no classification.
+type AiTopicSubtopic struct {
+	// Id The id of the subtopic.
 	//
-	// Example: 12345
+	// Example: 42
 	Id *int `json:"id,omitempty"`
 
-	// SubtopicName The name of the subtopic, where the topic has one.
+	// SubtopicName The name of the AI-generated subtopic, if any.
 	//
-	// Example: Refund request
+	// Example: Payment Issues
 	SubtopicName *string `json:"subtopic_name,omitempty"`
 
-	// TopicName The name of the topic.
+	// TopicName The name of the AI-generated topic.
 	//
 	// Example: Billing
 	TopicName *string `json:"topic_name,omitempty"`
@@ -7353,6 +7428,11 @@ type Article struct {
 	// Example: true
 	AiSalesAgentAvailability *bool `json:"ai_sales_agent_availability,omitempty"`
 
+	// AudienceIds The list of audience IDs this article is targeted to for Fin AI Agent. This field is only returned for single-language help centers. For multilingual help centers it appears per locale inside `translated_content`. Empty array means no audience targeting is set.
+	//
+	// Example: [1,2]
+	AudienceIds *[]int `json:"audience_ids,omitempty"`
+
 	// AuthorId The id of the author of the article. For multilingual articles, this will be the id of the author of the default language's content. Must be a teammate on the help center's workspace.
 	//
 	// Example: 5017691
@@ -7369,6 +7449,11 @@ type Article struct {
 	//
 	// Default language body in markdown
 	BodyMarkdown *string `json:"body_markdown,omitempty"`
+
+	// ContentId The unique identifier for the article's content. For multilingual articles, this will be the identifier of the default language's content.
+	//
+	// Example: 6871120
+	ContentId *string `json:"content_id,omitempty"`
 
 	// CreatedAt The time when the article was created. For multilingual articles, this will be the timestamp of creation of the default language's content in seconds.
 	//
@@ -7534,6 +7619,11 @@ type ArticleContent struct {
 	// This is the body of the article.
 	BodyMarkdown *string `json:"body_markdown,omitempty"`
 
+	// ContentId The unique identifier for the article's content in this locale.
+	//
+	// Example: 6871120
+	ContentId *string `json:"content_id,omitempty"`
+
 	// CreatedAt The time when the article was created (seconds).
 	//
 	// Example: 1663597223
@@ -7603,9 +7693,10 @@ type ArticleList struct {
 	// Data An array of Article objects
 	Data *[]ArticleListItem `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount A count of the total number of articles.
 	//
@@ -7640,6 +7731,11 @@ type ArticleListItem struct {
 	// Example: true
 	AiSalesAgentAvailability *bool `json:"ai_sales_agent_availability,omitempty"`
 
+	// AudienceIds The list of audience IDs this article is targeted to for Fin AI Agent. This field is only returned for single-language help centers. For multilingual help centers it appears per locale inside `translated_content`. Empty array means no audience targeting is set.
+	//
+	// Example: [1,2]
+	AudienceIds *[]int `json:"audience_ids,omitempty"`
+
 	// AuthorId The id of the author of the article. For multilingual articles, this will be the id of the author of the default language's content. Must be a teammate on the help center's workspace.
 	//
 	// Example: 5017691
@@ -7656,6 +7752,11 @@ type ArticleListItem struct {
 	//
 	// Default language body in markdown
 	BodyMarkdown *string `json:"body_markdown,omitempty"`
+
+	// ContentId The unique identifier for the article's content. For multilingual articles, this will be the identifier of the default language's content.
+	//
+	// Example: 6871120
+	ContentId *string `json:"content_id,omitempty"`
 
 	// CreatedAt The time when the article was created. For multilingual articles, this will be the timestamp of creation of the default language's content in seconds.
 	//
@@ -7825,7 +7926,7 @@ type ArticleSearchHighlightsHighlightedTitleType string
 
 // ArticleSearchResponse The results of an Article search
 type ArticleSearchResponse struct {
-	// Data An object containing the results of the search.
+	// Data An object containing the results of the search. When no articles match, this is an empty array instead.
 	Data *struct {
 		// Articles An array of Article objects
 		Articles *[]Article `json:"articles,omitempty"`
@@ -7834,9 +7935,10 @@ type ArticleSearchResponse struct {
 		Highlights *[]ArticleSearchHighlights `json:"highlights,omitempty"`
 	} `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount The total number of Articles matching the search query
 	//
@@ -7856,10 +7958,10 @@ type ArticleSearchResponseType string
 
 // ArticleStatistics The statistics of an article.
 type ArticleStatistics struct {
-	// Conversions The number of conversations started from the article.
+	// Conversations The number of conversations started from the article.
 	//
 	// Example: 0
-	Conversions *int `json:"conversions,omitempty"`
+	Conversations *int `json:"conversations,omitempty"`
 
 	// FinInvolvements The number of conversations in which Fin AI Agent used this article, summed across all of the article's locales.
 	//
@@ -8086,7 +8188,7 @@ type ArticleVersion struct {
 	// Example: 301
 	Id *string `json:"id,omitempty"`
 
-	// State Whether this version is the currently published version of the article (`published`) or an earlier non-live version (`draft`).
+	// State `published` if this is the version that is currently live; `draft` for every other version, including earlier versions that are no longer live and staged changes that have not been published.
 	//
 	// Example: published
 	State *ArticleVersionState `json:"state,omitempty"`
@@ -8107,7 +8209,7 @@ type ArticleVersion struct {
 	UpdatedAt *int `json:"updated_at,omitempty"`
 }
 
-// ArticleVersionState Whether this version is the currently published version of the article (`published`) or an earlier non-live version (`draft`).
+// ArticleVersionState `published` if this is the version that is currently live; `draft` for every other version, including earlier versions that are no longer live and staged changes that have not been published.
 //
 // Example: published
 type ArticleVersionState string
@@ -8122,9 +8224,10 @@ type ArticleVersionList struct {
 	// Data An array of Article version summary objects.
 	Data *[]ArticleVersionSummary `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount A count of the total number of versions.
 	//
@@ -8184,7 +8287,7 @@ type ArticleVersionSummary struct {
 	// Example: 301
 	Id *string `json:"id,omitempty"`
 
-	// State Whether this version is the currently published version of the article (`published`) or an earlier non-live version (`draft`).
+	// State `published` if this is the version that is currently live; `draft` for every other version, including earlier versions that are no longer live and staged changes that have not been published.
 	//
 	// Example: published
 	State *ArticleVersionSummaryState `json:"state,omitempty"`
@@ -8200,7 +8303,7 @@ type ArticleVersionSummary struct {
 	Type *ArticleVersionSummaryType `json:"type,omitempty"`
 }
 
-// ArticleVersionSummaryState Whether this version is the currently published version of the article (`published`) or an earlier non-live version (`draft`).
+// ArticleVersionSummaryState `published` if this is the version that is currently live; `draft` for every other version, including earlier versions that are no longer live and staged changes that have not been published.
 //
 // Example: published
 type ArticleVersionSummaryState string
@@ -8370,10 +8473,10 @@ type AudienceListType string
 
 // AwayStatusReason defines model for away_status_reason.
 type AwayStatusReason struct {
-	// CreatedAt The Unix timestamp when the status reason was created
+	// AssociatedToPhoneStatus The phone status this away status reason is configured for, or null if it is not associated with one.
 	//
-	// Example: 1734537243
-	CreatedAt *int `json:"created_at,omitempty"`
+	// Example: wrap_up
+	AssociatedToPhoneStatus *AwayStatusReasonAssociatedToPhoneStatus `json:"associated_to_phone_status,omitempty"`
 
 	// Deleted Whether the status reason has been soft deleted
 	//
@@ -8400,12 +8503,12 @@ type AwayStatusReason struct {
 
 	// Type Example: away_status_reason
 	Type *string `json:"type,omitempty"`
-
-	// UpdatedAt The Unix timestamp when the status reason was last updated
-	//
-	// Example: 1734537243
-	UpdatedAt *int `json:"updated_at,omitempty"`
 }
+
+// AwayStatusReasonAssociatedToPhoneStatus The phone status this away status reason is configured for, or null if it is not associated with one.
+//
+// Example: wrap_up
+type AwayStatusReasonAssociatedToPhoneStatus string
 
 // AwayStatusReasonList A list of away status reasons.
 type AwayStatusReasonList struct {
@@ -8924,6 +9027,110 @@ type CallSummary struct {
 	CallId *string `json:"call_id,omitempty"`
 }
 
+// CallTranscriptTurn A single turn in a call transcript.
+type CallTranscriptTurn struct {
+	// ArticleSources Sources Fin cited during this turn. Only present on Fin Voice call transcripts.
+	//
+	// Example: [{"entity_id":"8185560","entity_type":120,"title":"Password Reset Guide"}]
+	ArticleSources *[]struct {
+		// EntityId The id of the cited entity.
+		//
+		// Example: 8185560
+		EntityId *string `json:"entity_id,omitempty"`
+
+		// EntityType The type of the cited entity.
+		//
+		// Example: 120
+		EntityType *int `json:"entity_type,omitempty"`
+
+		// Title The title of the cited source.
+		//
+		// Example: Password Reset Guide
+		Title *string `json:"title,omitempty"`
+	} `json:"article_sources,omitempty"`
+
+	// Content The transcribed text spoken during this turn.
+	//
+	// Example: Hello, thanks for calling. How can I help today?
+	Content *string `json:"content,omitempty"`
+
+	// EndTime The end time of the turn, as a seconds offset from the start of the call. A string on calls transcribed by Amazon Transcribe, a number on Fin Voice calls.
+	//
+	// Example: 3.00
+	EndTime *CallTranscriptTurn_EndTime `json:"end_time,omitempty"`
+
+	// Speaker The diarization label for the speaker. Same value as `speaker_label`.
+	//
+	// Example: Teammate 1
+	Speaker *string `json:"speaker,omitempty"`
+
+	// SpeakerId The id of the teammate or contact who is the speaker.
+	//
+	// Example: 789
+	SpeakerId *string `json:"speaker_id,omitempty"`
+
+	// SpeakerLabel The diarization label for the speaker.
+	//
+	// Example: Teammate 1
+	SpeakerLabel *string `json:"speaker_label,omitempty"`
+
+	// SpeakerType The type of the speaker - either `admin` for a teammate or `user` for a contact. Absent on Fin Voice call transcripts and on calls transcribed before speaker attribution shipped, where only `speaker_label` identifies the speaker.
+	//
+	// Example: admin
+	SpeakerType *string `json:"speaker_type,omitempty"`
+
+	// StartTime The start time of the turn, as a seconds offset from the start of the call. A string on calls transcribed by Amazon Transcribe, a number on Fin Voice calls.
+	//
+	// Example: 0.0
+	StartTime *CallTranscriptTurn_StartTime `json:"start_time,omitempty"`
+
+	// TriggeredGuidance Guidance rules that Fin matched during this turn. Only present on Fin Voice call transcripts.
+	//
+	// Example: [{"match_type":"clarification","rule_id":"3","rule_text":"If the customer asks about pricing, ask which plan they're interested in before answering"}]
+	TriggeredGuidance *[]struct {
+		// MatchType How the rule was matched.
+		//
+		// Example: clarification
+		MatchType *string `json:"match_type,omitempty"`
+
+		// RuleId The id of the matched guidance rule.
+		//
+		// Example: 3
+		RuleId *string `json:"rule_id,omitempty"`
+
+		// RuleText The text of the matched guidance rule.
+		//
+		// Example: If the customer asks about pricing, ask which plan they're interested in before answering
+		RuleText *string `json:"rule_text,omitempty"`
+	} `json:"triggered_guidance,omitempty"`
+}
+
+// CallTranscriptTurnEndTime0 defines model for CallTranscriptTurn.EndTime.0.
+type CallTranscriptTurnEndTime0 = string
+
+// CallTranscriptTurnEndTime1 defines model for CallTranscriptTurn.EndTime.1.
+type CallTranscriptTurnEndTime1 = float64
+
+// CallTranscriptTurn_EndTime The end time of the turn, as a seconds offset from the start of the call. A string on calls transcribed by Amazon Transcribe, a number on Fin Voice calls.
+//
+// Example: 3.00
+type CallTranscriptTurn_EndTime struct {
+	union json.RawMessage
+}
+
+// CallTranscriptTurnStartTime0 defines model for CallTranscriptTurn.StartTime.0.
+type CallTranscriptTurnStartTime0 = string
+
+// CallTranscriptTurnStartTime1 defines model for CallTranscriptTurn.StartTime.1.
+type CallTranscriptTurnStartTime1 = float64
+
+// CallTranscriptTurn_StartTime The start time of the turn, as a seconds offset from the start of the call. A string on calls transcribed by Amazon Transcribe, a number on Fin Voice calls.
+//
+// Example: 0.0
+type CallTranscriptTurn_StartTime struct {
+	union json.RawMessage
+}
+
 // ChangeTicketTypeRequest You can change the type of a Ticket
 type ChangeTicketTypeRequest struct {
 	// TicketAttributes The attributes to set on the ticket for the new type. Attributes matching by name and type are transferred automatically from the old type; values provided here override the transferred values.
@@ -9082,6 +9289,11 @@ type Collection struct {
 	// TranslatedContent The Translated Content of an Group. The keys are the locale codes and the values are the translated content of the Group.
 	TranslatedContent *GroupTranslatedContent `json:"translated_content,omitempty"`
 
+	// Type The type of object - `collection`.
+	//
+	// Example: collection
+	Type *CollectionType `json:"type,omitempty"`
+
 	// UpdatedAt The time when the article was last updated (seconds). For multilingual articles, this will be the timestamp of last update of the default language's content.
 	//
 	// Example: 1672928610
@@ -9098,14 +9310,20 @@ type Collection struct {
 	WorkspaceId *string `json:"workspace_id,omitempty"`
 }
 
+// CollectionType The type of object - `collection`.
+//
+// Example: collection
+type CollectionType string
+
 // CollectionList This will return a list of Collections for the App.
 type CollectionList struct {
 	// Data An array of collection objects
 	Data *[]Collection `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount A count of the total number of collections.
 	//
@@ -9143,7 +9361,7 @@ type Company struct {
 	// CustomAttributes The custom attributes you have set on the company.
 	//
 	// Example: {"monthly_spend":155.5,"paid_subscriber":true,"team_mates":9}
-	CustomAttributes *map[string]string `json:"custom_attributes,omitempty"`
+	CustomAttributes *map[string]Company_CustomAttributes_AdditionalProperties `json:"custom_attributes,omitempty"`
 
 	// Id The Intercom defined id representing the company.
 	//
@@ -9244,6 +9462,23 @@ type Company struct {
 	//
 	// Example: https://www.intercom.com
 	Website *string `json:"website,omitempty"`
+}
+
+// CompanyCustomAttributes0 defines model for Company.CustomAttributes.0.
+type CompanyCustomAttributes0 = string
+
+// CompanyCustomAttributes1 defines model for Company.CustomAttributes.1.
+type CompanyCustomAttributes1 = int
+
+// CompanyCustomAttributes2 defines model for Company.CustomAttributes.2.
+type CompanyCustomAttributes2 = float64
+
+// CompanyCustomAttributes3 defines model for Company.CustomAttributes.3.
+type CompanyCustomAttributes3 = bool
+
+// Company_CustomAttributes_AdditionalProperties defines model for company.custom_attributes.AdditionalProperties.
+type Company_CustomAttributes_AdditionalProperties struct {
+	union json.RawMessage
 }
 
 // CompanyNotesType The type of the object
@@ -10786,15 +11021,15 @@ type ContentSnippet struct {
 	// Navigate to Settings > Security > Reset password.
 	BodyMarkdown *string `json:"body_markdown,omitempty"`
 
-	// ChatbotAvailability Deprecated. Use ai_chatbot_availability instead. Whether this snippet is available for Fin (1 = on, 0 = off).
+	// ChatbotAvailability Deprecated. Use ai_chatbot_availability instead.
 	//
-	// Example: 1
+	// Example: 2
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	ChatbotAvailability *int `json:"chatbot_availability,omitempty"`
 
-	// CopilotAvailability Deprecated. Use ai_copilot_availability instead. Whether this snippet is available for Copilot (1 = on, 0 = off).
+	// CopilotAvailability Deprecated. Use ai_copilot_availability instead.
 	//
-	// Example: 1
+	// Example: 2
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	CopilotAvailability *int `json:"copilot_availability,omitempty"`
 
@@ -10836,17 +11071,17 @@ type ContentSnippet struct {
 
 // ContentSnippetCreateRequest The request payload for creating a content snippet. You must provide either `json_blocks` or `body_markdown` for the snippet content — they are mutually exclusive.
 type ContentSnippetCreateRequest struct {
-	// AiChatbotAvailability Whether the content snippet should be available for AI Chatbot (Fin). Defaults to false.
+	// AiChatbotAvailability Whether the content snippet should be available for AI Chatbot (Fin). Defaults to true.
 	//
 	// Example: true
 	AiChatbotAvailability *bool `json:"ai_chatbot_availability,omitempty"`
 
-	// AiCopilotAvailability Whether the content snippet should be available for AI Copilot. Defaults to false.
+	// AiCopilotAvailability Whether the content snippet should be available for AI Copilot. Defaults to true.
 	//
 	// Example: true
 	AiCopilotAvailability *bool `json:"ai_copilot_availability,omitempty"`
 
-	// AiSalesAgentAvailability Whether the content snippet should be available for AI Sales Agent. Defaults to false.
+	// AiSalesAgentAvailability Whether the content snippet should be available for AI Sales Agent. Defaults to true.
 	//
 	// Example: true
 	AiSalesAgentAvailability *bool `json:"ai_sales_agent_availability,omitempty"`
@@ -11036,9 +11271,9 @@ type Conversation struct {
 	// Example: 1663597223
 	CreatedAt *int `json:"created_at,omitempty"`
 
-	// CustomAttributes An object containing the different custom attributes associated to the conversation as key-value pairs. For relationship attributes the value will be a list of custom object instance models. Attributes that Intercom generates — such as "CX Score rating", "CX Score explanation", "AI Topic and Subtopic" and "CX Score reasons" — may also be included. Two of them, "AI Topic and Subtopic" and "CX Score reasons", carry lists of objects as their values, and are returned in responses only — they cannot be set on a write request.
+	// CustomAttributes An object containing the custom attributes on a conversation as key-value pairs. For relationship attributes the value is a list of custom object instance models. System-defined attributes such as "AI Topic and Subtopic", "CX Score rating", "CX Score explanation" and "CX Score reasons" may also be included.
 	//
-	// Example: {"AI Topic and Subtopic":[{"id":12345,"subtopic_name":"Refund request","topic_name":"Billing"}],"CX Score explanation":"The conversation was resolved quickly and the customer expressed satisfaction with the outcome.","CX Score rating":4,"CX Score reasons":[{"name":"Resolution speed","value":"Fast"}],"end_date_timestamp":1677923174,"monthly_spend":155.5,"paid_subscriber":true,"start_date_iso8601":"2023-03-04T09:46:14Z","team_mates":9}
+	// Example: {"AI Topic and Subtopic":[{"id":42,"subtopic_name":"Payment Issues","topic_name":"Billing"}],"CX Score explanation":"The conversation was resolved quickly and the customer expressed satisfaction with the outcome.","CX Score rating":4,"CX Score reasons":[{"name":"Resolution speed","value":"Fast"}],"end_date_timestamp":1677923174,"monthly_spend":155.5,"paid_subscriber":true,"start_date_iso8601":"2023-03-04T09:46:14Z","team_mates":9}
 	CustomAttributes *CustomAttributes `json:"custom_attributes,omitempty"`
 
 	// ExternalReferences References linking this conversation to records in an external helpdesk or CRM system. Populated for Fin Standalone workspaces synced from an external platform; an empty array otherwise. Sorted alphabetically by `type` and capped at 20 entries.
@@ -11989,9 +12224,9 @@ type ConversationListItem struct {
 	// Example: 1663597223
 	CreatedAt *int `json:"created_at,omitempty"`
 
-	// CustomAttributes An object containing the different custom attributes associated to the conversation as key-value pairs. For relationship attributes the value will be a list of custom object instance models. Attributes that Intercom generates — such as "CX Score rating", "CX Score explanation", "AI Topic and Subtopic" and "CX Score reasons" — may also be included. Two of them, "AI Topic and Subtopic" and "CX Score reasons", carry lists of objects as their values, and are returned in responses only — they cannot be set on a write request.
+	// CustomAttributes An object containing the custom attributes on a conversation as key-value pairs. For relationship attributes the value is a list of custom object instance models. System-defined attributes such as "AI Topic and Subtopic", "CX Score rating", "CX Score explanation" and "CX Score reasons" may also be included.
 	//
-	// Example: {"AI Topic and Subtopic":[{"id":12345,"subtopic_name":"Refund request","topic_name":"Billing"}],"CX Score explanation":"The conversation was resolved quickly and the customer expressed satisfaction with the outcome.","CX Score rating":4,"CX Score reasons":[{"name":"Resolution speed","value":"Fast"}],"end_date_timestamp":1677923174,"monthly_spend":155.5,"paid_subscriber":true,"start_date_iso8601":"2023-03-04T09:46:14Z","team_mates":9}
+	// Example: {"AI Topic and Subtopic":[{"id":42,"subtopic_name":"Payment Issues","topic_name":"Billing"}],"CX Score explanation":"The conversation was resolved quickly and the customer expressed satisfaction with the outcome.","CX Score rating":4,"CX Score reasons":[{"name":"Resolution speed","value":"Fast"}],"end_date_timestamp":1677923174,"monthly_spend":155.5,"paid_subscriber":true,"start_date_iso8601":"2023-03-04T09:46:14Z","team_mates":9}
 	CustomAttributes *CustomAttributes `json:"custom_attributes,omitempty"`
 
 	// ExternalReferences References linking this conversation to records in an external helpdesk or CRM system. Populated for Fin Standalone workspaces synced from an external platform; an empty array otherwise. Sorted alphabetically by `type` and capped at 20 entries.
@@ -12277,6 +12512,11 @@ type ConversationPartAuthor struct {
 
 // ConversationPartMetadata Metadata for a conversation part
 type ConversationPartMetadata struct {
+	// QuickReplyOptionUuid The unique identifier for the quick reply option that was clicked by the end user.
+	//
+	// Example: 123e4567-e89b-12d3-a456-426614174000
+	QuickReplyOptionUuid *openapi_types.UUID `json:"quick_reply_option_uuid,omitempty"`
+
 	// QuickReplyOptions The quick reply options sent by the Admin or bot, presented in this conversation part.
 	QuickReplyOptions *[]struct {
 		// Text The text to display in this quick reply option.
@@ -12290,11 +12530,6 @@ type ConversationPartMetadata struct {
 		// Uuid A unique identifier for this quick reply option. This value will be available within the metadata of the comment conversation part that is created when a user clicks on this reply option.
 		Uuid openapi_types.UUID `json:"uuid"`
 	} `json:"quick_reply_options,omitempty"`
-
-	// QuickReplyUuid The unique identifier for the quick reply option that was clicked by the end user.
-	//
-	// Example: 123e4567-e89b-12d3-a456-426614174000
-	QuickReplyUuid *openapi_types.UUID `json:"quick_reply_uuid,omitempty"`
 }
 
 // ConversationParticipantsResponse The participants of the conversation, returned after attaching or detaching a contact
@@ -12854,8 +13089,8 @@ type ConversationStatistics struct {
 
 // ConversationTeammates The list of teammates who participated in the conversation (wrote at least one conversation part).
 type ConversationTeammates struct {
-	// Teammates The list of teammates who participated in the conversation (wrote at least one conversation part).
-	Teammates *[]Reference `json:"teammates,omitempty"`
+	// Admins The list of teammates who participated in the conversation (wrote at least one conversation part).
+	Admins *[]Reference `json:"admins,omitempty"`
 
 	// Type The type of the object - `admin.list`.
 	//
@@ -12968,10 +13203,10 @@ type CreateArticleRequest struct {
 	// Example: [1,2]
 	AudienceIds *[]int `json:"audience_ids,omitempty"`
 
-	// AuthorId The id of the author of the article. For multilingual articles, this will be the id of the author of the default language's content. Must be a teammate on the help center's workspace.
+	// AuthorId The id of the author of the article. For multilingual articles, this will be the id of the author of the default language's content. Must be a teammate on the help center's workspace. Required unless an `author_id` is provided in `translated_content` under the workspace's default Help Center locale.
 	//
 	// Example: 1295
-	AuthorId int `json:"author_id"`
+	AuthorId *int `json:"author_id,omitempty"`
 
 	// Body The content of the article in HTML. For multilingual articles, this will be the body of the default language's content. Mutually exclusive with `body_markdown`.
 	//
@@ -12995,22 +13230,27 @@ type CreateArticleRequest struct {
 	// Example: 6
 	FolderId *int `json:"folder_id,omitempty"`
 
+	// Locale The locale of the article's default content, for example `en`. Defaults to the locale of the help center that the parent collection belongs to when `parent_id` is sent, and otherwise to the default Help Center locale. Must be a locale supported by the workspace's Help Center.
+	//
+	// Example: en
+	Locale *string `json:"locale,omitempty"`
+
 	// ParentId The id of the article's parent collection or section. An article without this field stands alone.
 	//
 	// Example: 18
 	ParentId *int `json:"parent_id,omitempty"`
 
-	// ParentType The type of parent, which can either be a `collection` or `section`.
+	// ParentIds The ids of the parent collections to place this article in. Send an empty array to leave the article without a collection. When provided, this takes precedence over `parent_id`.
 	//
-	// Example: collection
-	ParentType *string `json:"parent_type,omitempty"`
+	// Example: [18,19]
+	ParentIds *[]int `json:"parent_ids,omitempty"`
 
 	// ScheduledPublishAt ISO 8601 timestamp at which to schedule a future publish of the article. When set together with `state: "published"`, the article is scheduled instead of published immediately. Setting `null` cancels a pending publish schedule. Timestamps in the past or equal to the current time are rejected with 400 `parameter_invalid` — the value must be strictly in the future. Combining with `state: "draft"` returns 400 `parameter_invalid`. Sending in the same request as `scheduled_unpublish_at` returns 400 — only one pending schedule per article. Empty string returns 400 `parameter_invalid`.
 	//
 	// Example: 2026-12-31T09:00:00Z
 	ScheduledPublishAt *time.Time `json:"scheduled_publish_at,omitempty"`
 
-	// ScheduledUnpublishAt ISO 8601 timestamp at which to schedule a future unpublish of the article. Setting `null` cancels a pending unpublish schedule. Timestamps in the past or equal to the current time are rejected with 400 `parameter_invalid` — the value must be strictly in the future. Rejected with 400 `parameter_invalid` if the article has never been published. Sending in the same request as `scheduled_publish_at` returns 400 — only one pending schedule per article. Empty string returns 400 `parameter_invalid`.
+	// ScheduledUnpublishAt ISO 8601 timestamp at which to schedule a future unpublish of the article. The same request must also publish the article (`state: "published"`), otherwise it returns 400 `parameter_invalid`. The value must be strictly in the future; timestamps in the past or equal to the current time are rejected with 400 `parameter_invalid`. Setting `null` cancels a pending unpublish schedule. Sending in the same request as `scheduled_publish_at` returns 400 — only one pending schedule per article. Empty string returns 400 `parameter_invalid`.
 	//
 	// Example: 2026-12-31T17:00:00Z
 	ScheduledUnpublishAt *time.Time `json:"scheduled_unpublish_at,omitempty"`
@@ -13020,10 +13260,10 @@ type CreateArticleRequest struct {
 	// Example: draft
 	State *CreateArticleRequestState `json:"state,omitempty"`
 
-	// Title The title of the article.For multilingual articles, this will be the title of the default language's content.
+	// Title The title of the article. For multilingual articles, this will be the title of the default language's content. Required unless a title is provided in `translated_content` under the workspace's default Help Center locale.
 	//
 	// Example: Thanks for everything
-	Title string `json:"title"`
+	Title *string `json:"title,omitempty"`
 
 	// TranslatedContent The Translated Content of an Article. The keys are the locale codes and the values are the translated content of the article.
 	TranslatedContent *ArticleTranslatedContent `json:"translated_content,omitempty"`
@@ -13064,10 +13304,15 @@ type CreateCollectionRequest struct {
 	// Example: 123
 	HelpCenterId *int `json:"help_center_id,omitempty"`
 
-	// Name The name of the collection. For multilingual collections, this will be the name of the default language's content.
+	// Icon The icon of the collection, for example `book-bookmark`. Defaults to `book-bookmark`.
+	//
+	// Example: book-bookmark
+	Icon *string `json:"icon,omitempty"`
+
+	// Name The name of the collection. For multilingual collections, this will be the name of the default language's content. Required unless a name is provided in `translated_content` under the workspace's default Help Center locale.
 	//
 	// Example: collection 51
-	Name string `json:"name"`
+	Name *string `json:"name,omitempty"`
 
 	// ParentId The id of the parent collection. If `null` then it will be created as the first level collection.
 	//
@@ -13735,28 +13980,38 @@ type CreateDataEventRequest2 = interface{}
 
 // CreateDataEventSummariesRequest You can send a list of event summaries for a user. Each event summary should contain the event name, the time the event occurred, and the number of times the event occurred. The event name should be a past tense "verb-noun" combination, to improve readability, for example `updated-plan`.
 type CreateDataEventSummariesRequest struct {
+	// Email The user's email address. Only used when neither `id` nor `user_id` is supplied.
+	//
+	// Example: frodo.baggins@example.com
+	Email *string `json:"email,omitempty"`
+
 	// EventSummaries A list of event summaries for the user. Each event summary should contain the event name, the time the event occurred, and the number of times the event occurred. The event name should be a past tense 'verb-noun' combination, to improve readability, for example `updated-plan`.
-	EventSummaries *struct {
+	EventSummaries []struct {
 		// Count The number of times the event occurred.
 		//
 		// Example: 1
-		Count *int `json:"count,omitempty"`
+		Count int `json:"count"`
 
 		// EventName The name of the event that occurred. A good event name is typically a past tense 'verb-noun' combination, to improve readability, for example `updated-plan`.
 		//
 		// Example: invited-friend
-		EventName *string `json:"event_name,omitempty"`
+		EventName string `json:"event_name"`
 
 		// First The first time the event was sent
 		//
 		// Example: 1671028894
-		First *int `json:"first,omitempty"`
+		First int `json:"first"`
 
 		// Last The last time the event was sent
 		//
 		// Example: 1671028894
-		Last *int `json:"last,omitempty"`
-	} `json:"event_summaries,omitempty"`
+		Last int `json:"last"`
+	} `json:"event_summaries"`
+
+	// Id The Intercom defined id of the user. Takes precedence over `user_id` and `email`.
+	//
+	// Example: 63a0979a5eeebeaf28dd56ba
+	Id *string `json:"id,omitempty"`
 
 	// UserId Your identifier for the user.
 	//
@@ -14067,10 +14322,10 @@ type CreateOrUpdateCompanyRequest struct {
 	// Example: 625e90fc55ab113b6d92175f
 	CompanyId *string `json:"company_id,omitempty"`
 
-	// CustomAttributes A hash of key/value pairs containing any other data about the company you want Intercom to store.
+	// CustomAttributes Values for custom attributes that already exist in your workspace. Each value can be a string, integer, number, boolean or null. Arrays and objects aren't accepted.
 	//
 	// Example: {"monthly_spend":155.5,"paid_subscriber":true,"team_mates":9}
-	CustomAttributes *map[string]string `json:"custom_attributes,omitempty"`
+	CustomAttributes *map[string]CreateOrUpdateCompanyRequest_CustomAttributes_AdditionalProperties `json:"custom_attributes,omitempty"`
 
 	// Industry The industry that this company operates in.
 	//
@@ -14113,6 +14368,23 @@ type CreateOrUpdateCompanyRequest struct {
 	Website *string `json:"website,omitempty"`
 }
 
+// CreateOrUpdateCompanyRequestCustomAttributes0 defines model for CreateOrUpdateCompanyRequest.CustomAttributes.0.
+type CreateOrUpdateCompanyRequestCustomAttributes0 = string
+
+// CreateOrUpdateCompanyRequestCustomAttributes1 defines model for CreateOrUpdateCompanyRequest.CustomAttributes.1.
+type CreateOrUpdateCompanyRequestCustomAttributes1 = int
+
+// CreateOrUpdateCompanyRequestCustomAttributes2 defines model for CreateOrUpdateCompanyRequest.CustomAttributes.2.
+type CreateOrUpdateCompanyRequestCustomAttributes2 = float64
+
+// CreateOrUpdateCompanyRequestCustomAttributes3 defines model for CreateOrUpdateCompanyRequest.CustomAttributes.3.
+type CreateOrUpdateCompanyRequestCustomAttributes3 = bool
+
+// CreateOrUpdateCompanyRequest_CustomAttributes_AdditionalProperties defines model for create_or_update_company_request.custom_attributes.AdditionalProperties.
+type CreateOrUpdateCompanyRequest_CustomAttributes_AdditionalProperties struct {
+	union json.RawMessage
+}
+
 // CreateOrUpdateCustomObjectInstanceRequest Payload to create or update a Custom Object instance
 type CreateOrUpdateCustomObjectInstanceRequest struct {
 	// CustomAttributes The custom attributes which are set for the Custom Object instance.
@@ -14147,7 +14419,7 @@ type CreateOrUpdateTagRequest struct {
 
 // CreatePhoneSwitchRequest You can create an phone switch
 type CreatePhoneSwitchRequest struct {
-	// CustomAttributes The custom attributes which are set on this object, as key-value pairs. For relationship attributes the value should be a list of custom object instance models. Only attributes a caller may set are accepted here — attributes Intercom generates are returned in responses only.
+	// CustomAttributes The custom attributes which are set on this object, as key-value pairs. For relationship attributes the value should be a list of custom object instance models. Only attributes a caller may set should be sent here — attributes Intercom generates are returned in responses only.
 	//
 	// Example: {"end_date_timestamp":1677923174,"monthly_spend":155.5,"paid_subscriber":true,"start_date_iso8601":"2023-03-04T09:46:14Z","team_mates":9}
 	CustomAttributes *CustomAttributesRequest `json:"custom_attributes,omitempty"`
@@ -14305,7 +14577,7 @@ type CreateTicketTypeRequest struct {
 	// Category Category of the Ticket Type.
 	//
 	// Example: Customer
-	Category *CreateTicketTypeRequestCategory `json:"category,omitempty"`
+	Category CreateTicketTypeRequestCategory `json:"category"`
 
 	// Description The description of the ticket type.
 	//
@@ -14336,7 +14608,18 @@ type CreateTicketTypeRequestCategory string
 // CursorPages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
 // A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
 type CursorPages struct {
-	Next *StartingAfterPaging `json:"next,omitempty"`
+	// Next Fetch the next page by sending this `starting_after` cursor. Omitted on the last page.
+	Next *struct {
+		// Page The number of the next page
+		//
+		// Example: 2
+		Page *int `json:"page,omitempty"`
+
+		// StartingAfter The cursor to send in the next request to get the next page of results.
+		//
+		// Example: your-cursor-from-response
+		StartingAfter *string `json:"starting_after,omitempty"`
+	} `json:"next,omitempty"`
 
 	// Page The current page
 	//
@@ -14394,10 +14677,21 @@ type CustomActionStarted struct {
 	} `json:"action,omitempty"`
 }
 
-// CustomAttributes An object containing the different custom attributes associated to the conversation as key-value pairs. For relationship attributes the value will be a list of custom object instance models. Attributes that Intercom generates — such as "CX Score rating", "CX Score explanation", "AI Topic and Subtopic" and "CX Score reasons" — may also be included. Two of them, "AI Topic and Subtopic" and "CX Score reasons", carry lists of objects as their values, and are returned in responses only — they cannot be set on a write request.
+// CustomAttributes An object containing the custom attributes on a conversation as key-value pairs. For relationship attributes the value is a list of custom object instance models. System-defined attributes such as "AI Topic and Subtopic", "CX Score rating", "CX Score explanation" and "CX Score reasons" may also be included.
 //
-// Example: {"AI Topic and Subtopic":[{"id":12345,"subtopic_name":"Refund request","topic_name":"Billing"}],"CX Score explanation":"The conversation was resolved quickly and the customer expressed satisfaction with the outcome.","CX Score rating":4,"CX Score reasons":[{"name":"Resolution speed","value":"Fast"}],"end_date_timestamp":1677923174,"monthly_spend":155.5,"paid_subscriber":true,"start_date_iso8601":"2023-03-04T09:46:14Z","team_mates":9}
-type CustomAttributes map[string]CustomAttributes_AdditionalProperties
+// Example: {"AI Topic and Subtopic":[{"id":42,"subtopic_name":"Payment Issues","topic_name":"Billing"}],"CX Score explanation":"The conversation was resolved quickly and the customer expressed satisfaction with the outcome.","CX Score rating":4,"CX Score reasons":[{"name":"Resolution speed","value":"Fast"}],"end_date_timestamp":1677923174,"monthly_spend":155.5,"paid_subscriber":true,"start_date_iso8601":"2023-03-04T09:46:14Z","team_mates":9}
+type CustomAttributes struct {
+	// AITopicAndSubtopic Read-only AI Insights classification of the conversation. Present only with the AI add-on; omitted when the conversation has no classification.
+	//
+	// Example: [{"id":42,"subtopic_name":"Payment Issues","topic_name":"Billing"}]
+	AITopicAndSubtopic *[]AiTopicSubtopic `json:"AI Topic and Subtopic,omitempty"`
+
+	// CXScoreReasons Read-only reasons behind the conversation's CX Score. Intercom generates this attribute, so it cannot be set. Omitted when the conversation has no CX Score reasons.
+	//
+	// Example: [{"name":"Resolution speed","value":"Fast"}]
+	CXScoreReasons       *[]CxScoreReason                                 `json:"CX Score reasons,omitempty"`
+	AdditionalProperties map[string]CustomAttributes_AdditionalProperties `json:"-"`
+}
 
 // CustomAttributes0 defines model for CustomAttributes.0.
 type CustomAttributes0 = string
@@ -14416,7 +14710,7 @@ type CustomAttributes_AdditionalProperties struct {
 	union json.RawMessage
 }
 
-// CustomAttributesRequest The custom attributes which are set on this object, as key-value pairs. For relationship attributes the value should be a list of custom object instance models. Only attributes a caller may set are accepted here — attributes Intercom generates are returned in responses only.
+// CustomAttributesRequest The custom attributes which are set on this object, as key-value pairs. For relationship attributes the value should be a list of custom object instance models. Only attributes a caller may set should be sent here — attributes Intercom generates are returned in responses only.
 //
 // Example: {"end_date_timestamp":1677923174,"monthly_spend":155.5,"paid_subscriber":true,"start_date_iso8601":"2023-03-04T09:46:14Z","team_mates":9}
 type CustomAttributesRequest map[string]CustomAttributesRequest_AdditionalProperties
@@ -14506,6 +14800,33 @@ type CustomObjectInstanceList struct {
 	Type *string `json:"type,omitempty"`
 }
 
+// CustomObjectInstanceNotFound Returned with HTTP 200 (not 404) when the custom object type exists but no instance matches the requested id or external_id.
+type CustomObjectInstanceNotFound struct {
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// CustomAttributes Always an empty object.
+	CustomAttributes  *map[string]interface{} `json:"custom_attributes,omitempty"`
+	ExternalCreatedAt *int                    `json:"external_created_at,omitempty"`
+
+	// ExternalId The requested external_id, echoed back. Null when looked up by `id`.
+	ExternalId        *string `json:"external_id,omitempty"`
+	ExternalUpdatedAt *int    `json:"external_updated_at,omitempty"`
+
+	// Found Always `false`. Only present on this response.
+	//
+	// Example: false
+	Found bool `json:"found"`
+
+	// Id The requested id, echoed back. Null when looked up by `external_id`.
+	Id *string `json:"id,omitempty"`
+
+	// Type The identifier of the custom object type that was queried.
+	//
+	// Example: Order
+	Type      *string `json:"type,omitempty"`
+	UpdatedAt *int    `json:"updated_at,omitempty"`
+}
+
 // CustomObjectInstancesPaginatedList A paginated list of custom object instances.
 type CustomObjectInstancesPaginatedList struct {
 	// Data An array of Custom Object Instance objects.
@@ -14561,8 +14882,8 @@ type CustomerRequest2 struct {
 	Email string `json:"email"`
 }
 
-// CxScoreReasonList The reasons behind a conversation's CX Score, returned under the "CX Score reasons" key of a conversation's custom attributes. Generated by Fin and returned in responses only; it cannot be set on a request.
-type CxScoreReasonList = []struct {
+// CxScoreReason A single reason behind a conversation's CX Score. Surfaced inside `custom_attributes` under the "CX Score reasons" key as an array of these objects.
+type CxScoreReason struct {
 	// Name The name of the reason.
 	//
 	// Example: Resolution speed
@@ -15396,6 +15717,79 @@ type DataConnectorVersionListPagesType string
 // Example: list
 type DataConnectorVersionListType string
 
+// DataEvent Data events are used to notify Intercom of changes to your data.
+type DataEvent struct {
+	// CreatedAt The time the event occurred as a UTC Unix timestamp
+	//
+	// Example: 1671028894
+	CreatedAt int `json:"created_at"`
+
+	// Email An email address for your user. An email should only be used where your application uses email to uniquely identify users.
+	//
+	// Example: frodo.baggins@example.com
+	Email *string `json:"email,omitempty"`
+
+	// EventName The name of the event that occurred. This is presented to your App's admins when filtering and creating segments - a good event name is typically a past tense 'verb-noun' combination, to improve readability, for example `updated-plan`.
+	//
+	// Example: invited-friend
+	EventName string `json:"event_name"`
+
+	// Id Your identifier for a lead or a user.
+	//
+	// Example: 8a88a590-e1c3-41e2-a502-e0649dbf721c
+	Id *string `json:"id,omitempty"`
+
+	// IntercomUserId The Intercom identifier for the user.
+	//
+	// Example: 63a0979a5eeebeaf28dd56ba
+	IntercomUserId *string `json:"intercom_user_id,omitempty"`
+
+	// Metadata Optional metadata about the event.
+	//
+	// Example: {"invite_code":"ADDAFRIEND"}
+	Metadata *map[string]string `json:"metadata,omitempty"`
+
+	// Type The type of the object
+	//
+	// Example: event
+	Type *DataEventType `json:"type,omitempty"`
+
+	// UserId Your identifier for the user.
+	//
+	// Example: 314159
+	UserId *string `json:"user_id,omitempty"`
+}
+
+// DataEventType The type of the object
+//
+// Example: event
+type DataEventType string
+
+// DataEventList This will return a list of data events for the App.
+type DataEventList struct {
+	// Events A list of data events
+	Events *[]DataEvent `json:"events,omitempty"`
+
+	// Pages Pagination
+	Pages *struct {
+		// Next Example: https://api.intercom.io/events?per_page=2&before=1389913941064&intercom_user_id=63a0979a5eeebeaf28dd56ba&type=user"
+		Next *string `json:"next,omitempty"`
+
+		// Since Example: https://api.intercom.io/events?intercom_user_id=63a0979a5eeebeaf28dd56ba&type=user&since=1389913941065
+		Since *string `json:"since,omitempty"`
+	} `json:"pages,omitempty"`
+
+	// Type The type of the object
+	//
+	// Example: event.list
+	Type *DataEventListType `json:"type,omitempty"`
+}
+
+// DataEventListType The type of the object
+//
+// Example: event.list
+type DataEventListType string
+
 // DataEventSummary This will return a summary of data events for the App.
 type DataEventSummary struct {
 	// Email The email address of the user
@@ -16161,10 +16555,10 @@ type Error struct {
 		// Example: unauthorized
 		Code string `json:"code"`
 
-		// Field Optional. Used to identify a particular field or query parameter that was in error.
+		// Data Optional. Extra detail about the error, for example `required_permissions` on a 403 `action_forbidden` error.
 		//
-		// Example: email
-		Field *string `json:"field,omitempty"`
+		// Example: {"required_permissions":["read_conversations"]}
+		Data *map[string]interface{} `json:"data,omitempty"`
 
 		// Message Optional. Human readable description of the error.
 		//
@@ -16777,7 +17171,7 @@ type HelpCenterRedirect struct {
 	// Example: 1781619405
 	CreatedAt *int `json:"created_at,omitempty"`
 
-	// FromUrl The source URL that is redirected. An absolute URL within the help center's URL space.
+	// FromUrl The source URL that is redirected. This is an absolute URL within the help center's URL space, or a relative path such as `/old-page` for some existing redirects.
 	//
 	// Example: http://help-center.test/lovelyhelpcenter/old-page
 	FromUrl *string `json:"from_url,omitempty"`
@@ -16833,9 +17227,10 @@ type HelpCenterRedirectList struct {
 	// Data An array of help center redirect objects.
 	Data *[]HelpCenterRedirect `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount A count of the total number of redirects.
 	//
@@ -17025,7 +17420,7 @@ type HitlEventList struct {
 // Example: list
 type HitlEventListType string
 
-// IntercomVersion Intercom API version.</br>By default, it's equal to the version set in the app package.
+// IntercomVersion Intercom API version.</br>If you omit the header, the API uses the version set in your app package, and 1.0 if none is set.
 //
 // Example: 2.17
 type IntercomVersion string
@@ -17038,9 +17433,10 @@ type InternalArticleList struct {
 	// Data An array of Internal Article objects
 	Data *[]InternalArticleListItem `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount A count of the total number of internal articles.
 	//
@@ -17110,7 +17506,7 @@ type InternalArticleListItem struct {
 	// Id The unique identifier for the article which is given by Intercom.
 	//
 	// Example: 6871119
-	Id *string `json:"id,omitempty"`
+	Id *int `json:"id,omitempty"`
 
 	// Locale The default locale of the article.
 	Locale *string `json:"locale,omitempty"`
@@ -17123,33 +17519,21 @@ type InternalArticleListItem struct {
 	// Title The title of the article.
 	Title *string `json:"title,omitempty"`
 
-	// Type The type of object - `internal_article`.
-	//
-	// Example: internal_article
-	Type *InternalArticleListItemType `json:"type,omitempty"`
-
 	// UpdatedAt The time when the article was last updated.
 	//
 	// Example: 1672928610
 	UpdatedAt *int `json:"updated_at,omitempty"`
 }
 
-// InternalArticleListItemType The type of object - `internal_article`.
-//
-// Example: internal_article
-type InternalArticleListItemType string
-
 // InternalArticleSearchResponse The results of an Internal Article search
 type InternalArticleSearchResponse struct {
-	// Data An object containing the results of the search.
-	Data *struct {
-		// InternalArticles An array of Internal Article objects
-		InternalArticles *[]InternalArticle `json:"internal_articles,omitempty"`
-	} `json:"data,omitempty"`
+	// InternalArticles An array of Internal Article objects
+	InternalArticles *[]InternalArticle `json:"internal_articles,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount The total number of Internal Articles matching the search query
 	//
@@ -17743,6 +18127,11 @@ type NewsItem struct {
 	// NewsfeedAssignments A list of newsfeed_assignments to assign to the specified newsfeed.
 	NewsfeedAssignments *[]NewsfeedAssignment `json:"newsfeed_assignments,omitempty"`
 
+	// PublishedAt Timestamp for when the news item last went live. Null if the news item has never been live.
+	//
+	// Example: 1610589632
+	PublishedAt *int `json:"published_at,omitempty"`
+
 	// Reactions Ordered list of emoji reactions to the news item. When empty, reactions are disabled.
 	Reactions *[]*string `json:"reactions,omitempty"`
 
@@ -18125,7 +18514,7 @@ type OperatorWorkflowEvent struct {
 //
 // Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
 type PagesLink struct {
-	// Next A link to the next page of results. A response that does not contain a next link does not have further data to fetch.
+	// Next A link to the next page of results. Omitted on the last page. Some lists never include `next` or `prev`, so compare `page` with `total_pages` to tell whether more pages remain.
 	Next *string `json:"next,omitempty"`
 
 	// Page Example: 1
@@ -18133,6 +18522,9 @@ type PagesLink struct {
 
 	// PerPage Example: 50
 	PerPage *int `json:"per_page,omitempty"`
+
+	// Prev A link to the previous page of results. Omitted on the first page.
+	Prev *string `json:"prev,omitempty"`
 
 	// TotalPages Example: 1
 	TotalPages *int `json:"total_pages,omitempty"`
@@ -18214,13 +18606,13 @@ type PartAttachment struct {
 
 // PhoneSwitch Phone Switch Response
 type PhoneSwitch struct {
-	// Phone Phone number in E.164 format, that has received the SMS to continue the conversation in the Messenger.
-	//
-	// Example: +1 1234567890
-	Phone *string `json:"phone,omitempty"`
-
 	// Type Example: phone_call_redirect
 	Type *PhoneSwitchType `json:"type,omitempty"`
+
+	// Url The Messenger link for the phone call redirect, which is also the link sent by SMS to the phone number.
+	//
+	// Example: http://via.intercom.io/msgr/1add3dd1-a75e-4a96-96fd-984d16aba059
+	Url *string `json:"url,omitempty"`
 }
 
 // PhoneSwitchType Example: phone_call_redirect
@@ -18253,6 +18645,11 @@ type Predicate struct {
 // workspace the body can be omitted. On a multilingual workspace, `locales`
 // is required and lists which locales' drafts to publish.
 type PublishArticleDraftRequest struct {
+	// AuthorId The id of the teammate to publish as. This is only used when the access token is not associated with a teammate, and is then required; omitting it returns 400 `parameter_not_found`. Otherwise the authenticating teammate is used. Must be a teammate on the workspace.
+	//
+	// Example: 1295
+	AuthorId *int `json:"author_id,omitempty"`
+
 	// Locales The locales whose staged drafts should be published. Required on
 	// multilingual workspaces; each locale must have a pending draft.
 	//
@@ -18772,12 +19169,12 @@ type SubscriptionTypeListType string
 
 // Tag A tag allows you to label your contacts, companies, and conversations and list them using that tag.
 type Tag struct {
-	// AppliedAt The time when the tag was applied to the object. Only present when the tag is returned as part of a tagging operation on a contact, conversation, or ticket.
+	// AppliedAt The time when the tag was applied to the object. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet.
 	//
 	// Example: 1663597223
 	AppliedAt *int `json:"applied_at,omitempty"`
 
-	// AppliedBy The admin who applied the tag. Only present when the tag is returned as part of a tagging operation on a contact, conversation, or ticket.
+	// AppliedBy The admin who applied the tag. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet.
 	AppliedBy *Reference `json:"applied_by,omitempty"`
 
 	// Id The id of the tag
@@ -19625,401 +20022,4 @@ type TicketStateDetailed struct {
 	//
 	// Example: ticket_state
 	Type *string `json:"type,omitempty"`
-}
-
-// TicketStateDetailedCategory The category of the ticket state
-//
-// Example: in_progress
-type TicketStateDetailedCategory string
-
-// TicketStateList A list of ticket states associated with a given ticket type.
-type TicketStateList struct {
-	// Data A list of ticket states associated with a given ticket type.
-	Data *[]*TicketStateDetailed `json:"data,omitempty"`
-
-	// Type String representing the object's type. Always has the value `list`.
-	//
-	// Example: list
-	Type *string `json:"type,omitempty"`
-}
-
-// TicketType A ticket type, used to define the data fields to be captured in a ticket.
-type TicketType struct {
-	// Archived Whether the ticket type is archived or not.
-	//
-	// Example: false
-	Archived *bool `json:"archived,omitempty"`
-
-	// Category Category of the Ticket Type.
-	//
-	// Example: Customer
-	Category *TicketTypeCategory `json:"category,omitempty"`
-
-	// CreatedAt The date and time the ticket type was created.
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// Description The description of the ticket type
-	//
-	// Example: A bug that has been reported.
-	Description *string `json:"description,omitempty"`
-
-	// Icon The icon of the ticket type
-	//
-	// Example: 🐞
-	Icon *string `json:"icon,omitempty"`
-
-	// Id The id representing the ticket type.
-	//
-	// Example: 1295
-	Id *string `json:"id,omitempty"`
-
-	// Name The name of the ticket type
-	//
-	// Example: Bug
-	Name *string `json:"name,omitempty"`
-
-	// TicketStates A list of ticket states associated with a given ticket type.
-	TicketStates *struct {
-		// Data A list of ticket states associated with a given ticket type.
-		Data *[]*TicketState `json:"data,omitempty"`
-
-		// Type String representing the object's type. Always has the value `list`.
-		//
-		// Example: list
-		Type *string `json:"type,omitempty"`
-	} `json:"ticket_states,omitempty"`
-
-	// TicketTypeAttributes A list of attributes associated with a given ticket type.
-	TicketTypeAttributes *TicketTypeAttributeList `json:"ticket_type_attributes,omitempty"`
-
-	// Type String representing the object's type. Always has the value `ticket_type`.
-	//
-	// Example: ticket_type
-	Type *string `json:"type,omitempty"`
-
-	// UpdatedAt The date and time the ticket type was last updated.
-	UpdatedAt *int `json:"updated_at,omitempty"`
-
-	// WorkspaceId The id of the workspace that the ticket type belongs to.
-	//
-	// Example: ecahpwf5
-	WorkspaceId *string `json:"workspace_id,omitempty"`
-}
-
-// TicketTypeCategory Category of the Ticket Type.
-//
-// Example: Customer
-type TicketTypeCategory string
-
-// TicketTypeAttribute Ticket type attribute, used to define each data field to be captured in a ticket.
-type TicketTypeAttribute struct {
-	// Archived Whether the ticket type attribute is archived or not.
-	//
-	// Example: false
-	Archived *bool `json:"archived,omitempty"`
-
-	// CreatedAt The date and time the ticket type attribute was created.
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// DataType The type of the data attribute (allowed values: "string list integer decimal boolean datetime files")
-	//
-	// Example: string
-	DataType *string `json:"data_type,omitempty"`
-
-	// Default Whether the attribute is built in or not.
-	//
-	// Example: true
-	Default *bool `json:"default,omitempty"`
-
-	// Description The description of the ticket type attribute
-	//
-	// Example: Bug title.
-	Description *string `json:"description,omitempty"`
-
-	// Id The id representing the ticket type attribute.
-	//
-	// Example: 1
-	Id *string `json:"id,omitempty"`
-
-	// InputOptions Input options for the attribute
-	//
-	// Example: multiline: true
-	InputOptions *map[string]interface{} `json:"input_options,omitempty"`
-
-	// Name The name of the ticket type attribute
-	//
-	// Example: Title
-	Name *string `json:"name,omitempty"`
-
-	// Order The order of the attribute against other attributes
-	//
-	// Example: 1
-	Order *int `json:"order,omitempty"`
-
-	// RequiredToCreate Whether the attribute is required or not for teammates.
-	//
-	// Example: false
-	RequiredToCreate *bool `json:"required_to_create,omitempty"`
-
-	// RequiredToCreateForContacts Whether the attribute is required or not for contacts.
-	//
-	// Example: false
-	RequiredToCreateForContacts *bool `json:"required_to_create_for_contacts,omitempty"`
-
-	// TicketTypeId The id of the ticket type that the attribute belongs to.
-	//
-	// Example: 42
-	TicketTypeId *int `json:"ticket_type_id,omitempty"`
-
-	// Type String representing the object's type. Always has the value `ticket_type_attribute`.
-	//
-	// Example: ticket_type_attribute
-	Type *string `json:"type,omitempty"`
-
-	// UpdatedAt The date and time the ticket type attribute was last updated.
-	UpdatedAt *int `json:"updated_at,omitempty"`
-
-	// VisibleOnCreate Whether the attribute is visible or not to teammates.
-	//
-	// Example: false
-	VisibleOnCreate *bool `json:"visible_on_create,omitempty"`
-
-	// VisibleToContacts Whether the attribute is visible or not to contacts.
-	//
-	// Example: false
-	VisibleToContacts *bool `json:"visible_to_contacts,omitempty"`
-
-	// WorkspaceId The id of the workspace that the ticket type attribute belongs to.
-	//
-	// Example: ecahpwf5
-	WorkspaceId *string `json:"workspace_id,omitempty"`
-}
-
-// TicketTypeAttributeList A list of attributes associated with a given ticket type.
-type TicketTypeAttributeList struct {
-	// TicketTypeAttributes A list of ticket type attributes associated with a given ticket type.
-	TicketTypeAttributes *[]*TicketTypeAttribute `json:"ticket_type_attributes,omitempty"`
-
-	// Type String representing the object's type. Always has the value `ticket_type_attributes.list`.
-	Type *string `json:"type,omitempty"`
-}
-
-// TicketTypeList A list of ticket types associated with a given workspace.
-type TicketTypeList struct {
-	// Data A list of ticket_types associated with a given workspace.
-	Data *[]*TicketType `json:"data,omitempty"`
-
-	// Type String representing the object's type. Always has the value `list`.
-	//
-	// Example: list
-	Type *string `json:"type,omitempty"`
-}
-
-// Translation A translation object contains the localised details of a subscription type.
-type Translation struct {
-	// Description The localised description of the subscription type.
-	//
-	// Example: Offers, product and feature announcements
-	Description *string `json:"description,omitempty"`
-
-	// Locale The two character identifier for the language of the translation object.
-	//
-	// Example: en
-	Locale *string `json:"locale,omitempty"`
-
-	// Name The localised name of the subscription type.
-	//
-	// Example: Announcements
-	Name *string `json:"name,omitempty"`
-}
-
-// UntagCompanyRequest You can tag a single company or a list of companies.
-type UntagCompanyRequest struct {
-	// Companies The id or company_id of the company can be passed as input parameters.
-	Companies []struct {
-		// CompanyId The company id you have defined for the company.
-		//
-		// Example: 6
-		CompanyId *string `json:"company_id,omitempty"`
-
-		// Id The Intercom defined id representing the company.
-		//
-		// Example: 531ee472cce572a6ec000006
-		Id *string `json:"id,omitempty"`
-
-		// Untag Always set to true
-		//
-		// Example: true
-		Untag *bool `json:"untag,omitempty"`
-	} `json:"companies"`
-
-	// Name The name of the tag which will be untagged from the company
-	//
-	// Example: Independent
-	Name string `json:"name"`
-}
-
-// UpdateArticleRequest You can Update an Article
-type UpdateArticleRequest struct {
-	// AiChatbotAvailability Whether the article should be available for AI Chatbot (Fin). For multilingual articles, this sets the default language's availability.
-	//
-	// Example: true
-	AiChatbotAvailability *bool `json:"ai_chatbot_availability,omitempty"`
-
-	// AiCopilotAvailability Whether the article should be available for AI Copilot. For multilingual articles, this sets the default language's availability.
-	//
-	// Example: true
-	AiCopilotAvailability *bool `json:"ai_copilot_availability,omitempty"`
-
-	// AiSalesAgentAvailability Whether the article should be available for AI Sales Agent. For multilingual articles, this sets the default language's availability.
-	//
-	// Example: true
-	AiSalesAgentAvailability *bool `json:"ai_sales_agent_availability,omitempty"`
-
-	// AudienceIds The list of audience IDs to assign to this article for Fin AI Agent targeting. Sending a top-level `audience_ids` broadcasts the same set to every locale. Sending `audience_ids: []` clears all audience memberships from every locale. For per-locale targeting, use `translated_content.<locale>.audience_ids` instead. Sending both top-level and per-locale in the same request causes top-level to win. Unknown audience IDs return a 404 error. No partial commit occurs.
-	//
-	// Example: [1,2]
-	AudienceIds *[]int `json:"audience_ids,omitempty"`
-
-	// AuthorId The id of the author of the article. For multilingual articles, this will be the id of the author of the default language's content. Must be a teammate on the help center's workspace.
-	//
-	// Example: 1295
-	AuthorId *int `json:"author_id,omitempty"`
-
-	// Body The content of the article in HTML. For multilingual articles, this will be the body of the default language's content. Mutually exclusive with `body_markdown`.
-	//
-	// Example: <p>This is the body in html</p>
-	Body *string `json:"body,omitempty"`
-
-	// BodyMarkdown The content of the article in markdown. For multilingual articles, this will be the body of the default language's content. An alternative to `body` — you can provide content as markdown instead of HTML. Mutually exclusive with `body`.
-	//
-	// Example: ## Updated heading
-	//
-	// New content.
-	BodyMarkdown *string `json:"body_markdown,omitempty"`
-
-	// Description The description of the article. For multilingual articles, this will be the description of the default language's content.
-	//
-	// Example: Description of the Article
-	Description *string `json:"description,omitempty"`
-
-	// FolderId The ID of the folder to place this article in, or null to remove it from its folder.
-	//
-	// Example: 6
-	FolderId *int `json:"folder_id,omitempty"`
-
-	// ParentId The id of the article's parent collection or section. An article without this field stands alone.
-	//
-	// Example: 18
-	ParentId *string `json:"parent_id,omitempty"`
-
-	// ParentType The type of parent, which can either be a `collection` or `section`.
-	//
-	// Example: collection
-	ParentType *string `json:"parent_type,omitempty"`
-
-	// ScheduledPublishAt ISO 8601 timestamp at which to schedule a future publish of the article. When set together with `state: "published"`, the article is scheduled instead of published immediately. Setting `null` cancels a pending publish schedule. Timestamps in the past or equal to the current time are rejected with 400 `parameter_invalid` — the value must be strictly in the future. Combining with `state: "draft"` returns 400 `parameter_invalid`. Sending in the same request as `scheduled_unpublish_at` returns 400 — only one pending schedule per article. Empty string returns 400 `parameter_invalid`.
-	//
-	// Example: 2026-12-31T09:00:00Z
-	ScheduledPublishAt *time.Time `json:"scheduled_publish_at,omitempty"`
-
-	// ScheduledUnpublishAt ISO 8601 timestamp at which to schedule a future unpublish of the article. Setting `null` cancels a pending unpublish schedule. Timestamps in the past or equal to the current time are rejected with 400 `parameter_invalid` — the value must be strictly in the future. Rejected with 400 `parameter_invalid` if the article has never been published. Sending in the same request as `scheduled_publish_at` returns 400 — only one pending schedule per article. Empty string returns 400 `parameter_invalid`.
-	//
-	// Example: 2026-12-31T17:00:00Z
-	ScheduledUnpublishAt *time.Time `json:"scheduled_unpublish_at,omitempty"`
-
-	// State Whether the article will be `published` or will be a `draft`. Omitting this field leaves the publish state unchanged, so a draft stays a draft and an edit to a published article goes live immediately unless that article already has a pending draft or a scheduled publish time is set in the same request. The `PUT /articles/{id}/draft` endpoint ignores this field and always stages a draft. For multilingual articles, this will be the state of the default language's content.
-	//
-	// Example: draft
-	State *UpdateArticleRequestState `json:"state,omitempty"`
-
-	// Title The title of the article.For multilingual articles, this will be the title of the default language's content.
-	//
-	// Example: Thanks for everything
-	Title *string `json:"title,omitempty"`
-
-	// TranslatedContent The Translated Content of an Article. The keys are the locale codes and the values are the translated content of the article.
-	TranslatedContent *ArticleTranslatedContent `json:"translated_content,omitempty"`
-}
-
-// UpdateArticleRequestState Whether the article will be `published` or will be a `draft`. Omitting this field leaves the publish state unchanged, so a draft stays a draft and an edit to a published article goes live immediately unless that article already has a pending draft or a scheduled publish time is set in the same request. The `PUT /articles/{id}/draft` endpoint ignores this field and always stages a draft. For multilingual articles, this will be the state of the default language's content.
-//
-// Example: draft
-type UpdateArticleRequestState string
-
-// UpdateAudienceRequest The request payload for updating an audience. All fields are optional — only provided fields will be updated.
-type UpdateAudienceRequest struct {
-	// Name The name of the audience.
-	//
-	// Example: Enterprise Accounts
-	Name *string `json:"name,omitempty"`
-
-	// Predicates The predicates that define which contacts belong to the audience.
-	//
-	// Example: [{"attribute":"custom_attributes.plan","comparison":"eq","type":"string","value":"enterprise"}]
-	Predicates *[]Predicate `json:"predicates,omitempty"`
-
-	// RolePredicates Role-based predicates that further filter audience membership by contact role.
-	//
-	// Example: [{"attribute":"role","comparison":"eq","type":"role","value":"user"}]
-	RolePredicates *[]Predicate `json:"role_predicates,omitempty"`
-}
-
-// UpdateCollectionRequest You can update a collection
-type UpdateCollectionRequest struct {
-	// Description The description of the collection. For multilingual collections, this will be the description of the default language's content.
-	//
-	// Example: English description
-	Description *string `json:"description,omitempty"`
-
-	// Name The name of the collection. For multilingual collections, this will be the name of the default language's content.
-	//
-	// Example: collection 51
-	Name *string `json:"name,omitempty"`
-
-	// ParentId The id of the parent collection. If `null` then it will be updated as the first level collection.
-	//
-	// Example: 6871118
-	ParentId *string `json:"parent_id,omitempty"`
-
-	// TranslatedContent The Translated Content of an Group. The keys are the locale codes and the values are the translated content of the Group.
-	TranslatedContent *GroupTranslatedContent `json:"translated_content,omitempty"`
-}
-
-// UpdateCompanyRequest You can update a Company
-type UpdateCompanyRequest struct {
-	// CustomAttributes A hash of key/value pairs containing any other data about the company you want Intercom to store.
-	//
-	// Example: {"monthly_spend":155.5,"paid_subscriber":true,"team_mates":9}
-	CustomAttributes *map[string]string `json:"custom_attributes,omitempty"`
-
-	// Industry The industry that this company operates in.
-	//
-	// Example: Manufacturing
-	Industry *string `json:"industry,omitempty"`
-
-	// MonthlySpend How much revenue the company generates for your business. Note that this will truncate floats. i.e. it only allow for whole integers, 155.98 will be truncated to 155. Note that this has an upper limit of 2**31-1 or 2147483647..
-	//
-	// Example: 1000
-	MonthlySpend *int `json:"monthly_spend,omitempty"`
-
-	// Name The name of the Company
-	//
-	// Example: Intercom
-	Name *string `json:"name,omitempty"`
-
-	// Plan The name of the plan you have associated with the company.
-	//
-	// Example: Enterprise
-	Plan *string `json:"plan,omitempty"`
-
-	// Size The number of employees in this company.
-	//
-	// Example: 100
-	Size *int `json:"size,omitempty"`
-
-	// Website The URL for this company's website. Please note that the value specified here is not validated. Accepts any string.
-	//
-	// Example: https://www.example.com
-	Website *string `json:"website,omitempty"`
 }

@@ -16,6 +16,1240 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// RetrieveDataConnectorVersion Retrieve a version of a data connector
+//
+// Retrieve a single version of a data connector, including the connector configuration as it was at that version.
+//
+// Requires the `read_data_connector_versions` or `read_write_data_connector_versions` OAuth scope.
+//
+// Corresponds with GET /data_connectors/{id}/versions/{version_id} (the `RetrieveDataConnectorVersion` operationId).
+func (c *Client) RetrieveDataConnectorVersion(ctx context.Context, id string, versionId int, params *RetrieveDataConnectorVersionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetrieveDataConnectorVersionRequest(c.Server, id, versionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateDataConnectorVersionWithBody Update the note on a data connector version
+//
+// Update the note on a data connector version. The note is the only field that can be changed. This does not publish the version or roll the connector back to it.
+//
+// Send an empty string to clear the note.
+//
+// Requires the `read_write_data_connector_versions` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PATCH /data_connectors/{id}/versions/{version_id} (the `UpdateDataConnectorVersion` operationId).
+func (c *Client) UpdateDataConnectorVersionWithBody(ctx context.Context, id string, versionId int, params *UpdateDataConnectorVersionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateDataConnectorVersionRequestWithBody(c.Server, id, versionId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateDataConnectorVersion Update the note on a data connector version
+//
+// Update the note on a data connector version. The note is the only field that can be changed. This does not publish the version or roll the connector back to it.
+//
+// Send an empty string to clear the note.
+//
+// Requires the `read_write_data_connector_versions` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PATCH /data_connectors/{id}/versions/{version_id} (the `UpdateDataConnectorVersion` operationId).
+func (c *Client) UpdateDataConnectorVersion(ctx context.Context, id string, versionId int, params *UpdateDataConnectorVersionParams, body UpdateDataConnectorVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateDataConnectorVersionRequest(c.Server, id, versionId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DownloadDataExport Download content data export
+//
+// When a job has a status of complete, and thus a filled download_url, you can download your data by hitting that provided URL, formatted like so: https://api.intercom.io/download/content/data/xyz1234.
+//
+// Your exported message data will be streamed continuously back down to you in a gzipped CSV format.
+//
+// > 📘 Octet header required
+// >
+// > You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+//
+// Corresponds with GET /download/content/data/{job_identifier} (the `DownloadDataExport` operationId).
+func (c *Client) DownloadDataExport(ctx context.Context, jobIdentifier string, params *DownloadDataExportParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDownloadDataExportRequest(c.Server, jobIdentifier, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetDownloadReportingDataJobIdentifier Download completed export job data
+//
+// Download the data from a completed reporting data export job.
+//
+// > Octet header required
+// >
+// > You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+//
+// Corresponds with GET /download/reporting_data/{job_identifier} (the `GetDownloadReportingDataJobIdentifier` operationId).
+func (c *Client) GetDownloadReportingDataJobIdentifier(ctx context.Context, jobIdentifier string, params *GetDownloadReportingDataJobIdentifierParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetDownloadReportingDataJobIdentifierRequest(c.Server, jobIdentifier, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListDynamicContents List all dynamic content
+//
+// You can fetch a list of all dynamic content for a workspace, most recently updated first. Requires the `read_dynamic_content` scope.
+//
+// Corresponds with GET /dynamic_contents (the `ListDynamicContents` operationId).
+func (c *Client) ListDynamicContents(ctx context.Context, params *ListDynamicContentsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListDynamicContentsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateDynamicContentWithBody Create dynamic content
+//
+// You can create dynamic content. Requires the `read_write_dynamic_content` scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /dynamic_contents (the `CreateDynamicContent` operationId).
+func (c *Client) CreateDynamicContentWithBody(ctx context.Context, params *CreateDynamicContentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateDynamicContentRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateDynamicContent Create dynamic content
+//
+// You can create dynamic content. Requires the `read_write_dynamic_content` scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /dynamic_contents (the `CreateDynamicContent` operationId).
+func (c *Client) CreateDynamicContent(ctx context.Context, params *CreateDynamicContentParams, body CreateDynamicContentJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateDynamicContentRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DeleteDynamicContent Delete dynamic content
+//
+// You can delete a single dynamic content by its id. Dynamic content that is still used in an article can't be deleted. Requires the `read_write_dynamic_content` scope.
+//
+// Corresponds with DELETE /dynamic_contents/{id} (the `DeleteDynamicContent` operationId).
+func (c *Client) DeleteDynamicContent(ctx context.Context, id string, params *DeleteDynamicContentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteDynamicContentRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetDynamicContent Retrieve dynamic content
+//
+// You can fetch a single dynamic content by its id. Requires the `read_dynamic_content` scope.
+//
+// Corresponds with GET /dynamic_contents/{id} (the `GetDynamicContent` operationId).
+func (c *Client) GetDynamicContent(ctx context.Context, id string, params *GetDynamicContentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetDynamicContentRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateDynamicContentWithBody Update dynamic content
+//
+// You can update existing dynamic content. Only the fields you provide are changed. Requires the `read_write_dynamic_content` scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /dynamic_contents/{id} (the `UpdateDynamicContent` operationId).
+func (c *Client) UpdateDynamicContentWithBody(ctx context.Context, id string, params *UpdateDynamicContentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateDynamicContentRequestWithBody(c.Server, id, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateDynamicContent Update dynamic content
+//
+// You can update existing dynamic content. Only the fields you provide are changed. Requires the `read_write_dynamic_content` scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /dynamic_contents/{id} (the `UpdateDynamicContent` operationId).
+func (c *Client) UpdateDynamicContent(ctx context.Context, id string, params *UpdateDynamicContentParams, body UpdateDynamicContentJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateDynamicContentRequest(c.Server, id, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListEmails List all email settings
+//
+// Lists all sender email address settings for the workspace.
+//
+// Corresponds with GET /emails (the `ListEmails` operationId).
+func (c *Client) ListEmails(ctx context.Context, params *ListEmailsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RetrieveEmail Retrieve an email setting
+//
+// Fetches a specific email setting by its unique identifier.
+//
+// Corresponds with GET /emails/{id} (the `RetrieveEmail` operationId).
+func (c *Client) RetrieveEmail(ctx context.Context, id string, params *RetrieveEmailParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetrieveEmailRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// LisDataEvents List all data events
+//
+// > 🚧
+// >
+// > Please note that you can only 'list' events that are less than 90 days old. Event counts and summaries will still include your events older than 90 days but you cannot 'list' these events individually if they are older than 90 days
+//
+// The events belonging to a customer can be listed by sending a GET request to `https://api.intercom.io/events` with a user or lead identifier along with a `type` parameter. The identifier parameter can be one of `user_id`, `email` or `intercom_user_id`. The `type` parameter value must be `user`.
+//
+// - `https://api.intercom.io/events?type=user&user_id={user_id}`
+// - `https://api.intercom.io/events?type=user&email={email}`
+// - `https://api.intercom.io/events?type=user&intercom_user_id={id}` (this call can be used to list leads)
+//
+// The `email` parameter value should be [url encoded](http://en.wikipedia.org/wiki/Percent-encoding) when sending.
+//
+// You can optionally define the result page size as well with the `per_page` parameter.
+//
+// Corresponds with GET /events (the `LisDataEvents` operationId).
+func (c *Client) LisDataEvents(ctx context.Context, params *LisDataEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLisDataEventsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateDataEventWithBody Submit a data event
+//
+// You will need an Access Token that has write permissions to send Events. Once you have a key you can submit events via POST to the Events resource, which is located at https://api.intercom.io/events, or you can send events using one of the client libraries. When working with the HTTP API directly a client should send the event with a `Content-Type` of `application/json`.
+//
+// When using the JavaScript API, [adding the code to your app](http://docs.intercom.io/configuring-Intercom/tracking-user-events-in-your-app) makes the Events API available. Once added, you can submit an event using the `trackEvent` method. This will associate the event with the Lead or currently logged-in user or logged-out visitor/lead and send it to Intercom. The final parameter is a map that can be used to send optional metadata about the event.
+//
+// With the Ruby client you pass a hash describing the event to `Intercom::Event.create`, or call the `track_user` method directly on the current user object (e.g. `user.track_event`).
+//
+// **NB: For the JSON object types, please note that we do not currently support nested JSON structure.**
+//
+// | Type            | Description                                                                                                                                                                                                     | Example                                                                           |
+// | :-------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
+// | String          | The value is a JSON String                                                                                                                                                                                      | `"source":"desktop"`                                                              |
+// | Number          | The value is a JSON Number                                                                                                                                                                                      | `"load": 3.67`                                                                    |
+// | Date            | The key ends with the String `_date` and the value is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), assumed to be in the [UTC](http://en.wikipedia.org/wiki/Coordinated_Universal_Time) timezone. | `"contact_date": 1392036272`                                                      |
+// | Link            | The value is a HTTP or HTTPS URI.                                                                                                                                                                               | `"article": "https://example.org/ab1de.html"`                                     |
+// | Rich Link       | The value is a JSON object that contains `url` and `value` keys.                                                                                                                                                | `"article": {"url": "https://example.org/ab1de.html", "value":"the dude abides"}` |
+// | Monetary Amount | The value is a JSON object that contains `amount` and `currency` keys. The `amount` key is a positive integer representing the amount in cents. The price in the example to the right denotes €349.99.          | `"price": {"amount": 34999, "currency": "eur"}`                                   |
+//
+// **Lead Events**
+//
+// When submitting events for Leads, you will need to specify the Lead's `id`.
+//
+// **Metadata behaviour**
+//
+// - We currently limit the number of tracked metadata keys to 10 per event. Once the quota is reached, we ignore any further keys we receive. The first 10 metadata keys are determined by the order in which they are sent in with the event.
+// - It is not possible to change the metadata keys once the event has been sent. A new event will need to be created with the new keys and you can archive the old one.
+// - There might be up to 24 hrs delay when you send a new metadata for an existing event.
+//
+// **Event de-duplication**
+//
+// The API may detect and ignore duplicate events. Each event is uniquely identified as a combination of the following data - the Workspace identifier, the Contact external identifier, the Data Event name and the Data Event created time. As a result, it is **strongly recommended** to send a second granularity Unix timestamp in the `created_at` field.
+//
+// Duplicated events are responded to using the normal `202 Accepted` code - an error is not thrown, however repeat requests will be counted against any rate limit that is in place.
+//
+// ### HTTP API Responses
+//
+// - Successful responses to submitted events return `202 Accepted` with an empty body.
+// - Unauthorised access will be rejected with a `401 Unauthorized` or `403 Forbidden` response code.
+// - Events sent about users that cannot be found will return a `404 Not Found`.
+// - Event lists containing duplicate events will have those duplicates ignored.
+// - Server errors will return a `500` response code and may contain an error message in the body.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /events (the `CreateDataEvent` operationId).
+func (c *Client) CreateDataEventWithBody(ctx context.Context, params *CreateDataEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateDataEventRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateDataEvent Submit a data event
+//
+// You will need an Access Token that has write permissions to send Events. Once you have a key you can submit events via POST to the Events resource, which is located at https://api.intercom.io/events, or you can send events using one of the client libraries. When working with the HTTP API directly a client should send the event with a `Content-Type` of `application/json`.
+//
+// When using the JavaScript API, [adding the code to your app](http://docs.intercom.io/configuring-Intercom/tracking-user-events-in-your-app) makes the Events API available. Once added, you can submit an event using the `trackEvent` method. This will associate the event with the Lead or currently logged-in user or logged-out visitor/lead and send it to Intercom. The final parameter is a map that can be used to send optional metadata about the event.
+//
+// With the Ruby client you pass a hash describing the event to `Intercom::Event.create`, or call the `track_user` method directly on the current user object (e.g. `user.track_event`).
+//
+// **NB: For the JSON object types, please note that we do not currently support nested JSON structure.**
+//
+// | Type            | Description                                                                                                                                                                                                     | Example                                                                           |
+// | :-------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
+// | String          | The value is a JSON String                                                                                                                                                                                      | `"source":"desktop"`                                                              |
+// | Number          | The value is a JSON Number                                                                                                                                                                                      | `"load": 3.67`                                                                    |
+// | Date            | The key ends with the String `_date` and the value is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), assumed to be in the [UTC](http://en.wikipedia.org/wiki/Coordinated_Universal_Time) timezone. | `"contact_date": 1392036272`                                                      |
+// | Link            | The value is a HTTP or HTTPS URI.                                                                                                                                                                               | `"article": "https://example.org/ab1de.html"`                                     |
+// | Rich Link       | The value is a JSON object that contains `url` and `value` keys.                                                                                                                                                | `"article": {"url": "https://example.org/ab1de.html", "value":"the dude abides"}` |
+// | Monetary Amount | The value is a JSON object that contains `amount` and `currency` keys. The `amount` key is a positive integer representing the amount in cents. The price in the example to the right denotes €349.99.          | `"price": {"amount": 34999, "currency": "eur"}`                                   |
+//
+// **Lead Events**
+//
+// When submitting events for Leads, you will need to specify the Lead's `id`.
+//
+// **Metadata behaviour**
+//
+// - We currently limit the number of tracked metadata keys to 10 per event. Once the quota is reached, we ignore any further keys we receive. The first 10 metadata keys are determined by the order in which they are sent in with the event.
+// - It is not possible to change the metadata keys once the event has been sent. A new event will need to be created with the new keys and you can archive the old one.
+// - There might be up to 24 hrs delay when you send a new metadata for an existing event.
+//
+// **Event de-duplication**
+//
+// The API may detect and ignore duplicate events. Each event is uniquely identified as a combination of the following data - the Workspace identifier, the Contact external identifier, the Data Event name and the Data Event created time. As a result, it is **strongly recommended** to send a second granularity Unix timestamp in the `created_at` field.
+//
+// Duplicated events are responded to using the normal `202 Accepted` code - an error is not thrown, however repeat requests will be counted against any rate limit that is in place.
+//
+// ### HTTP API Responses
+//
+// - Successful responses to submitted events return `202 Accepted` with an empty body.
+// - Unauthorised access will be rejected with a `401 Unauthorized` or `403 Forbidden` response code.
+// - Events sent about users that cannot be found will return a `404 Not Found`.
+// - Event lists containing duplicate events will have those duplicates ignored.
+// - Server errors will return a `500` response code and may contain an error message in the body.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /events (the `CreateDataEvent` operationId).
+func (c *Client) CreateDataEvent(ctx context.Context, params *CreateDataEventParams, body CreateDataEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateDataEventRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DataEventSummariesWithBody Create event summaries
+//
+// Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /events/summaries (the `DataEventSummaries` operationId).
+func (c *Client) DataEventSummariesWithBody(ctx context.Context, params *DataEventSummariesParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDataEventSummariesRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DataEventSummaries Create event summaries
+//
+// Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /events/summaries (the `DataEventSummaries` operationId).
+func (c *Client) DataEventSummaries(ctx context.Context, params *DataEventSummariesParams, body DataEventSummariesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDataEventSummariesRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CancelDataExport Cancel content data export
+//
+// You can cancel your job.
+//
+// Corresponds with POST /export/cancel/{job_identifier} (the `CancelDataExport` operationId).
+func (c *Client) CancelDataExport(ctx context.Context, jobIdentifier string, params *CancelDataExportParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCancelDataExportRequest(c.Server, jobIdentifier, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateDataExportWithBody Create content data export
+//
+// To create your export job, you need to send a `POST` request to the export endpoint `https://api.intercom.io/export/content/data`.
+//
+// This endpoint exports **message delivery and engagement data** for outbound content (Emails, Posts, Custom Bots, Surveys, Tours, Series, and more). The exported data includes who received each message, when they received it, and how they engaged with it (opens, clicks, replies, completions, dismissals, unsubscribes, and bounces). It does not export raw message or conversation content.
+//
+// The only parameters you need to provide are the range of dates that you want exported.
+//
+// >🚧 Limit of one active job
+// >
+// > You can only have one active job per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 1 pending message data export jobs if you attempt to create a second concurrent job.
+//
+// >❗️ Updated_at not included
+// >
+// > It should be noted that the timeframe only includes messages sent during the time period and not messages that were only updated during this period. For example, if a message was updated yesterday but sent two days ago, you would need to set the created_at_after date before the message was sent to include that in your retrieval job.
+//
+// >📘 Date ranges are inclusive
+// >
+// > Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /export/content/data (the `CreateDataExport` operationId).
+func (c *Client) CreateDataExportWithBody(ctx context.Context, params *CreateDataExportParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateDataExportRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateDataExport Create content data export
+//
+// To create your export job, you need to send a `POST` request to the export endpoint `https://api.intercom.io/export/content/data`.
+//
+// This endpoint exports **message delivery and engagement data** for outbound content (Emails, Posts, Custom Bots, Surveys, Tours, Series, and more). The exported data includes who received each message, when they received it, and how they engaged with it (opens, clicks, replies, completions, dismissals, unsubscribes, and bounces). It does not export raw message or conversation content.
+//
+// The only parameters you need to provide are the range of dates that you want exported.
+//
+// >🚧 Limit of one active job
+// >
+// > You can only have one active job per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 1 pending message data export jobs if you attempt to create a second concurrent job.
+//
+// >❗️ Updated_at not included
+// >
+// > It should be noted that the timeframe only includes messages sent during the time period and not messages that were only updated during this period. For example, if a message was updated yesterday but sent two days ago, you would need to set the created_at_after date before the message was sent to include that in your retrieval job.
+//
+// >📘 Date ranges are inclusive
+// >
+// > Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /export/content/data (the `CreateDataExport` operationId).
+func (c *Client) CreateDataExport(ctx context.Context, params *CreateDataExportParams, body CreateDataExportJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateDataExportRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetDataExport Show content data export
+//
+// You can view the status of your job by sending a `GET` request to the URL
+// `https://api.intercom.io/export/content/data/{job_identifier}` - the `{job_identifier}` is the value returned in the response when you first created the export job. More on it can be seen in the Export Job Model.
+//
+// > 🚧 Jobs expire after two days
+// > All jobs that have completed processing (and are thus available to download from the provided URL) will have an expiry limit of two days from when the export ob completed. After this, the data will no longer be available.
+//
+// Corresponds with GET /export/content/data/{job_identifier} (the `GetDataExport` operationId).
+func (c *Client) GetDataExport(ctx context.Context, jobIdentifier string, params *GetDataExportParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetDataExportRequest(c.Server, jobIdentifier, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// PostExportReportingDataEnqueueWithBody Enqueue a new reporting data export job
+//
+// For the conversation dataset, from this version onward this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /export/reporting_data/enqueue (the `PostExportReportingDataEnqueue` operationId).
+func (c *Client) PostExportReportingDataEnqueueWithBody(ctx context.Context, params *PostExportReportingDataEnqueueParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostExportReportingDataEnqueueRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// PostExportReportingDataEnqueue Enqueue a new reporting data export job
+//
+// For the conversation dataset, from this version onward this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /export/reporting_data/enqueue (the `PostExportReportingDataEnqueue` operationId).
+func (c *Client) PostExportReportingDataEnqueue(ctx context.Context, params *PostExportReportingDataEnqueueParams, body PostExportReportingDataEnqueueJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostExportReportingDataEnqueueRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetExportReportingDataGetDatasets List available datasets and attributes
+//
+// Corresponds with GET /export/reporting_data/get_datasets (the `GetExportReportingDataGetDatasets` operationId).
+func (c *Client) GetExportReportingDataGetDatasets(ctx context.Context, params *GetExportReportingDataGetDatasetsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetExportReportingDataGetDatasetsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetExportReportingDataJobIdentifier Get export job status
+//
+// Corresponds with GET /export/reporting_data/{job_identifier} (the `GetExportReportingDataJobIdentifier` operationId).
+func (c *Client) GetExportReportingDataJobIdentifier(ctx context.Context, jobIdentifier string, params *GetExportReportingDataJobIdentifierParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetExportReportingDataJobIdentifierRequest(c.Server, jobIdentifier, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ExportWorkflow Export a workflow
+//
+// Export a workflow configuration by its ID. This endpoint returns the complete workflow definition including its steps, targeting rules, and attributes.
+//
+// This endpoint is designed for EU Data Act compliance, allowing customers to export their workflow configurations.
+//
+// Corresponds with GET /export/workflows/{id} (the `ExportWorkflow` operationId).
+func (c *Client) ExportWorkflow(ctx context.Context, id string, params *ExportWorkflowParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewExportWorkflowRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AskFinWithBody Ask Fin
+//
+// Ask Fin a single, self-contained question and receive one informational answer.
+//
+// Unlike a conversation, `/fin/ask` is non-conversational: Fin will not ask follow-up
+// questions, will not run procedures, and will not escalate to a human on its own. You can
+// still escalate one yourself with `POST /fin/escalate`; the ask conversation is already
+// closed after its one-shot answer, and escalation leaves it closed while routing the
+// handoff separately.
+//
+// Fin's answer is delivered asynchronously via the `fin_replied` event. The conversation
+// ends with a `complete` status — there is no `awaiting_user_reply` cycle.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /fin/ask (the `AskFin` operationId).
+func (c *Client) AskFinWithBody(ctx context.Context, params *AskFinParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAskFinRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AskFin Ask Fin
+//
+// Ask Fin a single, self-contained question and receive one informational answer.
+//
+// Unlike a conversation, `/fin/ask` is non-conversational: Fin will not ask follow-up
+// questions, will not run procedures, and will not escalate to a human on its own. You can
+// still escalate one yourself with `POST /fin/escalate`; the ask conversation is already
+// closed after its one-shot answer, and escalation leaves it closed while routing the
+// handoff separately.
+//
+// Fin's answer is delivered asynchronously via the `fin_replied` event. The conversation
+// ends with a `complete` status — there is no `awaiting_user_reply` cycle.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /fin/ask (the `AskFin` operationId).
+func (c *Client) AskFin(ctx context.Context, params *AskFinParams, body AskFinJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAskFinRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListFinCapabilitiesWithBody Discover Fin's capabilities
+//
+// Return a machine-readable, per-user list of what Fin can do for a given end user, so an
+// orchestrating agent can decide which endpoint to call.
+//
+// The response is audience-matched to the supplied user: each live, API-triggerable
+// procedure is checked against that user before being included, alongside the static
+// `reply` and `ask` actions.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /fin/capabilities (the `ListFinCapabilities` operationId).
+func (c *Client) ListFinCapabilitiesWithBody(ctx context.Context, params *ListFinCapabilitiesParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListFinCapabilitiesRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListFinCapabilities Discover Fin's capabilities
+//
+// Return a machine-readable, per-user list of what Fin can do for a given end user, so an
+// orchestrating agent can decide which endpoint to call.
+//
+// The response is audience-matched to the supplied user: each live, API-triggerable
+// procedure is checked against that user before being included, alongside the static
+// `reply` and `ask` actions.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /fin/capabilities (the `ListFinCapabilities` operationId).
+func (c *Client) ListFinCapabilities(ctx context.Context, params *ListFinCapabilitiesParams, body ListFinCapabilitiesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListFinCapabilitiesRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SubmitFinCsatWithBody Submit a CSAT rating
+//
+// Record a customer's satisfaction rating for a conversation, with an optional free-text
+// remark.
+//
+// Fin decides *when* to ask for a rating — this reuses the CSAT settings on your Fin
+// workflow, not this API. When Fin asks, it fires a `csat_requested` event over webhooks or
+// SSE carrying the rating options to show the user. Present those options, then submit the
+// user's choice here.
+//
+// Submitting the same rating again, with no new remark, is a no-op and stays successful,
+// so an at-least-once client can safely retry. Submitting a *different* rating updates the
+// stored rating while the update window is still open, and a first remark can be added to
+// an already-rated survey. Once a remark has been recorded the rating is locked and can no
+// longer be changed.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /fin/csat (the `SubmitFinCsat` operationId).
+func (c *Client) SubmitFinCsatWithBody(ctx context.Context, params *SubmitFinCsatParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSubmitFinCsatRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SubmitFinCsat Submit a CSAT rating
+//
+// Record a customer's satisfaction rating for a conversation, with an optional free-text
+// remark.
+//
+// Fin decides *when* to ask for a rating — this reuses the CSAT settings on your Fin
+// workflow, not this API. When Fin asks, it fires a `csat_requested` event over webhooks or
+// SSE carrying the rating options to show the user. Present those options, then submit the
+// user's choice here.
+//
+// Submitting the same rating again, with no new remark, is a no-op and stays successful,
+// so an at-least-once client can safely retry. Submitting a *different* rating updates the
+// stored rating while the update window is still open, and a first remark can be added to
+// an already-rated survey. Once a remark has been recorded the rating is locked and can no
+// longer be changed.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /fin/csat (the `SubmitFinCsat` operationId).
+func (c *Client) SubmitFinCsat(ctx context.Context, params *SubmitFinCsatParams, body SubmitFinCsatJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSubmitFinCsatRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// EscalateFinConversationWithBody Escalate to a human
+//
+// Hand a conversation off to a human teammate. If you use the Intercom Helpdesk, the
+// handoff lands in your team inbox.
+//
+// Provide either `conversation_id` or `user`:
+//
+//   - `conversation_id` — escalate an existing agent conversation, including one started
+//     with `/fin/ask`. On the Intercom Helpdesk, Fin by default summarises the conversation
+//     and opens a new Helpdesk conversation that carries the summary as an internal note.
+//     Escalation does not change the original agent conversation's assignment or open/closed
+//     state. Configure an escalation Operator Workflow to change this default.
+//   - `user` — escalate on behalf of a user with no prior agent conversation. On the Intercom
+//     Helpdesk, a new Helpdesk conversation is created for the teammate. Not supported on Fin
+//     for Platforms — see below.
+//
+// In both cases, pass the optional `context` to give the receiving teammate background your
+// orchestrating agent has and Fin does not. On the Intercom Helpdesk, it appears above the
+// summary in the internal note of the new conversation the teammate picks up. It is never
+// shown to the end user.
+//
+// Escalating an existing conversation also sets its AI Agent resolution state to
+// `escalated`, readable as `ai_agent.resolution_state` on the Conversations API. This is a
+// resolution state, not a billable resolution.
+//
+// On Fin for Platforms, `conversation_id` is required — `user` is not supported and is
+// rejected, because there is no Intercom Helpdesk in which to create a conversation. There
+// is no Intercom inbox either, so an escalation that no workflow handles does not open a
+// Helpdesk conversation for a teammate. `context` is not surfaced, and the conversation is
+// left open for your platform to hand off and continue driving.
+//
+// You are notified over the existing webhook or SSE channel with an `escalated` status
+// followed by `complete`. The `complete` status signals that Fin is done; it does not close
+// the conversation. On the Intercom Helpdesk, the new human conversation remains open; on
+// Fin for Platforms, the conversation remains open for whoever handles it on your platform.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /fin/escalate (the `EscalateFinConversation` operationId).
+func (c *Client) EscalateFinConversationWithBody(ctx context.Context, params *EscalateFinConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewEscalateFinConversationRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// EscalateFinConversation Escalate to a human
+//
+// Hand a conversation off to a human teammate. If you use the Intercom Helpdesk, the
+// handoff lands in your team inbox.
+//
+// Provide either `conversation_id` or `user`:
+//
+//   - `conversation_id` — escalate an existing agent conversation, including one started
+//     with `/fin/ask`. On the Intercom Helpdesk, Fin by default summarises the conversation
+//     and opens a new Helpdesk conversation that carries the summary as an internal note.
+//     Escalation does not change the original agent conversation's assignment or open/closed
+//     state. Configure an escalation Operator Workflow to change this default.
+//   - `user` — escalate on behalf of a user with no prior agent conversation. On the Intercom
+//     Helpdesk, a new Helpdesk conversation is created for the teammate. Not supported on Fin
+//     for Platforms — see below.
+//
+// In both cases, pass the optional `context` to give the receiving teammate background your
+// orchestrating agent has and Fin does not. On the Intercom Helpdesk, it appears above the
+// summary in the internal note of the new conversation the teammate picks up. It is never
+// shown to the end user.
+//
+// Escalating an existing conversation also sets its AI Agent resolution state to
+// `escalated`, readable as `ai_agent.resolution_state` on the Conversations API. This is a
+// resolution state, not a billable resolution.
+//
+// On Fin for Platforms, `conversation_id` is required — `user` is not supported and is
+// rejected, because there is no Intercom Helpdesk in which to create a conversation. There
+// is no Intercom inbox either, so an escalation that no workflow handles does not open a
+// Helpdesk conversation for a teammate. `context` is not surfaced, and the conversation is
+// left open for your platform to hand off and continue driving.
+//
+// You are notified over the existing webhook or SSE channel with an `escalated` status
+// followed by `complete`. The `complete` status signals that Fin is done; it does not close
+// the conversation. On the Intercom Helpdesk, the new human conversation remains open; on
+// Fin for Platforms, the conversation remains open for whoever handles it on your platform.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /fin/escalate (the `EscalateFinConversation` operationId).
+func (c *Client) EscalateFinConversation(ctx context.Context, params *EscalateFinConversationParams, body EscalateFinConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewEscalateFinConversationRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RunFinProcedureWithBody Run a Fin procedure
+//
+// Deterministically run a specific procedure on a new conversation. Calling this endpoint
+// guarantees that the named procedure runs — there is no non-deterministic routing.
+//
+// Fin's progress is delivered asynchronously via events or Server-Sent Events. If the
+// procedure pauses for user input, the conversation status becomes `awaiting_user_reply` —
+// send the user's response with [`/fin/reply`](/docs/references/rest-api/api.intercom.io/fin-agent/replytofin).
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /fin/procedures/{procedure_id}/run (the `RunFinProcedure` operationId).
+func (c *Client) RunFinProcedureWithBody(ctx context.Context, procedureId string, params *RunFinProcedureParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRunFinProcedureRequestWithBody(c.Server, procedureId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RunFinProcedure Run a Fin procedure
+//
+// Deterministically run a specific procedure on a new conversation. Calling this endpoint
+// guarantees that the named procedure runs — there is no non-deterministic routing.
+//
+// Fin's progress is delivered asynchronously via events or Server-Sent Events. If the
+// procedure pauses for user input, the conversation status becomes `awaiting_user_reply` —
+// send the user's response with [`/fin/reply`](/docs/references/rest-api/api.intercom.io/fin-agent/replytofin).
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /fin/procedures/{procedure_id}/run (the `RunFinProcedure` operationId).
+func (c *Client) RunFinProcedure(ctx context.Context, procedureId string, params *RunFinProcedureParams, body RunFinProcedureJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRunFinProcedureRequest(c.Server, procedureId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ReplyToFinWithBody Reply to Fin
+//
+// Once Fin has returned a response to a user's message, its status will be `awaiting_user_reply`.
+//
+// If a user replies, use this endpoint to send this response to Fin.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /fin/reply (the `ReplyToFin` operationId).
+func (c *Client) ReplyToFinWithBody(ctx context.Context, params *ReplyToFinParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewReplyToFinRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ReplyToFin Reply to Fin
+//
+// Once Fin has returned a response to a user's message, its status will be `awaiting_user_reply`.
+//
+// If a user replies, use this endpoint to send this response to Fin.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /fin/reply (the `ReplyToFin` operationId).
+func (c *Client) ReplyToFin(ctx context.Context, params *ReplyToFinParams, body ReplyToFinJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewReplyToFinRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// StartFinConversationWithBody Start a conversation with Fin
+//
+// Initialize Fin by passing it the user's message along with conversation history and user details.
+//
+// These additional pieces of context will be used by Fin to provide a better and more contextual answer to the user.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Once Fin is initialized, it progresses through a series of statuses such as *thinking*, *replying*, *awaiting_user_reply*, or *resolved* before ending with a status of *complete*.
+//
+// During this workflow, the client should allow Fin to continue uninterrupted until a final *complete* status is returned via webhook, at which point control of the conversation passes back to the client.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /fin/start (the `StartFinConversation` operationId).
+func (c *Client) StartFinConversationWithBody(ctx context.Context, params *StartFinConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewStartFinConversationRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// StartFinConversation Start a conversation with Fin
+//
+// Initialize Fin by passing it the user's message along with conversation history and user details.
+//
+// These additional pieces of context will be used by Fin to provide a better and more contextual answer to the user.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Once Fin is initialized, it progresses through a series of statuses such as *thinking*, *replying*, *awaiting_user_reply*, or *resolved* before ending with a status of *complete*.
+//
+// During this workflow, the client should allow Fin to continue uninterrupted until a final *complete* status is returned via webhook, at which point control of the conversation passes back to the client.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /fin/start (the `StartFinConversation` operationId).
+func (c *Client) StartFinConversation(ctx context.Context, params *StartFinConversationParams, body StartFinConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewStartFinConversationRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CollectFinVoiceCallById Collect Fin Voice call by ID
+//
+// Retrieve information about a Fin Voice call using the external reference ID.
+//
+// Corresponds with GET /fin_voice/collect/{id} (the `CollectFinVoiceCallById` operationId).
+func (c *Client) CollectFinVoiceCallById(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCollectFinVoiceCallByIdRequest(c.Server, id)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CollectFinVoiceCallsByConversationId Collect Fin Voice calls by conversation ID
+//
+// Retrieve information about Fin Voice calls associated with a conversation.
+//
+// Returns all matched calls for the given conversation ID. A conversation may have multiple associated calls.
+//
+// Corresponds with GET /fin_voice/conversation/{conversation_id} (the `CollectFinVoiceCallsByConversationId` operationId).
+func (c *Client) CollectFinVoiceCallsByConversationId(ctx context.Context, conversationId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCollectFinVoiceCallsByConversationIdRequest(c.Server, conversationId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CollectFinVoiceCallByExternalId Collect Fin Voice call by external ID
+//
+// Retrieve information about a Fin Voice call using the external call identifier.
+//
+// Corresponds with GET /fin_voice/external_id/{external_id} (the `CollectFinVoiceCallByExternalId` operationId).
+func (c *Client) CollectFinVoiceCallByExternalId(ctx context.Context, externalId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCollectFinVoiceCallByExternalIdRequest(c.Server, externalId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CollectFinVoiceCallByPhoneNumber Collect Fin Voice call by phone number
+//
+// Retrieve information about a Fin Voice call using the phone number.
+//
+// Returns the most recent matched call for the given phone number, ordered by creation date.
+//
+// Corresponds with GET /fin_voice/phone_number/{phone_number} (the `CollectFinVoiceCallByPhoneNumber` operationId).
+func (c *Client) CollectFinVoiceCallByPhoneNumber(ctx context.Context, phoneNumber string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCollectFinVoiceCallByPhoneNumberRequest(c.Server, phoneNumber)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RegisterFinVoiceCallWithBody Register a Fin Voice call
+//
+// Register a Fin Voice call with Intercom. This endpoint creates an external reference
+// that links an external call identifier to an Intercom call and conversation.
+//
+// The call can be from different sources:
+// - AWS Connect (default)
+// - Five9
+// - Zoom Phone
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /fin_voice/register (the `RegisterFinVoiceCall` operationId).
+func (c *Client) RegisterFinVoiceCallWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegisterFinVoiceCallRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RegisterFinVoiceCall Register a Fin Voice call
+//
+// Register a Fin Voice call with Intercom. This endpoint creates an external reference
+// that links an external call identifier to an Intercom call and conversation.
+//
+// The call can be from different sources:
+// - AWS Connect (default)
+// - Five9
+// - Zoom Phone
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /fin_voice/register (the `RegisterFinVoiceCall` operationId).
+func (c *Client) RegisterFinVoiceCall(ctx context.Context, body RegisterFinVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegisterFinVoiceCallRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // ListFolders List all folders
 //
 // You can fetch a list of all folders for organizing content by making a GET request to `https://api.intercom.io/folders`.
@@ -147,7 +1381,7 @@ func (c *Client) UpdateFolder(ctx context.Context, id int, params *UpdateFolderP
 //
 // You can fetch a list of all collections by making a GET request to `https://api.intercom.io/help_center/collections`.
 //
-// Collections will be returned in descending order on the `updated_at` attribute. This means if you need to iterate through results then we'll show the most recently updated collections first.
+// Requires the `read_articles_scope` OAuth scope.
 //
 // Corresponds with GET /help_center/collections (the `ListAllCollections` operationId).
 func (c *Client) ListAllCollections(ctx context.Context, params *ListAllCollectionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -164,7 +1398,9 @@ func (c *Client) ListAllCollections(ctx context.Context, params *ListAllCollecti
 
 // CreateCollectionWithBody Create a collection
 //
-// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections.`
+// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -183,7 +1419,9 @@ func (c *Client) CreateCollectionWithBody(ctx context.Context, params *CreateCol
 
 // CreateCollection Create a collection
 //
-// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections.`
+// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -202,7 +1440,9 @@ func (c *Client) CreateCollection(ctx context.Context, params *CreateCollectionP
 
 // DeleteCollection Delete a collection
 //
-// You can delete a single collection by making a DELETE request to `https://api.intercom.io/collections/<id>`.
+// You can delete a single collection by making a DELETE request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Corresponds with DELETE /help_center/collections/{collection_id} (the `DeleteCollection` operationId).
 func (c *Client) DeleteCollection(ctx context.Context, collectionId int, params *DeleteCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -221,6 +1461,8 @@ func (c *Client) DeleteCollection(ctx context.Context, collectionId int, params 
 //
 // You can fetch the details of a single collection by making a GET request to `https://api.intercom.io/help_center/collections/<id>`.
 //
+// Requires the `read_articles_scope` OAuth scope.
+//
 // Corresponds with GET /help_center/collections/{collection_id} (the `RetrieveCollection` operationId).
 func (c *Client) RetrieveCollection(ctx context.Context, collectionId int, params *RetrieveCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRetrieveCollectionRequest(c.Server, collectionId, params)
@@ -236,7 +1478,9 @@ func (c *Client) RetrieveCollection(ctx context.Context, collectionId int, param
 
 // UpdateCollectionWithBody Update a collection
 //
-// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/collections/<id>`.
+// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -255,7 +1499,9 @@ func (c *Client) UpdateCollectionWithBody(ctx context.Context, collectionId int,
 
 // UpdateCollection Update a collection
 //
-// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/collections/<id>`.
+// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -276,6 +1522,8 @@ func (c *Client) UpdateCollection(ctx context.Context, collectionId int, params 
 //
 // You can list all Help Centers by making a GET request to `https://api.intercom.io/help_center/help_centers`.
 //
+// Requires the `read_articles_scope` OAuth scope.
+//
 // Corresponds with GET /help_center/help_centers (the `ListHelpCenters` operationId).
 func (c *Client) ListHelpCenters(ctx context.Context, params *ListHelpCentersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListHelpCentersRequest(c.Server, params)
@@ -291,7 +1539,9 @@ func (c *Client) ListHelpCenters(ctx context.Context, params *ListHelpCentersPar
 
 // RetrieveHelpCenter Retrieve a Help Center
 //
-// You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_center/<id>`.
+// You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_centers/<id>`.
+//
+// Requires the `read_articles_scope` OAuth scope.
 //
 // Corresponds with GET /help_center/help_centers/{help_center_id} (the `RetrieveHelpCenter` operationId).
 func (c *Client) RetrieveHelpCenter(ctx context.Context, helpCenterId int, params *RetrieveHelpCenterParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -310,7 +1560,7 @@ func (c *Client) RetrieveHelpCenter(ctx context.Context, helpCenterId int, param
 //
 // You can fetch a list of all URL redirects for a help center by making a GET request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects`.
 //
-// Redirects are returned in descending order on the `updated_at` attribute.
+// Redirects are returned in ascending alphabetical order of `from_url`.
 //
 // Requires the `read_help_center_redirects_scope` OAuth scope.
 //
@@ -1453,6 +2703,23 @@ func (c *Client) ListSubscriptionTypes(ctx context.Context, params *ListSubscrip
 	return c.Client.Do(req)
 }
 
+// GetSubscriptionType Retrieve a subscription type
+//
+// You can fetch the details of a single subscription type by making a GET request to `https://api.intercom.io/subscription_types/<id>`.
+//
+// Corresponds with GET /subscription_types/{id} (the `GetSubscriptionType` operationId).
+func (c *Client) GetSubscriptionType(ctx context.Context, id string, params *GetSubscriptionTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSubscriptionTypeRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // ListTags List all tags
 //
 // You can fetch a list of all tags for a given workspace.
@@ -1926,7 +3193,7 @@ func (c *Client) EnqueueCreateTicket(ctx context.Context, params *EnqueueCreateT
 //
 //	Search queries can be complex, so optimizing them can help the performance of your search.
 //	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `20` results per page.
+//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
 //	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
 //
 // {% /admonition %}
@@ -1941,21 +3208,20 @@ func (c *Client) EnqueueCreateTicket(ctx context.Context, params *EnqueueCreateT
 // ### Accepted Fields
 //
 // Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
-// The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
+// Fields not in the table below, such as `source.body`, are rejected with a `400` error.
 //
 // | Field                                     | Type                                                                                     |
 // | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
-// | id                                        | String                                                                                   |
+// | id                                        | Integer                                                                                  |
 // | created_at                                | Date (UNIX timestamp)                                                                    |
 // | updated_at                                | Date (UNIX timestamp)                                                                    |
 // | title                           | String                                                                                   |
 // | description                     | String                                                                                   |
 // | category                                  | String                                                                                   |
-// | ticket_type_id                            | String                                                                                   |
+// | ticket_type_id                            | Integer                                                                                  |
 // | contact_ids                               | String                                                                                   |
-// | teammate_ids                              | String                                                                                   |
-// | admin_assignee_id                         | String                                                                                   |
-// | team_assignee_id                          | String                                                                                   |
+// | admin_assignee_id                         | Integer                                                                                  |
+// | team_assignee_id                          | Integer                                                                                  |
 // | open                                      | Boolean                                                                                  |
 // | state                                     | String                                                                                   |
 // | snoozed_until                             | Date (UNIX timestamp)                                                                    |
@@ -1967,6 +3233,10 @@ func (c *Client) EnqueueCreateTicket(ctx context.Context, params *EnqueueCreateT
 // * For **Back-office** category tickets, use the term `task`.
 // * For **Tracker** category tickets, use the term `tracker`.
 // {% /admonition %}
+//
+// ### Sorting
+//
+// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`, and any other value is treated as `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
 //
 // ### Accepted Operators
 //
@@ -2017,7 +3287,7 @@ func (c *Client) SearchTicketsWithBody(ctx context.Context, params *SearchTicket
 //
 //	Search queries can be complex, so optimizing them can help the performance of your search.
 //	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `20` results per page.
+//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
 //	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
 //
 // {% /admonition %}
@@ -2032,21 +3302,20 @@ func (c *Client) SearchTicketsWithBody(ctx context.Context, params *SearchTicket
 // ### Accepted Fields
 //
 // Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
-// The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
+// Fields not in the table below, such as `source.body`, are rejected with a `400` error.
 //
 // | Field                                     | Type                                                                                     |
 // | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
-// | id                                        | String                                                                                   |
+// | id                                        | Integer                                                                                  |
 // | created_at                                | Date (UNIX timestamp)                                                                    |
 // | updated_at                                | Date (UNIX timestamp)                                                                    |
 // | title                           | String                                                                                   |
 // | description                     | String                                                                                   |
 // | category                                  | String                                                                                   |
-// | ticket_type_id                            | String                                                                                   |
+// | ticket_type_id                            | Integer                                                                                  |
 // | contact_ids                               | String                                                                                   |
-// | teammate_ids                              | String                                                                                   |
-// | admin_assignee_id                         | String                                                                                   |
-// | team_assignee_id                          | String                                                                                   |
+// | admin_assignee_id                         | Integer                                                                                  |
+// | team_assignee_id                          | Integer                                                                                  |
 // | open                                      | Boolean                                                                                  |
 // | state                                     | String                                                                                   |
 // | snoozed_until                             | Date (UNIX timestamp)                                                                    |
@@ -2058,6 +3327,10 @@ func (c *Client) SearchTicketsWithBody(ctx context.Context, params *SearchTicket
 // * For **Back-office** category tickets, use the term `task`.
 // * For **Tracker** category tickets, use the term `tracker`.
 // {% /admonition %}
+//
+// ### Sorting
+//
+// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`, and any other value is treated as `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
 //
 // ### Accepted Operators
 //
@@ -3402,6 +4675,45 @@ func NewListArticlesRequest(server string, params *ListArticlesParams) (*http.Re
 		return nil, err
 	}
 
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -3547,6 +4859,30 @@ func NewSearchArticlesRequest(server string, params *SearchArticlesParams) (*htt
 		if params.Highlight != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "highlight", *params.Highlight, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -4883,12 +6219,12 @@ func NewShowCallRecordingRequest(server string, callId string, params *ShowCallR
 }
 
 // NewShowCallTranscriptRequest constructs an http.Request for the ShowCallTranscript method
-func NewShowCallTranscriptRequest(server string, callId string, params *ShowCallTranscriptParams) (*http.Request, error) {
+func NewShowCallTranscriptRequest(server string, id string, params *ShowCallTranscriptParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "call_id", callId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
 	if err != nil {
 		return nil, err
 	}
@@ -7639,7 +8975,7 @@ func NewListContactMergeHistoryRequest(server string, id string, params *ListCon
 		return nil, err
 	}
 
-	operationPath := fmt.Sprintf("/contacts/%s/merge_history", pathParam0)
+	operationPath := fmt.Sprintf("/contacts/%s/merge_histories", pathParam0)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -13645,6 +14981,57 @@ func NewListAllCollectionsRequest(server string, params *ListAllCollectionsParam
 		return nil, err
 	}
 
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.HelpCenterId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "help_center_id", *params.HelpCenterId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -16478,6 +17865,55 @@ func NewListSubscriptionTypesRequest(server string, params *ListSubscriptionType
 	return req, nil
 }
 
+// NewGetSubscriptionTypeRequest constructs an http.Request for the GetSubscriptionType method
+func NewGetSubscriptionTypeRequest(server string, id string, params *GetSubscriptionTypeParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/subscription_types/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListTagsRequest constructs an http.Request for the ListTags method
 func NewListTagsRequest(server string, params *ListTagsParams) (*http.Request, error) {
 	var err error
@@ -18342,6 +19778,8 @@ type ClientWithResponsesInterface interface {
 	// >
 	// > Articles will be returned in descending order on the `updated_at` attribute. This means if you need to iterate through results then we'll show the most recently updated articles first.
 	//
+	// Requires the `read_articles_scope` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /articles (the `ListArticles` operationId).
@@ -18351,9 +19789,11 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can create a new article by making a POST request to `https://api.intercom.io/articles`.
 	//
-	// > 📘 Tags cannot be managed via the Articles API
+	// > 📘 Tags are managed separately
 	// >
-	// > Article tags are read-only in responses. To create, update, or delete tags, use the Intercom UI or the Tags API endpoints.
+	// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -18364,9 +19804,11 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can create a new article by making a POST request to `https://api.intercom.io/articles`.
 	//
-	// > 📘 Tags cannot be managed via the Articles API
+	// > 📘 Tags are managed separately
 	// >
-	// > Article tags are read-only in responses. To create, update, or delete tags, use the Intercom UI or the Tags API endpoints.
+	// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -18377,6 +19819,10 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can search for articles by making a GET request to `https://api.intercom.io/articles/search`.
 	//
+	// If no articles match the search, `data` is an empty array rather than an object.
+	//
+	// Requires the `read_articles_scope` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /articles/search (the `SearchArticles` operationId).
@@ -18385,6 +19831,8 @@ type ClientWithResponsesInterface interface {
 	// DeleteArticleWithResponse Delete an article
 	//
 	// You can delete a single article by making a DELETE request to `https://api.intercom.io/articles/<id>`.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -18395,6 +19843,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch the details of a single article by making a GET request to `https://api.intercom.io/articles/<id>`.
 	//
+	// Requires the `read_articles_scope` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /articles/{article_id} (the `RetrieveArticle` operationId).
@@ -18404,9 +19854,11 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can update the details of a single article by making a PUT request to `https://api.intercom.io/articles/<id>`.
 	//
-	// > 📘 Tags cannot be managed via the Articles API
+	// > 📘 Tags are managed separately
 	// >
-	// > Article tags are read-only in responses. To create, update, or delete tags, use the Intercom UI or the Tags API endpoints.
+	// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -18417,9 +19869,11 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can update the details of a single article by making a PUT request to `https://api.intercom.io/articles/<id>`.
 	//
-	// > 📘 Tags cannot be managed via the Articles API
+	// > 📘 Tags are managed separately
 	// >
-	// > Article tags are read-only in responses. To create, update, or delete tags, use the Intercom UI or the Tags API endpoints.
+	// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -18525,9 +19979,13 @@ type ClientWithResponsesInterface interface {
 	// The article must already be published; staging a draft on an article that
 	// has never been published returns `422`.
 	//
-	// Only versioned text content (such as `title` and `body`) is staged.
-	// Non-versioned fields like AI availability are ignored, leaving the live
-	// values untouched.
+	// Only text content is staged: `title`, `description`, `body` or
+	// `body_markdown`, and `author_id`, including per-locale values in
+	// `translated_content`. Any other field in the request body, such as `state`,
+	// `parent_id`, `folder_id`, `audience_ids`, the AI availability fields or the
+	// scheduling fields, is still validated but not applied, so the live article is left untouched. The
+	// scheduling, state and placement notes on the request schema's other fields
+	// do not apply to this endpoint, because those fields are not applied.
 	//
 	// Requires the `read_write_articles_scope` OAuth scope.
 	//
@@ -18545,9 +20003,13 @@ type ClientWithResponsesInterface interface {
 	// The article must already be published; staging a draft on an article that
 	// has never been published returns `422`.
 	//
-	// Only versioned text content (such as `title` and `body`) is staged.
-	// Non-versioned fields like AI availability are ignored, leaving the live
-	// values untouched.
+	// Only text content is staged: `title`, `description`, `body` or
+	// `body_markdown`, and `author_id`, including per-locale values in
+	// `translated_content`. Any other field in the request body, such as `state`,
+	// `parent_id`, `folder_id`, `audience_ids`, the AI availability fields or the
+	// scheduling fields, is still validated but not applied, so the live article is left untouched. The
+	// scheduling, state and placement notes on the request schema's other fields
+	// do not apply to this endpoint, because those fields are not applied.
 	//
 	// Requires the `read_write_articles_scope` OAuth scope.
 	//
@@ -18732,12 +20194,12 @@ type ClientWithResponsesInterface interface {
 
 	// ShowCallTranscriptWithResponse Get call transcript by call id
 	//
-	// Returns the transcript for the specified call as a downloadable text file.
+	// Returns the transcript for the specified call as a JSON array of turns.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
-	// Corresponds with GET /calls/{call_id}/transcript (the `ShowCallTranscript` operationId).
-	ShowCallTranscriptWithResponse(ctx context.Context, callId string, params *ShowCallTranscriptParams, reqEditors ...RequestEditorFn) (*ShowCallTranscriptResponse, error)
+	// Corresponds with GET /calls/{id}/transcript (the `ShowCallTranscript` operationId).
+	ShowCallTranscriptWithResponse(ctx context.Context, id string, params *ShowCallTranscriptParams, reqEditors ...RequestEditorFn) (*ShowCallTranscriptResponse, error)
 
 	// RetrieveCompanyWithResponse Retrieve companies
 	//
@@ -19432,7 +20894,6 @@ type ClientWithResponsesInterface interface {
 	// | email                              | String                         |
 	// | email_domain                       | String                         |
 	// | phone                              | String                         |
-	// | formatted_phone                    | String                         |
 	// | external_id                        | String                         |
 	// | created_at                         | Datetime (Unix timestamp in seconds) |
 	// | signed_up_at                       | Datetime (Unix timestamp in seconds) |
@@ -19551,7 +21012,6 @@ type ClientWithResponsesInterface interface {
 	// | email                              | String                         |
 	// | email_domain                       | String                         |
 	// | phone                              | String                         |
-	// | formatted_phone                    | String                         |
 	// | external_id                        | String                         |
 	// | created_at                         | Datetime (Unix timestamp in seconds) |
 	// | signed_up_at                       | Datetime (Unix timestamp in seconds) |
@@ -19910,7 +21370,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
-	// Corresponds with GET /contacts/{id}/merge_history (the `ListContactMergeHistory` operationId).
+	// Corresponds with GET /contacts/{id}/merge_histories (the `ListContactMergeHistory` operationId).
 	ListContactMergeHistoryWithResponse(ctx context.Context, id string, params *ListContactMergeHistoryParams, reqEditors ...RequestEditorFn) (*ListContactMergeHistoryResponse, error)
 
 	// BulkContentActionsWithBodyWithResponse Run a bulk action on Knowledge Hub content
@@ -21925,7 +23385,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch a list of all collections by making a GET request to `https://api.intercom.io/help_center/collections`.
 	//
-	// Collections will be returned in descending order on the `updated_at` attribute. This means if you need to iterate through results then we'll show the most recently updated collections first.
+	// Requires the `read_articles_scope` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -21934,7 +23394,9 @@ type ClientWithResponsesInterface interface {
 
 	// CreateCollectionWithBodyWithResponse Create a collection
 	//
-	// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections.`
+	// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -21943,7 +23405,9 @@ type ClientWithResponsesInterface interface {
 
 	// CreateCollectionWithResponse Create a collection
 	//
-	// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections.`
+	// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -21952,7 +23416,9 @@ type ClientWithResponsesInterface interface {
 
 	// DeleteCollectionWithResponse Delete a collection
 	//
-	// You can delete a single collection by making a DELETE request to `https://api.intercom.io/collections/<id>`.
+	// You can delete a single collection by making a DELETE request to `https://api.intercom.io/help_center/collections/<id>`.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -21963,6 +23429,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch the details of a single collection by making a GET request to `https://api.intercom.io/help_center/collections/<id>`.
 	//
+	// Requires the `read_articles_scope` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /help_center/collections/{collection_id} (the `RetrieveCollection` operationId).
@@ -21970,7 +23438,9 @@ type ClientWithResponsesInterface interface {
 
 	// UpdateCollectionWithBodyWithResponse Update a collection
 	//
-	// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/collections/<id>`.
+	// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -21979,7 +23449,9 @@ type ClientWithResponsesInterface interface {
 
 	// UpdateCollectionWithResponse Update a collection
 	//
-	// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/collections/<id>`.
+	// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -21990,6 +23462,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can list all Help Centers by making a GET request to `https://api.intercom.io/help_center/help_centers`.
 	//
+	// Requires the `read_articles_scope` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /help_center/help_centers (the `ListHelpCenters` operationId).
@@ -21997,7 +23471,9 @@ type ClientWithResponsesInterface interface {
 
 	// RetrieveHelpCenterWithResponse Retrieve a Help Center
 	//
-	// You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_center/<id>`.
+	// You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_centers/<id>`.
+	//
+	// Requires the `read_articles_scope` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -22008,7 +23484,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch a list of all URL redirects for a help center by making a GET request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects`.
 	//
-	// Redirects are returned in descending order on the `updated_at` attribute.
+	// Redirects are returned in ascending alphabetical order of `from_url`.
 	//
 	// Requires the `read_help_center_redirects_scope` OAuth scope.
 	//
@@ -22634,6 +24110,15 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /subscription_types (the `ListSubscriptionTypes` operationId).
 	ListSubscriptionTypesWithResponse(ctx context.Context, params *ListSubscriptionTypesParams, reqEditors ...RequestEditorFn) (*ListSubscriptionTypesResponse, error)
 
+	// GetSubscriptionTypeWithResponse Retrieve a subscription type
+	//
+	// You can fetch the details of a single subscription type by making a GET request to `https://api.intercom.io/subscription_types/<id>`.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /subscription_types/{id} (the `GetSubscriptionType` operationId).
+	GetSubscriptionTypeWithResponse(ctx context.Context, id string, params *GetSubscriptionTypeParams, reqEditors ...RequestEditorFn) (*GetSubscriptionTypeResponse, error)
+
 	// ListTagsWithResponse List all tags
 	//
 	// You can fetch a list of all tags for a given workspace.
@@ -22896,7 +24381,7 @@ type ClientWithResponsesInterface interface {
 	// {% admonition type="warning" name="Optimizing search queries" %}
 	//   Search queries can be complex, so optimizing them can help the performance of your search.
 	//   Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-	//   pagination to limit the number of results returned. The default is `20` results per page.
+	//   pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
 	//   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
 	// {% /admonition %}
 	//
@@ -22910,21 +24395,20 @@ type ClientWithResponsesInterface interface {
 	// ### Accepted Fields
 	//
 	// Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
-	// The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
+	// Fields not in the table below, such as `source.body`, are rejected with a `400` error.
 	//
 	// | Field                                     | Type                                                                                     |
 	// | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
-	// | id                                        | String                                                                                   |
+	// | id                                        | Integer                                                                                  |
 	// | created_at                                | Date (UNIX timestamp)                                                                    |
 	// | updated_at                                | Date (UNIX timestamp)                                                                    |
 	// | title                           | String                                                                                   |
 	// | description                     | String                                                                                   |
 	// | category                                  | String                                                                                   |
-	// | ticket_type_id                            | String                                                                                   |
+	// | ticket_type_id                            | Integer                                                                                  |
 	// | contact_ids                               | String                                                                                   |
-	// | teammate_ids                              | String                                                                                   |
-	// | admin_assignee_id                         | String                                                                                   |
-	// | team_assignee_id                          | String                                                                                   |
+	// | admin_assignee_id                         | Integer                                                                                  |
+	// | team_assignee_id                          | Integer                                                                                  |
 	// | open                                      | Boolean                                                                                  |
 	// | state                                     | String                                                                                   |
 	// | snoozed_until                             | Date (UNIX timestamp)                                                                    |
@@ -22936,6 +24420,10 @@ type ClientWithResponsesInterface interface {
 	// * For **Back-office** category tickets, use the term `task`.
 	// * For **Tracker** category tickets, use the term `tracker`.
 	// {% /admonition %}
+	//
+	// ### Sorting
+	//
+	// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`, and any other value is treated as `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
 	//
 	// ### Accepted Operators
 	//
@@ -22973,7 +24461,7 @@ type ClientWithResponsesInterface interface {
 	// {% admonition type="warning" name="Optimizing search queries" %}
 	//   Search queries can be complex, so optimizing them can help the performance of your search.
 	//   Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-	//   pagination to limit the number of results returned. The default is `20` results per page.
+	//   pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
 	//   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
 	// {% /admonition %}
 	//
@@ -22987,21 +24475,20 @@ type ClientWithResponsesInterface interface {
 	// ### Accepted Fields
 	//
 	// Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
-	// The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
+	// Fields not in the table below, such as `source.body`, are rejected with a `400` error.
 	//
 	// | Field                                     | Type                                                                                     |
 	// | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
-	// | id                                        | String                                                                                   |
+	// | id                                        | Integer                                                                                  |
 	// | created_at                                | Date (UNIX timestamp)                                                                    |
 	// | updated_at                                | Date (UNIX timestamp)                                                                    |
 	// | title                           | String                                                                                   |
 	// | description                     | String                                                                                   |
 	// | category                                  | String                                                                                   |
-	// | ticket_type_id                            | String                                                                                   |
+	// | ticket_type_id                            | Integer                                                                                  |
 	// | contact_ids                               | String                                                                                   |
-	// | teammate_ids                              | String                                                                                   |
-	// | admin_assignee_id                         | String                                                                                   |
-	// | team_assignee_id                          | String                                                                                   |
+	// | admin_assignee_id                         | Integer                                                                                  |
+	// | team_assignee_id                          | Integer                                                                                  |
 	// | open                                      | Boolean                                                                                  |
 	// | state                                     | String                                                                                   |
 	// | snoozed_until                             | Date (UNIX timestamp)                                                                    |
@@ -23013,6 +24500,10 @@ type ClientWithResponsesInterface interface {
 	// * For **Back-office** category tickets, use the term `task`.
 	// * For **Tracker** category tickets, use the term `tracker`.
 	// {% /admonition %}
+	//
+	// ### Sorting
+	//
+	// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`, and any other value is treated as `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
 	//
 	// ### Accepted Operators
 	//

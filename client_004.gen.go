@@ -790,6 +790,8 @@ type ListArticlesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *ArticleList
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 }
@@ -797,6 +799,11 @@ type ListArticlesResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r ListArticlesResponse) GetJSON200() *ArticleList {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListArticlesResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -842,6 +849,10 @@ type CreateArticleResponse struct {
 	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -857,6 +868,16 @@ func (r CreateArticleResponse) GetJSON400() *Error {
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r CreateArticleResponse) GetJSON401() *Error {
 	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r CreateArticleResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r CreateArticleResponse) GetJSON422() *Error {
+	return r.JSON422
 }
 
 // GetBody returns the raw response body bytes
@@ -893,6 +914,8 @@ type SearchArticlesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *ArticleSearchResponse
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 }
@@ -900,6 +923,11 @@ type SearchArticlesResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r SearchArticlesResponse) GetJSON200() *ArticleSearchResponse {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r SearchArticlesResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -945,6 +973,8 @@ type DeleteArticleResponse struct {
 	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -960,6 +990,11 @@ func (r DeleteArticleResponse) GetJSON401() *Error {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r DeleteArticleResponse) GetJSON404() *Error {
 	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r DeleteArticleResponse) GetJSON422() *Error {
+	return r.JSON422
 }
 
 // GetBody returns the raw response body bytes
@@ -1051,15 +1086,24 @@ type UpdateArticleResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Article
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r UpdateArticleResponse) GetJSON200() *Article {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r UpdateArticleResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -1070,6 +1114,11 @@ func (r UpdateArticleResponse) GetJSON401() *Error {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r UpdateArticleResponse) GetJSON404() *Error {
 	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r UpdateArticleResponse) GetJSON422() *Error {
+	return r.JSON422
 }
 
 // GetBody returns the raw response body bytes
@@ -2324,18 +2373,18 @@ func (r ShowCallRecordingResponse) ContentType() string {
 	return ""
 }
 
-// ShowCallTranscriptResponse200Headers the declared response headers of an HTTP 200 response for ShowCallTranscript
-type ShowCallTranscriptResponse200Headers struct {
-	ContentDisposition *string
-}
-
 type ShowCallTranscriptResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *[]CallTranscriptTurn
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
-	// Headers200 the parsed response headers for an HTTP 200 response
-	Headers200 *ShowCallTranscriptResponse200Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ShowCallTranscriptResponse) GetJSON200() *[]CallTranscriptTurn {
+	return r.JSON200
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
@@ -2376,7 +2425,7 @@ type RetrieveCompanyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *CompanyList
+	JSON200 *RetrieveCompany200JSONResponseBody
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
@@ -2384,7 +2433,7 @@ type RetrieveCompanyResponse struct {
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r RetrieveCompanyResponse) GetJSON200() *CompanyList {
+func (r RetrieveCompanyResponse) GetJSON200() *RetrieveCompany200JSONResponseBody {
 	return r.JSON200
 }
 
@@ -9420,15 +9469,15 @@ type GetCustomObjectInstancesByIdResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *CustomObjectInstance
+	JSON200 *GetCustomObjectInstancesById200JSONResponseBody
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Unauthorized
 	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *ObjectNotFound
+	JSON404 *TypeNotFound
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetCustomObjectInstancesByIdResponse) GetJSON200() *CustomObjectInstance {
+func (r GetCustomObjectInstancesByIdResponse) GetJSON200() *GetCustomObjectInstancesById200JSONResponseBody {
 	return r.JSON200
 }
 
@@ -9438,7 +9487,7 @@ func (r GetCustomObjectInstancesByIdResponse) GetJSON401() *Unauthorized {
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r GetCustomObjectInstancesByIdResponse) GetJSON404() *ObjectNotFound {
+func (r GetCustomObjectInstancesByIdResponse) GetJSON404() *TypeNotFound {
 	return r.JSON404
 }
 
@@ -10741,13 +10790,13 @@ type LisDataEventsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataEventSummary
+	JSON200 *LisDataEvents200JSONResponseBody
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r LisDataEventsResponse) GetJSON200() *DataEventSummary {
+func (r LisDataEventsResponse) GetJSON200() *LisDataEvents200JSONResponseBody {
 	return r.JSON200
 }
 
@@ -12727,6 +12776,8 @@ type ListAllCollectionsResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *CollectionList
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 }
@@ -12734,6 +12785,11 @@ type ListAllCollectionsResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r ListAllCollectionsResponse) GetJSON200() *CollectionList {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListAllCollectionsResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -12940,6 +12996,8 @@ type UpdateCollectionResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Collection
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
@@ -12949,6 +13007,11 @@ type UpdateCollectionResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r UpdateCollectionResponse) GetJSON200() *Collection {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r UpdateCollectionResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -15618,6 +15681,61 @@ func (r ListSubscriptionTypesResponse) ContentType() string {
 	return ""
 }
 
+type GetSubscriptionTypeResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *SubscriptionType
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetSubscriptionTypeResponse) GetJSON200() *SubscriptionType {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r GetSubscriptionTypeResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r GetSubscriptionTypeResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r GetSubscriptionTypeResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSubscriptionTypeResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSubscriptionTypeResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSubscriptionTypeResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListTagsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -17486,6 +17604,8 @@ func (c *ClientWithResponses) UpdateExternalPageWithResponse(ctx context.Context
 // >
 // > Articles will be returned in descending order on the `updated_at` attribute. This means if you need to iterate through results then we'll show the most recently updated articles first.
 //
+// Requires the `read_articles_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /articles (the `ListArticles` operationId).
@@ -17501,9 +17621,11 @@ func (c *ClientWithResponses) ListArticlesWithResponse(ctx context.Context, para
 //
 // You can create a new article by making a POST request to `https://api.intercom.io/articles`.
 //
-// > 📘 Tags cannot be managed via the Articles API
+// > 📘 Tags are managed separately
 // >
-// > Article tags are read-only in responses. To create, update, or delete tags, use the Intercom UI or the Tags API endpoints.
+// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -17520,9 +17642,11 @@ func (c *ClientWithResponses) CreateArticleWithBodyWithResponse(ctx context.Cont
 //
 // You can create a new article by making a POST request to `https://api.intercom.io/articles`.
 //
-// > 📘 Tags cannot be managed via the Articles API
+// > 📘 Tags are managed separately
 // >
-// > Article tags are read-only in responses. To create, update, or delete tags, use the Intercom UI or the Tags API endpoints.
+// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -17539,6 +17663,10 @@ func (c *ClientWithResponses) CreateArticleWithResponse(ctx context.Context, par
 //
 // You can search for articles by making a GET request to `https://api.intercom.io/articles/search`.
 //
+// If no articles match the search, `data` is an empty array rather than an object.
+//
+// Requires the `read_articles_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /articles/search (the `SearchArticles` operationId).
@@ -17553,6 +17681,8 @@ func (c *ClientWithResponses) SearchArticlesWithResponse(ctx context.Context, pa
 // DeleteArticleWithResponse Delete an article
 //
 // You can delete a single article by making a DELETE request to `https://api.intercom.io/articles/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -17569,6 +17699,8 @@ func (c *ClientWithResponses) DeleteArticleWithResponse(ctx context.Context, art
 //
 // You can fetch the details of a single article by making a GET request to `https://api.intercom.io/articles/<id>`.
 //
+// Requires the `read_articles_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /articles/{article_id} (the `RetrieveArticle` operationId).
@@ -17584,9 +17716,11 @@ func (c *ClientWithResponses) RetrieveArticleWithResponse(ctx context.Context, a
 //
 // You can update the details of a single article by making a PUT request to `https://api.intercom.io/articles/<id>`.
 //
-// > 📘 Tags cannot be managed via the Articles API
+// > 📘 Tags are managed separately
 // >
-// > Article tags are read-only in responses. To create, update, or delete tags, use the Intercom UI or the Tags API endpoints.
+// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -17603,9 +17737,11 @@ func (c *ClientWithResponses) UpdateArticleWithBodyWithResponse(ctx context.Cont
 //
 // You can update the details of a single article by making a PUT request to `https://api.intercom.io/articles/<id>`.
 //
-// > 📘 Tags cannot be managed via the Articles API
+// > 📘 Tags are managed separately
 // >
-// > Article tags are read-only in responses. To create, update, or delete tags, use the Intercom UI or the Tags API endpoints.
+// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -17753,9 +17889,13 @@ func (c *ClientWithResponses) RetrieveArticleDraftWithResponse(ctx context.Conte
 // The article must already be published; staging a draft on an article that
 // has never been published returns `422`.
 //
-// Only versioned text content (such as `title` and `body`) is staged.
-// Non-versioned fields like AI availability are ignored, leaving the live
-// values untouched.
+// Only text content is staged: `title`, `description`, `body` or
+// `body_markdown`, and `author_id`, including per-locale values in
+// `translated_content`. Any other field in the request body, such as `state`,
+// `parent_id`, `folder_id`, `audience_ids`, the AI availability fields or the
+// scheduling fields, is still validated but not applied, so the live article is left untouched. The
+// scheduling, state and placement notes on the request schema's other fields
+// do not apply to this endpoint, because those fields are not applied.
 //
 // Requires the `read_write_articles_scope` OAuth scope.
 //
@@ -17779,9 +17919,13 @@ func (c *ClientWithResponses) StageArticleDraftWithBodyWithResponse(ctx context.
 // The article must already be published; staging a draft on an article that
 // has never been published returns `422`.
 //
-// Only versioned text content (such as `title` and `body`) is staged.
-// Non-versioned fields like AI availability are ignored, leaving the live
-// values untouched.
+// Only text content is staged: `title`, `description`, `body` or
+// `body_markdown`, and `author_id`, including per-locale values in
+// `translated_content`. Any other field in the request body, such as `state`,
+// `parent_id`, `folder_id`, `audience_ids`, the AI availability fields or the
+// scheduling fields, is still validated but not applied, so the live article is left untouched. The
+// scheduling, state and placement notes on the request schema's other fields
+// do not apply to this endpoint, because those fields are not applied.
 //
 // Requires the `read_write_articles_scope` OAuth scope.
 //
@@ -18074,13 +18218,13 @@ func (c *ClientWithResponses) ShowCallRecordingWithResponse(ctx context.Context,
 
 // ShowCallTranscriptWithResponse Get call transcript by call id
 //
-// Returns the transcript for the specified call as a downloadable text file.
+// Returns the transcript for the specified call as a JSON array of turns.
 //
 // Returns a wrapper object for the known response body format(s).
 //
-// Corresponds with GET /calls/{call_id}/transcript (the `ShowCallTranscript` operationId).
-func (c *ClientWithResponses) ShowCallTranscriptWithResponse(ctx context.Context, callId string, params *ShowCallTranscriptParams, reqEditors ...RequestEditorFn) (*ShowCallTranscriptResponse, error) {
-	rsp, err := c.ShowCallTranscript(ctx, callId, params, reqEditors...)
+// Corresponds with GET /calls/{id}/transcript (the `ShowCallTranscript` operationId).
+func (c *ClientWithResponses) ShowCallTranscriptWithResponse(ctx context.Context, id string, params *ShowCallTranscriptParams, reqEditors ...RequestEditorFn) (*ShowCallTranscriptResponse, error) {
+	rsp, err := c.ShowCallTranscript(ctx, id, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -19024,7 +19168,6 @@ func (c *ClientWithResponses) PreviewMergeContactWithResponse(ctx context.Contex
 // | email                              | String                         |
 // | email_domain                       | String                         |
 // | phone                              | String                         |
-// | formatted_phone                    | String                         |
 // | external_id                        | String                         |
 // | created_at                         | Datetime (Unix timestamp in seconds) |
 // | signed_up_at                       | Datetime (Unix timestamp in seconds) |
@@ -19153,7 +19296,6 @@ func (c *ClientWithResponses) SearchContactsWithBodyWithResponse(ctx context.Con
 // | email                              | String                         |
 // | email_domain                       | String                         |
 // | phone                              | String                         |
-// | formatted_phone                    | String                         |
 // | external_id                        | String                         |
 // | created_at                         | Datetime (Unix timestamp in seconds) |
 // | signed_up_at                       | Datetime (Unix timestamp in seconds) |
@@ -19676,7 +19818,7 @@ func (c *ClientWithResponses) DismissContactBannerWithResponse(ctx context.Conte
 //
 // Returns a wrapper object for the known response body format(s).
 //
-// Corresponds with GET /contacts/{id}/merge_history (the `ListContactMergeHistory` operationId).
+// Corresponds with GET /contacts/{id}/merge_histories (the `ListContactMergeHistory` operationId).
 func (c *ClientWithResponses) ListContactMergeHistoryWithResponse(ctx context.Context, id string, params *ListContactMergeHistoryParams, reqEditors ...RequestEditorFn) (*ListContactMergeHistoryResponse, error) {
 	rsp, err := c.ListContactMergeHistory(ctx, id, params, reqEditors...)
 	if err != nil {
@@ -19876,148 +20018,4 @@ func (c *ClientWithResponses) DetachTagFromContentSnippetWithResponse(ctx contex
 		return nil, err
 	}
 	return ParseDetachTagFromContentSnippetResponse(rsp)
-}
-
-// DeleteContentSnippetWithResponse Delete a content snippet
-//
-// You can delete a single content snippet by its id.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /content_snippets/{id} (the `DeleteContentSnippet` operationId).
-func (c *ClientWithResponses) DeleteContentSnippetWithResponse(ctx context.Context, id string, params *DeleteContentSnippetParams, reqEditors ...RequestEditorFn) (*DeleteContentSnippetResponse, error) {
-	rsp, err := c.DeleteContentSnippet(ctx, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteContentSnippetResponse(rsp)
-}
-
-// GetContentSnippetWithResponse Retrieve a content snippet
-//
-// You can fetch a single content snippet by its id.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /content_snippets/{id} (the `GetContentSnippet` operationId).
-func (c *ClientWithResponses) GetContentSnippetWithResponse(ctx context.Context, id string, params *GetContentSnippetParams, reqEditors ...RequestEditorFn) (*GetContentSnippetResponse, error) {
-	rsp, err := c.GetContentSnippet(ctx, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetContentSnippetResponse(rsp)
-}
-
-// UpdateContentSnippetWithBodyWithResponse Update a content snippet
-//
-// You can update an existing content snippet.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /content_snippets/{id} (the `UpdateContentSnippet` operationId).
-func (c *ClientWithResponses) UpdateContentSnippetWithBodyWithResponse(ctx context.Context, id string, params *UpdateContentSnippetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateContentSnippetResponse, error) {
-	rsp, err := c.UpdateContentSnippetWithBody(ctx, id, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateContentSnippetResponse(rsp)
-}
-
-// UpdateContentSnippetWithResponse Update a content snippet
-//
-// You can update an existing content snippet.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /content_snippets/{id} (the `UpdateContentSnippet` operationId).
-func (c *ClientWithResponses) UpdateContentSnippetWithResponse(ctx context.Context, id string, params *UpdateContentSnippetParams, body UpdateContentSnippetJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateContentSnippetResponse, error) {
-	rsp, err := c.UpdateContentSnippet(ctx, id, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateContentSnippetResponse(rsp)
-}
-
-// ListConversationsWithResponse List all conversations
-//
-// You can fetch a list of all conversations.
-//
-// You can optionally request the result page size and the cursor to start after to fetch the result.
-// {% admonition type="warning" name="Pagination" %}
-//
-//	You can use pagination to limit the number of results returned. The default is `20` results per page.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /conversations (the `ListConversations` operationId).
-func (c *ClientWithResponses) ListConversationsWithResponse(ctx context.Context, params *ListConversationsParams, reqEditors ...RequestEditorFn) (*ListConversationsResponse, error) {
-	rsp, err := c.ListConversations(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListConversationsResponse(rsp)
-}
-
-// CreateConversationWithBodyWithResponse Creates a conversation
-//
-// You can create a conversation that has been initiated by a contact (ie. user or lead).
-// The conversation can be an in-app message only.
-//
-// {% admonition type="info" name="Sending for visitors" %}
-// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
-// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
-// {% /admonition %}
-//
-// This will return the Message model that has been created.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /conversations (the `CreateConversation` operationId).
-func (c *ClientWithResponses) CreateConversationWithBodyWithResponse(ctx context.Context, params *CreateConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateConversationResponse, error) {
-	rsp, err := c.CreateConversationWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateConversationResponse(rsp)
-}
-
-// CreateConversationWithResponse Creates a conversation
-//
-// You can create a conversation that has been initiated by a contact (ie. user or lead).
-// The conversation can be an in-app message only.
-//
-// {% admonition type="info" name="Sending for visitors" %}
-// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
-// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
-// {% /admonition %}
-//
-// This will return the Message model that has been created.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /conversations (the `CreateConversation` operationId).
-func (c *ClientWithResponses) CreateConversationWithResponse(ctx context.Context, params *CreateConversationParams, body CreateConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateConversationResponse, error) {
-	rsp, err := c.CreateConversation(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateConversationResponse(rsp)
-}
-
-// ListConversationAttributesWithResponse List all conversation attributes
-//
-// You can fetch a list of all conversation attributes for your workspace.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /conversations/attributes (the `ListConversationAttributes` operationId).
-func (c *ClientWithResponses) ListConversationAttributesWithResponse(ctx context.Context, params *ListConversationAttributesParams, reqEditors ...RequestEditorFn) (*ListConversationAttributesResponse, error) {
-	rsp, err := c.ListConversationAttributes(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListConversationAttributesResponse(rsp)
 }
