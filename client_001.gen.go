@@ -1174,6 +1174,36 @@ func (e CompanySearchRequestSortOrder) Valid() bool {
 	}
 }
 
+// Defines values for CompanySearchResponseType.
+const (
+	CompanySearchResponseTypeList CompanySearchResponseType = "list"
+)
+
+// Valid indicates whether the value is a known member of the CompanySearchResponseType enum.
+func (e CompanySearchResponseType) Valid() bool {
+	switch e {
+	case CompanySearchResponseTypeList:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CompanyUserListType.
+const (
+	CompanyUserListTypeUserList CompanyUserListType = "user.list"
+)
+
+// Valid indicates whether the value is a known member of the CompanyUserListType enum.
+func (e CompanyUserListType) Valid() bool {
+	switch e {
+	case CompanyUserListTypeUserList:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ContactActivityEventType.
 const (
 	ContactActivityEventTypeContactCreated     ContactActivityEventType = "contact.created"
@@ -1579,6 +1609,21 @@ func (e ContactSegmentsType) Valid() bool {
 	}
 }
 
+// Defines values for ContactSubscriptionTypesType.
+const (
+	ContactSubscriptionTypesTypeList ContactSubscriptionTypesType = "list"
+)
+
+// Valid indicates whether the value is a known member of the ContactSubscriptionTypesType enum.
+func (e ContactSubscriptionTypesType) Valid() bool {
+	switch e {
+	case ContactSubscriptionTypesTypeList:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ContactUnarchivedType.
 const (
 	ContactUnarchivedTypeContact ContactUnarchivedType = "contact"
@@ -1598,7 +1643,6 @@ func (e ContactUnarchivedType) Valid() bool {
 const (
 	ContactsBulkJobStateCompleted           ContactsBulkJobState = "completed"
 	ContactsBulkJobStateCompletedWithErrors ContactsBulkJobState = "completed_with_errors"
-	ContactsBulkJobStatePending             ContactsBulkJobState = "pending"
 	ContactsBulkJobStateRunning             ContactsBulkJobState = "running"
 )
 
@@ -1608,8 +1652,6 @@ func (e ContactsBulkJobState) Valid() bool {
 	case ContactsBulkJobStateCompleted:
 		return true
 	case ContactsBulkJobStateCompletedWithErrors:
-		return true
-	case ContactsBulkJobStatePending:
 		return true
 	case ContactsBulkJobStateRunning:
 		return true
@@ -1719,8 +1761,9 @@ func (e ContentBulkActionRequestContentIdsType) Valid() bool {
 
 // Defines values for ContentImportSourceStatus.
 const (
-	ContentImportSourceStatusActive      ContentImportSourceStatus = "active"
-	ContentImportSourceStatusDeactivated ContentImportSourceStatus = "deactivated"
+	ContentImportSourceStatusActive             ContentImportSourceStatus = "active"
+	ContentImportSourceStatusDeactivated        ContentImportSourceStatus = "deactivated"
+	ContentImportSourceStatusDeletionInProgress ContentImportSourceStatus = "deletion_in_progress"
 )
 
 // Valid indicates whether the value is a known member of the ContentImportSourceStatus enum.
@@ -1729,6 +1772,8 @@ func (e ContentImportSourceStatus) Valid() bool {
 	case ContentImportSourceStatusActive:
 		return true
 	case ContentImportSourceStatusDeactivated:
+		return true
+	case ContentImportSourceStatusDeletionInProgress:
 		return true
 	default:
 		return false
@@ -2911,21 +2956,6 @@ func (e CreateDataConnectorRequestHttpMethod) Valid() bool {
 	}
 }
 
-// Defines values for CreateExternalPageRequestLocale.
-const (
-	CreateExternalPageRequestLocaleEn CreateExternalPageRequestLocale = "en"
-)
-
-// Valid indicates whether the value is a known member of the CreateExternalPageRequestLocale enum.
-func (e CreateExternalPageRequestLocale) Valid() bool {
-	switch e {
-	case CreateExternalPageRequestLocaleEn:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for CreateHelpCenterRedirectRequestTargetType.
 const (
 	CreateHelpCenterRedirectRequestTargetTypeArticle    CreateHelpCenterRedirectRequestTargetType = "article"
@@ -3502,12 +3532,14 @@ func (e DataConnectorDetailType) Valid() bool {
 // Defines values for DataConnectorExecutionResultErrorType.
 const (
 	DataConnectorExecutionResultErrorTypeClientSideActionError                           DataConnectorExecutionResultErrorType = "client_side_action_error"
+	DataConnectorExecutionResultErrorTypeCodeBlockTransformationError                    DataConnectorExecutionResultErrorType = "code_block_transformation_error"
 	DataConnectorExecutionResultErrorTypeEmailVerificationError                          DataConnectorExecutionResultErrorType = "email_verification_error"
 	DataConnectorExecutionResultErrorTypeFaradayError                                    DataConnectorExecutionResultErrorType = "faraday_error"
 	DataConnectorExecutionResultErrorTypeFinActionIdentityVerificationError              DataConnectorExecutionResultErrorType = "fin_action_identity_verification_error"
 	DataConnectorExecutionResultErrorTypeFinActionResponseFormattingError                DataConnectorExecutionResultErrorType = "fin_action_response_formatting_error"
 	DataConnectorExecutionResultErrorTypeN3rdPartyError                                  DataConnectorExecutionResultErrorType = "3rd_party_error"
 	DataConnectorExecutionResultErrorTypeNonFinStandaloneActionIdentityVerificationError DataConnectorExecutionResultErrorType = "non_fin_standalone_action_identity_verification_error"
+	DataConnectorExecutionResultErrorTypeOtpPreviewNotSupportedError                     DataConnectorExecutionResultErrorType = "otp_preview_not_supported_error"
 	DataConnectorExecutionResultErrorTypeRequestConfigurationError                       DataConnectorExecutionResultErrorType = "request_configuration_error"
 	DataConnectorExecutionResultErrorTypeRequestValidationError                          DataConnectorExecutionResultErrorType = "request_validation_error"
 	DataConnectorExecutionResultErrorTypeResponseMappingError                            DataConnectorExecutionResultErrorType = "response_mapping_error"
@@ -3518,6 +3550,8 @@ const (
 func (e DataConnectorExecutionResultErrorType) Valid() bool {
 	switch e {
 	case DataConnectorExecutionResultErrorTypeClientSideActionError:
+		return true
+	case DataConnectorExecutionResultErrorTypeCodeBlockTransformationError:
 		return true
 	case DataConnectorExecutionResultErrorTypeEmailVerificationError:
 		return true
@@ -3530,6 +3564,8 @@ func (e DataConnectorExecutionResultErrorType) Valid() bool {
 	case DataConnectorExecutionResultErrorTypeN3rdPartyError:
 		return true
 	case DataConnectorExecutionResultErrorTypeNonFinStandaloneActionIdentityVerificationError:
+		return true
+	case DataConnectorExecutionResultErrorTypeOtpPreviewNotSupportedError:
 		return true
 	case DataConnectorExecutionResultErrorTypeRequestConfigurationError:
 		return true
@@ -3580,6 +3616,7 @@ const (
 	DataConnectorExecutionResultSourceTypeInboundCustomBot     DataConnectorExecutionResultSourceType = "inbound_custom_bot"
 	DataConnectorExecutionResultSourceTypeInbox                DataConnectorExecutionResultSourceType = "inbox"
 	DataConnectorExecutionResultSourceTypeSavedReply           DataConnectorExecutionResultSourceType = "saved_reply"
+	DataConnectorExecutionResultSourceTypeSyntheticTest        DataConnectorExecutionResultSourceType = "synthetic_test"
 	DataConnectorExecutionResultSourceTypeTriggerableCustomBot DataConnectorExecutionResultSourceType = "triggerable_custom_bot"
 	DataConnectorExecutionResultSourceTypeWorkflow             DataConnectorExecutionResultSourceType = "workflow"
 )
@@ -3600,6 +3637,8 @@ func (e DataConnectorExecutionResultSourceType) Valid() bool {
 	case DataConnectorExecutionResultSourceTypeInbox:
 		return true
 	case DataConnectorExecutionResultSourceTypeSavedReply:
+		return true
+	case DataConnectorExecutionResultSourceTypeSyntheticTest:
 		return true
 	case DataConnectorExecutionResultSourceTypeTriggerableCustomBot:
 		return true
@@ -4099,21 +4138,6 @@ const (
 func (e DynamicContentListType) Valid() bool {
 	switch e {
 	case DynamicContentListTypeList:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ExternalPageLocale.
-const (
-	ExternalPageLocaleEn ExternalPageLocale = "en"
-)
-
-// Valid indicates whether the value is a known member of the ExternalPageLocale enum.
-func (e ExternalPageLocale) Valid() bool {
-	switch e {
-	case ExternalPageLocaleEn:
 		return true
 	default:
 		return false
@@ -5884,21 +5908,6 @@ func (e UpdateDataConnectorRequestState) Valid() bool {
 	}
 }
 
-// Defines values for UpdateExternalPageRequestLocale.
-const (
-	UpdateExternalPageRequestLocaleEn UpdateExternalPageRequestLocale = "en"
-)
-
-// Valid indicates whether the value is a known member of the UpdateExternalPageRequestLocale enum.
-func (e UpdateExternalPageRequestLocale) Valid() bool {
-	switch e {
-	case UpdateExternalPageRequestLocaleEn:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for UpdateOfficeHoursExceptionRequestExceptionType.
 const (
 	UpdateOfficeHoursExceptionRequestExceptionTypeClosed      UpdateOfficeHoursExceptionRequestExceptionType = "closed"
@@ -6148,6 +6157,78 @@ func (e SearchArticlesParamsState) Valid() bool {
 	}
 }
 
+// Defines values for RetrieveCompanyParamsType.
+const (
+	RetrieveCompanyParamsTypeUser  RetrieveCompanyParamsType = "user"
+	RetrieveCompanyParamsTypeUsers RetrieveCompanyParamsType = "users"
+)
+
+// Valid indicates whether the value is a known member of the RetrieveCompanyParamsType enum.
+func (e RetrieveCompanyParamsType) Valid() bool {
+	switch e {
+	case RetrieveCompanyParamsTypeUser:
+		return true
+	case RetrieveCompanyParamsTypeUsers:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListAllCompaniesParamsOrder.
+const (
+	ListAllCompaniesParamsOrderAsc  ListAllCompaniesParamsOrder = "asc"
+	ListAllCompaniesParamsOrderDesc ListAllCompaniesParamsOrder = "desc"
+)
+
+// Valid indicates whether the value is a known member of the ListAllCompaniesParamsOrder enum.
+func (e ListAllCompaniesParamsOrder) Valid() bool {
+	switch e {
+	case ListAllCompaniesParamsOrderAsc:
+		return true
+	case ListAllCompaniesParamsOrderDesc:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RetrieveACompanyByIdParamsType.
+const (
+	RetrieveACompanyByIdParamsTypeUser  RetrieveACompanyByIdParamsType = "user"
+	RetrieveACompanyByIdParamsTypeUsers RetrieveACompanyByIdParamsType = "users"
+)
+
+// Valid indicates whether the value is a known member of the RetrieveACompanyByIdParamsType enum.
+func (e RetrieveACompanyByIdParamsType) Valid() bool {
+	switch e {
+	case RetrieveACompanyByIdParamsTypeUser:
+		return true
+	case RetrieveACompanyByIdParamsTypeUsers:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListCompaniesForAContactParamsOrder.
+const (
+	ListCompaniesForAContactParamsOrderAsc  ListCompaniesForAContactParamsOrder = "asc"
+	ListCompaniesForAContactParamsOrderDesc ListCompaniesForAContactParamsOrder = "desc"
+)
+
+// Valid indicates whether the value is a known member of the ListCompaniesForAContactParamsOrder enum.
+func (e ListCompaniesForAContactParamsOrder) Valid() bool {
+	switch e {
+	case ListCompaniesForAContactParamsOrderAsc:
+		return true
+	case ListCompaniesForAContactParamsOrderDesc:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListContactMergeHistoryParamsOrder.
 const (
 	ListContactMergeHistoryParamsOrderAsc  ListContactMergeHistoryParamsOrder = "asc"
@@ -6361,12 +6442,14 @@ func (e ListDataConnectorExecutionResultsParamsSuccess) Valid() bool {
 // Defines values for ListDataConnectorExecutionResultsParamsErrorType.
 const (
 	ListDataConnectorExecutionResultsParamsErrorTypeClientSideActionError                           ListDataConnectorExecutionResultsParamsErrorType = "client_side_action_error"
+	ListDataConnectorExecutionResultsParamsErrorTypeCodeBlockTransformationError                    ListDataConnectorExecutionResultsParamsErrorType = "code_block_transformation_error"
 	ListDataConnectorExecutionResultsParamsErrorTypeEmailVerificationError                          ListDataConnectorExecutionResultsParamsErrorType = "email_verification_error"
 	ListDataConnectorExecutionResultsParamsErrorTypeFaradayError                                    ListDataConnectorExecutionResultsParamsErrorType = "faraday_error"
 	ListDataConnectorExecutionResultsParamsErrorTypeFinActionIdentityVerificationError              ListDataConnectorExecutionResultsParamsErrorType = "fin_action_identity_verification_error"
 	ListDataConnectorExecutionResultsParamsErrorTypeFinActionResponseFormattingError                ListDataConnectorExecutionResultsParamsErrorType = "fin_action_response_formatting_error"
 	ListDataConnectorExecutionResultsParamsErrorTypeN3rdPartyError                                  ListDataConnectorExecutionResultsParamsErrorType = "3rd_party_error"
 	ListDataConnectorExecutionResultsParamsErrorTypeNonFinStandaloneActionIdentityVerificationError ListDataConnectorExecutionResultsParamsErrorType = "non_fin_standalone_action_identity_verification_error"
+	ListDataConnectorExecutionResultsParamsErrorTypeOtpPreviewNotSupportedError                     ListDataConnectorExecutionResultsParamsErrorType = "otp_preview_not_supported_error"
 	ListDataConnectorExecutionResultsParamsErrorTypeRequestConfigurationError                       ListDataConnectorExecutionResultsParamsErrorType = "request_configuration_error"
 	ListDataConnectorExecutionResultsParamsErrorTypeRequestValidationError                          ListDataConnectorExecutionResultsParamsErrorType = "request_validation_error"
 	ListDataConnectorExecutionResultsParamsErrorTypeResponseMappingError                            ListDataConnectorExecutionResultsParamsErrorType = "response_mapping_error"
@@ -6377,6 +6460,8 @@ const (
 func (e ListDataConnectorExecutionResultsParamsErrorType) Valid() bool {
 	switch e {
 	case ListDataConnectorExecutionResultsParamsErrorTypeClientSideActionError:
+		return true
+	case ListDataConnectorExecutionResultsParamsErrorTypeCodeBlockTransformationError:
 		return true
 	case ListDataConnectorExecutionResultsParamsErrorTypeEmailVerificationError:
 		return true
@@ -6389,6 +6474,8 @@ func (e ListDataConnectorExecutionResultsParamsErrorType) Valid() bool {
 	case ListDataConnectorExecutionResultsParamsErrorTypeN3rdPartyError:
 		return true
 	case ListDataConnectorExecutionResultsParamsErrorTypeNonFinStandaloneActionIdentityVerificationError:
+		return true
+	case ListDataConnectorExecutionResultsParamsErrorTypeOtpPreviewNotSupportedError:
 		return true
 	case ListDataConnectorExecutionResultsParamsErrorTypeRequestConfigurationError:
 		return true
@@ -6448,6 +6535,24 @@ const (
 func (e GetDownloadReportingDataJobIdentifierParamsAccept) Valid() bool {
 	switch e {
 	case GetDownloadReportingDataJobIdentifierParamsAcceptApplicationoctetStream:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AskFinJSONBodyResponseFormat.
+const (
+	AskFinJSONBodyResponseFormatHtml     AskFinJSONBodyResponseFormat = "html"
+	AskFinJSONBodyResponseFormatMarkdown AskFinJSONBodyResponseFormat = "markdown"
+)
+
+// Valid indicates whether the value is a known member of the AskFinJSONBodyResponseFormat enum.
+func (e AskFinJSONBodyResponseFormat) Valid() bool {
+	switch e {
+	case AskFinJSONBodyResponseFormatHtml:
+		return true
+	case AskFinJSONBodyResponseFormatMarkdown:
 		return true
 	default:
 		return false
@@ -6562,6 +6667,27 @@ func (e EscalateFinConversation200JSONResponseBodyStatus) Valid() bool {
 	}
 }
 
+// Defines values for RunFinProcedureJSONBodyMessageAuthor.
+const (
+	RunFinProcedureJSONBodyMessageAuthorAgent RunFinProcedureJSONBodyMessageAuthor = "agent"
+	RunFinProcedureJSONBodyMessageAuthorFin   RunFinProcedureJSONBodyMessageAuthor = "fin"
+	RunFinProcedureJSONBodyMessageAuthorUser  RunFinProcedureJSONBodyMessageAuthor = "user"
+)
+
+// Valid indicates whether the value is a known member of the RunFinProcedureJSONBodyMessageAuthor enum.
+func (e RunFinProcedureJSONBodyMessageAuthor) Valid() bool {
+	switch e {
+	case RunFinProcedureJSONBodyMessageAuthorAgent:
+		return true
+	case RunFinProcedureJSONBodyMessageAuthorFin:
+		return true
+	case RunFinProcedureJSONBodyMessageAuthorUser:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RunFinProcedure200JSONResponseBodyStatus.
 const (
 	RunFinProcedure200JSONResponseBodyStatusAwaitingUserReply RunFinProcedure200JSONResponseBodyStatus = "awaiting_user_reply"
@@ -6592,6 +6718,24 @@ func (e RunFinProcedure200JSONResponseBodyStatus) Valid() bool {
 	}
 }
 
+// Defines values for ReplyToFinJSONBodyResponseFormat.
+const (
+	ReplyToFinJSONBodyResponseFormatHtml     ReplyToFinJSONBodyResponseFormat = "html"
+	ReplyToFinJSONBodyResponseFormatMarkdown ReplyToFinJSONBodyResponseFormat = "markdown"
+)
+
+// Valid indicates whether the value is a known member of the ReplyToFinJSONBodyResponseFormat enum.
+func (e ReplyToFinJSONBodyResponseFormat) Valid() bool {
+	switch e {
+	case ReplyToFinJSONBodyResponseFormatHtml:
+		return true
+	case ReplyToFinJSONBodyResponseFormatMarkdown:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ReplyToFin200JSONResponseBodyStatus.
 const (
 	ReplyToFin200JSONResponseBodyStatusAwaitingUserReply ReplyToFin200JSONResponseBodyStatus = "awaiting_user_reply"
@@ -6616,6 +6760,24 @@ func (e ReplyToFin200JSONResponseBodyStatus) Valid() bool {
 	case ReplyToFin200JSONResponseBodyStatusResolved:
 		return true
 	case ReplyToFin200JSONResponseBodyStatusThinking:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for StartFinConversationJSONBodyResponseFormat.
+const (
+	StartFinConversationJSONBodyResponseFormatHtml     StartFinConversationJSONBodyResponseFormat = "html"
+	StartFinConversationJSONBodyResponseFormatMarkdown StartFinConversationJSONBodyResponseFormat = "markdown"
+)
+
+// Valid indicates whether the value is a known member of the StartFinConversationJSONBodyResponseFormat enum.
+func (e StartFinConversationJSONBodyResponseFormat) Valid() bool {
+	switch e {
+	case StartFinConversationJSONBodyResponseFormatHtml:
+		return true
+	case StartFinConversationJSONBodyResponseFormatMarkdown:
 		return true
 	default:
 		return false
@@ -9348,7 +9510,7 @@ type Company struct {
 	// Example: ecahpwf5
 	AppId *string `json:"app_id,omitempty"`
 
-	// CompanyId The company id you have defined for the company.
+	// CompanyId The company id you have defined for the company. Returned HTML-escaped, for example `&` as `&amp;`.
 	//
 	// Example: 6
 	CompanyId *string `json:"company_id,omitempty"`
@@ -9383,17 +9545,33 @@ type Company struct {
 	// Example: 100
 	MonthlySpend *int `json:"monthly_spend,omitempty"`
 
-	// Name The name of the company.
+	// Name The name of the company. Returned HTML-escaped, for example `&` as `&amp;`.
 	//
 	// Example: Blue Sun
 	Name *string `json:"name,omitempty"`
 
 	// Notes The list of notes associated with the company
 	Notes *struct {
-		Notes *[]CompanyNote `json:"notes,omitempty"`
+		// Data The notes on the company, newest first.
+		Data *[]CompanyNote `json:"data,omitempty"`
+
+		// HasMore Always `false`. Every note on the company is returned in `data`.
+		//
+		// Example: false
+		HasMore *bool `json:"has_more,omitempty"`
+
+		// TotalCount The number of notes in `data`.
+		//
+		// Example: 1
+		TotalCount *int `json:"total_count,omitempty"`
 
 		// Type The type of the object
 		Type *CompanyNotesType `json:"type,omitempty"`
+
+		// Url The relative URL of the company's notes.
+		//
+		// Example: /companies/531ee472cce572a6ec000006/notes
+		Url *string `json:"url,omitempty"`
 	} `json:"notes,omitempty"`
 	Plan *struct {
 		// Id The id of the plan
@@ -9417,7 +9595,7 @@ type Company struct {
 	// Example: 1663597223
 	RemoteCreatedAt *int `json:"remote_created_at,omitempty"`
 
-	// Segments The list of segments associated with the company
+	// Segments Always returned empty. Fetch a company's segments with the list attached segments endpoint.
 	Segments *struct {
 		Segments *[]Segment `json:"segments,omitempty"`
 
@@ -9559,14 +9737,15 @@ type CompanyData struct {
 // Example: company
 type CompanyDataType string
 
-// CompanyList This will return a list of companies for the App.
+// CompanyList This will return a list of companies for the App. On the last page, `pages.next` is `null`.
 type CompanyList struct {
 	// Data An array containing Company Objects.
 	Data *[]Company `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount The total number of companies.
 	//
@@ -9584,33 +9763,12 @@ type CompanyList struct {
 // Example: list
 type CompanyListType string
 
-// CompanyNote Notes allow you to annotate and comment on companies.
+// CompanyNote A note as it appears inside a company's `notes` list. Fetch the full note with the retrieve note endpoint.
 type CompanyNote struct {
-	// Author Admins are teammate accounts that have access to a workspace.
-	Author *Admin `json:"author,omitempty"`
-
 	// Body The body text of the note.
 	//
 	// Example: <p>Text for the note.</p>
 	Body *string `json:"body,omitempty"`
-
-	// Company Represents the company that the note was created about.
-	Company *struct {
-		// Id The id of the company.
-		//
-		// Example: 6329bd9ffe4e2e91dac76188
-		Id *string `json:"id,omitempty"`
-
-		// Type String representing the object's type. Always has the value `company`.
-		//
-		// Example: company
-		Type *string `json:"type,omitempty"`
-	} `json:"company,omitempty"`
-
-	// CreatedAt The time the note was created.
-	//
-	// Example: 1674589321
-	CreatedAt *int `json:"created_at,omitempty"`
 
 	// Id The id of the note.
 	//
@@ -9621,24 +9779,26 @@ type CompanyNote struct {
 	//
 	// Example: note
 	Type *string `json:"type,omitempty"`
+
+	// Url The relative URL of the note.
+	//
+	// Example: /notes/17495962
+	Url *string `json:"url,omitempty"`
 }
 
 // CompanyScroll Companies allow you to represent organizations using your product. Each company will have its own description and be associated with contacts. You can fetch, create, update and list companies.
 type CompanyScroll struct {
 	Data *[]Company `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages Always `null`. Page through a scroll with `scroll_param` instead.
+	Pages *map[string]interface{} `json:"pages,omitempty"`
 
 	// ScrollParam The scroll parameter to use in the next request to fetch the next page of results.
 	//
 	// Example: 25b649f7-4d33-4ef6-88f5-60e5b8244309
 	ScrollParam *string `json:"scroll_param,omitempty"`
 
-	// TotalCount The total number of companies
-	//
-	// Example: 100
+	// TotalCount Always `null`. The scroll endpoint does not count the companies it returns.
 	TotalCount *int `json:"total_count,omitempty"`
 
 	// Type The type of object - `list`
@@ -9681,6 +9841,62 @@ type CompanySearchRequest_Query struct {
 // Example: descending
 type CompanySearchRequestSortOrder string
 
+// CompanySearchResponse This will return a list of companies matching a search query.
+type CompanySearchResponse struct {
+	// Data An array containing Company Objects.
+	Data *[]Company `json:"data,omitempty"`
+
+	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
+	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
+	Pages *CursorPages `json:"pages,omitempty"`
+
+	// TotalCount The total number of companies.
+	//
+	// Example: 100
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type The type of object - `list`.
+	//
+	// Example: list
+	Type *CompanySearchResponseType `json:"type,omitempty"`
+}
+
+// CompanySearchResponseType The type of object - `list`.
+//
+// Example: list
+type CompanySearchResponseType string
+
+// CompanyUserList The contacts attached to one company, returned when `type` is `user` or `users` and the request names a single company. Contacts are in the legacy user format. On the last page, `pages.next` is `null`.
+type CompanyUserList struct {
+	// Limited Always `false` for this list.
+	//
+	// Example: false
+	Limited *bool `json:"limited,omitempty"`
+
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
+
+	// TotalCount The total number of contacts attached to the company.
+	//
+	// Example: 1
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type The type of object - `user.list`.
+	//
+	// Example: user.list
+	Type *CompanyUserListType `json:"type,omitempty"`
+
+	// Users The contacts attached to the company, in the legacy user format.
+	Users *[]map[string]interface{} `json:"users,omitempty"`
+}
+
+// CompanyUserListType The type of object - `user.list`.
+//
+// Example: user.list
+type CompanyUserListType string
+
 // Contact Contacts represent your leads and users in Intercom.
 type Contact struct {
 	// AndroidAppName The name of the Android app which the contact is using.
@@ -9712,17 +9928,11 @@ type Contact struct {
 	//
 	// Example: 28
 	AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
-	Avatar            *struct {
-		// ImageUrl An image URL containing the avatar of a contact.
-		//
-		// Example: https://example.org/128Wash.jpg
-		ImageUrl *string `json:"image_url,omitempty"`
 
-		// Type The type of object
-		//
-		// Example: avatar
-		Type *string `json:"type,omitempty"`
-	} `json:"avatar,omitempty"`
+	// Avatar An image URL containing the avatar of a contact.
+	//
+	// Example: https://example.org/128Wash.jpg
+	Avatar *string `json:"avatar,omitempty"`
 
 	// Browser The name of the browser which the contact is using.
 	//
@@ -9760,10 +9970,15 @@ type Contact struct {
 	// Example: example.com
 	EmailDomain *string `json:"email_domain,omitempty"`
 
-	// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead.
+	// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
 	//
 	// Example: true
 	EmailVerified *bool `json:"email_verified,omitempty"`
+
+	// EnabledPushMessaging Whether the contact has a mobile device registered to receive push messages.
+	//
+	// Example: true
+	EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
 
 	// ExternalId The unique identifier for the contact which is provided by the Client.
 	//
@@ -9848,7 +10063,7 @@ type Contact struct {
 	// Example: true
 	MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
 
-	// MergeHistory A list of contacts that were merged into this contact. Only included in the response when `include_merge_history=true` is passed as a query parameter. Only available for contacts with a `user` role.
+	// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
 	MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
 
 	// Name The contacts name.
@@ -9858,6 +10073,12 @@ type Contact struct {
 
 	// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
 	Notes *ContactNotes `json:"notes,omitempty"`
+
+	// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+	OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
+
+	// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+	OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
 
 	// Os The operating system which the contact is using.
 	//
@@ -9874,6 +10095,11 @@ type Contact struct {
 	// Example: +1123456789
 	Phone *string `json:"phone,omitempty"`
 
+	// Referrer The URL of the page the contact came from, as recorded by the Messenger.
+	//
+	// Example: https://example.com/pricing
+	Referrer *string `json:"referrer,omitempty"`
+
 	// Role The role of the contact.
 	//
 	// Example: user
@@ -9883,6 +10109,11 @@ type Contact struct {
 	//
 	// Example: 1571672154
 	SignedUpAt *int `json:"signed_up_at,omitempty"`
+
+	// SmsConsent Whether the contact has consented to receive SMS messages.
+	//
+	// Example: false
+	SmsConsent *bool `json:"sms_consent,omitempty"`
 
 	// SocialProfiles An object containing social profiles that a contact has.
 	SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
@@ -9900,10 +10131,40 @@ type Contact struct {
 	// Example: true
 	UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
 
+	// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
+	//
+	// Example: false
+	UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
+
 	// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
 	//
 	// Example: 1571672154
 	UpdatedAt *int `json:"updated_at,omitempty"`
+
+	// UtmCampaign The `utm_campaign` value recorded for the contact.
+	//
+	// Example: spring_launch
+	UtmCampaign *string `json:"utm_campaign,omitempty"`
+
+	// UtmContent The `utm_content` value recorded for the contact.
+	//
+	// Example: banner_ad
+	UtmContent *string `json:"utm_content,omitempty"`
+
+	// UtmMedium The `utm_medium` value recorded for the contact.
+	//
+	// Example: email
+	UtmMedium *string `json:"utm_medium,omitempty"`
+
+	// UtmSource The `utm_source` value recorded for the contact.
+	//
+	// Example: newsletter
+	UtmSource *string `json:"utm_source,omitempty"`
+
+	// UtmTerm The `utm_term` value recorded for the contact.
+	//
+	// Example: support_software
+	UtmTerm *string `json:"utm_term,omitempty"`
 
 	// WorkspaceId The id of the workspace which the contact belongs to.
 	//
@@ -9928,12 +10189,12 @@ type ContactActivity struct {
 	// Example: contact.created
 	EventType *ContactActivityEventType `json:"event_type,omitempty"`
 
-	// ExternalId The external identifier of the contact, if one is set.
+	// ExternalId The external identifier of the contact. Omitted when not set.
 	//
 	// Example: user-42
 	ExternalId *string `json:"external_id,omitempty"`
 
-	// FailureReason For failed events, the reason the activity did not succeed.
+	// FailureReason For failed events, the reason the activity did not succeed. Omitted on other events.
 	//
 	// Example: duplicate_external_id
 	FailureReason *string `json:"failure_reason,omitempty"`
@@ -9943,17 +10204,17 @@ type ContactActivity struct {
 	// Example: 1717000000000.0000a1
 	Id *string `json:"id,omitempty"`
 
-	// MergeSourceId For merge events, the identifier of the contact that was merged away.
+	// MergeSourceId For merge events, the identifier of the contact that was merged away. Omitted on other events.
 	//
 	// Example: 5f7f0d217c3f2e001a4e8b12
 	MergeSourceId *string `json:"merge_source_id,omitempty"`
 
-	// MergeTargetId For merge events, the identifier of the contact that was merged into.
+	// MergeTargetId For merge events, the identifier of the contact that was merged into. Omitted on other events.
 	//
 	// Example: 6329bd9ffe4e2e91dc5d6a1e
 	MergeTargetId *string `json:"merge_target_id,omitempty"`
 
-	// Role The role of the contact at the time of the event, either user, lead, or visitor.
+	// Role The role of the contact at the time of the event, either user, lead, or visitor. Omitted when not recorded.
 	//
 	// Example: user
 	Role *string `json:"role,omitempty"`
@@ -9981,7 +10242,7 @@ type ContactActivityList struct {
 
 	// Pages Pagination information.
 	Pages *struct {
-		// Next Cursor for the next page of results.
+		// Next Cursor for the next page of results. Omitted on the last page.
 		Next *struct {
 			// StartingAfter The cursor value to use for the next page.
 			//
@@ -10042,8 +10303,8 @@ type ContactArchivedType string
 
 // ContactAttachedCompanies A list of Company Objects
 type ContactAttachedCompanies struct {
-	// Companies An array containing Company Objects
-	Companies *[]Company `json:"companies,omitempty"`
+	// Data An array containing Company Objects
+	Data *[]Company `json:"data,omitempty"`
 
 	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
 	//
@@ -10175,10 +10436,20 @@ type ContactLocation struct {
 	// Example: Dublin
 	City *string `json:"city,omitempty"`
 
+	// ContinentCode The code of the continent that the contact is located in
+	//
+	// Example: EU
+	ContinentCode *string `json:"continent_code,omitempty"`
+
 	// Country The country that the contact is located in
 	//
 	// Example: Ireland
 	Country *string `json:"country,omitempty"`
+
+	// CountryCode The ISO 3166-1 alpha-3 code of the country that the contact is located in
+	//
+	// Example: IRL
+	CountryCode *string `json:"country_code,omitempty"`
 
 	// Region The overal region that the contact is located in
 	//
@@ -10540,6 +10811,37 @@ type ContactSocialProfiles struct {
 	Data *[]SocialProfile `json:"data,omitempty"`
 }
 
+// ContactSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+type ContactSubscriptionTypes struct {
+	// Data This object represents the subscriptions attached to a contact.
+	Data *[]AddressableList `json:"data,omitempty"`
+
+	// HasMore Whether there's more Addressable Objects to be viewed. If true, use the url to view all
+	//
+	// Example: true
+	HasMore *bool `json:"has_more,omitempty"`
+
+	// TotalCount Int representing the total number of subscription types attached to this contact
+	//
+	// Example: 100
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type The type of the object
+	//
+	// Example: list
+	Type *ContactSubscriptionTypesType `json:"type,omitempty"`
+
+	// Url Url to get more subscription type resources for this contact
+	//
+	// Example: /contacts/5ba682d23d7cf92bef87bfd4/subscriptions
+	Url *string `json:"url,omitempty"`
+}
+
+// ContactSubscriptionTypesType The type of the object
+//
+// Example: list
+type ContactSubscriptionTypesType string
+
 // ContactTags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
 type ContactTags struct {
 	// Data This object represents the tags attached to a contact.
@@ -10591,7 +10893,7 @@ type ContactUnarchivedType string
 
 // ContactsBulkJob A bulk job for updating contacts asynchronously. Track the job status using the `state` field.
 type ContactsBulkJob struct {
-	// CompletedAt The time the job completed as a Unix timestamp. Null if not yet completed.
+	// CompletedAt The time the most recent task completed as a Unix timestamp. Set as soon as any task completes, so check `state` to know whether the whole job has finished. Null until a task completes.
 	//
 	// Example: 1713360120
 	CompletedAt *int `json:"completed_at,omitempty"`
@@ -10790,7 +11092,7 @@ type ContentImportSource struct {
 	// Example: 1672928610
 	LastSyncedAt int `json:"last_synced_at"`
 
-	// Status The status of the content import source.
+	// Status The status of the content import source. A source that is being deleted has the status `deletion_in_progress`.
 	//
 	// Example: active
 	Status ContentImportSourceStatus `json:"status"`
@@ -10800,7 +11102,7 @@ type ContentImportSource struct {
 	// Example: api
 	SyncBehavior ContentImportSourceSyncBehavior `json:"sync_behavior"`
 
-	// Type Always external_page
+	// Type Always content_import_source
 	//
 	// Example: content_import_source
 	Type ContentImportSourceType `json:"type"`
@@ -10816,7 +11118,7 @@ type ContentImportSource struct {
 	Url string `json:"url"`
 }
 
-// ContentImportSourceStatus The status of the content import source.
+// ContentImportSourceStatus The status of the content import source. A source that is being deleted has the status `deletion_in_progress`.
 //
 // Example: active
 type ContentImportSourceStatus string
@@ -10826,7 +11128,7 @@ type ContentImportSourceStatus string
 // Example: api
 type ContentImportSourceSyncBehavior string
 
-// ContentImportSourceType Always external_page
+// ContentImportSourceType Always content_import_source
 //
 // Example: content_import_source
 type ContentImportSourceType string
@@ -13352,6 +13654,11 @@ type CreateContactRequest struct {
 	// Example: 625e90fc55ab113b6d92175f
 	ExternalId *string `json:"external_id,omitempty"`
 
+	// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
+	//
+	// Example: en
+	LanguageOverride *string `json:"language_override,omitempty"`
+
 	// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
 	//
 	// Example: 1571672154
@@ -13372,7 +13679,7 @@ type CreateContactRequest struct {
 	// Example: +353871234567
 	Phone *string `json:"phone,omitempty"`
 
-	// Role The role of the contact.
+	// Role The role of the contact. `lead` creates a lead; any other value creates a user.
 	//
 	// Example: user
 	Role *string `json:"role,omitempty"`
@@ -13382,11 +13689,21 @@ type CreateContactRequest struct {
 	// Example: 1571672154
 	SignedUpAt *int `json:"signed_up_at,omitempty"`
 
+	// SmsConsent Whether the contact has consented to receive SMS messages.
+	//
+	// Example: false
+	SmsConsent *bool `json:"sms_consent,omitempty"`
+
 	// UnsubscribedFromEmails Whether the contact is unsubscribed from emails
 	//
 	// Example: true
 	UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
-	union                  json.RawMessage
+
+	// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
+	//
+	// Example: false
+	UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
+	union               json.RawMessage
 }
 
 // CreateContactRequest0 defines model for CreateContactRequest.0.
@@ -13415,7 +13732,7 @@ type CreateContentImportSourceRequest struct {
 	// Example: api
 	SyncBehavior CreateContentImportSourceRequestSyncBehavior `json:"sync_behavior"`
 
-	// Url The URL of the content import source.
+	// Url The URL of the content import source. It must be an http or https URL whose host is a valid public domain name.
 	//
 	// Example: https://help.example.com
 	Url string `json:"url"`
@@ -13850,22 +14167,22 @@ type CreateDataConnectorRequest struct {
 		// Description A description of the parameter.
 		//
 		// Example: The order ID to look up
-		Description *string `json:"description,omitempty"`
+		Description string `json:"description"`
 
 		// Name The parameter name.
 		//
 		// Example: order_id
-		Name *string `json:"name,omitempty"`
+		Name string `json:"name"`
 
 		// Required Whether the parameter is required.
 		//
 		// Example: true
-		Required *bool `json:"required,omitempty"`
+		Required bool `json:"required"`
 
 		// Type The parameter type.
 		//
 		// Example: string
-		Type *CreateDataConnectorRequestDataInputsType `json:"type,omitempty"`
+		Type CreateDataConnectorRequestDataInputsType `json:"type"`
 	} `json:"data_inputs,omitempty"`
 
 	// Description A description of what this data connector does.
@@ -13878,23 +14195,29 @@ type CreateDataConnectorRequest struct {
 	// Example: false
 	DirectFinUsage *bool `json:"direct_fin_usage,omitempty"`
 
+	// EnforceAuth Whether authentication is enforced. On workspaces where this is supported, it takes precedence over `customer_authentication` and `bypass_authentication` when sent together, and setting it to false disables OTP.
+	EnforceAuth *bool `json:"enforce_auth,omitempty"`
+
 	// Headers HTTP headers to include in the request.
 	Headers *[]struct {
 		// Name The header name.
 		//
 		// Example: Content-Type
-		Name *string `json:"name,omitempty"`
+		Name string `json:"name"`
 
 		// Value The header value. Supports template variables.
 		//
 		// Example: application/json
-		Value *string `json:"value,omitempty"`
+		Value string `json:"value"`
 	} `json:"headers,omitempty"`
 
 	// HttpMethod The HTTP method used when calling the external API.
 	//
 	// Example: get
 	HttpMethod *CreateDataConnectorRequestHttpMethod `json:"http_method,omitempty"`
+
+	// InternalDescription The internal description of the data connector. If omitted, it is an empty string.
+	InternalDescription *string `json:"internal_description,omitempty"`
 
 	// MockResponse A sample JSON response from the external API. Auto-generates `response_fields` and sets `configuration_response_type` to `mock_response_type`.
 	//
@@ -14044,6 +14367,11 @@ type CreateExternalPageRequest struct {
 	// Example: true
 	AiCopilotAvailability *bool `json:"ai_copilot_availability,omitempty"`
 
+	// AiSalesAgentAvailability Whether the external page should be used to answer questions by AI Sales Agent. Will not default when updating an existing external page.
+	//
+	// Example: true
+	AiSalesAgentAvailability *bool `json:"ai_sales_agent_availability,omitempty"`
+
 	// AudienceIds The list of audience IDs to target this external page to for Fin AI Agent. Omitting the field keeps the default audience inherited from the source. Pass `[]` to clear all audience memberships, including the inherited ones. If an external page already exists with the specified source_id and external_id, omitting the field leaves its audience memberships unchanged. Unknown audience IDs return a `404` error.
 	//
 	// Example: [1,2]
@@ -14059,10 +14387,10 @@ type CreateExternalPageRequest struct {
 	// Example: <p>Hello world!</p>
 	Html string `json:"html"`
 
-	// Locale Always en
+	// Locale The language code of the external page, for example `en` or `fr`. It must be a language supported by the workspace.
 	//
 	// Example: en
-	Locale CreateExternalPageRequestLocale `json:"locale"`
+	Locale string `json:"locale"`
 
 	// SourceId The unique identifier for the source of the external page which was given by Intercom. Every external page must be associated with a Content Import Source which represents the place it comes from and from which it inherits a default audience (configured in the UI). For a new source, make a POST request to the Content Import Source endpoint and an ID for the source will be returned in the response.
 	//
@@ -14079,11 +14407,6 @@ type CreateExternalPageRequest struct {
 	// Example: https://help.example.com/en/articles/1234-getting-started
 	Url *string `json:"url,omitempty"`
 }
-
-// CreateExternalPageRequestLocale Always en
-//
-// Example: en
-type CreateExternalPageRequestLocale string
 
 // CreateHelpCenterRedirectRequest You can create a help center redirect.
 type CreateHelpCenterRedirectRequest struct {
@@ -14315,7 +14638,7 @@ type CreateOfficeHoursScheduleRequest struct {
 	TimeZoneName string `json:"time_zone_name"`
 }
 
-// CreateOrUpdateCompanyRequest You can create or update a Company
+// CreateOrUpdateCompanyRequest You can create or update a Company. Send either `company_id` or `id`; a request with neither returns a `400` error.
 type CreateOrUpdateCompanyRequest struct {
 	// CompanyId The company id you have defined for the company. Can't be updated
 	//
@@ -14327,17 +14650,22 @@ type CreateOrUpdateCompanyRequest struct {
 	// Example: {"monthly_spend":155.5,"paid_subscriber":true,"team_mates":9}
 	CustomAttributes *map[string]CreateOrUpdateCompanyRequest_CustomAttributes_AdditionalProperties `json:"custom_attributes,omitempty"`
 
+	// Id An alternative name for `company_id`. Supply this or `company_id`.
+	//
+	// Example: 625e90fc55ab113b6d92175f
+	Id *string `json:"id,omitempty"`
+
 	// Industry The industry that this company operates in.
 	//
 	// Example: Manufacturing
 	Industry *string `json:"industry,omitempty"`
 
-	// MonthlySpend How much revenue the company generates for your business. Note that this will truncate floats. i.e. it only allow for whole integers, 155.98 will be truncated to 155. Note that this has an upper limit of 2**31-1 or 2147483647..
+	// MonthlySpend How much revenue the company generates for your business. Floats are truncated to whole integers, so 155.98 is stored as 155. A value above 2147483647 (2**31-1) is stored as 0. 2147483647 itself, or a value of -2147483648 or below, returns a `422` error.
 	//
 	// Example: 1000
 	MonthlySpend *int `json:"monthly_spend,omitempty"`
 
-	// Name The name of the Company
+	// Name The name of the Company. Leading and trailing whitespace is removed.
 	//
 	// Example: Intercom
 	Name *string `json:"name,omitempty"`
@@ -15036,6 +15364,11 @@ type DataConnector struct {
 	// Example: false
 	DirectFinUsage *bool `json:"direct_fin_usage,omitempty"`
 
+	// EnforceAuth Whether authentication is enforced for this connector.
+	//
+	// Example: true
+	EnforceAuth *bool `json:"enforce_auth,omitempty"`
+
 	// ExecutionResultsUrl The URL path to fetch execution results for this connector.
 	//
 	// Example: /data_connectors/12345/execution_results
@@ -15050,6 +15383,9 @@ type DataConnector struct {
 	//
 	// Example: 12345
 	Id *string `json:"id,omitempty"`
+
+	// InternalDescription The internal description of the data connector.
+	InternalDescription *string `json:"internal_description,omitempty"`
 
 	// Name The name of the data connector.
 	//
@@ -15092,7 +15428,7 @@ type DataConnectorState string
 // Example: data_connector
 type DataConnectorType string
 
-// DataConnectorDetail Full detail view of a data connector, returned by `GET /data_connectors/{id}`.
+// DataConnectorDetail Full detail view of a data connector, returned by `GET /data_connectors/{id}`, `POST /data_connectors`, and `PATCH /data_connectors/{id}`.
 // Includes configuration, data inputs, response fields, and object mappings.
 type DataConnectorDetail struct {
 	// Audiences The audience types this connector targets.
@@ -15173,6 +15509,11 @@ type DataConnectorDetail struct {
 	// Example: false
 	DirectFinUsage *bool `json:"direct_fin_usage,omitempty"`
 
+	// EnforceAuth Whether authentication is enforced for this connector.
+	//
+	// Example: true
+	EnforceAuth *bool `json:"enforce_auth,omitempty"`
+
 	// ExecutionResultsUrl The URL path to fetch execution results for this connector.
 	//
 	// Example: /data_connectors/12345/execution_results
@@ -15207,6 +15548,9 @@ type DataConnectorDetail struct {
 	//
 	// Example: 12345
 	Id *string `json:"id,omitempty"`
+
+	// InternalDescription The internal description of the data connector.
+	InternalDescription *string `json:"internal_description,omitempty"`
 
 	// Name The name of the data connector.
 	//
@@ -15260,6 +15604,26 @@ type DataConnectorDetail struct {
 	//
 	// Example: []
 	TokenIds *[]string `json:"token_ids,omitempty"`
+
+	// TransformCodeBlock The code block used to transform the connector's response. Present only when `data_transformation_type` is
+	// `code_block_transformation` and a code block exists; otherwise omitted.
+	//
+	//
+	// Example: {"code":"def transform(response):\n    return {\"status\": response[\"order_status\"]}\n\nreturn transform(inputs['data'])\n","language":"python"}
+	TransformCodeBlock *struct {
+		// Code The source code of the transform code block. The API response body is available as `inputs['data']`. The code must `return` the transformed value.
+		//
+		// Example: def transform(response):
+		//     return {"status": response["order_status"]}
+		//
+		// return transform(inputs['data'])
+		Code *string `json:"code,omitempty"`
+
+		// Language The programming language of the transform code block. Currently always `python`.
+		//
+		// Example: python
+		Language *string `json:"language,omitempty"`
+	} `json:"transform_code_block,omitempty"`
 
 	// Type The type of object - `data_connector`.
 	//
@@ -15352,7 +15716,7 @@ type DataConnectorExecutionResult struct {
 	// Example: 12345
 	DataConnectorId *string `json:"data_connector_id,omitempty"`
 
-	// ErrorMessage A human-readable error message. Query parameters, userinfo, and fragments in URLs are redacted.
+	// ErrorMessage A human-readable error message. Any http or https URLs in it are redacted the same way as `request_url`; the rest of the message is returned as is.
 	//
 	// Example: Connection refused
 	ErrorMessage *string `json:"error_message,omitempty"`
@@ -15392,7 +15756,7 @@ type DataConnectorExecutionResult struct {
 	// Example: {"message": "hello"}
 	RequestBody *string `json:"request_body,omitempty"`
 
-	// RequestUrl The request URL. Query parameters, userinfo, and fragments are redacted.
+	// RequestUrl The request URL. Query parameters, userinfo, and fragments are redacted. For some hosts that put credentials in the path, the path is removed too. A suffix such as ` [query params redacted]` or ` [credentials redacted]` is appended when anything is redacted, and a URL that cannot be parsed becomes `[invalid URL redacted]`.
 	//
 	// Example: https://api.example.com/webhook
 	RequestUrl *string `json:"request_url,omitempty"`
@@ -15454,7 +15818,7 @@ type DataConnectorExecutionResultList struct {
 		Next *struct {
 			// StartingAfter The cursor value to use for the next page.
 			//
-			// Example: WzE3MDc1OTQ3MTUuMCw5OTAwMF0=
+			// Example: WzE3NzA3NDU1MTUuMCw5OTAwMCxudWxsXQ==
 			StartingAfter *string `json:"starting_after,omitempty"`
 		} `json:"next,omitempty"`
 
@@ -15492,7 +15856,7 @@ type DataConnectorList struct {
 		Next *struct {
 			// StartingAfter The cursor value to use for the next page.
 			//
-			// Example: WzE3MDc1OTQ3MTUuMCwxMjM0NV0=
+			// Example: WzE3Njg5MTg5MzUuMCwxMjM0NSxudWxsXQ==
 			StartingAfter *string `json:"starting_after,omitempty"`
 		} `json:"next,omitempty"`
 
@@ -15936,7 +16300,7 @@ type DeletedCollectionObjectObject string
 
 // DeletedCompanyObject Response returned when an object is deleted
 type DeletedCompanyObject struct {
-	// Deleted Whether the company was deleted successfully or not.
+	// Deleted Always `true`. The contacts are detached after the response is sent.
 	//
 	// Example: true
 	Deleted *bool `json:"deleted,omitempty"`
@@ -16632,15 +16996,18 @@ type ExternalPage struct {
 	// Example: 1672928610
 	LastIngestedAt int `json:"last_ingested_at"`
 
-	// Locale Always en
+	// Locale The language code of the external page, for example `en` or `fr`.
 	//
 	// Example: en
-	Locale ExternalPageLocale `json:"locale"`
+	Locale string `json:"locale"`
 
 	// SourceId The unique identifier for the source of the external page which was given by Intercom. Every external page must be associated with a Content Import Source which represents the place it comes from and from which it inherits a default audience (configured in the UI). For a new source, make a POST request to the Content Import Source endpoint and an ID for the source will be returned in the response.
 	//
 	// Example: 1234
 	SourceId int `json:"source_id"`
+
+	// Tags The tags applied to the external page.
+	Tags *Tags `json:"tags,omitempty"`
 
 	// Title The title of the external page.
 	//
@@ -16662,11 +17029,6 @@ type ExternalPage struct {
 	// Example: https://help.example.com/en/articles/1234-getting-started
 	Url *string `json:"url,omitempty"`
 }
-
-// ExternalPageLocale Always en
-//
-// Example: en
-type ExternalPageLocale string
 
 // ExternalPageType Always external_page
 //
@@ -16802,19 +17164,20 @@ type FinAgentConversationMetadata struct {
 	// History An array of previous messages in the conversation before Fin is initialized.
 	// This data provides context to Fin and helps generate a better answer.
 	// Limit to the last 10 messages.
+	// Only `user` and `agent` authors are accepted. If any item is invalid, for example it has no `timestamp` or `timestamp_ms`, or has another author, the whole history is ignored.
 	History *[]FinAgentMessage `json:"history,omitempty"`
 }
 
 // FinAgentMessage A message exchanged within a Fin Agent conversation.
 type FinAgentMessage struct {
-	// Author The author that created the message.
+	// Author The author that created the message. In `conversation_metadata.history`, only `user` and `agent` are accepted.
 	//
 	// Example: user
 	Author FinAgentMessageAuthor `json:"author"`
 
 	// Body The body of the message. Accepts both plain text and HTML format.
-	// When sending a message to Fin, this should contain the user's message.
-	// Fin's response will be returned as HTML.
+	// For the message you send to Fin, this is the user's message. For an `agent` item in `conversation_metadata.history`, it is the agent's message.
+	// Fin's response is returned in the format set by `response_format` (HTML by default).
 	//
 	//
 	// Example: How can I see my account details?
@@ -16823,20 +17186,22 @@ type FinAgentMessage struct {
 	// Timestamp The timestamp when the message was created.
 	// Used to deduplicate messages sent within a 5 minute window.
 	// Ideally should include milliseconds for higher precision.
+	// Send `timestamp` or `timestamp_ms`; at least one is required. If you send both, `timestamp_ms` is used.
+	// On the top-level `message`, sending neither fails with a 422 error (`message: timestamp_ms is required`). In `conversation_metadata.history`, an item with neither causes the whole history to be ignored.
 	//
 	//
 	// Example: 2025-01-24T10:01:20.000Z
-	Timestamp time.Time `json:"timestamp"`
+	Timestamp *time.Time `json:"timestamp,omitempty"`
 
 	// TimestampMs The timestamp when the message was created, with millisecond precision.
-	// Only present in webhook event responses (fin_replied).
+	// Accepted in place of `timestamp` when you send a message, and also present in webhook event responses (fin_replied). At least one of `timestamp` or `timestamp_ms` is required.
 	//
 	//
 	// Example: 2025-01-24T10:01:20.456Z
 	TimestampMs *time.Time `json:"timestamp_ms,omitempty"`
 }
 
-// FinAgentMessageAuthor The author that created the message.
+// FinAgentMessageAuthor The author that created the message. In `conversation_metadata.history`, only `user` and `agent` are accepted.
 //
 // Example: user
 type FinAgentMessageAuthor string
@@ -17839,7 +18204,7 @@ type MergeHistoryList struct {
 	// Example: false
 	HasMore *bool `json:"has_more,omitempty"`
 
-	// NextCursor A cursor to pass as the `cursor` query parameter to fetch the next page of results. Absent when there are no more pages.
+	// NextCursor A cursor to pass as the `cursor` query parameter to fetch the next page of results. `null` when there are no more pages.
 	//
 	// Example: WyIxNjM0NTY3ODkwIl0
 	NextCursor *string `json:"next_cursor,omitempty"`
@@ -17892,7 +18257,7 @@ type MergePreviewAttributeChangeOutcome string
 
 // MergePreviewAttributeChanges The attribute changes the merge would make to the surviving contact.
 type MergePreviewAttributeChanges struct {
-	// Attributes The individual attribute changes. Capped at 50 items; total_count reflects the full number of changes.
+	// Attributes The individual attribute changes. At most 50 custom attribute changes are included; changes to standard fields are always included, so this array can hold more than 50 items. total_count reflects the full number of changes.
 	Attributes *[]MergePreviewAttributeChange `json:"attributes,omitempty"`
 
 	// TotalCount The total number of attribute changes detected, which may exceed the number of items in attributes.
@@ -19169,12 +19534,12 @@ type SubscriptionTypeListType string
 
 // Tag A tag allows you to label your contacts, companies, and conversations and list them using that tag.
 type Tag struct {
-	// AppliedAt The time when the tag was applied to the object. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet.
+	// AppliedAt The time when the tag was applied to the object. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet, or when it is returned as part of an external page.
 	//
 	// Example: 1663597223
 	AppliedAt *int `json:"applied_at,omitempty"`
 
-	// AppliedBy The admin who applied the tag. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet.
+	// AppliedBy The admin who applied the tag. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet, or when it is returned as part of an external page.
 	AppliedBy *Reference `json:"applied_by,omitempty"`
 
 	// Id The id of the tag
@@ -19749,277 +20114,4 @@ type TicketPart struct {
 			Type TicketPartUpdatedAttributeDataValueType `json:"type"`
 		} `json:"value"`
 	} `json:"updated_attribute_data,omitempty"`
-}
-
-// TicketPartPreviousTicketState The previous state of the ticket.
-//
-// Example: submitted
-type TicketPartPreviousTicketState string
-
-// TicketPartTicketState The state of the ticket.
-//
-// Example: submitted
-type TicketPartTicketState string
-
-// TicketPart_Translations A map of the reply text keyed by locale code. Backs the `ticket.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in; every other key holds the reply translated into that locale.
-//
-// Example: {"en":"\u003cp\u003eHello\u003c/p\u003e","fr":"\u003cp\u003eBonjour\u003c/p\u003e","original":"en"}
-type TicketPart_Translations struct {
-	// Original The locale code identifying the language the reply was originally written in.
-	//
-	// Example: en
-	Original             string            `json:"original"`
-	AdditionalProperties map[string]string `json:"-"`
-}
-
-// TicketPartUpdatedAttributeDataAttributeType The type of the object. Always 'attribute'.
-//
-// Example: attribute
-type TicketPartUpdatedAttributeDataAttributeType string
-
-// TicketPartUpdatedAttributeDataValueId0 The value for text/number/decimal/boolean/date attributes, or the ID of the list option for list attributes.
-//
-// Example: Fast
-type TicketPartUpdatedAttributeDataValueId0 = string
-
-// TicketPartUpdatedAttributeDataValueId1 Array of file IDs for file attributes.
-//
-// Example: [2]
-type TicketPartUpdatedAttributeDataValueId1 = []int
-
-// TicketPart_UpdatedAttributeData_Value_Id defines model for TicketPart.UpdatedAttributeData.Value.Id.
-type TicketPart_UpdatedAttributeData_Value_Id struct {
-	union json.RawMessage
-}
-
-// TicketPartUpdatedAttributeDataValueLabel0 The display value for text/number/decimal/boolean/date/list attributes.
-//
-// Example: Fast
-type TicketPartUpdatedAttributeDataValueLabel0 = string
-
-// TicketPartUpdatedAttributeDataValueLabel1 Array of file names for file attributes.
-//
-// Example: ["photo.png"]
-type TicketPartUpdatedAttributeDataValueLabel1 = []string
-
-// TicketPart_UpdatedAttributeData_Value_Label defines model for TicketPart.UpdatedAttributeData.Value.Label.
-type TicketPart_UpdatedAttributeData_Value_Label struct {
-	union json.RawMessage
-}
-
-// TicketPartUpdatedAttributeDataValueType The type of the object. Always 'value'.
-//
-// Example: value
-type TicketPartUpdatedAttributeDataValueType string
-
-// TicketPartAuthor The author that wrote or triggered the part. Can be a bot, admin, team or user.
-type TicketPartAuthor struct {
-	// Email The email of the author
-	//
-	// Example: operator+abcd1234@intercom.io
-	Email *openapi_types.Email `json:"email,omitempty"`
-
-	// Id The id of the author
-	//
-	// Example: 274
-	Id *string `json:"id,omitempty"`
-
-	// Name The name of the author
-	//
-	// Example: Operator
-	Name *string `json:"name,omitempty"`
-
-	// Type The type of the author
-	//
-	// Example: admin
-	Type *TicketPartAuthorType `json:"type,omitempty"`
-}
-
-// TicketPartAuthorType The type of the author
-//
-// Example: admin
-type TicketPartAuthorType string
-
-// TicketParts A list of Ticket Part objects for each note and event in the ticket. There is a limit of 500 parts.
-type TicketParts struct {
-	// TicketParts A list of Ticket Part objects for each ticket. There is a limit of 500 parts.
-	TicketParts *[]TicketPart `json:"ticket_parts,omitempty"`
-
-	// TotalCount Example: 2
-	TotalCount *int `json:"total_count,omitempty"`
-
-	// Type Example: ticket_part.list
-	Type *TicketPartsType `json:"type,omitempty"`
-}
-
-// TicketPartsType Example: ticket_part.list
-type TicketPartsType string
-
-// TicketReply A Ticket Part representing a note, comment, or quick_reply on a ticket
-type TicketReply struct {
-	// Attachments A list of attachments for the part.
-	Attachments *[]PartAttachment `json:"attachments,omitempty"`
-
-	// Author The author that wrote or triggered the part. Can be a bot, admin, team or user.
-	Author *TicketPartAuthor `json:"author,omitempty"`
-
-	// Body The message body, which may contain HTML.
-	//
-	// Example: <p>Okay!</p>
-	Body *string `json:"body,omitempty"`
-
-	// CreatedAt The time the note was created.
-	//
-	// Example: 1663597223
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// Id The id representing the part.
-	//
-	// Example: 3
-	Id *string `json:"id,omitempty"`
-
-	// PartType Type of the part
-	//
-	// Example: note
-	PartType *TicketReplyPartType `json:"part_type,omitempty"`
-
-	// Redacted Whether or not the ticket part has been redacted.
-	//
-	// Example: false
-	Redacted *bool `json:"redacted,omitempty"`
-
-	// Translations A map of the reply text keyed by locale code. Backs the `ticket.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in; every other key holds the reply translated into that locale.
-	//
-	// Example: {"en":"\u003cp\u003eHello\u003c/p\u003e","fr":"\u003cp\u003eBonjour\u003c/p\u003e","original":"en"}
-	Translations *TicketReply_Translations `json:"translations,omitempty"`
-
-	// Type Always ticket_part
-	//
-	// Example: ticket_part
-	Type *TicketReplyType `json:"type,omitempty"`
-
-	// UpdatedAt The last time the note was updated.
-	//
-	// Example: 1663597260
-	UpdatedAt *int `json:"updated_at,omitempty"`
-}
-
-// TicketReplyPartType Type of the part
-//
-// Example: note
-type TicketReplyPartType string
-
-// TicketReply_Translations A map of the reply text keyed by locale code. Backs the `ticket.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in; every other key holds the reply translated into that locale.
-//
-// Example: {"en":"\u003cp\u003eHello\u003c/p\u003e","fr":"\u003cp\u003eBonjour\u003c/p\u003e","original":"en"}
-type TicketReply_Translations struct {
-	// Original The locale code identifying the language the reply was originally written in.
-	//
-	// Example: en
-	Original             string            `json:"original"`
-	AdditionalProperties map[string]string `json:"-"`
-}
-
-// TicketReplyType Always ticket_part
-//
-// Example: ticket_part
-type TicketReplyType string
-
-// TicketRequestCustomAttributes The attributes set on the ticket. When setting the default title and description attributes, the attribute keys that should be used are `_default_title_` and `_default_description_`. When setting ticket type attributes of the list attribute type, the key should be the attribute name and the value of the attribute should be the list item id, obtainable by [listing the ticket type](ref:get_ticket-types). For example, if the ticket type has an attribute called `priority` of type `list`, the key should be `priority` and the value of the attribute should be the guid of the list item (e.g. `de1825a0-0164-4070-8ca6-13e22462fa7e`).
-//
-// Example: {"_default_description_":"The button is not working","_default_title_":"Found a bug"}
-type TicketRequestCustomAttributes map[string]TicketRequestCustomAttributes_AdditionalProperties
-
-// TicketRequestCustomAttributes0 defines model for TicketRequestCustomAttributes.0.
-type TicketRequestCustomAttributes0 = string
-
-// TicketRequestCustomAttributes1 defines model for TicketRequestCustomAttributes.1.
-type TicketRequestCustomAttributes1 = float64
-
-// TicketRequestCustomAttributes2 defines model for TicketRequestCustomAttributes.2.
-type TicketRequestCustomAttributes2 = bool
-
-// TicketRequestCustomAttributes3 defines model for TicketRequestCustomAttributes.3.
-type TicketRequestCustomAttributes3 = []interface{}
-
-// TicketRequestCustomAttributes_AdditionalProperties defines model for ticket_request_custom_attributes.AdditionalProperties.
-type TicketRequestCustomAttributes_AdditionalProperties struct {
-	union json.RawMessage
-}
-
-// TicketState A ticket state, used to define the state of a ticket.
-type TicketState struct {
-	// Category The category of the ticket state
-	//
-	// Example: in_progress
-	Category *TicketStateCategory `json:"category,omitempty"`
-
-	// ExternalLabel The state the ticket is currently in, in a human readable form - visible to customers, in the messenger, email and tickets portal.
-	//
-	// Example: In Progress
-	ExternalLabel *string `json:"external_label,omitempty"`
-
-	// Id The id of the ticket state
-	//
-	// Example: 12
-	Id *string `json:"id,omitempty"`
-
-	// InternalLabel The state the ticket is currently in, in a human readable form - visible in Intercom
-	//
-	// Example: With Dev Team
-	InternalLabel *string `json:"internal_label,omitempty"`
-
-	// Type String representing the object's type. Always has the value `ticket_state`.
-	//
-	// Example: ticket_state
-	Type *string `json:"type,omitempty"`
-}
-
-// TicketStateCategory The category of the ticket state
-//
-// Example: in_progress
-type TicketStateCategory string
-
-// TicketStateDetailed A ticket state, used to define the state of a ticket.
-type TicketStateDetailed struct {
-	// Archived Whether the ticket state is archived
-	//
-	// Example: false
-	Archived *bool `json:"archived,omitempty"`
-
-	// Category The category of the ticket state
-	//
-	// Example: in_progress
-	Category *TicketStateDetailedCategory `json:"category,omitempty"`
-
-	// ExternalLabel The state the ticket is currently in, in a human readable form - visible to customers, in the messenger, email and tickets portal.
-	//
-	// Example: In Progress
-	ExternalLabel *string `json:"external_label,omitempty"`
-
-	// Id The id of the ticket state
-	//
-	// Example: 12
-	Id *string `json:"id,omitempty"`
-
-	// InternalLabel The state the ticket is currently in, in a human readable form - visible in Intercom
-	//
-	// Example: With Dev Team
-	InternalLabel *string `json:"internal_label,omitempty"`
-
-	// TicketTypes A list of ticket types associated with a given ticket state.
-	TicketTypes *struct {
-		// Data A list of ticket type attributes associated with a given ticket type.
-		Data *[]*TicketType `json:"data,omitempty"`
-
-		// Type String representing the object's type. Always has the value `list`.
-		//
-		// Example: list
-		Type *string `json:"type,omitempty"`
-	} `json:"ticket_types,omitempty"`
-
-	// Type String representing the object's type. Always has the value `ticket_state`.
-	//
-	// Example: ticket_state
-	Type *string `json:"type,omitempty"`
 }

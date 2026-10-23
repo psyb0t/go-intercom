@@ -1,6 +1,6 @@
 {
   "name": "go-intercom",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Unofficial Go client for the Intercom REST API: contacts, companies, conversations, messages, articles, tickets and workspace data, generated from the published spec.",
   "author": { "name": "psyb0t", "url": "https://github.com/psyb0t" },
   "homepage": "https://github.com/psyb0t/go-intercom",

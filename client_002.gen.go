@@ -17,6 +17,279 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// TicketPartPreviousTicketState The previous state of the ticket.
+//
+// Example: submitted
+type TicketPartPreviousTicketState string
+
+// TicketPartTicketState The state of the ticket.
+//
+// Example: submitted
+type TicketPartTicketState string
+
+// TicketPart_Translations A map of the reply text keyed by locale code. Backs the `ticket.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in; every other key holds the reply translated into that locale.
+//
+// Example: {"en":"\u003cp\u003eHello\u003c/p\u003e","fr":"\u003cp\u003eBonjour\u003c/p\u003e","original":"en"}
+type TicketPart_Translations struct {
+	// Original The locale code identifying the language the reply was originally written in.
+	//
+	// Example: en
+	Original             string            `json:"original"`
+	AdditionalProperties map[string]string `json:"-"`
+}
+
+// TicketPartUpdatedAttributeDataAttributeType The type of the object. Always 'attribute'.
+//
+// Example: attribute
+type TicketPartUpdatedAttributeDataAttributeType string
+
+// TicketPartUpdatedAttributeDataValueId0 The value for text/number/decimal/boolean/date attributes, or the ID of the list option for list attributes.
+//
+// Example: Fast
+type TicketPartUpdatedAttributeDataValueId0 = string
+
+// TicketPartUpdatedAttributeDataValueId1 Array of file IDs for file attributes.
+//
+// Example: [2]
+type TicketPartUpdatedAttributeDataValueId1 = []int
+
+// TicketPart_UpdatedAttributeData_Value_Id defines model for TicketPart.UpdatedAttributeData.Value.Id.
+type TicketPart_UpdatedAttributeData_Value_Id struct {
+	union json.RawMessage
+}
+
+// TicketPartUpdatedAttributeDataValueLabel0 The display value for text/number/decimal/boolean/date/list attributes.
+//
+// Example: Fast
+type TicketPartUpdatedAttributeDataValueLabel0 = string
+
+// TicketPartUpdatedAttributeDataValueLabel1 Array of file names for file attributes.
+//
+// Example: ["photo.png"]
+type TicketPartUpdatedAttributeDataValueLabel1 = []string
+
+// TicketPart_UpdatedAttributeData_Value_Label defines model for TicketPart.UpdatedAttributeData.Value.Label.
+type TicketPart_UpdatedAttributeData_Value_Label struct {
+	union json.RawMessage
+}
+
+// TicketPartUpdatedAttributeDataValueType The type of the object. Always 'value'.
+//
+// Example: value
+type TicketPartUpdatedAttributeDataValueType string
+
+// TicketPartAuthor The author that wrote or triggered the part. Can be a bot, admin, team or user.
+type TicketPartAuthor struct {
+	// Email The email of the author
+	//
+	// Example: operator+abcd1234@intercom.io
+	Email *openapi_types.Email `json:"email,omitempty"`
+
+	// Id The id of the author
+	//
+	// Example: 274
+	Id *string `json:"id,omitempty"`
+
+	// Name The name of the author
+	//
+	// Example: Operator
+	Name *string `json:"name,omitempty"`
+
+	// Type The type of the author
+	//
+	// Example: admin
+	Type *TicketPartAuthorType `json:"type,omitempty"`
+}
+
+// TicketPartAuthorType The type of the author
+//
+// Example: admin
+type TicketPartAuthorType string
+
+// TicketParts A list of Ticket Part objects for each note and event in the ticket. There is a limit of 500 parts.
+type TicketParts struct {
+	// TicketParts A list of Ticket Part objects for each ticket. There is a limit of 500 parts.
+	TicketParts *[]TicketPart `json:"ticket_parts,omitempty"`
+
+	// TotalCount Example: 2
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type Example: ticket_part.list
+	Type *TicketPartsType `json:"type,omitempty"`
+}
+
+// TicketPartsType Example: ticket_part.list
+type TicketPartsType string
+
+// TicketReply A Ticket Part representing a note, comment, or quick_reply on a ticket
+type TicketReply struct {
+	// Attachments A list of attachments for the part.
+	Attachments *[]PartAttachment `json:"attachments,omitempty"`
+
+	// Author The author that wrote or triggered the part. Can be a bot, admin, team or user.
+	Author *TicketPartAuthor `json:"author,omitempty"`
+
+	// Body The message body, which may contain HTML.
+	//
+	// Example: <p>Okay!</p>
+	Body *string `json:"body,omitempty"`
+
+	// CreatedAt The time the note was created.
+	//
+	// Example: 1663597223
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// Id The id representing the part.
+	//
+	// Example: 3
+	Id *string `json:"id,omitempty"`
+
+	// PartType Type of the part
+	//
+	// Example: note
+	PartType *TicketReplyPartType `json:"part_type,omitempty"`
+
+	// Redacted Whether or not the ticket part has been redacted.
+	//
+	// Example: false
+	Redacted *bool `json:"redacted,omitempty"`
+
+	// Translations A map of the reply text keyed by locale code. Backs the `ticket.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in; every other key holds the reply translated into that locale.
+	//
+	// Example: {"en":"\u003cp\u003eHello\u003c/p\u003e","fr":"\u003cp\u003eBonjour\u003c/p\u003e","original":"en"}
+	Translations *TicketReply_Translations `json:"translations,omitempty"`
+
+	// Type Always ticket_part
+	//
+	// Example: ticket_part
+	Type *TicketReplyType `json:"type,omitempty"`
+
+	// UpdatedAt The last time the note was updated.
+	//
+	// Example: 1663597260
+	UpdatedAt *int `json:"updated_at,omitempty"`
+}
+
+// TicketReplyPartType Type of the part
+//
+// Example: note
+type TicketReplyPartType string
+
+// TicketReply_Translations A map of the reply text keyed by locale code. Backs the `ticket.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in; every other key holds the reply translated into that locale.
+//
+// Example: {"en":"\u003cp\u003eHello\u003c/p\u003e","fr":"\u003cp\u003eBonjour\u003c/p\u003e","original":"en"}
+type TicketReply_Translations struct {
+	// Original The locale code identifying the language the reply was originally written in.
+	//
+	// Example: en
+	Original             string            `json:"original"`
+	AdditionalProperties map[string]string `json:"-"`
+}
+
+// TicketReplyType Always ticket_part
+//
+// Example: ticket_part
+type TicketReplyType string
+
+// TicketRequestCustomAttributes The attributes set on the ticket. When setting the default title and description attributes, the attribute keys that should be used are `_default_title_` and `_default_description_`. When setting ticket type attributes of the list attribute type, the key should be the attribute name and the value of the attribute should be the list item id, obtainable by [listing the ticket type](ref:get_ticket-types). For example, if the ticket type has an attribute called `priority` of type `list`, the key should be `priority` and the value of the attribute should be the guid of the list item (e.g. `de1825a0-0164-4070-8ca6-13e22462fa7e`).
+//
+// Example: {"_default_description_":"The button is not working","_default_title_":"Found a bug"}
+type TicketRequestCustomAttributes map[string]TicketRequestCustomAttributes_AdditionalProperties
+
+// TicketRequestCustomAttributes0 defines model for TicketRequestCustomAttributes.0.
+type TicketRequestCustomAttributes0 = string
+
+// TicketRequestCustomAttributes1 defines model for TicketRequestCustomAttributes.1.
+type TicketRequestCustomAttributes1 = float64
+
+// TicketRequestCustomAttributes2 defines model for TicketRequestCustomAttributes.2.
+type TicketRequestCustomAttributes2 = bool
+
+// TicketRequestCustomAttributes3 defines model for TicketRequestCustomAttributes.3.
+type TicketRequestCustomAttributes3 = []interface{}
+
+// TicketRequestCustomAttributes_AdditionalProperties defines model for ticket_request_custom_attributes.AdditionalProperties.
+type TicketRequestCustomAttributes_AdditionalProperties struct {
+	union json.RawMessage
+}
+
+// TicketState A ticket state, used to define the state of a ticket.
+type TicketState struct {
+	// Category The category of the ticket state
+	//
+	// Example: in_progress
+	Category *TicketStateCategory `json:"category,omitempty"`
+
+	// ExternalLabel The state the ticket is currently in, in a human readable form - visible to customers, in the messenger, email and tickets portal.
+	//
+	// Example: In Progress
+	ExternalLabel *string `json:"external_label,omitempty"`
+
+	// Id The id of the ticket state
+	//
+	// Example: 12
+	Id *string `json:"id,omitempty"`
+
+	// InternalLabel The state the ticket is currently in, in a human readable form - visible in Intercom
+	//
+	// Example: With Dev Team
+	InternalLabel *string `json:"internal_label,omitempty"`
+
+	// Type String representing the object's type. Always has the value `ticket_state`.
+	//
+	// Example: ticket_state
+	Type *string `json:"type,omitempty"`
+}
+
+// TicketStateCategory The category of the ticket state
+//
+// Example: in_progress
+type TicketStateCategory string
+
+// TicketStateDetailed A ticket state, used to define the state of a ticket.
+type TicketStateDetailed struct {
+	// Archived Whether the ticket state is archived
+	//
+	// Example: false
+	Archived *bool `json:"archived,omitempty"`
+
+	// Category The category of the ticket state
+	//
+	// Example: in_progress
+	Category *TicketStateDetailedCategory `json:"category,omitempty"`
+
+	// ExternalLabel The state the ticket is currently in, in a human readable form - visible to customers, in the messenger, email and tickets portal.
+	//
+	// Example: In Progress
+	ExternalLabel *string `json:"external_label,omitempty"`
+
+	// Id The id of the ticket state
+	//
+	// Example: 12
+	Id *string `json:"id,omitempty"`
+
+	// InternalLabel The state the ticket is currently in, in a human readable form - visible in Intercom
+	//
+	// Example: With Dev Team
+	InternalLabel *string `json:"internal_label,omitempty"`
+
+	// TicketTypes A list of ticket types associated with a given ticket state.
+	TicketTypes *struct {
+		// Data A list of ticket type attributes associated with a given ticket type.
+		Data *[]*TicketType `json:"data,omitempty"`
+
+		// Type String representing the object's type. Always has the value `list`.
+		//
+		// Example: list
+		Type *string `json:"type,omitempty"`
+	} `json:"ticket_types,omitempty"`
+
+	// Type String representing the object's type. Always has the value `ticket_state`.
+	//
+	// Example: ticket_state
+	Type *string `json:"type,omitempty"`
+}
+
 // TicketStateDetailedCategory The category of the ticket state
 //
 // Example: in_progress
@@ -400,12 +673,12 @@ type UpdateCompanyRequest struct {
 	// Example: Manufacturing
 	Industry *string `json:"industry,omitempty"`
 
-	// MonthlySpend How much revenue the company generates for your business. Note that this will truncate floats. i.e. it only allow for whole integers, 155.98 will be truncated to 155. Note that this has an upper limit of 2**31-1 or 2147483647..
+	// MonthlySpend How much revenue the company generates for your business. Floats are truncated to whole integers, so 155.98 is stored as 155. A value above 2147483647 (2**31-1) is stored as 0. 2147483647 itself, or a value of -2147483648 or below, returns a `422` error.
 	//
 	// Example: 1000
 	MonthlySpend *int `json:"monthly_spend,omitempty"`
 
-	// Name The name of the Company
+	// Name The name of the Company. Leading and trailing whitespace is removed.
 	//
 	// Example: Intercom
 	Name *string `json:"name,omitempty"`
@@ -424,6 +697,11 @@ type UpdateCompanyRequest struct {
 	//
 	// Example: 100
 	Size *int `json:"size,omitempty"`
+
+	// UpdateLastRequestAt Set to true to update the company's last seen time to now.
+	//
+	// Example: true
+	UpdateLastRequestAt *bool `json:"update_last_request_at,omitempty"`
 
 	// Website The URL for this company's website. Please note that the value specified here is not validated. Accepts any string.
 	//
@@ -473,6 +751,11 @@ type UpdateContactRequest struct {
 	// ExternalId A unique identifier for the contact which is given to Intercom
 	ExternalId *string `json:"external_id,omitempty"`
 
+	// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
+	//
+	// Example: en
+	LanguageOverride *string `json:"language_override,omitempty"`
+
 	// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
 	//
 	// Example: 1571672154
@@ -493,7 +776,7 @@ type UpdateContactRequest struct {
 	// Example: +353871234567
 	Phone *string `json:"phone,omitempty"`
 
-	// Role The role of the contact.
+	// Role The role of the contact, either `user` or `lead`. Any other value is ignored. A user can't be changed to a lead; sending `lead` for a user returns a `400` error.
 	Role *string `json:"role,omitempty"`
 
 	// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
@@ -501,10 +784,20 @@ type UpdateContactRequest struct {
 	// Example: 1571672154
 	SignedUpAt *int `json:"signed_up_at,omitempty"`
 
+	// SmsConsent Whether the contact has consented to receive SMS messages.
+	//
+	// Example: false
+	SmsConsent *bool `json:"sms_consent,omitempty"`
+
 	// UnsubscribedFromEmails Whether the contact is unsubscribed from emails
 	//
 	// Example: true
 	UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
+
+	// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
+	//
+	// Example: false
+	UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
 }
 
 // UpdateContentImportSourceRequest You can modify a Content Import Source of your Fin Content Library.
@@ -529,7 +822,7 @@ type UpdateContentImportSourceRequest struct {
 	// Example: api
 	SyncBehavior UpdateContentImportSourceRequestSyncBehavior `json:"sync_behavior"`
 
-	// Url The URL of the content import source. This may only be different from the existing value if the sync behavior is API.
+	// Url The URL of the content import source. It must be an http or https URL whose host is a valid public domain name. This may only be different from the existing value if the sync behavior is API.
 	//
 	// Example: https://help.example.com
 	Url string `json:"url"`
@@ -689,22 +982,22 @@ type UpdateDataConnectorRequest struct {
 		// Description A description of the input parameter. Required for each input.
 		//
 		// Example: The order ID to look up
-		Description *string `json:"description,omitempty"`
+		Description string `json:"description"`
 
 		// Name The name of the input parameter.
 		//
 		// Example: order_id
-		Name *string `json:"name,omitempty"`
+		Name string `json:"name"`
 
 		// Required Whether this input is required.
 		//
 		// Example: true
-		Required *bool `json:"required,omitempty"`
+		Required bool `json:"required"`
 
 		// Type The data type of the input.
 		//
 		// Example: string
-		Type *UpdateDataConnectorRequestDataInputsType `json:"type,omitempty"`
+		Type UpdateDataConnectorRequestDataInputsType `json:"type"`
 	} `json:"data_inputs,omitempty"`
 
 	// Description A description of what this data connector does.
@@ -717,23 +1010,29 @@ type UpdateDataConnectorRequest struct {
 	// Example: false
 	DirectFinUsage *bool `json:"direct_fin_usage,omitempty"`
 
+	// EnforceAuth Whether authentication is enforced. On workspaces where this is supported, it takes precedence over `customer_authentication` and `bypass_authentication` when sent together, and setting it to false disables OTP.
+	EnforceAuth *bool `json:"enforce_auth,omitempty"`
+
 	// Headers HTTP headers to include in the request.
 	Headers *[]struct {
 		// Name The header name.
 		//
 		// Example: Content-Type
-		Name *string `json:"name,omitempty"`
+		Name string `json:"name"`
 
 		// Value The header value. Supports template variables.
 		//
 		// Example: application/json
-		Value *string `json:"value,omitempty"`
+		Value string `json:"value"`
 	} `json:"headers,omitempty"`
 
 	// HttpMethod The HTTP method used by the data connector.
 	//
 	// Example: post
 	HttpMethod *UpdateDataConnectorRequestHttpMethod `json:"http_method,omitempty"`
+
+	// InternalDescription The internal description of the data connector. If omitted, it keeps its current value, unless the connector has no internal description yet, in which case it is set to the connector's `description`.
+	InternalDescription *string `json:"internal_description,omitempty"`
 
 	// MockResponse A sample JSON response from the external API. Auto-generates `response_fields` and sets `configuration_response_type` to `mock_response_type`.
 	//
@@ -790,6 +1089,21 @@ type UpdateDataConnectorVersionRequest struct {
 
 // UpdateExternalPageRequest You can update an External Page in your Fin Content Library.
 type UpdateExternalPageRequest struct {
+	// AiAgentAvailability Whether the external page should be used to answer questions by AI Agent.
+	//
+	// Example: true
+	AiAgentAvailability *bool `json:"ai_agent_availability,omitempty"`
+
+	// AiCopilotAvailability Whether the external page should be used to answer questions by AI Copilot.
+	//
+	// Example: true
+	AiCopilotAvailability *bool `json:"ai_copilot_availability,omitempty"`
+
+	// AiSalesAgentAvailability Whether the external page should be used to answer questions by AI Sales Agent.
+	//
+	// Example: true
+	AiSalesAgentAvailability *bool `json:"ai_sales_agent_availability,omitempty"`
+
 	// AudienceIds The list of audience IDs to target this external page to for Fin AI Agent. Replaces all existing audience memberships. Omitting the field leaves existing audience memberships unchanged. Pass `[]` to clear all audience memberships. Unknown audience IDs return a `404` error.
 	//
 	// Example: [1,2]
@@ -798,22 +1112,17 @@ type UpdateExternalPageRequest struct {
 	// ExternalId The identifier for the external page which was given by the source. Must be unique for the source.
 	//
 	// Example: 5678
-	ExternalId *string `json:"external_id,omitempty"`
-
-	// FinAvailability Whether the external page should be used to answer questions by Fin.
-	//
-	// Example: true
-	FinAvailability *bool `json:"fin_availability,omitempty"`
+	ExternalId string `json:"external_id"`
 
 	// Html The body of the external page in HTML.
 	//
 	// Example: <p>Hello world!</p>
 	Html string `json:"html"`
 
-	// Locale Always en
+	// Locale The language code of the external page, for example `en` or `fr`. It must be a language supported by the workspace.
 	//
 	// Example: en
-	Locale UpdateExternalPageRequestLocale `json:"locale"`
+	Locale string `json:"locale"`
 
 	// SourceId The unique identifier for the source of the external page which was given by Intercom. Every external page must be associated with a Content Import Source which represents the place it comes from and from which it inherits a default audience (configured in the UI). For a new source, make a POST request to the Content Import Source endpoint and an ID for the source will be returned in the response.
 	//
@@ -825,16 +1134,11 @@ type UpdateExternalPageRequest struct {
 	// Example: Getting started with...
 	Title string `json:"title"`
 
-	// Url The URL of the external page. This will be used by Fin to link end users to the page it based its answer on.
+	// Url The URL of the external page. This will be used by Fin to link end users to the page it based its answer on. If omitted, the page's existing URL is removed.
 	//
 	// Example: https://help.example.com/en/articles/1234-getting-started
-	Url string `json:"url"`
+	Url *string `json:"url,omitempty"`
 }
-
-// UpdateExternalPageRequestLocale Always en
-//
-// Example: en
-type UpdateExternalPageRequestLocale string
 
 // UpdateInternalArticleRequest You can Update an Internal Article
 type UpdateInternalArticleRequest struct {
@@ -1651,6 +1955,11 @@ type SetAwayAdminParams struct {
 
 // ListContentImportSourcesParams defines parameters for ListContentImportSources.
 type ListContentImportSourcesParams struct {
+	// Page The page of results to fetch. Defaults to the first page.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of results to return per page. Maximum 150.
+	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -1676,6 +1985,11 @@ type UpdateContentImportSourceParams struct {
 
 // ListExternalPagesParams defines parameters for ListExternalPages.
 type ListExternalPagesParams struct {
+	// Page The page of results to fetch. Defaults to the first page. `page` cannot exceed 5,001, and `page` multiplied by `per_page` cannot exceed 10,000. Past 5,001 the API returns a 400 `parameter_invalid` error; past 10,000 results it returns a 400 `bad_request` error with the message `page limit reached, please use scroll API`.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of results to return per page. Maximum 150.
+	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -1907,13 +2221,19 @@ type RetrieveCompanyParams struct {
 	// SegmentId The `segment_id` of the company to filter by.
 	SegmentId *string `form:"segment_id,omitempty" json:"segment_id,omitempty"`
 
+	// Type Set to `user` or `users`, together with `company_id` or `name`, to return that company's users instead of the company. The response is then a `user.list` object with a `users` array in the legacy user format, paged with `page` and `per_page` (default 50).
+	Type *RetrieveCompanyParamsType `form:"type,omitempty" json:"type,omitempty"`
+
 	// Page The page of results to fetch. Defaults to first page
 	Page *int `form:"page,omitempty" json:"page,omitempty"`
 
-	// PerPage How many results to display per page. Defaults to 15
+	// PerPage How many results to display per page. Defaults to 15. A value above 60 returns a `400` error with code `parameter_invalid`.
 	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
+
+// RetrieveCompanyParamsType defines parameters for RetrieveCompany.
+type RetrieveCompanyParamsType string
 
 // RetrieveCompany200JSONResponseBody defines parameters for RetrieveCompany.
 type RetrieveCompany200JSONResponseBody struct {
@@ -1930,16 +2250,20 @@ type ListAllCompaniesParams struct {
 	// Page The page of results to fetch. Defaults to first page
 	Page *int `form:"page,omitempty" json:"page,omitempty"`
 
-	// PerPage How many results to return per page. Defaults to 15
+	// PerPage How many results to return per page. Defaults to 15. A value above 60 returns a `400` error with code `parameter_invalid`.
 	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
 
-	// Order `asc` or `desc`. Return the companies in ascending or descending order. Defaults to desc
-	Order           *string          `form:"order,omitempty" json:"order,omitempty"`
-	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+	// Order `asc` or `desc`. Return the companies in ascending or descending order. Defaults to desc. Any other value returns a `400` error with code `parameter_invalid`.
+	Order           *ListAllCompaniesParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+	IntercomVersion *IntercomVersion             `json:"Intercom-Version,omitempty"`
 }
+
+// ListAllCompaniesParamsOrder defines parameters for ListAllCompanies.
+type ListAllCompaniesParamsOrder string
 
 // ScrollOverAllCompaniesParams defines parameters for ScrollOverAllCompanies.
 type ScrollOverAllCompaniesParams struct {
+	// ScrollParam The `scroll_param` from the previous response. Omit it to start a new scroll.
 	ScrollParam     *string          `form:"scroll_param,omitempty" json:"scroll_param,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
@@ -1956,7 +2280,23 @@ type DeleteCompanyParams struct {
 
 // RetrieveACompanyByIdParams defines parameters for RetrieveACompanyById.
 type RetrieveACompanyByIdParams struct {
+	// Type Set to `user` or `users` to return the company's users instead of the company. The response is then a `user.list` object with a `users` array in the legacy user format.
+	Type *RetrieveACompanyByIdParamsType `form:"type,omitempty" json:"type,omitempty"`
+
+	// Page The page of users to fetch. Used only when `type` is `user` or `users`. Defaults to first page. There is a limit of 10,000 users; a `page` and `per_page` that go past it return a `400` error with code `bad_request`.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage How many users to return per page. Used only when `type` is `user` or `users`. Defaults to 50. A value above 60 returns a `400` error with code `parameter_invalid`.
+	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// RetrieveACompanyByIdParamsType defines parameters for RetrieveACompanyById.
+type RetrieveACompanyByIdParamsType string
+
+// RetrieveACompanyById200JSONResponseBody defines parameters for RetrieveACompanyById.
+type RetrieveACompanyById200JSONResponseBody struct {
+	union json.RawMessage
 }
 
 // UpdateCompanyParams defines parameters for UpdateCompany.
@@ -1966,7 +2306,15 @@ type UpdateCompanyParams struct {
 
 // ListAttachedContactsParams defines parameters for ListAttachedContacts.
 type ListAttachedContactsParams struct {
-	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+	// PerPage How many contacts to return per page. Defaults to 50.
+	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+
+	// StartingAfter The cursor to fetch the next page of contacts. Use the `starting_after` value from `pages.next` in the previous response.
+	StartingAfter *string `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// IncludeMergeHistory Set to `true` to include each contact's `merge_history`. Any other value omits it.
+	IncludeMergeHistory *string          `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
+	IntercomVersion     *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
 // ListCompanyNotesParams defines parameters for ListCompanyNotes.
@@ -1999,9 +2347,18 @@ type ListAttachedSegmentsForCompaniesParams struct {
 
 // ListContactsParams defines parameters for ListContacts.
 type ListContactsParams struct {
-	// IncludeMergeHistory Pass `true` to include a `merge_history` array on each contact in the response. Only returned for contacts with a `user` role.
-	IncludeMergeHistory *bool            `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
-	IntercomVersion     *IntercomVersion `json:"Intercom-Version,omitempty"`
+	// IncludeMergeHistory Pass `true` to include a `merge_history` array on each contact in the response. Returned for contacts of any role, with at most the 10 most recent merges.
+	IncludeMergeHistory *bool `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
+
+	// EscapeIdentity By default, `name` and `email` values in the response, including nested ones such as social profile names, are HTML-escaped (for example, `&` is returned as `&amp;`). Custom attributes and tags are never escaped. Pass `false` to return them unescaped.
+	EscapeIdentity *bool `form:"escape_identity,omitempty" json:"escape_identity,omitempty"`
+
+	// PerPage The number of results per page. Defaults to `10`, with a maximum of `150`; larger values are treated as `150`. Only the leading digits are read, so `1.5` is treated as `1`. A value that doesn't start with a positive integer, such as `0` or `abc`, returns a `400` error with code `invalid_per_page`.
+	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+
+	// StartingAfter The cursor value from `pages.next.starting_after` in a previous response. An empty value is ignored. A value that isn't a valid cursor returns a `400` error with code `client_error`.
+	StartingAfter   *string          `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
 // CreateContactParams defines parameters for CreateContact.
@@ -2011,7 +2368,7 @@ type CreateContactParams struct {
 
 // ListContactActivitiesParams defines parameters for ListContactActivities.
 type ListContactActivitiesParams struct {
-	// PerPage The number of results to return per page. Defaults to 50, minimum 1, maximum 150.
+	// PerPage The number of results to return per page. Defaults to 50, minimum 1, maximum 150; larger values are treated as `150`. Only the leading digits are read, so `1.5` is treated as `1`. A value that doesn't start with a positive integer, such as `0` or `abc`, returns a `400` error with code `invalid_per_page`.
 	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
 
 	// StartingAfter The cursor value from `pages.next.starting_after` in a previous response. Used to paginate through results.
@@ -2041,24 +2398,30 @@ type ShowBulkUpdateContactsJobParams struct {
 
 // ListDeletedContactsParams defines parameters for ListDeletedContacts.
 type ListDeletedContactsParams struct {
-	// PerPage The number of results per page. Defaults to `10`, with a maximum of `150`.
+	// PerPage The number of results per page. Defaults to `10`, with a maximum of `150`; larger values are treated as `150`. Only the leading digits are read, so `1.5` is treated as `1`. A value that doesn't start with a positive integer, such as `0` or `abc`, returns a `400` error with code `invalid_per_page`.
 	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
 
 	// Page The page of results to fetch. Defaults to `1`.
-	Page            *int             `form:"page,omitempty" json:"page,omitempty"`
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// EscapeIdentity By default, `email` values in the response are HTML-escaped (for example, `&` is returned as `&amp;`). Pass `false` to return them unescaped.
+	EscapeIdentity  *bool            `form:"escape_identity,omitempty" json:"escape_identity,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
 // ShowContactByExternalIdParams defines parameters for ShowContactByExternalId.
 type ShowContactByExternalIdParams struct {
-	// IncludeMergeHistory Pass `true` to include the contact's merge history in the response. Only returned for contacts with a `user` role.
-	IncludeMergeHistory *bool            `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
-	IntercomVersion     *IntercomVersion `json:"Intercom-Version,omitempty"`
+	// IncludeMergeHistory Pass `true` to include the contact's merge history in the response. Returned for contacts of any role, with at most the 10 most recent merges.
+	IncludeMergeHistory *bool `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
+
+	// EscapeIdentity By default, `name` and `email` values in the response, including nested ones such as social profile names, are HTML-escaped (for example, `&` is returned as `&amp;`). Custom attributes and tags are never escaped. Pass `false` to return them unescaped.
+	EscapeIdentity  *bool            `form:"escape_identity,omitempty" json:"escape_identity,omitempty"`
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
 // MergeContactParams defines parameters for MergeContact.
 type MergeContactParams struct {
-	// IncludeMergeHistory Pass `true` to include the merge history of the resulting contact in the response. Only returned for contacts with a `user` role.
+	// IncludeMergeHistory Pass `true` to include the merge history of the resulting contact in the response, with at most the 10 most recent merges.
 	IncludeMergeHistory *bool            `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
 	IntercomVersion     *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
@@ -2070,9 +2433,12 @@ type PreviewMergeContactParams struct {
 
 // SearchContactsParams defines parameters for SearchContacts.
 type SearchContactsParams struct {
-	// IncludeMergeHistory Pass `true` to include a `merge_history` array on each contact in the response. Only returned for contacts with a `user` role.
-	IncludeMergeHistory *bool            `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
-	IntercomVersion     *IntercomVersion `json:"Intercom-Version,omitempty"`
+	// IncludeMergeHistory Pass `true` in the query string to include a `merge_history` array on each contact in the response; a JSON boolean in the request body is ignored. Returned for contacts of any role, with at most the 10 most recent merges.
+	IncludeMergeHistory *bool `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
+
+	// EscapeIdentity By default, `name` and `email` values in the response, including nested ones such as social profile names, are HTML-escaped (for example, `&` is returned as `&amp;`). Custom attributes and tags are never escaped. Pass `false` to return them unescaped.
+	EscapeIdentity  *bool            `form:"escape_identity,omitempty" json:"escape_identity,omitempty"`
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
 // DeleteContactParams defines parameters for DeleteContact.
@@ -2082,14 +2448,17 @@ type DeleteContactParams struct {
 
 // ShowContactParams defines parameters for ShowContact.
 type ShowContactParams struct {
-	// IncludeMergeHistory Pass `true` to include the contact's merge history in the response. Only returned for contacts with a `user` role.
-	IncludeMergeHistory *bool            `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
-	IntercomVersion     *IntercomVersion `json:"Intercom-Version,omitempty"`
+	// IncludeMergeHistory Pass `true` to include the contact's merge history in the response. Returned for contacts of any role, with at most the 10 most recent merges.
+	IncludeMergeHistory *bool `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
+
+	// EscapeIdentity By default, `name` and `email` values in the response, including nested ones such as social profile names, are HTML-escaped (for example, `&` is returned as `&amp;`). Custom attributes and tags are never escaped. Pass `false` to return them unescaped.
+	EscapeIdentity  *bool            `form:"escape_identity,omitempty" json:"escape_identity,omitempty"`
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
 // UpdateContactParams defines parameters for UpdateContact.
 type UpdateContactParams struct {
-	// IncludeMergeHistory Pass `true` to include the contact's merge history in the response. Only returned for contacts with a `user` role.
+	// IncludeMergeHistory Pass `true` to include the contact's merge history in the response. Returned for contacts of any role, with at most the 10 most recent merges.
 	IncludeMergeHistory *bool            `form:"include_merge_history,omitempty" json:"include_merge_history,omitempty"`
 	IntercomVersion     *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
@@ -2106,8 +2475,19 @@ type BlockContactParams struct {
 
 // ListCompaniesForAContactParams defines parameters for ListCompaniesForAContact.
 type ListCompaniesForAContactParams struct {
-	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+	// Page The page of results to fetch. Values below 1 are treated as 1.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of companies to return per page. The maximum is 60; a value above 60 returns a `400` error with code `parameter_invalid`.
+	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+
+	// Order The order of the companies by when they were last active (`last_request_at`). The value is case-insensitive, and any value other than `asc` is treated as `desc`.
+	Order           *ListCompaniesForAContactParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+	IntercomVersion *IntercomVersion                     `json:"Intercom-Version,omitempty"`
 }
+
+// ListCompaniesForAContactParamsOrder defines parameters for ListCompaniesForAContact.
+type ListCompaniesForAContactParamsOrder string
 
 // AttachContactToACompanyJSONBody defines parameters for AttachContactToACompany.
 type AttachContactToACompanyJSONBody struct {
@@ -2162,10 +2542,10 @@ type ListSubscriptionsForAContactParams struct {
 
 // AttachSubscriptionTypeToContactJSONBody defines parameters for AttachSubscriptionTypeToContact.
 type AttachSubscriptionTypeToContactJSONBody struct {
-	// ConsentType The consent_type of a subscription, opt_out or opt_in.
+	// ConsentType Ignored. Whether the contact is opted in or out is decided by the subscription type's own `consent_type`, not by this value.
 	//
 	// Example: opt_in
-	ConsentType string `json:"consent_type"`
+	ConsentType *string `json:"consent_type,omitempty"`
 
 	// Id The unique identifier for the subscription which is given by Intercom
 	//
@@ -2226,10 +2606,10 @@ type ListContactMergeHistoryParams struct {
 	// Cursor A cursor for pagination. Pass the `next_cursor` value from a previous response to fetch the next page.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// PerPage The number of results to return per page (default 50, max 150).
+	// PerPage The number of results to return per page (default 50, max 150). A value outside 1–150 returns a `422` error.
 	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
 
-	// Order The order to return results in. Defaults to descending.
+	// Order The order to return results in. Defaults to descending. Any other value returns a `422` error.
 	Order           *ListContactMergeHistoryParamsOrder `form:"order,omitempty" json:"order,omitempty"`
 	IntercomVersion *IntercomVersion                    `json:"Intercom-Version,omitempty"`
 }
@@ -2918,13 +3298,18 @@ type AskFinJSONBody struct {
 	// ConversationMetadata Metadata about the conversation, including history and attributes.
 	ConversationMetadata *FinAgentConversationMetadata `json:"conversation_metadata,omitempty"`
 
-	// Environment The identifier of the environment to start the conversation in, if your Fin for Platforms workspace has environments. Use the same value as `messenger_environment` in your Messenger installation. Defaults to the workspace's default environment; an identifier that matches no environment is rejected.
+	// Environment The identifier of the environment to start the conversation in. Only Fin for Platforms workspaces use it; other workspaces ignore it. Use the same value as `messenger_environment` in your Messenger installation. Defaults to the workspace's default environment. On a Fin for Platforms workspace, an identifier that matches no environment returns a 422 error.
 	//
 	// Example: a1b2c3d4e5
 	Environment *string `json:"environment,omitempty"`
 
 	// Message A message exchanged within a Fin Agent conversation.
 	Message FinAgentMessage `json:"message"`
+
+	// ResponseFormat The format of the `body` in Fin's replies. Defaults to `html`. Requesting `markdown` on a workspace where it is not enabled returns a 403 error.
+	//
+	// Example: html
+	ResponseFormat *AskFinJSONBodyResponseFormat `json:"response_format,omitempty"`
 
 	// User A user object representing the user in a Fin Agent conversation.
 	User FinAgentUser `json:"user"`
@@ -2934,6 +3319,9 @@ type AskFinJSONBody struct {
 type AskFinParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
+
+// AskFinJSONBodyResponseFormat defines parameters for AskFin.
+type AskFinJSONBodyResponseFormat string
 
 // AskFin200JSONResponseBodyStatus defines parameters for AskFin.
 type AskFin200JSONResponseBodyStatus string
@@ -3029,13 +3417,23 @@ type RunFinProcedureJSONBody struct {
 		Attributes *map[string]interface{} `json:"attributes,omitempty"`
 	} `json:"conversation_metadata,omitempty"`
 
-	// Environment The identifier of the environment to start the conversation in, if your Fin for Platforms workspace has environments. Use the same value as `messenger_environment` in your Messenger installation. Defaults to the workspace's default environment; an identifier that matches no environment is rejected.
+	// Environment The identifier of the environment to start the conversation in. Only Fin for Platforms workspaces use it; other workspaces ignore it. Use the same value as `messenger_environment` in your Messenger installation. Defaults to the workspace's default environment. On a Fin for Platforms workspace, an identifier that matches no environment returns a 422 error.
 	//
 	// Example: a1b2c3d4e5
 	Environment *string `json:"environment,omitempty"`
 
-	// Message A message exchanged within a Fin Agent conversation.
-	Message *FinAgentMessage `json:"message,omitempty"`
+	// Message Optional message posted to the conversation before the procedure runs. Only `body` is required.
+	Message *struct {
+		// Author Accepted but has no effect. The trigger message is always posted as an operator message.
+		//
+		// Example: agent
+		Author *RunFinProcedureJSONBodyMessageAuthor `json:"author,omitempty"`
+
+		// Body The body of the message.
+		//
+		// Example: Starting your refund request.
+		Body string `json:"body"`
+	} `json:"message,omitempty"`
 
 	// User A user object representing the user in a Fin Agent conversation.
 	User FinAgentUser `json:"user"`
@@ -3045,6 +3443,9 @@ type RunFinProcedureJSONBody struct {
 type RunFinProcedureParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
+
+// RunFinProcedureJSONBodyMessageAuthor defines parameters for RunFinProcedure.
+type RunFinProcedureJSONBodyMessageAuthor string
 
 // RunFinProcedure200JSONResponseBodyStatus defines parameters for RunFinProcedure.
 type RunFinProcedure200JSONResponseBodyStatus string
@@ -3062,6 +3463,11 @@ type ReplyToFinJSONBody struct {
 	// Message A message exchanged within a Fin Agent conversation.
 	Message FinAgentMessage `json:"message"`
 
+	// ResponseFormat The format of the `body` in Fin's replies. Defaults to `html`. Requesting `markdown` on a workspace where it is not enabled returns a 403 error.
+	//
+	// Example: html
+	ResponseFormat *ReplyToFinJSONBodyResponseFormat `json:"response_format,omitempty"`
+
 	// User A user object representing the user in a Fin Agent conversation.
 	User FinAgentUser `json:"user"`
 }
@@ -3070,6 +3476,9 @@ type ReplyToFinJSONBody struct {
 type ReplyToFinParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
+
+// ReplyToFinJSONBodyResponseFormat defines parameters for ReplyToFin.
+type ReplyToFinJSONBodyResponseFormat string
 
 // ReplyToFin200JSONResponseBodyStatus defines parameters for ReplyToFin.
 type ReplyToFin200JSONResponseBodyStatus string
@@ -3087,13 +3496,18 @@ type StartFinConversationJSONBody struct {
 	// ConversationMetadata Metadata about the conversation, including history and attributes.
 	ConversationMetadata *FinAgentConversationMetadata `json:"conversation_metadata,omitempty"`
 
-	// Environment The identifier of the environment to start the conversation in, if your Fin for Platforms workspace has environments. Use the same value as `messenger_environment` in your Messenger installation. Defaults to the workspace's default environment; an identifier that matches no environment is rejected.
+	// Environment The identifier of the environment to start the conversation in. Only Fin for Platforms workspaces use it; other workspaces ignore it. Use the same value as `messenger_environment` in your Messenger installation. Defaults to the workspace's default environment. On a Fin for Platforms workspace, an identifier that matches no environment returns a 422 error.
 	//
 	// Example: a1b2c3d4e5
 	Environment *string `json:"environment,omitempty"`
 
 	// Message A message exchanged within a Fin Agent conversation.
 	Message FinAgentMessage `json:"message"`
+
+	// ResponseFormat The format of the `body` in Fin's replies. Defaults to `html`. Requesting `markdown` on a workspace where it is not enabled returns a 403 error.
+	//
+	// Example: html
+	ResponseFormat *StartFinConversationJSONBodyResponseFormat `json:"response_format,omitempty"`
 
 	// User A user object representing the user in a Fin Agent conversation.
 	User FinAgentUser `json:"user"`
@@ -3103,6 +3517,9 @@ type StartFinConversationJSONBody struct {
 type StartFinConversationParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
+
+// StartFinConversationJSONBodyResponseFormat defines parameters for StartFinConversation.
+type StartFinConversationJSONBodyResponseFormat string
 
 // StartFinConversation200JSONResponseBodyStatus defines parameters for StartFinConversation.
 type StartFinConversation200JSONResponseBodyStatus string
@@ -6370,6 +6787,13 @@ func (t CreateContactRequest) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.LanguageOverride != nil {
+		object["language_override"], err = json.Marshal(t.LanguageOverride)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'language_override': %w", err)
+		}
+	}
+
 	if t.LastSeenAt != nil {
 		object["last_seen_at"], err = json.Marshal(t.LastSeenAt)
 		if err != nil {
@@ -6412,10 +6836,24 @@ func (t CreateContactRequest) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.SmsConsent != nil {
+		object["sms_consent"], err = json.Marshal(t.SmsConsent)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'sms_consent': %w", err)
+		}
+	}
+
 	if t.UnsubscribedFromEmails != nil {
 		object["unsubscribed_from_emails"], err = json.Marshal(t.UnsubscribedFromEmails)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'unsubscribed_from_emails': %w", err)
+		}
+	}
+
+	if t.UnsubscribedFromSms != nil {
+		object["unsubscribed_from_sms"], err = json.Marshal(t.UnsubscribedFromSms)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'unsubscribed_from_sms': %w", err)
 		}
 	}
 	b, err = json.Marshal(object)
@@ -6468,6 +6906,13 @@ func (t *CreateContactRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if raw, found := object["language_override"]; found {
+		err = json.Unmarshal(raw, &t.LanguageOverride)
+		if err != nil {
+			return fmt.Errorf("error reading 'language_override': %w", err)
+		}
+	}
+
 	if raw, found := object["last_seen_at"]; found {
 		err = json.Unmarshal(raw, &t.LastSeenAt)
 		if err != nil {
@@ -6510,10 +6955,24 @@ func (t *CreateContactRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if raw, found := object["sms_consent"]; found {
+		err = json.Unmarshal(raw, &t.SmsConsent)
+		if err != nil {
+			return fmt.Errorf("error reading 'sms_consent': %w", err)
+		}
+	}
+
 	if raw, found := object["unsubscribed_from_emails"]; found {
 		err = json.Unmarshal(raw, &t.UnsubscribedFromEmails)
 		if err != nil {
 			return fmt.Errorf("error reading 'unsubscribed_from_emails': %w", err)
+		}
+	}
+
+	if raw, found := object["unsubscribed_from_sms"]; found {
+		err = json.Unmarshal(raw, &t.UnsubscribedFromSms)
+		if err != nil {
+			return fmt.Errorf("error reading 'unsubscribed_from_sms': %w", err)
 		}
 	}
 
@@ -9978,12 +10437,100 @@ func (t *RetrieveCompany200JSONResponseBody) MergeCompanyList(v CompanyList) err
 	return err
 }
 
+// AsCompanyUserList returns the union data inside the RetrieveCompany200JSONResponseBody as a CompanyUserList
+func (t RetrieveCompany200JSONResponseBody) AsCompanyUserList() (CompanyUserList, error) {
+	var body CompanyUserList
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCompanyUserList overwrites any union data inside the RetrieveCompany200JSONResponseBody as the provided CompanyUserList
+func (t *RetrieveCompany200JSONResponseBody) FromCompanyUserList(v CompanyUserList) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCompanyUserList performs a merge with any union data inside the RetrieveCompany200JSONResponseBody, using the provided CompanyUserList
+func (t *RetrieveCompany200JSONResponseBody) MergeCompanyUserList(v CompanyUserList) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t RetrieveCompany200JSONResponseBody) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	return b, err
 }
 
 func (t *RetrieveCompany200JSONResponseBody) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsCompany returns the union data inside the RetrieveACompanyById200JSONResponseBody as a Company
+func (t RetrieveACompanyById200JSONResponseBody) AsCompany() (Company, error) {
+	var body Company
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCompany overwrites any union data inside the RetrieveACompanyById200JSONResponseBody as the provided Company
+func (t *RetrieveACompanyById200JSONResponseBody) FromCompany(v Company) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCompany performs a merge with any union data inside the RetrieveACompanyById200JSONResponseBody, using the provided Company
+func (t *RetrieveACompanyById200JSONResponseBody) MergeCompany(v Company) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCompanyUserList returns the union data inside the RetrieveACompanyById200JSONResponseBody as a CompanyUserList
+func (t RetrieveACompanyById200JSONResponseBody) AsCompanyUserList() (CompanyUserList, error) {
+	var body CompanyUserList
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCompanyUserList overwrites any union data inside the RetrieveACompanyById200JSONResponseBody as the provided CompanyUserList
+func (t *RetrieveACompanyById200JSONResponseBody) FromCompanyUserList(v CompanyUserList) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCompanyUserList performs a merge with any union data inside the RetrieveACompanyById200JSONResponseBody, using the provided CompanyUserList
+func (t *RetrieveACompanyById200JSONResponseBody) MergeCompanyUserList(v CompanyUserList) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t RetrieveACompanyById200JSONResponseBody) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *RetrieveACompanyById200JSONResponseBody) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -10430,12 +10977,16 @@ type ClientInterface interface {
 	//
 	// You can retrieve a list of all content import sources for a workspace.
 	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
+	//
 	// Corresponds with GET /ai/content_import_sources (the `ListContentImportSources` operationId).
 	ListContentImportSources(ctx context.Context, params *ListContentImportSourcesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateContentImportSourceWithBody Create a content import source
 	//
 	// You can create a new content import source by sending a POST request to this endpoint.
+	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -10446,6 +10997,8 @@ type ClientInterface interface {
 	//
 	// You can create a new content import source by sending a POST request to this endpoint.
 	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /ai/content_import_sources (the `CreateContentImportSource` operationId).
@@ -10455,10 +11008,16 @@ type ClientInterface interface {
 	//
 	// You can delete a content import source by making a DELETE request this endpoint. This will also delete all external pages that were imported from this source.
 	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
+	//
 	// Corresponds with DELETE /ai/content_import_sources/{source_id} (the `DeleteContentImportSource` operationId).
 	DeleteContentImportSource(ctx context.Context, sourceId string, params *DeleteContentImportSourceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetContentImportSource Retrieve a content import source
+	//
+	// You can retrieve a content import source.
+	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
 	//
 	// Corresponds with GET /ai/content_import_sources/{source_id} (the `GetContentImportSource` operationId).
 	GetContentImportSource(ctx context.Context, sourceId string, params *GetContentImportSourceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -10466,6 +11025,8 @@ type ClientInterface interface {
 	// UpdateContentImportSourceWithBody Update a content import source
 	//
 	// You can update an existing content import source.
+	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -10476,6 +11037,8 @@ type ClientInterface interface {
 	//
 	// You can update an existing content import source.
 	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with PUT /ai/content_import_sources/{source_id} (the `UpdateContentImportSource` operationId).
@@ -10485,12 +11048,16 @@ type ClientInterface interface {
 	//
 	// You can retrieve a list of all external pages for a workspace.
 	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
+	//
 	// Corresponds with GET /ai/external_pages (the `ListExternalPages` operationId).
 	ListExternalPages(ctx context.Context, params *ListExternalPagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateExternalPageWithBody Create an external page (or update an external page by external ID)
 	//
 	// You can create a new external page by sending a POST request to this endpoint. If an external page already exists with the specified source_id and external_id, it will be updated instead.
+	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -10501,6 +11068,8 @@ type ClientInterface interface {
 	//
 	// You can create a new external page by sending a POST request to this endpoint. If an external page already exists with the specified source_id and external_id, it will be updated instead.
 	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /ai/external_pages (the `CreateExternalPage` operationId).
@@ -10510,6 +11079,8 @@ type ClientInterface interface {
 	//
 	// Sending a DELETE request for an external page will remove it from the content library UI and from being used for AI answers.
 	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
+	//
 	// Corresponds with DELETE /ai/external_pages/{page_id} (the `DeleteExternalPage` operationId).
 	DeleteExternalPage(ctx context.Context, pageId string, params *DeleteExternalPageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -10517,12 +11088,16 @@ type ClientInterface interface {
 	//
 	// You can retrieve an external page.
 	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
+	//
 	// Corresponds with GET /ai/external_pages/{page_id} (the `GetExternalPage` operationId).
 	GetExternalPage(ctx context.Context, pageId string, params *GetExternalPageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateExternalPageWithBody Update an external page
 	//
 	// You can update an existing external page (if it was created via the API).
+	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -10532,6 +11107,8 @@ type ClientInterface interface {
 	// UpdateExternalPage Update an external page
 	//
 	// You can update an existing external page (if it was created via the API).
+	//
+	// OAuth tokens must have the `read_write_ai_content` scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -10873,14 +11450,18 @@ type ClientInterface interface {
 	// ListBrands List all brands
 	//
 	// Retrieves all brands for the workspace, including the default brand.
-	// The default brand id always matches the workspace
+	// The default brand id always matches the workspace id.
+	//
+	// Requires the `read_brands` OAuth scope.
 	//
 	// Corresponds with GET /brands (the `ListBrands` operationId).
 	ListBrands(ctx context.Context, params *ListBrandsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RetrieveBrand Retrieve a brand
 	//
-	// Fetches a specific brand by its unique identifier.
+	// Fetches a specific brand by its unique identifier
+	//
+	// Requires the `read_brands` OAuth scope.
 	//
 	// Corresponds with GET /brands/{id} (the `RetrieveBrand` operationId).
 	RetrieveBrand(ctx context.Context, id string, params *RetrieveBrandParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -10947,6 +11528,8 @@ type ClientInterface interface {
 	//
 	//   `https://api.intercom.io/companies?segment_id={segment_id}`
 	//
+	// The list is paged by page number. There is a limit of 10,000 companies; beyond that the request returns a `400` error and you should use the scroll endpoint instead.
+	//
 	// Corresponds with GET /companies (the `RetrieveCompany` operationId).
 	RetrieveCompany(ctx context.Context, params *RetrieveCompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -10958,9 +11541,15 @@ type ClientInterface interface {
 	//
 	// Companies are looked up via `company_id` in a `POST` request, if not found via `company_id`, the new company will be created, if found, that company will be updated.
 	//
+	// You must send either `company_id` or `id`. A request with neither returns a `400` error.
+	//
+	// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
+	//
 	// {% admonition type="warning" name="Using `company_id`" %}
 	//   You can set a unique `company_id` value when creating a company. However, it is not possible to update `company_id`. Be sure to set a unique value once upon creation of the company.
 	// {% /admonition %}
+	//
+	// Requires the `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -10975,9 +11564,15 @@ type ClientInterface interface {
 	//
 	// Companies are looked up via `company_id` in a `POST` request, if not found via `company_id`, the new company will be created, if found, that company will be updated.
 	//
+	// You must send either `company_id` or `id`. A request with neither returns a `400` error.
+	//
+	// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
+	//
 	// {% admonition type="warning" name="Using `company_id`" %}
 	//   You can set a unique `company_id` value when creating a company. However, it is not possible to update `company_id`. Be sure to set a unique value once upon creation of the company.
 	// {% /admonition %}
+	//
+	// Requires the `write_users_companies` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -10990,11 +11585,13 @@ type ClientInterface interface {
 	//
 	// Note that the API does not include companies who have no associated users in list responses.
 	//
-	// When using the Companies endpoint and the pages object to iterate through the returned companies, there is a limit of 10,000 Companies that can be returned. If you need to list or iterate on more than 10,000 Companies, please use the [Scroll API](https://developers.intercom.com/reference#iterating-over-all-companies).
+	// When using the Companies endpoint and the pages object to iterate through the returned companies, there is a limit of 10,000 Companies that can be returned. If you need to list or iterate on more than 10,000 Companies, please use the [Scroll API](https://developers.intercom.com/reference#iterating-over-all-companies). Going past that limit returns a `400` error with code `bad_request`.
 	// {% admonition type="warning" name="Pagination" %}
-	//   You can use pagination to limit the number of results returned. The default is `20` results per page.
-	//   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
+	//   This endpoint pages by page number, not by cursor. Use the `page` and `per_page` query parameters, and the `page`, `total_pages` and `next` values in the `pages` object of the response. The default is `15` results per page.
+	//   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details.
 	// {% /admonition %}
+	//
+	// Requires the `write_users_companies` OAuth scope. A token with only read scopes cannot call this endpoint.
 	//
 	// Corresponds with POST /companies/list (the `ListAllCompanies` operationId).
 	ListAllCompanies(ctx context.Context, params *ListAllCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -11003,9 +11600,11 @@ type ClientInterface interface {
 	//
 	//       The `list all companies` functionality does not work well for huge datasets, and can result in errors and performance problems when paging deeply. The Scroll API provides an efficient mechanism for iterating over all companies in a dataset.
 	//
-	// - Each app can only have 1 scroll open at a time. You'll get an error message if you try to have more than one open per app.
-	// - If the scroll isn't used for 1 minute, it expires and calls with that scroll param will fail
-	// - If the end of the scroll is reached, "companies" will be empty and the scroll parameter will expire
+	// - Each app can only have 1 scroll open at a time. Starting a second one returns a `400` error with code `scroll_exists`.
+	// - If the scroll isn't used for 1 minute, it expires and calls with that scroll param return a `404` error with code `not_found`.
+	// - If the end of the scroll is reached, `data` will be empty and the scroll parameter will expire.
+	//
+	// The response always has `pages` and `total_count` set to `null`. Use `scroll_param` to fetch the next page.
 	//
 	// {% admonition type="info" name="Scroll Parameter" %}
 	//   You can get the first page of companies by simply sending a GET request to the scroll endpoint.
@@ -11016,6 +11615,8 @@ type ClientInterface interface {
 	//   "Request failed due to an internal network error. Please restart the scroll operation."
 	//   If this happens, you will need to restart your scroll query: It is not possible to continue from a specific point when using scroll.
 	// {% /admonition %}
+	//
+	// Requires the `read_users_companies` OAuth scope.
 	//
 	// Corresponds with GET /companies/scroll (the `ScrollOverAllCompanies` operationId).
 	ScrollOverAllCompanies(ctx context.Context, params *ScrollOverAllCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -11082,6 +11683,12 @@ type ClientInterface interface {
 	// ### Sorting
 	//
 	// Pass an optional `sort` object with a `field` and an `order` (`ascending` or `descending`; defaults to `descending`) to order the results. An invalid `order` returns a `400` error with code `invalid_sort_order`. `tag_id` can be used as a filter but not as a sort field.
+	//
+	// ### Pagination
+	//
+	// Pass an optional `pagination` object with `per_page` and `starting_after`. `per_page` defaults to 15 and must be between 1 and 150; anything else returns a `400` error with code `invalid_per_page`. Take `starting_after` from `pages.next` in the previous response, and send it with the same `sort` you used for that response. A cursor from a sort on a text field such as `name`, sent with a sort on a number or date field (or the other way round), returns a `400` error with code `client_error`. Leaving out `sort` sorts by `last_request_at`, a date. A cursor sent with a different sort of the same kind is accepted, but the page it returns doesn't follow on from the previous one.
+	//
+	// Requires the `read_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11151,6 +11758,12 @@ type ClientInterface interface {
 	//
 	// Pass an optional `sort` object with a `field` and an `order` (`ascending` or `descending`; defaults to `descending`) to order the results. An invalid `order` returns a `400` error with code `invalid_sort_order`. `tag_id` can be used as a filter but not as a sort field.
 	//
+	// ### Pagination
+	//
+	// Pass an optional `pagination` object with `per_page` and `starting_after`. `per_page` defaults to 15 and must be between 1 and 150; anything else returns a `400` error with code `invalid_per_page`. Take `starting_after` from `pages.next` in the previous response, and send it with the same `sort` you used for that response. A cursor from a sort on a text field such as `name`, sent with a sort on a number or date field (or the other way round), returns a `400` error with code `client_error`. Leaving out `sort` sorts by `last_request_at`, a date. A cursor sent with a different sort of the same kind is accepted, but the page it returns doesn't follow on from the previous one.
+	//
+	// Requires the `read_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /companies/search (the `SearchCompanies` operationId).
@@ -11160,11 +11773,15 @@ type ClientInterface interface {
 	//
 	// Delete a single company.
 	//
-	// The company record is kept in your workspace, but all contacts are detached. The contacts themselves are not deleted. Detaching contacts is permanent and can't be reversed. A `company.deleted` webhook is sent when the company is deleted. These changes may take some time to be reflected in your workspace.
+	// The company record is kept in your workspace, but all contacts are detached. The contacts themselves are not deleted. Detaching contacts is permanent and can't be reversed. These changes may take some time to be reflected in your workspace.
+	//
+	// The response returns `"deleted": true` as soon as the request is accepted; the contacts are detached in the background. A `company.deleted` webhook is sent after that work finishes, so it arrives some time after the response. No webhook is sent for a company that has no contacts attached, because there is nothing to detach.
 	//
 	// {% admonition type="warning" %}
 	// Third-party integrations that sync companies into Intercom (for example, Salesforce or Chargebee) will recreate any company deleted through this endpoint on their next sync. To prevent recreation, remove or filter the company at the source integration before deleting it via the API.
 	// {% /admonition %}
+	//
+	// Requires the `write_users_companies` OAuth scope.
 	//
 	// Corresponds with DELETE /companies/{company_id} (the `DeleteCompany` operationId).
 	DeleteCompany(ctx context.Context, companyId string, params *DeleteCompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -11180,9 +11797,15 @@ type ClientInterface interface {
 	//
 	// You can update a single company using the Intercom provisioned `id`.
 	//
+	// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
+	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
 	// {% admonition type="warning" name="Using `company_id`" %}
 	//   When updating a company it is not possible to update `company_id`. This can only be set once upon creation of the company.
 	// {% /admonition %}
+	//
+	// Requires the `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11193,9 +11816,15 @@ type ClientInterface interface {
 	//
 	// You can update a single company using the Intercom provisioned `id`.
 	//
+	// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
+	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
 	// {% admonition type="warning" name="Using `company_id`" %}
 	//   When updating a company it is not possible to update `company_id`. This can only be set once upon creation of the company.
 	// {% /admonition %}
+	//
+	// Requires the `write_users_companies` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -11205,6 +11834,8 @@ type ClientInterface interface {
 	// ListAttachedContacts List attached contacts
 	//
 	// You can fetch a list of all contacts that belong to a company.
+	//
+	// Requires the `read_users_companies` OAuth scope.
 	//
 	// Corresponds with GET /companies/{company_id}/contacts (the `ListAttachedContacts` operationId).
 	ListAttachedContacts(ctx context.Context, companyId string, params *ListAttachedContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -11238,6 +11869,8 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of all segments that belong to a company.
 	//
+	// Requires the `read_users_companies` OAuth scope.
+	//
 	// Corresponds with GET /companies/{company_id}/segments (the `ListAttachedSegmentsForCompanies` operationId).
 	ListAttachedSegmentsForCompanies(ctx context.Context, companyId string, params *ListAttachedSegmentsForCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -11252,12 +11885,16 @@ type ClientInterface interface {
 	//   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
 	// {% /admonition %}
 	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Corresponds with GET /contacts (the `ListContacts` operationId).
 	ListContacts(ctx context.Context, params *ListContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateContactWithBody Create contact
 	//
 	// You can create a new contact (ie. user or lead).
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11268,6 +11905,8 @@ type ClientInterface interface {
 	//
 	// You can create a new contact (ie. user or lead).
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /contacts (the `CreateContact` operationId).
@@ -11277,10 +11916,14 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of contact activity events for your workspace, such as when contacts are created, role updated, merged, or deleted. Events are returned oldest first.
 	//
+	// If the activity store can't be read, this endpoint returns `200` with an empty `data` array and no `pages.next`, the same response as when there are no new events.
+	//
 	// {% admonition type="warning" name="Pagination" %}
 	//   You can use pagination to limit the number of results returned. The default is `50` results per page, with a maximum of `150`.
 	//   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
 	// {% /admonition %}
+	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 	//
 	// Corresponds with GET /contacts/activities (the `ListContactActivities` operationId).
 	ListContactActivities(ctx context.Context, params *ListContactActivitiesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -11304,6 +11947,8 @@ type ClientInterface interface {
 	//   - You can append tasks to an existing job by including `job.id` in the request body.
 	//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
 	// {% /admonition %}
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11330,6 +11975,8 @@ type ClientInterface interface {
 	//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
 	// {% /admonition %}
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /contacts/bulk (the `BulkCreateContacts` operationId).
@@ -11349,6 +11996,8 @@ type ClientInterface interface {
 	//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
 	// {% /admonition %}
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with PUT /contacts/bulk (the `BulkUpdateContacts` operationId).
@@ -11367,6 +12016,8 @@ type ClientInterface interface {
 	//   - You can append tasks to an existing job by including `job.id` in the request body.
 	//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
 	// {% /admonition %}
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -11388,6 +12039,8 @@ type ClientInterface interface {
 	//   - You can append tasks to an existing job by including `job.id` in the request body.
 	// {% /admonition %}
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with POST /contacts/bulk/delete (the `BulkDeleteContacts` operationId).
@@ -11408,6 +12061,8 @@ type ClientInterface interface {
 	//   - You can append tasks to an existing job by including `job.id` in the request body.
 	// {% /admonition %}
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /contacts/bulk/delete (the `BulkDeleteContacts` operationId).
@@ -11415,7 +12070,9 @@ type ClientInterface interface {
 
 	// ShowBulkUpdateContactsJob Get a bulk update job
 	//
-	// You can check the status of a bulk contact update job. The `state` field indicates the overall job progress: `pending`, `running`, `completed`, or `completed_with_errors`.
+	// You can check the status of a bulk contact update job. The `state` field indicates the overall job progress: `running`, `completed`, or `completed_with_errors`.
+	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 	//
 	// Corresponds with GET /contacts/bulk/{id} (the `ShowBulkUpdateContactsJob` operationId).
 	ShowBulkUpdateContactsJob(ctx context.Context, id string, params *ShowBulkUpdateContactsJobParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -11429,6 +12086,8 @@ type ClientInterface interface {
 	// `merged_into_id` is present only when `status` is `merged`, and `external_id` and `email`
 	// are `null` for `permanently_deleted` contacts.
 	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Corresponds with GET /contacts/deleted (the `ListDeletedContacts` operationId).
 	ListDeletedContacts(ctx context.Context, params *ListDeletedContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -11440,6 +12099,8 @@ type ClientInterface interface {
 	//   If the contact with this external ID has been merged into another contact, the API returns **HTTP 410 Gone** with a `Link` header pointing to the canonical (merged-into) contact. See `GET /contacts/{id}` for details on the response format.
 	// {% /admonition %}
 	//
+	// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Corresponds with GET /contacts/find_by_external_id/{external_id} (the `ShowContactByExternalId` operationId).
 	ShowContactByExternalId(ctx context.Context, externalId string, params *ShowContactByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -11449,12 +12110,14 @@ type ClientInterface interface {
 	//
 	// {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
 	//   Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
-	//   - **GET /contacts/{id}** — Requesting the source contact by its original ID will return a `404 Not Found` error.
+	//   - **GET /contacts/{id}** — Requesting the source contact by its original ID returns `410 Gone` with a `Link` header pointing to the contact it was merged into. See [Get a contact](/docs/references/rest-api/api.intercom.io/contacts/showcontact).
 	//   - **POST /contacts/search** — The source contact will not appear in search results, including queries filtered by `updated_at`.
 	//   - **GET /contacts** — The source contact will not appear in list results.
 	//
 	//   Only the target contact (`into`) remains accessible. If your application stores contact IDs, update them to use the target contact's ID after a merge.
 	// {% /admonition %}
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11467,12 +12130,14 @@ type ClientInterface interface {
 	//
 	// {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
 	//   Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
-	//   - **GET /contacts/{id}** — Requesting the source contact by its original ID will return a `404 Not Found` error.
+	//   - **GET /contacts/{id}** — Requesting the source contact by its original ID returns `410 Gone` with a `Link` header pointing to the contact it was merged into. See [Get a contact](/docs/references/rest-api/api.intercom.io/contacts/showcontact).
 	//   - **POST /contacts/search** — The source contact will not appear in search results, including queries filtered by `updated_at`.
 	//   - **GET /contacts** — The source contact will not appear in list results.
 	//
 	//   Only the target contact (`into`) remains accessible. If your application stores contact IDs, update them to use the target contact's ID after a merge.
 	// {% /admonition %}
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -11498,7 +12163,7 @@ type ClientInterface interface {
 	// | --- | --- |
 	// | `source_same_as_target` | The source contact (`from`) and the destination contact (`into`) are the same contact. A contact can't be merged into itself. |
 	// | `invalid_merge_role_pair` | The `from`/`into` roles aren't mergeable. `into` must be a user. |
-	// | `no_shared_identifier` | The contacts share no email or phone. Set `skip_duplicate_validation` to preview anyway. |
+	// | `no_shared_identifier` | The contacts share no email or phone. The source's phone also counts as shared when it matches the destination's WhatsApp number. Set `skip_duplicate_validation` to preview anyway. |
 	// | `facebook_user` | Facebook contacts can't be merged. |
 	// | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
 	// | `mailing_list` | Contacts created from a mailing list can't be merged. |
@@ -11506,6 +12171,8 @@ type ClientInterface interface {
 	// | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
 	// | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
 	// | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
+	//
+	// Requires the `read_write_users` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11531,7 +12198,7 @@ type ClientInterface interface {
 	// | --- | --- |
 	// | `source_same_as_target` | The source contact (`from`) and the destination contact (`into`) are the same contact. A contact can't be merged into itself. |
 	// | `invalid_merge_role_pair` | The `from`/`into` roles aren't mergeable. `into` must be a user. |
-	// | `no_shared_identifier` | The contacts share no email or phone. Set `skip_duplicate_validation` to preview anyway. |
+	// | `no_shared_identifier` | The contacts share no email or phone. The source's phone also counts as shared when it matches the destination's WhatsApp number. Set `skip_duplicate_validation` to preview anyway. |
 	// | `facebook_user` | Facebook contacts can't be merged. |
 	// | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
 	// | `mailing_list` | Contacts created from a mailing list can't be merged. |
@@ -11539,6 +12206,8 @@ type ClientInterface interface {
 	// | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
 	// | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
 	// | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
+	//
+	// Requires the `read_write_users` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -11573,6 +12242,8 @@ type ClientInterface interface {
 	// There are some limitations to the amount of multiple's there can be:
 	// * There's a limit of max 2 nested filters
 	// * There's a limit of max 15 filters for each AND or OR group
+	// * There's a limit of max 15 values in an `IN` or `NIN` array
+	// * `pagination.per_page` must be between 1 and 150
 	//
 	// ### Searching for Timestamp Fields
 	//
@@ -11593,10 +12264,10 @@ type ClientInterface interface {
 	// | Field                              | Type                           |
 	// | ---------------------------------- | ------------------------------ |
 	// | id                                 | String                         |
-	// | role                               | String<br>Accepts user or lead |
+	// | role                               | String<br>Accepts user or lead; contact is treated as lead |
 	// | name                               | String                         |
 	// | avatar                             | String                         |
-	// | owner_id                           | String                         |
+	// | owner_id                           | Integer                        |
 	// | email                              | String                         |
 	// | email_domain                       | String                         |
 	// | phone                              | String                         |
@@ -11611,6 +12282,7 @@ type ClientInterface interface {
 	// | last_email_clicked_at              | Datetime (Unix timestamp in seconds) |
 	// | language_override                  | String                         |
 	// | browser                            | String                         |
+	// | browser_version                    | String                         |
 	// | browser_language                   | String                         |
 	// | os                                 | String                         |
 	// | location.country                   | String                         |
@@ -11619,44 +12291,55 @@ type ClientInterface interface {
 	// | unsubscribed_from_emails           | Boolean                        |
 	// | marked_email_as_spam               | Boolean                        |
 	// | has_hard_bounced                   | Boolean                        |
+	// | phone_country                      | String                         |
+	// | slack_email                        | String                         |
+	// | fin_qualification_status           | String                         |
+	// | whatsapp_number                    | String<br>Only on workspaces with the WhatsApp integration |
 	// | ios_last_seen_at                   | Datetime (Unix timestamp in seconds) |
 	// | ios_app_version                    | String                         |
 	// | ios_device                         | String                         |
-	// | ios_app_device                     | String                         |
 	// | ios_os_version                     | String                         |
 	// | ios_app_name                       | String                         |
 	// | ios_sdk_version                    | String                         |
 	// | android_last_seen_at               | Datetime (Unix timestamp in seconds) |
 	// | android_app_version                | String                         |
 	// | android_device                     | String                         |
+	// | android_os_version                 | String                         |
 	// | android_app_name                   | String                         |
-	// | andoid_sdk_version                 | String                         |
+	// | android_sdk_version                | String                         |
+	// | enabled_push_messaging             | Boolean                        |
 	// | segment_id                         | String                         |
 	// | tag_id                             | String                         |
 	// | custom_attributes.{attribute_name} | Matches the attribute's own type<br>(String, Integer, Float, Boolean or Date) |
 	//
+	// The `ios_*` fields other than `ios_app_name` are searchable only once your workspace has been set up for the Intercom iOS SDK or has received a request from it, and the `android_*` fields other than `android_app_name` only once the same is true for the Android SDK. `enabled_push_messaging` needs either. Until then, they return an `invalid_field` error.
+	//
 	// ### Accepted Operators
 	//
 	// {% admonition type="warning" name="Operators not supported on Date custom attributes" %}
-	//   Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns an error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
+	//   Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns a `422` error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
 	// {% /admonition %}
 	//
-	// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` supports only the `=` and `!=` operators.
+	// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` or `segment_id` supports only the `=` and `!=` operators, with a single ID string as the value.
+	//
+	// A `null` value is accepted only with `=` (matches Contacts with no value set) and `!=` (matches Contacts with any value set). An array value is accepted only with `IN` and `NIN`. String values must be shorter than 256 characters.
 	//
 	// | Operator | Valid Types                        | Description                                                            |
 	// | :------- | :---------------------------------- | :----------------------------------------------------------------------|
 	// | =        | All                                  | Equals                                                                  |
 	// | !=       | All except Date                      | Doesn't Equal<br>Also matches Contacts with no value set                |
-	// | IN       | All except Date, Datetime and tag_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
-	// | NIN      | All except Date, Datetime and tag_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
-	// | >        | Integer<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
-	// | <        | Integer<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
-	// | >=       | Integer<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
-	// | <=       | Integer<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
+	// | IN       | All except Date, Datetime, tag_id and segment_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
+	// | NIN      | All except Date, Datetime, tag_id and segment_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
+	// | >        | Integer<br>Float<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
+	// | <        | Integer<br>Float<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
+	// | >=       | Integer<br>Float<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
+	// | <=       | Integer<br>Float<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
 	// | ~        | String                               | Contains                                                                |
 	// | !~       | String                               | Doesn't Contain                                                         |
 	// | ^        | String                               | Starts With                                                             |
 	// | $        | String                               | Ends With                                                               |
+	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11691,6 +12374,8 @@ type ClientInterface interface {
 	// There are some limitations to the amount of multiple's there can be:
 	// * There's a limit of max 2 nested filters
 	// * There's a limit of max 15 filters for each AND or OR group
+	// * There's a limit of max 15 values in an `IN` or `NIN` array
+	// * `pagination.per_page` must be between 1 and 150
 	//
 	// ### Searching for Timestamp Fields
 	//
@@ -11711,10 +12396,10 @@ type ClientInterface interface {
 	// | Field                              | Type                           |
 	// | ---------------------------------- | ------------------------------ |
 	// | id                                 | String                         |
-	// | role                               | String<br>Accepts user or lead |
+	// | role                               | String<br>Accepts user or lead; contact is treated as lead |
 	// | name                               | String                         |
 	// | avatar                             | String                         |
-	// | owner_id                           | String                         |
+	// | owner_id                           | Integer                        |
 	// | email                              | String                         |
 	// | email_domain                       | String                         |
 	// | phone                              | String                         |
@@ -11729,6 +12414,7 @@ type ClientInterface interface {
 	// | last_email_clicked_at              | Datetime (Unix timestamp in seconds) |
 	// | language_override                  | String                         |
 	// | browser                            | String                         |
+	// | browser_version                    | String                         |
 	// | browser_language                   | String                         |
 	// | os                                 | String                         |
 	// | location.country                   | String                         |
@@ -11737,44 +12423,55 @@ type ClientInterface interface {
 	// | unsubscribed_from_emails           | Boolean                        |
 	// | marked_email_as_spam               | Boolean                        |
 	// | has_hard_bounced                   | Boolean                        |
+	// | phone_country                      | String                         |
+	// | slack_email                        | String                         |
+	// | fin_qualification_status           | String                         |
+	// | whatsapp_number                    | String<br>Only on workspaces with the WhatsApp integration |
 	// | ios_last_seen_at                   | Datetime (Unix timestamp in seconds) |
 	// | ios_app_version                    | String                         |
 	// | ios_device                         | String                         |
-	// | ios_app_device                     | String                         |
 	// | ios_os_version                     | String                         |
 	// | ios_app_name                       | String                         |
 	// | ios_sdk_version                    | String                         |
 	// | android_last_seen_at               | Datetime (Unix timestamp in seconds) |
 	// | android_app_version                | String                         |
 	// | android_device                     | String                         |
+	// | android_os_version                 | String                         |
 	// | android_app_name                   | String                         |
-	// | andoid_sdk_version                 | String                         |
+	// | android_sdk_version                | String                         |
+	// | enabled_push_messaging             | Boolean                        |
 	// | segment_id                         | String                         |
 	// | tag_id                             | String                         |
 	// | custom_attributes.{attribute_name} | Matches the attribute's own type<br>(String, Integer, Float, Boolean or Date) |
 	//
+	// The `ios_*` fields other than `ios_app_name` are searchable only once your workspace has been set up for the Intercom iOS SDK or has received a request from it, and the `android_*` fields other than `android_app_name` only once the same is true for the Android SDK. `enabled_push_messaging` needs either. Until then, they return an `invalid_field` error.
+	//
 	// ### Accepted Operators
 	//
 	// {% admonition type="warning" name="Operators not supported on Date custom attributes" %}
-	//   Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns an error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
+	//   Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns a `422` error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
 	// {% /admonition %}
 	//
-	// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` supports only the `=` and `!=` operators.
+	// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` or `segment_id` supports only the `=` and `!=` operators, with a single ID string as the value.
+	//
+	// A `null` value is accepted only with `=` (matches Contacts with no value set) and `!=` (matches Contacts with any value set). An array value is accepted only with `IN` and `NIN`. String values must be shorter than 256 characters.
 	//
 	// | Operator | Valid Types                        | Description                                                            |
 	// | :------- | :---------------------------------- | :----------------------------------------------------------------------|
 	// | =        | All                                  | Equals                                                                  |
 	// | !=       | All except Date                      | Doesn't Equal<br>Also matches Contacts with no value set                |
-	// | IN       | All except Date, Datetime and tag_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
-	// | NIN      | All except Date, Datetime and tag_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
-	// | >        | Integer<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
-	// | <        | Integer<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
-	// | >=       | Integer<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
-	// | <=       | Integer<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
+	// | IN       | All except Date, Datetime, tag_id and segment_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
+	// | NIN      | All except Date, Datetime, tag_id and segment_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
+	// | >        | Integer<br>Float<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
+	// | <        | Integer<br>Float<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
+	// | >=       | Integer<br>Float<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
+	// | <=       | Integer<br>Float<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
 	// | ~        | String                               | Contains                                                                |
 	// | !~       | String                               | Doesn't Contain                                                         |
 	// | ^        | String                               | Starts With                                                             |
 	// | $        | String                               | Ends With                                                               |
+	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -11784,6 +12481,8 @@ type ClientInterface interface {
 	// DeleteContact Delete a contact
 	//
 	// You can delete a single contact.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Corresponds with DELETE /contacts/{contact_id} (the `DeleteContact` operationId).
 	DeleteContact(ctx context.Context, contactId string, params *DeleteContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -11811,6 +12510,8 @@ type ClientInterface interface {
 	//   The `Link` header contains the path to the final merge target, resolving multi-hop merge chains (up to 3 hops).
 	// {% /admonition %}
 	//
+	// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Corresponds with GET /contacts/{contact_id} (the `ShowContact` operationId).
 	ShowContact(ctx context.Context, contactId string, params *ShowContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -11823,6 +12524,8 @@ type ClientInterface interface {
 	//
 	//   See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
 	// {% /admonition %}
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11839,6 +12542,8 @@ type ClientInterface interface {
 	//   See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
 	// {% /admonition %}
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with PUT /contacts/{contact_id} (the `UpdateContact` operationId).
@@ -11848,12 +12553,16 @@ type ClientInterface interface {
 	//
 	// You can archive a single contact.
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Corresponds with POST /contacts/{contact_id}/archive (the `ArchiveContact` operationId).
 	ArchiveContact(ctx context.Context, contactId string, params *ArchiveContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// BlockContact Block contact
 	//
 	// Block a single contact.<br>**Note:** conversations of the contact will also be archived during the process.<br>More details in [FAQ How do I block Inbox spam?](https://www.intercom.com/help/en/articles/8838656-inbox-faqs)
+	//
+	// Requires the `read_write_users` OAuth scope.
 	//
 	// Corresponds with POST /contacts/{contact_id}/block (the `BlockContact` operationId).
 	BlockContact(ctx context.Context, contactId string, params *BlockContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -11869,6 +12578,8 @@ type ClientInterface interface {
 	//
 	// You can attach a company to a single contact.
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with POST /contacts/{contact_id}/companies (the `AttachContactToACompany` operationId).
@@ -11878,6 +12589,8 @@ type ClientInterface interface {
 	//
 	// You can attach a company to a single contact.
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /contacts/{contact_id}/companies (the `AttachContactToACompany` operationId).
@@ -11886,6 +12599,8 @@ type ClientInterface interface {
 	// DetachContactFromACompany Detach a contact from a company
 	//
 	// You can detach a company from a single contact.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Corresponds with DELETE /contacts/{contact_id}/companies/{company_id} (the `DetachContactFromACompany` operationId).
 	DetachContactFromACompany(ctx context.Context, contactId string, companyId string, params *DetachContactFromACompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -11919,6 +12634,8 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of segments that are associated to a contact.
 	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Corresponds with GET /contacts/{contact_id}/segments (the `ListSegmentsForAContact` operationId).
 	ListSegmentsForAContact(ctx context.Context, contactId string, params *ListSegmentsForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -11947,6 +12664,8 @@ type ClientInterface interface {
 	//
 	// This will return a subscription type model for the subscription type that was added to the contact.
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with POST /contacts/{contact_id}/subscriptions (the `AttachSubscriptionTypeToContact` operationId).
@@ -11962,6 +12681,8 @@ type ClientInterface interface {
 	//
 	// This will return a subscription type model for the subscription type that was added to the contact.
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /contacts/{contact_id}/subscriptions (the `AttachSubscriptionTypeToContact` operationId).
@@ -11969,7 +12690,11 @@ type ClientInterface interface {
 
 	// DetachSubscriptionTypeToContact Remove subscription from a contact
 	//
-	// You can remove a specific subscription from a contact. This will return a subscription type model for the subscription type that was removed from the contact.
+	// You can remove a specific subscription from a contact. This will
+	// return a subscription type model for the subscription type that was removed
+	// from the contact.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Corresponds with DELETE /contacts/{contact_id}/subscriptions/{subscription_id} (the `DetachSubscriptionTypeToContact` operationId).
 	DetachSubscriptionTypeToContact(ctx context.Context, contactId string, subscriptionId string, params *DetachSubscriptionTypeToContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -11983,7 +12708,10 @@ type ClientInterface interface {
 
 	// AttachTagToContactWithBody Add tag to a contact
 	//
-	// You can tag a specific contact. This will return a tag object for the tag that was added to the contact.
+	// You can tag a specific contact. This will return a tag object for
+	// the tag that was added to the contact.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11992,7 +12720,10 @@ type ClientInterface interface {
 
 	// AttachTagToContact Add tag to a contact
 	//
-	// You can tag a specific contact. This will return a tag object for the tag that was added to the contact.
+	// You can tag a specific contact. This will return a tag object for
+	// the tag that was added to the contact.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -12001,7 +12732,10 @@ type ClientInterface interface {
 
 	// DetachTagFromContact Remove tag from a contact
 	//
-	// You can remove tag from a specific contact. This will return a tag object for the tag that was removed from the contact.
+	// You can remove tag from a specific contact. This will return a
+	// tag object for the tag that was removed from the contact.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Corresponds with DELETE /contacts/{contact_id}/tags/{tag_id} (the `DetachTagFromContact` operationId).
 	DetachTagFromContact(ctx context.Context, contactId string, tagId string, params *DetachTagFromContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -12009,6 +12743,8 @@ type ClientInterface interface {
 	// UnarchiveContact Unarchive contact
 	//
 	// You can unarchive a single contact.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Corresponds with POST /contacts/{contact_id}/unarchive (the `UnarchiveContact` operationId).
 	UnarchiveContact(ctx context.Context, contactId string, params *UnarchiveContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -12023,6 +12759,8 @@ type ClientInterface interface {
 	// this endpoint records an impression for each banner returned, so call it at the
 	// point you are about to display the banners, not speculatively.
 	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Corresponds with GET /contacts/{id}/banners (the `ListContactBanners` operationId).
 	ListContactBanners(ctx context.Context, id string, params *ListContactBannersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -12035,6 +12773,8 @@ type ClientInterface interface {
 	// The request is idempotent: dismissing an already-dismissed banner succeeds and
 	// returns the same response.
 	//
+	// Requires the `read_write_users` OAuth scope.
+	//
 	// Corresponds with POST /contacts/{id}/banners/{view_id}/dismiss (the `DismissContactBanner` operationId).
 	DismissContactBanner(ctx context.Context, id string, viewId string, params *DismissContactBannerParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -12043,6 +12783,8 @@ type ClientInterface interface {
 	// Retrieve the paginated list of contacts that have been merged into a given contact.
 	//
 	// Only available for contacts with a `user` role. Returns a `404` if the contact is not found or has a `lead` role.
+	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 	//
 	// Corresponds with GET /contacts/{id}/merge_histories (the `ListContactMergeHistory` operationId).
 	ListContactMergeHistory(ctx context.Context, id string, params *ListContactMergeHistoryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -13063,12 +13805,16 @@ type ClientInterface interface {
 	//
 	// Returns a paginated list of all data connectors for the workspace, ordered by most recently updated first. Data connectors allow workflows and AI agents to make HTTP requests to external APIs.
 	//
+	// OAuth tokens must have the `read_workflow_connector_execution_result` or `read_write_data_connectors` scope.
+	//
 	// Corresponds with GET /data_connectors (the `ListDataConnectors` operationId).
 	ListDataConnectors(ctx context.Context, params *ListDataConnectorsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateDataConnectorWithBody Create a data connector
 	//
 	// Create a new data connector. The connector is created in `draft` state. Configure its URL, headers, data inputs, and other settings, then set it to `live` when ready.
+	//
+	// OAuth tokens must have the `read_write_data_connectors` scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -13078,6 +13824,8 @@ type ClientInterface interface {
 	// CreateDataConnector Create a data connector
 	//
 	// Create a new data connector. The connector is created in `draft` state. Configure its URL, headers, data inputs, and other settings, then set it to `live` when ready.
+	//
+	// OAuth tokens must have the `read_write_data_connectors` scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -13091,13 +13839,17 @@ type ClientInterface interface {
 	//
 	// Request/response bodies are excluded by default. Use `include_bodies=true` to include them.
 	//
+	// OAuth tokens must have the `read_workflow_connector_execution_result` or `read_write_data_connectors` scope.
+	//
 	// Corresponds with GET /data_connectors/{data_connector_id}/execution_results (the `ListDataConnectorExecutionResults` operationId).
 	ListDataConnectorExecutionResults(ctx context.Context, dataConnectorId string, params *ListDataConnectorExecutionResultsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ShowDataConnectorExecutionResult Retrieve an execution result
 	//
 	// Retrieve details for a specific data connector execution result.
-	// Always includes request/response bodies and the sanitised request URL.
+	// Includes the request/response bodies and sanitised request URL when they are available.
+	//
+	// OAuth tokens must have the `read_workflow_connector_execution_result` or `read_write_data_connectors` scope.
 	//
 	// Corresponds with GET /data_connectors/{data_connector_id}/execution_results/{id} (the `ShowDataConnectorExecutionResult` operationId).
 	ShowDataConnectorExecutionResult(ctx context.Context, dataConnectorId string, id string, params *ShowDataConnectorExecutionResultParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -13105,6 +13857,8 @@ type ClientInterface interface {
 	// DeleteDataConnector Delete a data connector
 	//
 	// Delete an existing data connector. The connector must be in `draft` state and must not be in use by any workflows or AI agents.
+	//
+	// OAuth tokens must have the `read_write_data_connectors` scope.
 	//
 	// Corresponds with DELETE /data_connectors/{id} (the `DeleteDataConnector` operationId).
 	DeleteDataConnector(ctx context.Context, id string, params *DeleteDataConnectorParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -13115,12 +13869,16 @@ type ClientInterface interface {
 	//
 	// The response includes configuration, data inputs, response fields, and object mappings.
 	//
+	// OAuth tokens must have the `read_workflow_connector_execution_result` or `read_write_data_connectors` scope.
+	//
 	// Corresponds with GET /data_connectors/{id} (the `RetrieveDataConnector` operationId).
 	RetrieveDataConnector(ctx context.Context, id string, params *RetrieveDataConnectorParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateDataConnectorWithBody Update a data connector
 	//
 	// Update an existing data connector. Only provided fields are changed. Set `state` to `live` or `draft` to change the connector's state.
+	//
+	// OAuth tokens must have the `read_write_data_connectors` scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -13130,6 +13888,8 @@ type ClientInterface interface {
 	// UpdateDataConnector Update a data connector
 	//
 	// Update an existing data connector. Only provided fields are changed. Set `state` to `live` or `draft` to change the connector's state.
+	//
+	// OAuth tokens must have the `read_write_data_connectors` scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -13567,7 +14327,7 @@ type ClientInterface interface {
 	//
 	// The response is audience-matched to the supplied user: each live, API-triggerable
 	// procedure is checked against that user before being included, alongside the static
-	// `reply` and `ask` actions.
+	// `reply`, `ask`, and `escalate` actions.
 	//
 	// {% admonition type="warning" %}
 	// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
@@ -13585,7 +14345,7 @@ type ClientInterface interface {
 	//
 	// The response is audience-matched to the supplied user: each live, API-triggerable
 	// procedure is checked against that user before being included, alongside the static
-	// `reply` and `ask` actions.
+	// `reply`, `ask`, and `escalate` actions.
 	//
 	// {% admonition type="warning" %}
 	// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
@@ -13602,8 +14362,8 @@ type ClientInterface interface {
 	// remark.
 	//
 	// Fin decides *when* to ask for a rating — this reuses the CSAT settings on your Fin
-	// workflow, not this API. When Fin asks, it fires a `csat_requested` event over webhooks or
-	// SSE carrying the rating options to show the user. Present those options, then submit the
+	// workflow, not this API. When Fin asks, it fires a `csat_requested` event over webhooks
+	// carrying the rating options to show the user. Present those options, then submit the
 	// user's choice here.
 	//
 	// Submitting the same rating again, with no new remark, is a no-op and stays successful,
@@ -13627,8 +14387,8 @@ type ClientInterface interface {
 	// remark.
 	//
 	// Fin decides *when* to ask for a rating — this reuses the CSAT settings on your Fin
-	// workflow, not this API. When Fin asks, it fires a `csat_requested` event over webhooks or
-	// SSE carrying the rating options to show the user. Present those options, then submit the
+	// workflow, not this API. When Fin asks, it fires a `csat_requested` event over webhooks
+	// carrying the rating options to show the user. Present those options, then submit the
 	// user's choice here.
 	//
 	// Submitting the same rating again, with no new remark, is a no-op and stays successful,
@@ -13656,11 +14416,12 @@ type ClientInterface interface {
 	// - `conversation_id` — escalate an existing agent conversation, including one started
 	//   with `/fin/ask`. On the Intercom Helpdesk, Fin by default summarises the conversation
 	//   and opens a new Helpdesk conversation that carries the summary as an internal note.
-	//   Escalation does not change the original agent conversation's assignment or open/closed
-	//   state. Configure an escalation Operator Workflow to change this default.
-	// - `user` — escalate on behalf of a user with no prior agent conversation. On the Intercom
-	//   Helpdesk, a new Helpdesk conversation is created for the teammate. Not supported on Fin
-	//   for Platforms — see below.
+	//   Configure an escalation Operator Workflow to change this default. Escalation closes the
+	//   original agent conversation if it is open.
+	// - `user` — escalate on behalf of a user with no prior agent conversation. Fin creates an
+	//   agent conversation for the escalation and closes it once the handoff completes. On the
+	//   Intercom Helpdesk, the teammate works in a separate new Helpdesk conversation. Not
+	//   supported on Fin for Platforms — see below.
 	//
 	// In both cases, pass the optional `context` to give the receiving teammate background your
 	// orchestrating agent has and Fin does not. On the Intercom Helpdesk, it appears above the
@@ -13674,13 +14435,15 @@ type ClientInterface interface {
 	// On Fin for Platforms, `conversation_id` is required — `user` is not supported and is
 	// rejected, because there is no Intercom Helpdesk in which to create a conversation. There
 	// is no Intercom inbox either, so an escalation that no workflow handles does not open a
-	// Helpdesk conversation for a teammate. `context` is not surfaced, and the conversation is
-	// left open for your platform to hand off and continue driving.
+	// Helpdesk conversation for a teammate. `context` is not surfaced. The conversation is closed,
+	// as on the Intercom Helpdesk, and your platform hands the user off to a human.
 	//
-	// You are notified over the existing webhook or SSE channel with an `escalated` status
-	// followed by `complete`. The `complete` status signals that Fin is done; it does not close
-	// the conversation. On the Intercom Helpdesk, the new human conversation remains open; on
-	// Fin for Platforms, the conversation remains open for whoever handles it on your platform.
+	// You are notified via webhooks with an `escalated` status
+	// followed by `complete`. The `complete` status signals that Fin is done. By then the
+	// original agent conversation has been closed. An escalation Operator Workflow may act
+	// on it afterwards, but it is closed again once the workflow's first steps have run, so
+	// only steps that run later (for example after a wait) can reopen it. On the Intercom
+	// Helpdesk, the new human conversation remains open.
 	//
 	// {% admonition type="warning" %}
 	// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
@@ -13701,11 +14464,12 @@ type ClientInterface interface {
 	// - `conversation_id` — escalate an existing agent conversation, including one started
 	//   with `/fin/ask`. On the Intercom Helpdesk, Fin by default summarises the conversation
 	//   and opens a new Helpdesk conversation that carries the summary as an internal note.
-	//   Escalation does not change the original agent conversation's assignment or open/closed
-	//   state. Configure an escalation Operator Workflow to change this default.
-	// - `user` — escalate on behalf of a user with no prior agent conversation. On the Intercom
-	//   Helpdesk, a new Helpdesk conversation is created for the teammate. Not supported on Fin
-	//   for Platforms — see below.
+	//   Configure an escalation Operator Workflow to change this default. Escalation closes the
+	//   original agent conversation if it is open.
+	// - `user` — escalate on behalf of a user with no prior agent conversation. Fin creates an
+	//   agent conversation for the escalation and closes it once the handoff completes. On the
+	//   Intercom Helpdesk, the teammate works in a separate new Helpdesk conversation. Not
+	//   supported on Fin for Platforms — see below.
 	//
 	// In both cases, pass the optional `context` to give the receiving teammate background your
 	// orchestrating agent has and Fin does not. On the Intercom Helpdesk, it appears above the
@@ -13719,13 +14483,15 @@ type ClientInterface interface {
 	// On Fin for Platforms, `conversation_id` is required — `user` is not supported and is
 	// rejected, because there is no Intercom Helpdesk in which to create a conversation. There
 	// is no Intercom inbox either, so an escalation that no workflow handles does not open a
-	// Helpdesk conversation for a teammate. `context` is not surfaced, and the conversation is
-	// left open for your platform to hand off and continue driving.
+	// Helpdesk conversation for a teammate. `context` is not surfaced. The conversation is closed,
+	// as on the Intercom Helpdesk, and your platform hands the user off to a human.
 	//
-	// You are notified over the existing webhook or SSE channel with an `escalated` status
-	// followed by `complete`. The `complete` status signals that Fin is done; it does not close
-	// the conversation. On the Intercom Helpdesk, the new human conversation remains open; on
-	// Fin for Platforms, the conversation remains open for whoever handles it on your platform.
+	// You are notified via webhooks with an `escalated` status
+	// followed by `complete`. The `complete` status signals that Fin is done. By then the
+	// original agent conversation has been closed. An escalation Operator Workflow may act
+	// on it afterwards, but it is closed again once the workflow's first steps have run, so
+	// only steps that run later (for example after a wait) can reopen it. On the Intercom
+	// Helpdesk, the new human conversation remains open.
 	//
 	// {% admonition type="warning" %}
 	// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
@@ -13741,7 +14507,7 @@ type ClientInterface interface {
 	// Deterministically run a specific procedure on a new conversation. Calling this endpoint
 	// guarantees that the named procedure runs — there is no non-deterministic routing.
 	//
-	// Fin's progress is delivered asynchronously via events or Server-Sent Events. If the
+	// Fin's progress is delivered asynchronously via events. If the
 	// procedure pauses for user input, the conversation status becomes `awaiting_user_reply` —
 	// send the user's response with [`/fin/reply`](/docs/references/rest-api/api.intercom.io/fin-agent/replytofin).
 	//
@@ -13759,7 +14525,7 @@ type ClientInterface interface {
 	// Deterministically run a specific procedure on a new conversation. Calling this endpoint
 	// guarantees that the named procedure runs — there is no non-deterministic routing.
 	//
-	// Fin's progress is delivered asynchronously via events or Server-Sent Events. If the
+	// Fin's progress is delivered asynchronously via events. If the
 	// procedure pauses for user input, the conversation status becomes `awaiting_user_reply` —
 	// send the user's response with [`/fin/reply`](/docs/references/rest-api/api.intercom.io/fin-agent/replytofin).
 	//
@@ -14210,12 +14976,20 @@ type ClientInterface interface {
 	//
 	// Retrieve the current IP allowlist configuration for the workspace.
 	//
+	// Requires the `manage_ip_allowlist` OAuth scope.
+	//
 	// Corresponds with GET /ip_allowlist (the `GetIpAllowlist` operationId).
 	GetIpAllowlist(ctx context.Context, params *GetIpAllowlistParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateIpAllowlistWithBody Update IP allowlist settings
 	//
 	// Update the IP allowlist configuration for the workspace.
+	//
+	// Both `enabled` and `ip_allowlist` are optional. A field you omit is left unchanged, and a request with neither returns the current settings without changing anything. Sending `null` for a field is the same as omitting it.
+	//
+	// Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
+	//
+	// Requires the `manage_ip_allowlist` OAuth scope.
 	//
 	// {% admonition type="warning" name="Lockout Protection" %}
 	//   The API will reject updates that would lock out the caller's IP address. Ensure your current IP is included in the allowlist when enabling the feature.
@@ -14229,6 +15003,12 @@ type ClientInterface interface {
 	// UpdateIpAllowlist Update IP allowlist settings
 	//
 	// Update the IP allowlist configuration for the workspace.
+	//
+	// Both `enabled` and `ip_allowlist` are optional. A field you omit is left unchanged, and a request with neither returns the current settings without changing anything. Sending `null` for a field is the same as omitting it.
+	//
+	// Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
+	//
+	// Requires the `manage_ip_allowlist` OAuth scope.
 	//
 	// {% admonition type="warning" name="Lockout Protection" %}
 	//   The API will reject updates that would lock out the caller's IP address. Ensure your current IP is included in the allowlist when enabling the feature.
@@ -15382,6 +16162,8 @@ func (c *Client) SetAwayAdmin(ctx context.Context, adminId int, params *SetAwayA
 //
 // You can retrieve a list of all content import sources for a workspace.
 //
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
 // Corresponds with GET /ai/content_import_sources (the `ListContentImportSources` operationId).
 func (c *Client) ListContentImportSources(ctx context.Context, params *ListContentImportSourcesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListContentImportSourcesRequest(c.Server, params)
@@ -15398,6 +16180,8 @@ func (c *Client) ListContentImportSources(ctx context.Context, params *ListConte
 // CreateContentImportSourceWithBody Create a content import source
 //
 // You can create a new content import source by sending a POST request to this endpoint.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -15418,6 +16202,8 @@ func (c *Client) CreateContentImportSourceWithBody(ctx context.Context, params *
 //
 // You can create a new content import source by sending a POST request to this endpoint.
 //
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /ai/content_import_sources (the `CreateContentImportSource` operationId).
@@ -15437,6 +16223,8 @@ func (c *Client) CreateContentImportSource(ctx context.Context, params *CreateCo
 //
 // You can delete a content import source by making a DELETE request this endpoint. This will also delete all external pages that were imported from this source.
 //
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
 // Corresponds with DELETE /ai/content_import_sources/{source_id} (the `DeleteContentImportSource` operationId).
 func (c *Client) DeleteContentImportSource(ctx context.Context, sourceId string, params *DeleteContentImportSourceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteContentImportSourceRequest(c.Server, sourceId, params)
@@ -15451,6 +16239,10 @@ func (c *Client) DeleteContentImportSource(ctx context.Context, sourceId string,
 }
 
 // GetContentImportSource Retrieve a content import source
+//
+// You can retrieve a content import source.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
 //
 // Corresponds with GET /ai/content_import_sources/{source_id} (the `GetContentImportSource` operationId).
 func (c *Client) GetContentImportSource(ctx context.Context, sourceId string, params *GetContentImportSourceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -15468,6 +16260,8 @@ func (c *Client) GetContentImportSource(ctx context.Context, sourceId string, pa
 // UpdateContentImportSourceWithBody Update a content import source
 //
 // You can update an existing content import source.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -15488,6 +16282,8 @@ func (c *Client) UpdateContentImportSourceWithBody(ctx context.Context, sourceId
 //
 // You can update an existing content import source.
 //
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with PUT /ai/content_import_sources/{source_id} (the `UpdateContentImportSource` operationId).
@@ -15507,6 +16303,8 @@ func (c *Client) UpdateContentImportSource(ctx context.Context, sourceId string,
 //
 // You can retrieve a list of all external pages for a workspace.
 //
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
 // Corresponds with GET /ai/external_pages (the `ListExternalPages` operationId).
 func (c *Client) ListExternalPages(ctx context.Context, params *ListExternalPagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListExternalPagesRequest(c.Server, params)
@@ -15523,6 +16321,8 @@ func (c *Client) ListExternalPages(ctx context.Context, params *ListExternalPage
 // CreateExternalPageWithBody Create an external page (or update an external page by external ID)
 //
 // You can create a new external page by sending a POST request to this endpoint. If an external page already exists with the specified source_id and external_id, it will be updated instead.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -15543,6 +16343,8 @@ func (c *Client) CreateExternalPageWithBody(ctx context.Context, params *CreateE
 //
 // You can create a new external page by sending a POST request to this endpoint. If an external page already exists with the specified source_id and external_id, it will be updated instead.
 //
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /ai/external_pages (the `CreateExternalPage` operationId).
@@ -15562,6 +16364,8 @@ func (c *Client) CreateExternalPage(ctx context.Context, params *CreateExternalP
 //
 // Sending a DELETE request for an external page will remove it from the content library UI and from being used for AI answers.
 //
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
 // Corresponds with DELETE /ai/external_pages/{page_id} (the `DeleteExternalPage` operationId).
 func (c *Client) DeleteExternalPage(ctx context.Context, pageId string, params *DeleteExternalPageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteExternalPageRequest(c.Server, pageId, params)
@@ -15579,6 +16383,8 @@ func (c *Client) DeleteExternalPage(ctx context.Context, pageId string, params *
 //
 // You can retrieve an external page.
 //
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
 // Corresponds with GET /ai/external_pages/{page_id} (the `GetExternalPage` operationId).
 func (c *Client) GetExternalPage(ctx context.Context, pageId string, params *GetExternalPageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetExternalPageRequest(c.Server, pageId, params)
@@ -15595,6 +16401,8 @@ func (c *Client) GetExternalPage(ctx context.Context, pageId string, params *Get
 // UpdateExternalPageWithBody Update an external page
 //
 // You can update an existing external page (if it was created via the API).
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -15614,6 +16422,8 @@ func (c *Client) UpdateExternalPageWithBody(ctx context.Context, pageId string, 
 // UpdateExternalPage Update an external page
 //
 // You can update an existing external page (if it was created via the API).
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -16225,7 +17035,9 @@ func (c *Client) ListAwayStatusReasons(ctx context.Context, params *ListAwayStat
 // ListBrands List all brands
 //
 // Retrieves all brands for the workspace, including the default brand.
-// The default brand id always matches the workspace
+// The default brand id always matches the workspace id.
+//
+// Requires the `read_brands` OAuth scope.
 //
 // Corresponds with GET /brands (the `ListBrands` operationId).
 func (c *Client) ListBrands(ctx context.Context, params *ListBrandsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -16242,7 +17054,9 @@ func (c *Client) ListBrands(ctx context.Context, params *ListBrandsParams, reqEd
 
 // RetrieveBrand Retrieve a brand
 //
-// Fetches a specific brand by its unique identifier.
+// # Fetches a specific brand by its unique identifier
+//
+// Requires the `read_brands` OAuth scope.
 //
 // Corresponds with GET /brands/{id} (the `RetrieveBrand` operationId).
 func (c *Client) RetrieveBrand(ctx context.Context, id string, params *RetrieveBrandParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -16379,6 +17193,8 @@ func (c *Client) ShowCallTranscript(ctx context.Context, id string, params *Show
 //
 //	`https://api.intercom.io/companies?segment_id={segment_id}`
 //
+// The list is paged by page number. There is a limit of 10,000 companies; beyond that the request returns a `400` error and you should use the scroll endpoint instead.
+//
 // Corresponds with GET /companies (the `RetrieveCompany` operationId).
 func (c *Client) RetrieveCompany(ctx context.Context, params *RetrieveCompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRetrieveCompanyRequest(c.Server, params)
@@ -16400,11 +17216,17 @@ func (c *Client) RetrieveCompany(ctx context.Context, params *RetrieveCompanyPar
 //
 // Companies are looked up via `company_id` in a `POST` request, if not found via `company_id`, the new company will be created, if found, that company will be updated.
 //
+// You must send either `company_id` or `id`. A request with neither returns a `400` error.
+//
+// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
+//
 // {% admonition type="warning" name="Using `company_id`" %}
 //
 //	You can set a unique `company_id` value when creating a company. However, it is not possible to update `company_id`. Be sure to set a unique value once upon creation of the company.
 //
 // {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -16429,11 +17251,17 @@ func (c *Client) CreateOrUpdateCompanyWithBody(ctx context.Context, params *Crea
 //
 // Companies are looked up via `company_id` in a `POST` request, if not found via `company_id`, the new company will be created, if found, that company will be updated.
 //
+// You must send either `company_id` or `id`. A request with neither returns a `400` error.
+//
+// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
+//
 // {% admonition type="warning" name="Using `company_id`" %}
 //
 //	You can set a unique `company_id` value when creating a company. However, it is not possible to update `company_id`. Be sure to set a unique value once upon creation of the company.
 //
 // {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -16456,13 +17284,15 @@ func (c *Client) CreateOrUpdateCompany(ctx context.Context, params *CreateOrUpda
 //
 // Note that the API does not include companies who have no associated users in list responses.
 //
-// When using the Companies endpoint and the pages object to iterate through the returned companies, there is a limit of 10,000 Companies that can be returned. If you need to list or iterate on more than 10,000 Companies, please use the [Scroll API](https://developers.intercom.com/reference#iterating-over-all-companies).
+// When using the Companies endpoint and the pages object to iterate through the returned companies, there is a limit of 10,000 Companies that can be returned. If you need to list or iterate on more than 10,000 Companies, please use the [Scroll API](https://developers.intercom.com/reference#iterating-over-all-companies). Going past that limit returns a `400` error with code `bad_request`.
 // {% admonition type="warning" name="Pagination" %}
 //
-//	You can use pagination to limit the number of results returned. The default is `20` results per page.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
+//	This endpoint pages by page number, not by cursor. Use the `page` and `per_page` query parameters, and the `page`, `total_pages` and `next` values in the `pages` object of the response. The default is `15` results per page.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details.
 //
 // {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope. A token with only read scopes cannot call this endpoint.
 //
 // Corresponds with POST /companies/list (the `ListAllCompanies` operationId).
 func (c *Client) ListAllCompanies(ctx context.Context, params *ListAllCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -16481,9 +17311,11 @@ func (c *Client) ListAllCompanies(ctx context.Context, params *ListAllCompaniesP
 //
 //	The `list all companies` functionality does not work well for huge datasets, and can result in errors and performance problems when paging deeply. The Scroll API provides an efficient mechanism for iterating over all companies in a dataset.
 //
-// - Each app can only have 1 scroll open at a time. You'll get an error message if you try to have more than one open per app.
-// - If the scroll isn't used for 1 minute, it expires and calls with that scroll param will fail
-// - If the end of the scroll is reached, "companies" will be empty and the scroll parameter will expire
+// - Each app can only have 1 scroll open at a time. Starting a second one returns a `400` error with code `scroll_exists`.
+// - If the scroll isn't used for 1 minute, it expires and calls with that scroll param return a `404` error with code `not_found`.
+// - If the end of the scroll is reached, `data` will be empty and the scroll parameter will expire.
+//
+// The response always has `pages` and `total_count` set to `null`. Use `scroll_param` to fetch the next page.
 //
 // {% admonition type="info" name="Scroll Parameter" %}
 //
@@ -16498,6 +17330,8 @@ func (c *Client) ListAllCompanies(ctx context.Context, params *ListAllCompaniesP
 //	If this happens, you will need to restart your scroll query: It is not possible to continue from a specific point when using scroll.
 //
 // {% /admonition %}
+//
+// Requires the `read_users_companies` OAuth scope.
 //
 // Corresponds with GET /companies/scroll (the `ScrollOverAllCompanies` operationId).
 func (c *Client) ScrollOverAllCompanies(ctx context.Context, params *ScrollOverAllCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -16576,6 +17410,12 @@ func (c *Client) ScrollOverAllCompanies(ctx context.Context, params *ScrollOverA
 // ### Sorting
 //
 // Pass an optional `sort` object with a `field` and an `order` (`ascending` or `descending`; defaults to `descending`) to order the results. An invalid `order` returns a `400` error with code `invalid_sort_order`. `tag_id` can be used as a filter but not as a sort field.
+//
+// ### Pagination
+//
+// Pass an optional `pagination` object with `per_page` and `starting_after`. `per_page` defaults to 15 and must be between 1 and 150; anything else returns a `400` error with code `invalid_per_page`. Take `starting_after` from `pages.next` in the previous response, and send it with the same `sort` you used for that response. A cursor from a sort on a text field such as `name`, sent with a sort on a number or date field (or the other way round), returns a `400` error with code `client_error`. Leaving out `sort` sorts by `last_request_at`, a date. A cursor sent with a different sort of the same kind is accepted, but the page it returns doesn't follow on from the previous one.
+//
+// Requires the `read_users_companies` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -16657,6 +17497,12 @@ func (c *Client) SearchCompaniesWithBody(ctx context.Context, params *SearchComp
 //
 // Pass an optional `sort` object with a `field` and an `order` (`ascending` or `descending`; defaults to `descending`) to order the results. An invalid `order` returns a `400` error with code `invalid_sort_order`. `tag_id` can be used as a filter but not as a sort field.
 //
+// ### Pagination
+//
+// Pass an optional `pagination` object with `per_page` and `starting_after`. `per_page` defaults to 15 and must be between 1 and 150; anything else returns a `400` error with code `invalid_per_page`. Take `starting_after` from `pages.next` in the previous response, and send it with the same `sort` you used for that response. A cursor from a sort on a text field such as `name`, sent with a sort on a number or date field (or the other way round), returns a `400` error with code `client_error`. Leaving out `sort` sorts by `last_request_at`, a date. A cursor sent with a different sort of the same kind is accepted, but the page it returns doesn't follow on from the previous one.
+//
+// Requires the `read_users_companies` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /companies/search (the `SearchCompanies` operationId).
@@ -16676,11 +17522,15 @@ func (c *Client) SearchCompanies(ctx context.Context, params *SearchCompaniesPar
 //
 // Delete a single company.
 //
-// The company record is kept in your workspace, but all contacts are detached. The contacts themselves are not deleted. Detaching contacts is permanent and can't be reversed. A `company.deleted` webhook is sent when the company is deleted. These changes may take some time to be reflected in your workspace.
+// The company record is kept in your workspace, but all contacts are detached. The contacts themselves are not deleted. Detaching contacts is permanent and can't be reversed. These changes may take some time to be reflected in your workspace.
+//
+// The response returns `"deleted": true` as soon as the request is accepted; the contacts are detached in the background. A `company.deleted` webhook is sent after that work finishes, so it arrives some time after the response. No webhook is sent for a company that has no contacts attached, because there is nothing to detach.
 //
 // {% admonition type="warning" %}
 // Third-party integrations that sync companies into Intercom (for example, Salesforce or Chargebee) will recreate any company deleted through this endpoint on their next sync. To prevent recreation, remove or filter the company at the source integration before deleting it via the API.
 // {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
 //
 // Corresponds with DELETE /companies/{company_id} (the `DeleteCompany` operationId).
 func (c *Client) DeleteCompany(ctx context.Context, companyId string, params *DeleteCompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -16716,11 +17566,17 @@ func (c *Client) RetrieveACompanyById(ctx context.Context, companyId string, par
 //
 // You can update a single company using the Intercom provisioned `id`.
 //
+// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
 // {% admonition type="warning" name="Using `company_id`" %}
 //
 //	When updating a company it is not possible to update `company_id`. This can only be set once upon creation of the company.
 //
 // {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -16741,11 +17597,17 @@ func (c *Client) UpdateCompanyWithBody(ctx context.Context, companyId string, pa
 //
 // You can update a single company using the Intercom provisioned `id`.
 //
+// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
 // {% admonition type="warning" name="Using `company_id`" %}
 //
 //	When updating a company it is not possible to update `company_id`. This can only be set once upon creation of the company.
 //
 // {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -16765,6 +17627,8 @@ func (c *Client) UpdateCompany(ctx context.Context, companyId string, params *Up
 // ListAttachedContacts List attached contacts
 //
 // You can fetch a list of all contacts that belong to a company.
+//
+// Requires the `read_users_companies` OAuth scope.
 //
 // Corresponds with GET /companies/{company_id}/contacts (the `ListAttachedContacts` operationId).
 func (c *Client) ListAttachedContacts(ctx context.Context, companyId string, params *ListAttachedContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -16838,6 +17702,8 @@ func (c *Client) CreateCompanyNote(ctx context.Context, companyId string, params
 //
 // You can fetch a list of all segments that belong to a company.
 //
+// Requires the `read_users_companies` OAuth scope.
+//
 // Corresponds with GET /companies/{company_id}/segments (the `ListAttachedSegmentsForCompanies` operationId).
 func (c *Client) ListAttachedSegmentsForCompanies(ctx context.Context, companyId string, params *ListAttachedSegmentsForCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListAttachedSegmentsForCompaniesRequest(c.Server, companyId, params)
@@ -16866,6 +17732,8 @@ func (c *Client) ListAttachedSegmentsForCompanies(ctx context.Context, companyId
 //
 // {% /admonition %}
 //
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
 // Corresponds with GET /contacts (the `ListContacts` operationId).
 func (c *Client) ListContacts(ctx context.Context, params *ListContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListContactsRequest(c.Server, params)
@@ -16882,6 +17750,8 @@ func (c *Client) ListContacts(ctx context.Context, params *ListContactsParams, r
 // CreateContactWithBody Create contact
 //
 // You can create a new contact (ie. user or lead).
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -16902,6 +17772,8 @@ func (c *Client) CreateContactWithBody(ctx context.Context, params *CreateContac
 //
 // You can create a new contact (ie. user or lead).
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /contacts (the `CreateContact` operationId).
@@ -16921,12 +17793,16 @@ func (c *Client) CreateContact(ctx context.Context, params *CreateContactParams,
 //
 // You can fetch a list of contact activity events for your workspace, such as when contacts are created, role updated, merged, or deleted. Events are returned oldest first.
 //
+// If the activity store can't be read, this endpoint returns `200` with an empty `data` array and no `pages.next`, the same response as when there are no new events.
+//
 // {% admonition type="warning" name="Pagination" %}
 //
 //	You can use pagination to limit the number of results returned. The default is `50` results per page, with a maximum of `150`.
 //	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
 //
 // {% /admonition %}
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 //
 // Corresponds with GET /contacts/activities (the `ListContactActivities` operationId).
 func (c *Client) ListContactActivities(ctx context.Context, params *ListContactActivitiesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -16963,6 +17839,8 @@ func (c *Client) ListContactActivities(ctx context.Context, params *ListContactA
 //   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
 //
 // {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -17002,6 +17880,8 @@ func (c *Client) BulkCreateContactsWithBody(ctx context.Context, params *BulkCre
 //
 // {% /admonition %}
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /contacts/bulk (the `BulkCreateContacts` operationId).
@@ -17032,6 +17912,8 @@ func (c *Client) BulkCreateContacts(ctx context.Context, params *BulkCreateConta
 //
 // {% /admonition %}
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes any type of body and a specified content type.
 //
 // Corresponds with PUT /contacts/bulk (the `BulkUpdateContacts` operationId).
@@ -17061,6 +17943,8 @@ func (c *Client) BulkUpdateContactsWithBody(ctx context.Context, params *BulkUpd
 //   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
 //
 // {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -17095,6 +17979,8 @@ func (c *Client) BulkUpdateContacts(ctx context.Context, params *BulkUpdateConta
 //
 // {% /admonition %}
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes any type of body and a specified content type.
 //
 // Corresponds with POST /contacts/bulk/delete (the `BulkDeleteContacts` operationId).
@@ -17128,6 +18014,8 @@ func (c *Client) BulkDeleteContactsWithBody(ctx context.Context, params *BulkDel
 //
 // {% /admonition %}
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /contacts/bulk/delete (the `BulkDeleteContacts` operationId).
@@ -17145,7 +18033,9 @@ func (c *Client) BulkDeleteContacts(ctx context.Context, params *BulkDeleteConta
 
 // ShowBulkUpdateContactsJob Get a bulk update job
 //
-// You can check the status of a bulk contact update job. The `state` field indicates the overall job progress: `pending`, `running`, `completed`, or `completed_with_errors`.
+// You can check the status of a bulk contact update job. The `state` field indicates the overall job progress: `running`, `completed`, or `completed_with_errors`.
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 //
 // Corresponds with GET /contacts/bulk/{id} (the `ShowBulkUpdateContactsJob` operationId).
 func (c *Client) ShowBulkUpdateContactsJob(ctx context.Context, id string, params *ShowBulkUpdateContactsJobParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -17168,6 +18058,8 @@ func (c *Client) ShowBulkUpdateContactsJob(ctx context.Context, id string, param
 // is inactive: `archived`, `blocked`, `merged`, `pending_deletion`, or `permanently_deleted`.
 // `merged_into_id` is present only when `status` is `merged`, and `external_id` and `email`
 // are `null` for `permanently_deleted` contacts.
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 //
 // Corresponds with GET /contacts/deleted (the `ListDeletedContacts` operationId).
 func (c *Client) ListDeletedContacts(ctx context.Context, params *ListDeletedContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -17192,6 +18084,8 @@ func (c *Client) ListDeletedContacts(ctx context.Context, params *ListDeletedCon
 //
 // {% /admonition %}
 //
+// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
+//
 // Corresponds with GET /contacts/find_by_external_id/{external_id} (the `ShowContactByExternalId` operationId).
 func (c *Client) ShowContactByExternalId(ctx context.Context, externalId string, params *ShowContactByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewShowContactByExternalIdRequest(c.Server, externalId, params)
@@ -17212,13 +18106,15 @@ func (c *Client) ShowContactByExternalId(ctx context.Context, externalId string,
 // {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
 //
 //	Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
-//	- **GET /contacts/{id}** — Requesting the source contact by its original ID will return a `404 Not Found` error.
+//	- **GET /contacts/{id}** — Requesting the source contact by its original ID returns `410 Gone` with a `Link` header pointing to the contact it was merged into. See [Get a contact](/docs/references/rest-api/api.intercom.io/contacts/showcontact).
 //	- **POST /contacts/search** — The source contact will not appear in search results, including queries filtered by `updated_at`.
 //	- **GET /contacts** — The source contact will not appear in list results.
 //
 //	Only the target contact (`into`) remains accessible. If your application stores contact IDs, update them to use the target contact's ID after a merge.
 //
 // {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -17242,13 +18138,15 @@ func (c *Client) MergeContactWithBody(ctx context.Context, params *MergeContactP
 // {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
 //
 //	Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
-//	- **GET /contacts/{id}** — Requesting the source contact by its original ID will return a `404 Not Found` error.
+//	- **GET /contacts/{id}** — Requesting the source contact by its original ID returns `410 Gone` with a `Link` header pointing to the contact it was merged into. See [Get a contact](/docs/references/rest-api/api.intercom.io/contacts/showcontact).
 //	- **POST /contacts/search** — The source contact will not appear in search results, including queries filtered by `updated_at`.
 //	- **GET /contacts** — The source contact will not appear in list results.
 //
 //	Only the target contact (`into`) remains accessible. If your application stores contact IDs, update them to use the target contact's ID after a merge.
 //
 // {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -17284,7 +18182,7 @@ func (c *Client) MergeContact(ctx context.Context, params *MergeContactParams, b
 // | --- | --- |
 // | `source_same_as_target` | The source contact (`from`) and the destination contact (`into`) are the same contact. A contact can't be merged into itself. |
 // | `invalid_merge_role_pair` | The `from`/`into` roles aren't mergeable. `into` must be a user. |
-// | `no_shared_identifier` | The contacts share no email or phone. Set `skip_duplicate_validation` to preview anyway. |
+// | `no_shared_identifier` | The contacts share no email or phone. The source's phone also counts as shared when it matches the destination's WhatsApp number. Set `skip_duplicate_validation` to preview anyway. |
 // | `facebook_user` | Facebook contacts can't be merged. |
 // | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
 // | `mailing_list` | Contacts created from a mailing list can't be merged. |
@@ -17292,6 +18190,8 @@ func (c *Client) MergeContact(ctx context.Context, params *MergeContactParams, b
 // | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
 // | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
 // | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
+//
+// Requires the `read_write_users` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -17327,7 +18227,7 @@ func (c *Client) PreviewMergeContactWithBody(ctx context.Context, params *Previe
 // | --- | --- |
 // | `source_same_as_target` | The source contact (`from`) and the destination contact (`into`) are the same contact. A contact can't be merged into itself. |
 // | `invalid_merge_role_pair` | The `from`/`into` roles aren't mergeable. `into` must be a user. |
-// | `no_shared_identifier` | The contacts share no email or phone. Set `skip_duplicate_validation` to preview anyway. |
+// | `no_shared_identifier` | The contacts share no email or phone. The source's phone also counts as shared when it matches the destination's WhatsApp number. Set `skip_duplicate_validation` to preview anyway. |
 // | `facebook_user` | Facebook contacts can't be merged. |
 // | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
 // | `mailing_list` | Contacts created from a mailing list can't be merged. |
@@ -17335,6 +18235,8 @@ func (c *Client) PreviewMergeContactWithBody(ctx context.Context, params *Previe
 // | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
 // | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
 // | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
+//
+// Requires the `read_write_users` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -17381,6 +18283,8 @@ func (c *Client) PreviewMergeContact(ctx context.Context, params *PreviewMergeCo
 // There are some limitations to the amount of multiple's there can be:
 // * There's a limit of max 2 nested filters
 // * There's a limit of max 15 filters for each AND or OR group
+// * There's a limit of max 15 values in an `IN` or `NIN` array
+// * `pagination.per_page` must be between 1 and 150
 //
 // ### Searching for Timestamp Fields
 //
@@ -17401,10 +18305,10 @@ func (c *Client) PreviewMergeContact(ctx context.Context, params *PreviewMergeCo
 // | Field                              | Type                           |
 // | ---------------------------------- | ------------------------------ |
 // | id                                 | String                         |
-// | role                               | String<br>Accepts user or lead |
+// | role                               | String<br>Accepts user or lead; contact is treated as lead |
 // | name                               | String                         |
 // | avatar                             | String                         |
-// | owner_id                           | String                         |
+// | owner_id                           | Integer                        |
 // | email                              | String                         |
 // | email_domain                       | String                         |
 // | phone                              | String                         |
@@ -17419,6 +18323,7 @@ func (c *Client) PreviewMergeContact(ctx context.Context, params *PreviewMergeCo
 // | last_email_clicked_at              | Datetime (Unix timestamp in seconds) |
 // | language_override                  | String                         |
 // | browser                            | String                         |
+// | browser_version                    | String                         |
 // | browser_language                   | String                         |
 // | os                                 | String                         |
 // | location.country                   | String                         |
@@ -17427,46 +18332,57 @@ func (c *Client) PreviewMergeContact(ctx context.Context, params *PreviewMergeCo
 // | unsubscribed_from_emails           | Boolean                        |
 // | marked_email_as_spam               | Boolean                        |
 // | has_hard_bounced                   | Boolean                        |
+// | phone_country                      | String                         |
+// | slack_email                        | String                         |
+// | fin_qualification_status           | String                         |
+// | whatsapp_number                    | String<br>Only on workspaces with the WhatsApp integration |
 // | ios_last_seen_at                   | Datetime (Unix timestamp in seconds) |
 // | ios_app_version                    | String                         |
 // | ios_device                         | String                         |
-// | ios_app_device                     | String                         |
 // | ios_os_version                     | String                         |
 // | ios_app_name                       | String                         |
 // | ios_sdk_version                    | String                         |
 // | android_last_seen_at               | Datetime (Unix timestamp in seconds) |
 // | android_app_version                | String                         |
 // | android_device                     | String                         |
+// | android_os_version                 | String                         |
 // | android_app_name                   | String                         |
-// | andoid_sdk_version                 | String                         |
+// | android_sdk_version                | String                         |
+// | enabled_push_messaging             | Boolean                        |
 // | segment_id                         | String                         |
 // | tag_id                             | String                         |
 // | custom_attributes.{attribute_name} | Matches the attribute's own type<br>(String, Integer, Float, Boolean or Date) |
+//
+// The `ios_*` fields other than `ios_app_name` are searchable only once your workspace has been set up for the Intercom iOS SDK or has received a request from it, and the `android_*` fields other than `android_app_name` only once the same is true for the Android SDK. `enabled_push_messaging` needs either. Until then, they return an `invalid_field` error.
 //
 // ### Accepted Operators
 //
 // {% admonition type="warning" name="Operators not supported on Date custom attributes" %}
 //
-//	Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns an error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
+//	Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns a `422` error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
 //
 // {% /admonition %}
 //
-// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` supports only the `=` and `!=` operators.
+// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` or `segment_id` supports only the `=` and `!=` operators, with a single ID string as the value.
+//
+// A `null` value is accepted only with `=` (matches Contacts with no value set) and `!=` (matches Contacts with any value set). An array value is accepted only with `IN` and `NIN`. String values must be shorter than 256 characters.
 //
 // | Operator | Valid Types                        | Description                                                            |
 // | :------- | :---------------------------------- | :----------------------------------------------------------------------|
 // | =        | All                                  | Equals                                                                  |
 // | !=       | All except Date                      | Doesn't Equal<br>Also matches Contacts with no value set                |
-// | IN       | All except Date, Datetime and tag_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
-// | NIN      | All except Date, Datetime and tag_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
-// | >        | Integer<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
-// | <        | Integer<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
-// | >=       | Integer<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
-// | <=       | Integer<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
+// | IN       | All except Date, Datetime, tag_id and segment_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
+// | NIN      | All except Date, Datetime, tag_id and segment_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
+// | >        | Integer<br>Float<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
+// | <        | Integer<br>Float<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
+// | >=       | Integer<br>Float<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
+// | <=       | Integer<br>Float<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
 // | ~        | String                               | Contains                                                                |
 // | !~       | String                               | Doesn't Contain                                                         |
 // | ^        | String                               | Starts With                                                             |
 // | $        | String                               | Ends With                                                               |
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -17513,6 +18429,8 @@ func (c *Client) SearchContactsWithBody(ctx context.Context, params *SearchConta
 // There are some limitations to the amount of multiple's there can be:
 // * There's a limit of max 2 nested filters
 // * There's a limit of max 15 filters for each AND or OR group
+// * There's a limit of max 15 values in an `IN` or `NIN` array
+// * `pagination.per_page` must be between 1 and 150
 //
 // ### Searching for Timestamp Fields
 //
@@ -17533,10 +18451,10 @@ func (c *Client) SearchContactsWithBody(ctx context.Context, params *SearchConta
 // | Field                              | Type                           |
 // | ---------------------------------- | ------------------------------ |
 // | id                                 | String                         |
-// | role                               | String<br>Accepts user or lead |
+// | role                               | String<br>Accepts user or lead; contact is treated as lead |
 // | name                               | String                         |
 // | avatar                             | String                         |
-// | owner_id                           | String                         |
+// | owner_id                           | Integer                        |
 // | email                              | String                         |
 // | email_domain                       | String                         |
 // | phone                              | String                         |
@@ -17551,6 +18469,7 @@ func (c *Client) SearchContactsWithBody(ctx context.Context, params *SearchConta
 // | last_email_clicked_at              | Datetime (Unix timestamp in seconds) |
 // | language_override                  | String                         |
 // | browser                            | String                         |
+// | browser_version                    | String                         |
 // | browser_language                   | String                         |
 // | os                                 | String                         |
 // | location.country                   | String                         |
@@ -17559,46 +18478,57 @@ func (c *Client) SearchContactsWithBody(ctx context.Context, params *SearchConta
 // | unsubscribed_from_emails           | Boolean                        |
 // | marked_email_as_spam               | Boolean                        |
 // | has_hard_bounced                   | Boolean                        |
+// | phone_country                      | String                         |
+// | slack_email                        | String                         |
+// | fin_qualification_status           | String                         |
+// | whatsapp_number                    | String<br>Only on workspaces with the WhatsApp integration |
 // | ios_last_seen_at                   | Datetime (Unix timestamp in seconds) |
 // | ios_app_version                    | String                         |
 // | ios_device                         | String                         |
-// | ios_app_device                     | String                         |
 // | ios_os_version                     | String                         |
 // | ios_app_name                       | String                         |
 // | ios_sdk_version                    | String                         |
 // | android_last_seen_at               | Datetime (Unix timestamp in seconds) |
 // | android_app_version                | String                         |
 // | android_device                     | String                         |
+// | android_os_version                 | String                         |
 // | android_app_name                   | String                         |
-// | andoid_sdk_version                 | String                         |
+// | android_sdk_version                | String                         |
+// | enabled_push_messaging             | Boolean                        |
 // | segment_id                         | String                         |
 // | tag_id                             | String                         |
 // | custom_attributes.{attribute_name} | Matches the attribute's own type<br>(String, Integer, Float, Boolean or Date) |
+//
+// The `ios_*` fields other than `ios_app_name` are searchable only once your workspace has been set up for the Intercom iOS SDK or has received a request from it, and the `android_*` fields other than `android_app_name` only once the same is true for the Android SDK. `enabled_push_messaging` needs either. Until then, they return an `invalid_field` error.
 //
 // ### Accepted Operators
 //
 // {% admonition type="warning" name="Operators not supported on Date custom attributes" %}
 //
-//	Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns an error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
+//	Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns a `422` error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
 //
 // {% /admonition %}
 //
-// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` supports only the `=` and `!=` operators.
+// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` or `segment_id` supports only the `=` and `!=` operators, with a single ID string as the value.
+//
+// A `null` value is accepted only with `=` (matches Contacts with no value set) and `!=` (matches Contacts with any value set). An array value is accepted only with `IN` and `NIN`. String values must be shorter than 256 characters.
 //
 // | Operator | Valid Types                        | Description                                                            |
 // | :------- | :---------------------------------- | :----------------------------------------------------------------------|
 // | =        | All                                  | Equals                                                                  |
 // | !=       | All except Date                      | Doesn't Equal<br>Also matches Contacts with no value set                |
-// | IN       | All except Date, Datetime and tag_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
-// | NIN      | All except Date, Datetime and tag_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
-// | >        | Integer<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
-// | <        | Integer<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
-// | >=       | Integer<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
-// | <=       | Integer<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
+// | IN       | All except Date, Datetime, tag_id and segment_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
+// | NIN      | All except Date, Datetime, tag_id and segment_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
+// | >        | Integer<br>Float<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
+// | <        | Integer<br>Float<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
+// | >=       | Integer<br>Float<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
+// | <=       | Integer<br>Float<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
 // | ~        | String                               | Contains                                                                |
 // | !~       | String                               | Doesn't Contain                                                         |
 // | ^        | String                               | Starts With                                                             |
 // | $        | String                               | Ends With                                                               |
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -17618,6 +18548,8 @@ func (c *Client) SearchContacts(ctx context.Context, params *SearchContactsParam
 // DeleteContact Delete a contact
 //
 // You can delete a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Corresponds with DELETE /contacts/{contact_id} (the `DeleteContact` operationId).
 func (c *Client) DeleteContact(ctx context.Context, contactId string, params *DeleteContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -17657,6 +18589,8 @@ func (c *Client) DeleteContact(ctx context.Context, contactId string, params *De
 //
 // {% /admonition %}
 //
+// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
+//
 // Corresponds with GET /contacts/{contact_id} (the `ShowContact` operationId).
 func (c *Client) ShowContact(ctx context.Context, contactId string, params *ShowContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewShowContactRequest(c.Server, contactId, params)
@@ -17681,6 +18615,8 @@ func (c *Client) ShowContact(ctx context.Context, contactId string, params *Show
 //	See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
 //
 // {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -17709,6 +18645,8 @@ func (c *Client) UpdateContactWithBody(ctx context.Context, contactId string, pa
 //
 // {% /admonition %}
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with PUT /contacts/{contact_id} (the `UpdateContact` operationId).
@@ -17728,6 +18666,8 @@ func (c *Client) UpdateContact(ctx context.Context, contactId string, params *Up
 //
 // You can archive a single contact.
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Corresponds with POST /contacts/{contact_id}/archive (the `ArchiveContact` operationId).
 func (c *Client) ArchiveContact(ctx context.Context, contactId string, params *ArchiveContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewArchiveContactRequest(c.Server, contactId, params)
@@ -17744,6 +18684,8 @@ func (c *Client) ArchiveContact(ctx context.Context, contactId string, params *A
 // BlockContact Block contact
 //
 // Block a single contact.<br>**Note:** conversations of the contact will also be archived during the process.<br>More details in [FAQ How do I block Inbox spam?](https://www.intercom.com/help/en/articles/8838656-inbox-faqs)
+//
+// Requires the `read_write_users` OAuth scope.
 //
 // Corresponds with POST /contacts/{contact_id}/block (the `BlockContact` operationId).
 func (c *Client) BlockContact(ctx context.Context, contactId string, params *BlockContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -17779,6 +18721,8 @@ func (c *Client) ListCompaniesForAContact(ctx context.Context, contactId string,
 //
 // You can attach a company to a single contact.
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes any type of body and a specified content type.
 //
 // Corresponds with POST /contacts/{contact_id}/companies (the `AttachContactToACompany` operationId).
@@ -17798,6 +18742,8 @@ func (c *Client) AttachContactToACompanyWithBody(ctx context.Context, contactId 
 //
 // You can attach a company to a single contact.
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /contacts/{contact_id}/companies (the `AttachContactToACompany` operationId).
@@ -17816,6 +18762,8 @@ func (c *Client) AttachContactToACompany(ctx context.Context, contactId string, 
 // DetachContactFromACompany Detach a contact from a company
 //
 // You can detach a company from a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Corresponds with DELETE /contacts/{contact_id}/companies/{company_id} (the `DetachContactFromACompany` operationId).
 func (c *Client) DetachContactFromACompany(ctx context.Context, contactId string, companyId string, params *DetachContactFromACompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -17889,6 +18837,8 @@ func (c *Client) CreateNote(ctx context.Context, contactId int, params *CreateNo
 //
 // You can fetch a list of segments that are associated to a contact.
 //
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
 // Corresponds with GET /contacts/{contact_id}/segments (the `ListSegmentsForAContact` operationId).
 func (c *Client) ListSegmentsForAContact(ctx context.Context, contactId string, params *ListSegmentsForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListSegmentsForAContactRequest(c.Server, contactId, params)
@@ -17937,6 +18887,8 @@ func (c *Client) ListSubscriptionsForAContact(ctx context.Context, contactId str
 //
 // This will return a subscription type model for the subscription type that was added to the contact.
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes any type of body and a specified content type.
 //
 // Corresponds with POST /contacts/{contact_id}/subscriptions (the `AttachSubscriptionTypeToContact` operationId).
@@ -17962,6 +18914,8 @@ func (c *Client) AttachSubscriptionTypeToContactWithBody(ctx context.Context, co
 //
 // This will return a subscription type model for the subscription type that was added to the contact.
 //
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /contacts/{contact_id}/subscriptions (the `AttachSubscriptionTypeToContact` operationId).
@@ -17979,7 +18933,11 @@ func (c *Client) AttachSubscriptionTypeToContact(ctx context.Context, contactId 
 
 // DetachSubscriptionTypeToContact Remove subscription from a contact
 //
-// You can remove a specific subscription from a contact. This will return a subscription type model for the subscription type that was removed from the contact.
+// You can remove a specific subscription from a contact. This will
+// return a subscription type model for the subscription type that was removed
+// from the contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Corresponds with DELETE /contacts/{contact_id}/subscriptions/{subscription_id} (the `DetachSubscriptionTypeToContact` operationId).
 func (c *Client) DetachSubscriptionTypeToContact(ctx context.Context, contactId string, subscriptionId string, params *DetachSubscriptionTypeToContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -18013,7 +18971,10 @@ func (c *Client) ListTagsForAContact(ctx context.Context, contactId string, para
 
 // AttachTagToContactWithBody Add tag to a contact
 //
-// You can tag a specific contact. This will return a tag object for the tag that was added to the contact.
+// You can tag a specific contact. This will return a tag object for
+// the tag that was added to the contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -18032,7 +18993,10 @@ func (c *Client) AttachTagToContactWithBody(ctx context.Context, contactId strin
 
 // AttachTagToContact Add tag to a contact
 //
-// You can tag a specific contact. This will return a tag object for the tag that was added to the contact.
+// You can tag a specific contact. This will return a tag object for
+// the tag that was added to the contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -18051,7 +19015,10 @@ func (c *Client) AttachTagToContact(ctx context.Context, contactId string, param
 
 // DetachTagFromContact Remove tag from a contact
 //
-// You can remove tag from a specific contact. This will return a tag object for the tag that was removed from the contact.
+// You can remove tag from a specific contact. This will return a
+// tag object for the tag that was removed from the contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Corresponds with DELETE /contacts/{contact_id}/tags/{tag_id} (the `DetachTagFromContact` operationId).
 func (c *Client) DetachTagFromContact(ctx context.Context, contactId string, tagId string, params *DetachTagFromContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -18069,6 +19036,8 @@ func (c *Client) DetachTagFromContact(ctx context.Context, contactId string, tag
 // UnarchiveContact Unarchive contact
 //
 // You can unarchive a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Corresponds with POST /contacts/{contact_id}/unarchive (the `UnarchiveContact` operationId).
 func (c *Client) UnarchiveContact(ctx context.Context, contactId string, params *UnarchiveContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -18093,6 +19062,8 @@ func (c *Client) UnarchiveContact(ctx context.Context, contactId string, params 
 // this endpoint records an impression for each banner returned, so call it at the
 // point you are about to display the banners, not speculatively.
 //
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
 // Corresponds with GET /contacts/{id}/banners (the `ListContactBanners` operationId).
 func (c *Client) ListContactBanners(ctx context.Context, id string, params *ListContactBannersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListContactBannersRequest(c.Server, id, params)
@@ -18115,6 +19086,8 @@ func (c *Client) ListContactBanners(ctx context.Context, id string, params *List
 // The request is idempotent: dismissing an already-dismissed banner succeeds and
 // returns the same response.
 //
+// Requires the `read_write_users` OAuth scope.
+//
 // Corresponds with POST /contacts/{id}/banners/{view_id}/dismiss (the `DismissContactBanner` operationId).
 func (c *Client) DismissContactBanner(ctx context.Context, id string, viewId string, params *DismissContactBannerParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDismissContactBannerRequest(c.Server, id, viewId, params)
@@ -18133,6 +19106,8 @@ func (c *Client) DismissContactBanner(ctx context.Context, id string, viewId str
 // Retrieve the paginated list of contacts that have been merged into a given contact.
 //
 // Only available for contacts with a `user` role. Returns a `404` if the contact is not found or has a `lead` role.
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
 //
 // Corresponds with GET /contacts/{id}/merge_histories (the `ListContactMergeHistory` operationId).
 func (c *Client) ListContactMergeHistory(ctx context.Context, id string, params *ListContactMergeHistoryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -19038,985 +20013,6 @@ func (c *Client) SearchConversationsWithBody(ctx context.Context, params *Search
 // Corresponds with POST /conversations/search (the `SearchConversations` operationId).
 func (c *Client) SearchConversations(ctx context.Context, params *SearchConversationsParams, body SearchConversationsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewSearchConversationsRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteConversation Delete a conversation
-//
-// {% admonition type="warning" name="Irreversible operation" %}
-// Deleting a conversation is permanent and cannot be reversed.
-// {% /admonition %}
-//
-// You can delete a single conversation. The behavior depends on the `retain_metrics` parameter:
-//
-// - **With `retain_metrics=true` (default)**: Deletes the conversation while retaining reporting data. The conversation will still appear in reporting, though some data may be incomplete due to the deletion.
-//
-// - **With `retain_metrics=false`**: Deletes the conversation and all associated reporting data. The conversation will be completely removed from both the inbox and all reporting.
-//
-// {% admonition type="info" name="Required scope for retain_metrics=false" %}
-// Using `retain_metrics=false` requires the `delete_conversations_and_metrics` OAuth scope.
-// {% /admonition %}
-//
-// For more info, see [this help center article](https://www.intercom.com/help/en/articles/13885146-deleting-a-conversation).
-//
-// Corresponds with DELETE /conversations/{conversation_id} (the `DeleteConversation` operationId).
-func (c *Client) DeleteConversation(ctx context.Context, conversationId int, params *DeleteConversationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteConversationRequest(c.Server, conversationId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RetrieveConversation Retrieve a conversation
-//
-// You can fetch the details of a single conversation.
-//
-// This will return a single Conversation model with all its conversation parts.
-//
-// {% admonition type="warning" name="Hard limit of 500 parts" %}
-// The maximum number of conversation parts that can be returned via the API is 500. If you have more than that we will return the 500 most recent conversation parts.
-// {% /admonition %}
-//
-// For AI agent conversation metadata, please note that you need to have the agent enabled in your workspace, which is a [paid feature](https://www.intercom.com/help/en/articles/8205718-fin-resolutions#h_97f8c2e671).
-//
-// Corresponds with GET /conversations/{conversation_id} (the `RetrieveConversation` operationId).
-func (c *Client) RetrieveConversation(ctx context.Context, conversationId int, params *RetrieveConversationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveConversationRequest(c.Server, conversationId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateConversationWithBody Update a conversation
-//
-// You can update an existing conversation.
-//
-// {% admonition type="info" name="Replying and other actions" %}
-// If you want to reply to a coveration or take an action such as assign, unassign, open, close or snooze, take a look at the reply and manage endpoints.
-// {% /admonition %}
-//
-// {% admonition type="info" %}
-//
-//	This endpoint handles both **conversation updates** and **custom object associations**.
-//
-//	See _`update a conversation with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
-//
-// {% /admonition %}
-//
-// {% admonition type="danger" name="Breaking change: duplicate custom attribute names" %}
-// The `PUT /conversations/{id}` endpoint now returns a `400 INVALID_PARAMETER` error when the request includes `custom_attributes` and your workspace contains multiple non-archived conversation custom attributes with the same name. Previously, the update would silently apply to a non-deterministic attribute. To resolve, rename or archive the duplicate attribute in your workspace settings, then retry the request.
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /conversations/{conversation_id} (the `UpdateConversation` operationId).
-func (c *Client) UpdateConversationWithBody(ctx context.Context, conversationId int, params *UpdateConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateConversationRequestWithBody(c.Server, conversationId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateConversation Update a conversation
-//
-// You can update an existing conversation.
-//
-// {% admonition type="info" name="Replying and other actions" %}
-// If you want to reply to a coveration or take an action such as assign, unassign, open, close or snooze, take a look at the reply and manage endpoints.
-// {% /admonition %}
-//
-// {% admonition type="info" %}
-//
-//	This endpoint handles both **conversation updates** and **custom object associations**.
-//
-//	See _`update a conversation with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
-//
-// {% /admonition %}
-//
-// {% admonition type="danger" name="Breaking change: duplicate custom attribute names" %}
-// The `PUT /conversations/{id}` endpoint now returns a `400 INVALID_PARAMETER` error when the request includes `custom_attributes` and your workspace contains multiple non-archived conversation custom attributes with the same name. Previously, the update would silently apply to a non-deterministic attribute. To resolve, rename or archive the duplicate attribute in your workspace settings, then retry the request.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /conversations/{conversation_id} (the `UpdateConversation` operationId).
-func (c *Client) UpdateConversation(ctx context.Context, conversationId int, params *UpdateConversationParams, body UpdateConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateConversationRequest(c.Server, conversationId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ConvertConversationToTicketWithBody Convert a conversation to a ticket
-//
-// You can convert a conversation to a ticket.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations/{conversation_id}/convert (the `ConvertConversationToTicket` operationId).
-func (c *Client) ConvertConversationToTicketWithBody(ctx context.Context, conversationId int, params *ConvertConversationToTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewConvertConversationToTicketRequestWithBody(c.Server, conversationId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ConvertConversationToTicket Convert a conversation to a ticket
-//
-// You can convert a conversation to a ticket.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations/{conversation_id}/convert (the `ConvertConversationToTicket` operationId).
-func (c *Client) ConvertConversationToTicket(ctx context.Context, conversationId int, params *ConvertConversationToTicketParams, body ConvertConversationToTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewConvertConversationToTicketRequest(c.Server, conversationId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachContactToConversationWithBody Attach a contact to a conversation
-//
-// You can add participants who are contacts to a conversation, on behalf of either another contact or an admin.
-//
-// {% admonition type="warning" name="Contacts without an email" %}
-// If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations/{conversation_id}/customers (the `AttachContactToConversation` operationId).
-func (c *Client) AttachContactToConversationWithBody(ctx context.Context, conversationId string, params *AttachContactToConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachContactToConversationRequestWithBody(c.Server, conversationId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachContactToConversation Attach a contact to a conversation
-//
-// You can add participants who are contacts to a conversation, on behalf of either another contact or an admin.
-//
-// {% admonition type="warning" name="Contacts without an email" %}
-// If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations/{conversation_id}/customers (the `AttachContactToConversation` operationId).
-func (c *Client) AttachContactToConversation(ctx context.Context, conversationId string, params *AttachContactToConversationParams, body AttachContactToConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachContactToConversationRequest(c.Server, conversationId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DetachContactFromConversationWithBody Detach a contact from a group conversation
-//
-// You can remove participants who are contacts from a group conversation, on behalf of an admin.
-//
-// {% admonition type="warning" name="Removing the last participant" %}
-// You cannot remove the last remaining contact from a conversation.
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with DELETE /conversations/{conversation_id}/customers/{contact_id} (the `DetachContactFromConversation` operationId).
-func (c *Client) DetachContactFromConversationWithBody(ctx context.Context, conversationId string, contactId string, params *DetachContactFromConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDetachContactFromConversationRequestWithBody(c.Server, conversationId, contactId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DetachContactFromConversation Detach a contact from a group conversation
-//
-// You can remove participants who are contacts from a group conversation, on behalf of an admin.
-//
-// {% admonition type="warning" name="Removing the last participant" %}
-// You cannot remove the last remaining contact from a conversation.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with DELETE /conversations/{conversation_id}/customers/{contact_id} (the `DetachContactFromConversation` operationId).
-func (c *Client) DetachContactFromConversation(ctx context.Context, conversationId string, contactId string, params *DetachContactFromConversationParams, body DetachContactFromConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDetachContactFromConversationRequest(c.Server, conversationId, contactId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ManageConversationWithBody Manage a conversation
-//
-// For managing conversations you can:
-// - Close a conversation
-// - Snooze a conversation to reopen on a future date
-// - Open a conversation which is `snoozed` or `closed`
-// - Assign a conversation to an admin and/or team.
-//
-// {% admonition type="info" name="Sending messages" %}
-// To send a comment, note or quick reply, use [Reply to a conversation](/docs/references/rest-api/api.intercom.io/conversations/replyconversation).
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations/{conversation_id}/parts (the `ManageConversation` operationId).
-func (c *Client) ManageConversationWithBody(ctx context.Context, conversationId string, params *ManageConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewManageConversationRequestWithBody(c.Server, conversationId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ManageConversation Manage a conversation
-//
-// For managing conversations you can:
-// - Close a conversation
-// - Snooze a conversation to reopen on a future date
-// - Open a conversation which is `snoozed` or `closed`
-// - Assign a conversation to an admin and/or team.
-//
-// {% admonition type="info" name="Sending messages" %}
-// To send a comment, note or quick reply, use [Reply to a conversation](/docs/references/rest-api/api.intercom.io/conversations/replyconversation).
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations/{conversation_id}/parts (the `ManageConversation` operationId).
-func (c *Client) ManageConversation(ctx context.Context, conversationId string, params *ManageConversationParams, body ManageConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewManageConversationRequest(c.Server, conversationId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ReplyConversationWithBody Reply to a conversation
-//
-// You can reply to a conversation with a message from an admin or on behalf of a contact, or with a note for admins.
-//
-// {% admonition type="warning" name="Bot replies to inbound email" %}
-// By default, bot or Operator replies to an inbound email conversation aren't sent to your customer. The reply is stored as an unnotifiable bot comment, and no `seen` receipt is generated until an email is actually delivered.
-//
-// To send these replies as outbound emails, reach out to your accounts team to enable the email-reply feature flag for your workspace.
-// {% /admonition %}
-//
-// {% admonition type="info" name="Managing a conversation" %}
-// To close, open, snooze or assign a conversation, use [Manage a conversation](/docs/references/rest-api/api.intercom.io/conversations/manageconversation).
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations/{conversation_id}/reply (the `ReplyConversation` operationId).
-func (c *Client) ReplyConversationWithBody(ctx context.Context, conversationId string, params *ReplyConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewReplyConversationRequestWithBody(c.Server, conversationId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ReplyConversation Reply to a conversation
-//
-// You can reply to a conversation with a message from an admin or on behalf of a contact, or with a note for admins.
-//
-// {% admonition type="warning" name="Bot replies to inbound email" %}
-// By default, bot or Operator replies to an inbound email conversation aren't sent to your customer. The reply is stored as an unnotifiable bot comment, and no `seen` receipt is generated until an email is actually delivered.
-//
-// To send these replies as outbound emails, reach out to your accounts team to enable the email-reply feature flag for your workspace.
-// {% /admonition %}
-//
-// {% admonition type="info" name="Managing a conversation" %}
-// To close, open, snooze or assign a conversation, use [Manage a conversation](/docs/references/rest-api/api.intercom.io/conversations/manageconversation).
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations/{conversation_id}/reply (the `ReplyConversation` operationId).
-func (c *Client) ReplyConversation(ctx context.Context, conversationId string, params *ReplyConversationParams, body ReplyConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewReplyConversationRequest(c.Server, conversationId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachTagToConversationWithBody Add tag to a conversation
-//
-// You can tag a specific conversation. This will return a tag object for the tag that was added to the conversation.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations/{conversation_id}/tags (the `AttachTagToConversation` operationId).
-func (c *Client) AttachTagToConversationWithBody(ctx context.Context, conversationId string, params *AttachTagToConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachTagToConversationRequestWithBody(c.Server, conversationId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachTagToConversation Add tag to a conversation
-//
-// You can tag a specific conversation. This will return a tag object for the tag that was added to the conversation.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations/{conversation_id}/tags (the `AttachTagToConversation` operationId).
-func (c *Client) AttachTagToConversation(ctx context.Context, conversationId string, params *AttachTagToConversationParams, body AttachTagToConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachTagToConversationRequest(c.Server, conversationId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DetachTagFromConversationWithBody Remove tag from a conversation
-//
-// You can remove tag from a specific conversation. This will return a tag object for the tag that was removed from the conversation.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with DELETE /conversations/{conversation_id}/tags/{tag_id} (the `DetachTagFromConversation` operationId).
-func (c *Client) DetachTagFromConversationWithBody(ctx context.Context, conversationId string, tagId string, params *DetachTagFromConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDetachTagFromConversationRequestWithBody(c.Server, conversationId, tagId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DetachTagFromConversation Remove tag from a conversation
-//
-// You can remove tag from a specific conversation. This will return a tag object for the tag that was removed from the conversation.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with DELETE /conversations/{conversation_id}/tags/{tag_id} (the `DetachTagFromConversation` operationId).
-func (c *Client) DetachTagFromConversation(ctx context.Context, conversationId string, tagId string, params *DetachTagFromConversationParams, body DetachTagFromConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDetachTagFromConversationRequest(c.Server, conversationId, tagId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListHandlingEvents List handling events
-//
-// List all pause/resume events for a conversation. These events track when teammates paused or resumed handling a conversation.
-//
-// Requires the `read_conversations` OAuth scope.
-//
-// Corresponds with GET /conversations/{id}/handling_events (the `ListHandlingEvents` operationId).
-func (c *Client) ListHandlingEvents(ctx context.Context, id string, params *ListHandlingEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListHandlingEventsRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListHitlEvents List HITL events
-//
-// List the human-in-the-loop (HITL) events for a conversation. When Fin is unsure of an answer it can consult a teammate before replying, proposing a draft that the teammate approves, steers with free-text feedback, or takes over. Each consultation is returned as a series of events, oldest first, across every consultation on the conversation.
-//
-// Requires the `read_conversations` OAuth scope, and the caller must be able to access the conversation.
-//
-// Events are only recorded once a consultation has ended, so a consultation still awaiting a teammate does not appear.
-//
-// Which fields appear in `data` depends on `event_type`:
-//
-// | `event_type` | `data` fields |
-// |---|---|
-// | `fin_consultation_started` | `channel`, `rule_threshold_percent`, `confidence_percent`, `sharp_ask`, `ask_rationale`, `issue_summary`, `customer_question` |
-// | `fin_draft_proposed` | `draft` |
-// | `fin_teammate_input_received` | `round_index`, `teammate_input`, `reviewer_admin_id`, `regeneration_outcome` |
-// | `fin_draft_revised` | `round_index`, `revised_draft`, `regeneration_outcome` |
-// | `fin_consultation_finished` | `outcome`, `approved_draft_type`, `final_draft`, `sent_text`, `reviewer_admin_id`, `duration_seconds`, `rounds_count`, `payload_truncated` |
-//
-// A consultation always produces a `fin_consultation_started` and a `fin_consultation_finished` event. `fin_draft_proposed` appears when Fin proposed a draft. `fin_teammate_input_received` appears once per round of teammate feedback, and `fin_draft_revised` once per round where Fin produced a revised draft in response.
-//
-// Notes on interpreting the response:
-//
-// - `hitl_cycle_id` identifies the consultation, so it is the same on every event of one consultation. It is not unique per event. A conversation can hold several consultations — a consultation that replaces an outstanding one finishes with an `outcome` of `superseded`.
-// - `conversation_part_id` links an event to a conversation part where one exists. It is `null` in ordinary cases: teammate feedback given through the inbox creates no conversation part, a revised draft has no part of its own, and a consultation that escalated or was superseded sent no reply.
-// - `created_at` on `fin_draft_proposed` is approximate. It reports when the consultation started, which is when the draft was proposed.
-// - `rule_id`, `rule_name` and `rule_threshold_percent` are recorded when the consultation begins and are not updated afterwards, so a rule that has since been renamed or retuned will not match its current settings. They are `null` for consultations not triggered by a rule.
-// - `reviewer_admin_id` identifies the teammate involved in that event: on `fin_teammate_input_received` the teammate who gave the feedback, and on `fin_consultation_finished` the teammate who approved the draft or took over. On a consultation with several rounds these can be different teammates.
-// - `rounds_count` counts every round of teammate feedback the consultation had. Only the ten most recent rounds are retained, so a heavily steered consultation returns fewer `fin_teammate_input_received` events than `rounds_count`.
-// - Redacting a conversation removes this data. Depending on how it was redacted, the conversation either returns no events or returns events whose text fields are all `null`.
-//
-// Corresponds with GET /conversations/{id}/hitl_events (the `ListHitlEvents` operationId).
-func (c *Client) ListHitlEvents(ctx context.Context, id string, params *ListHitlEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListHitlEventsRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// MergeConversationWithBody Merge a conversation
-//
-// Merge a secondary (source) conversation into a primary (target) conversation.
-// The secondary conversation is closed and linked to the primary, which
-// becomes the surviving thread. Returns the primary conversation on success.
-//
-// Requires `write_conversations` OAuth scope. When the secondary is a ticket,
-// `write_tickets` scope is also required.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations/{id}/merge (the `MergeConversation` operationId).
-func (c *Client) MergeConversationWithBody(ctx context.Context, id string, params *MergeConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewMergeConversationRequestWithBody(c.Server, id, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// MergeConversation Merge a conversation
-//
-// Merge a secondary (source) conversation into a primary (target) conversation.
-// The secondary conversation is closed and linked to the primary, which
-// becomes the surviving thread. Returns the primary conversation on success.
-//
-// Requires `write_conversations` OAuth scope. When the secondary is a ticket,
-// `write_tickets` scope is also required.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations/{id}/merge (the `MergeConversation` operationId).
-func (c *Client) MergeConversation(ctx context.Context, id string, params *MergeConversationParams, body MergeConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewMergeConversationRequest(c.Server, id, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListSideConversations List side conversations
-//
-// List side conversations for a given conversation. Side conversations are internal threads created by teammates from within a conversation.
-//
-// Each side conversation includes its conversation parts (messages). Results are paginated.
-//
-// Requires the `read_conversations` OAuth scope.
-//
-// Corresponds with GET /conversations/{id}/side_conversations (the `ListSideConversations` operationId).
-func (c *Client) ListSideConversations(ctx context.Context, id string, params *ListSideConversationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListSideConversationsRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteCustomObjectInstancesById Delete a Custom Object Instance by External ID
-//
-// Delete a single Custom Object instance by external_id.
-//
-// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier} (the `DeleteCustomObjectInstancesById` operationId).
-func (c *Client) DeleteCustomObjectInstancesById(ctx context.Context, customObjectTypeIdentifier string, params *DeleteCustomObjectInstancesByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteCustomObjectInstancesByIdRequest(c.Server, customObjectTypeIdentifier, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListCustomObjectInstances List Custom Object Instances
-//
-// List instances of a custom object type. Three modes are supported:
-// - **No filter** — returns all instances for the type.
-// - **`references_contact_id`** — returns instances associated with the given contact.
-// - **`references_conversation_id`** — returns instances associated with the given conversation.
-//
-// When **`external_id`** is provided, returns a single matching instance (not a list).
-//
-// Corresponds with GET /custom_object_instances/{custom_object_type_identifier} (the `ListCustomObjectInstances` operationId).
-func (c *Client) ListCustomObjectInstances(ctx context.Context, customObjectTypeIdentifier string, params *ListCustomObjectInstancesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListCustomObjectInstancesRequest(c.Server, customObjectTypeIdentifier, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateCustomObjectInstancesWithBody Create or Update a Custom Object Instance
-//
-// Create or update a custom object instance.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /custom_object_instances/{custom_object_type_identifier} (the `CreateCustomObjectInstances` operationId).
-func (c *Client) CreateCustomObjectInstancesWithBody(ctx context.Context, customObjectTypeIdentifier string, params *CreateCustomObjectInstancesParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateCustomObjectInstancesRequestWithBody(c.Server, customObjectTypeIdentifier, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateCustomObjectInstances Create or Update a Custom Object Instance
-//
-// Create or update a custom object instance.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /custom_object_instances/{custom_object_type_identifier} (the `CreateCustomObjectInstances` operationId).
-func (c *Client) CreateCustomObjectInstances(ctx context.Context, customObjectTypeIdentifier string, params *CreateCustomObjectInstancesParams, body CreateCustomObjectInstancesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateCustomObjectInstancesRequest(c.Server, customObjectTypeIdentifier, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteCustomObjectInstancesByExternalId Delete a Custom Object Instance by ID
-//
-// Delete a single Custom Object instance using the Intercom defined id.
-//
-// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier}/{custom_object_instance_id} (the `DeleteCustomObjectInstancesByExternalId` operationId).
-func (c *Client) DeleteCustomObjectInstancesByExternalId(ctx context.Context, customObjectTypeIdentifier string, customObjectInstanceId string, params *DeleteCustomObjectInstancesByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteCustomObjectInstancesByExternalIdRequest(c.Server, customObjectTypeIdentifier, customObjectInstanceId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// GetCustomObjectInstancesById Get Custom Object Instance by ID
-//
-// Fetch a Custom Object Instance by id.
-//
-// Corresponds with GET /custom_object_instances/{custom_object_type_identifier}/{custom_object_instance_id} (the `GetCustomObjectInstancesById` operationId).
-func (c *Client) GetCustomObjectInstancesById(ctx context.Context, customObjectTypeIdentifier string, customObjectInstanceId string, params *GetCustomObjectInstancesByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetCustomObjectInstancesByIdRequest(c.Server, customObjectTypeIdentifier, customObjectInstanceId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// LisDataAttributes List all data attributes
-//
-// You can fetch a list of all data attributes belonging to a workspace for contacts or companies.
-//
-// {% admonition type="warning" %}
-// Conversation attributes are no longer returned by this endpoint. Calling without a `model` parameter no longer includes them, and `model=conversation` returns a `422` error. Use `GET /conversations/attributes` instead.
-// {% /admonition %}
-//
-// Corresponds with GET /data_attributes (the `LisDataAttributes` operationId).
-func (c *Client) LisDataAttributes(ctx context.Context, params *LisDataAttributesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewLisDataAttributesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateDataAttributeWithBody Create a data attribute
-//
-// You can create a data attributes for a `contact` or a `company`.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /data_attributes (the `CreateDataAttribute` operationId).
-func (c *Client) CreateDataAttributeWithBody(ctx context.Context, params *CreateDataAttributeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateDataAttributeRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateDataAttribute Create a data attribute
-//
-// You can create a data attributes for a `contact` or a `company`.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /data_attributes (the `CreateDataAttribute` operationId).
-func (c *Client) CreateDataAttribute(ctx context.Context, params *CreateDataAttributeParams, body CreateDataAttributeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateDataAttributeRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateDataAttributeWithBody Update a data attribute
-//
-// You can update a data attribute.
-//
-// > 🚧 Updating the data type is not possible
-// >
-// > It is currently a dangerous action to execute changing a data attribute's type via the API. You will need to update the type via the UI instead.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /data_attributes/{data_attribute_id} (the `UpdateDataAttribute` operationId).
-func (c *Client) UpdateDataAttributeWithBody(ctx context.Context, dataAttributeId int, params *UpdateDataAttributeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateDataAttributeRequestWithBody(c.Server, dataAttributeId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateDataAttribute Update a data attribute
-//
-// You can update a data attribute.
-//
-// > 🚧 Updating the data type is not possible
-// >
-// > It is currently a dangerous action to execute changing a data attribute's type via the API. You will need to update the type via the UI instead.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /data_attributes/{data_attribute_id} (the `UpdateDataAttribute` operationId).
-func (c *Client) UpdateDataAttribute(ctx context.Context, dataAttributeId int, params *UpdateDataAttributeParams, body UpdateDataAttributeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateDataAttributeRequest(c.Server, dataAttributeId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListDataConnectors List all data connectors
-//
-// Returns a paginated list of all data connectors for the workspace, ordered by most recently updated first. Data connectors allow workflows and AI agents to make HTTP requests to external APIs.
-//
-// Corresponds with GET /data_connectors (the `ListDataConnectors` operationId).
-func (c *Client) ListDataConnectors(ctx context.Context, params *ListDataConnectorsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListDataConnectorsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateDataConnectorWithBody Create a data connector
-//
-// Create a new data connector. The connector is created in `draft` state. Configure its URL, headers, data inputs, and other settings, then set it to `live` when ready.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /data_connectors (the `CreateDataConnector` operationId).
-func (c *Client) CreateDataConnectorWithBody(ctx context.Context, params *CreateDataConnectorParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateDataConnectorRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateDataConnector Create a data connector
-//
-// Create a new data connector. The connector is created in `draft` state. Configure its URL, headers, data inputs, and other settings, then set it to `live` when ready.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /data_connectors (the `CreateDataConnector` operationId).
-func (c *Client) CreateDataConnector(ctx context.Context, params *CreateDataConnectorParams, body CreateDataConnectorJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateDataConnectorRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListDataConnectorExecutionResults List execution results for a data connector
-//
-// Retrieve paginated execution logs for a specific data connector.
-// Results from the last hour are returned by default. Use `start_ts` and `end_ts` to customize the time range.
-//
-// Request/response bodies are excluded by default. Use `include_bodies=true` to include them.
-//
-// Corresponds with GET /data_connectors/{data_connector_id}/execution_results (the `ListDataConnectorExecutionResults` operationId).
-func (c *Client) ListDataConnectorExecutionResults(ctx context.Context, dataConnectorId string, params *ListDataConnectorExecutionResultsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListDataConnectorExecutionResultsRequest(c.Server, dataConnectorId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShowDataConnectorExecutionResult Retrieve an execution result
-//
-// Retrieve details for a specific data connector execution result.
-// Always includes request/response bodies and the sanitised request URL.
-//
-// Corresponds with GET /data_connectors/{data_connector_id}/execution_results/{id} (the `ShowDataConnectorExecutionResult` operationId).
-func (c *Client) ShowDataConnectorExecutionResult(ctx context.Context, dataConnectorId string, id string, params *ShowDataConnectorExecutionResultParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShowDataConnectorExecutionResultRequest(c.Server, dataConnectorId, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteDataConnector Delete a data connector
-//
-// Delete an existing data connector. The connector must be in `draft` state and must not be in use by any workflows or AI agents.
-//
-// Corresponds with DELETE /data_connectors/{id} (the `DeleteDataConnector` operationId).
-func (c *Client) DeleteDataConnector(ctx context.Context, id string, params *DeleteDataConnectorParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteDataConnectorRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RetrieveDataConnector Retrieve a data connector
-//
-// You can retrieve the full detail of a single data connector by its ID.
-//
-// The response includes configuration, data inputs, response fields, and object mappings.
-//
-// Corresponds with GET /data_connectors/{id} (the `RetrieveDataConnector` operationId).
-func (c *Client) RetrieveDataConnector(ctx context.Context, id string, params *RetrieveDataConnectorParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveDataConnectorRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateDataConnectorWithBody Update a data connector
-//
-// Update an existing data connector. Only provided fields are changed. Set `state` to `live` or `draft` to change the connector's state.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PATCH /data_connectors/{id} (the `UpdateDataConnector` operationId).
-func (c *Client) UpdateDataConnectorWithBody(ctx context.Context, id string, params *UpdateDataConnectorParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateDataConnectorRequestWithBody(c.Server, id, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateDataConnector Update a data connector
-//
-// Update an existing data connector. Only provided fields are changed. Set `state` to `live` or `draft` to change the connector's state.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PATCH /data_connectors/{id} (the `UpdateDataConnector` operationId).
-func (c *Client) UpdateDataConnector(ctx context.Context, id string, params *UpdateDataConnectorParams, body UpdateDataConnectorJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateDataConnectorRequest(c.Server, id, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListDataConnectorVersions List versions of a data connector
-//
-// Retrieve the version history of a data connector, newest first. Each entry is a point-in-time snapshot of the connector's configuration, with the status it has today and an optional note.
-//
-// Results are paginated. `pages.next` is omitted on the last page. A data connector that has never been published returns an empty `data` list.
-//
-// Requires the `read_data_connector_versions` or `read_write_data_connector_versions` OAuth scope.
-//
-// Corresponds with GET /data_connectors/{id}/versions (the `ListDataConnectorVersions` operationId).
-func (c *Client) ListDataConnectorVersions(ctx context.Context, id string, params *ListDataConnectorVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListDataConnectorVersionsRequest(c.Server, id, params)
 	if err != nil {
 		return nil, err
 	}

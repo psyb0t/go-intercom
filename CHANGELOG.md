@@ -2,6 +2,21 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.3.0, 2026-10-23
+
+- Breaking: `AskFinResponse.JSON200`, `ReplyToFinResponse.JSON200`, `EscalateFinConversationResponse.JSON200` and `ListFinCapabilitiesResponse.JSON200` have new body types, and `SseSubscriptionUrl` is removed from the Ask Fin body. `CreateContactResponse.JSON200` and `MergeContactResponse.JSON200` also have new body types, as do their `GetJSON200` methods.
+- Breaking: `AttachSubscriptionTypeToContactJSONBody.ConsentType` is now `*string`. `FinAgentMessage.Timestamp` is now `*time.Time`. `UpdateExternalPageRequest.ExternalId` is now `string` and `Url` is now `*string`. `ListAllCompaniesParams.Order` is now `*ListAllCompaniesParamsOrder`.
+- Breaking: `Contact.Avatar` is now `*string`. `Company.Notes` is now a struct with `Data`, `HasMore` and a total count. `CompanyList.Pages` is now `*PagesLink` and `CompanyScroll.Pages` is now `*map[string]interface{}`.
+- Breaking: `CreateDataConnectorRequest` and `UpdateDataConnectorRequest` `DataInputs` and `Headers` have new item types, and header `Name` and `Value` are now plain strings. `RunFinProcedureJSONBody.Message` is now an inline struct with a `RunFinProcedureJSONBodyMessageAuthor` author.
+- Breaking: removed `CompanyNote.Author`, `Company` and `CreatedAt`, `ContactAttachedCompanies.Companies` (use `Data`), `UpdateExternalPageRequest.FinAvailability`, `ContactsBulkJobStatePending`, and `ExportWorkflowResponse.JSON403` with `GetJSON403`.
+- Breaking: removed `CreateExternalPageRequestLocale`, `ExternalPageLocale`, `UpdateExternalPageRequestLocale` and their `En` constants and `Valid` methods.
+- Added `ResponseFormat` with `Html` and `Markdown` values on the Fin start, reply and ask request bodies.
+- Added `CompanyUserList`, `CompanySearchResponse`, `ContactSubscriptionTypes`, and the `AsCompanyUserList`, `FromCompanyUserList` and `MergeCompanyUserList` union methods on the company retrieve body. `RetrieveCompanyParams` and `RetrieveACompanyByIdParams` gain `Type`, and the latter also `Page` and `PerPage`.
+- Added contact fields `SmsConsent`, `UnsubscribedFromSms`, `LanguageOverride`, `Referrer`, `Utm*` fields, `OptedInSubscriptionTypes`, `OptedOutSubscriptionTypes`, `EnabledPushMessaging`, and `ContinentCode` and `CountryCode` on `ContactLocation`.
+- Added `PerPage`, `StartingAfter`, `Page`, `Order` and `EscapeIdentity` params on the contact, company, external page and content import source list calls, and `IncludeMergeHistory` on `ListAttachedContactsParams`.
+- Added `EnforceAuth` and `InternalDescription` on data connector types, `TransformCodeBlock` on `DataConnectorDetail`, new data connector error type and source constants, `ExternalPage.Tags`, `AiAgentAvailability`, `AiCopilotAvailability` and `AiSalesAgentAvailability` on external page requests, `CreateOrUpdateCompanyRequest.Id`, `UpdateCompanyRequest.UpdateLastRequestAt` and `CompanyNote.Url`.
+- Added `JSON401`, `JSON403`, `JSON404` and `JSON422` response fields on several contact, content import source, external page and Fin responses.
+
 ## v0.2.0, 2026-10-22
 
 - Added `GetSubscriptionType` on `Client` and `ClientWithResponses`, with `GetSubscriptionTypeParams`, `GetSubscriptionTypeResponse`, `NewGetSubscriptionTypeRequest` and `ParseGetSubscriptionTypeResponse`.
