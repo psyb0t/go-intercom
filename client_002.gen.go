@@ -17,6 +17,168 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// TicketDeleted deleted ticket object
+type TicketDeleted struct {
+	// Deleted Whether the ticket is deleted or not.
+	//
+	// Example: true
+	Deleted *bool `json:"deleted,omitempty"`
+
+	// Id The unique identifier for the ticket.
+	//
+	// Example: 5ba682d23d7cf92bef87bfd4
+	Id *string `json:"id,omitempty"`
+
+	// Object always ticket
+	//
+	// Example: ticket
+	Object *TicketDeletedObject `json:"object,omitempty"`
+}
+
+// TicketDeletedObject always ticket
+//
+// Example: ticket
+type TicketDeletedObject string
+
+// TicketList Tickets are how you track requests from your users.
+type TicketList struct {
+	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
+	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
+	Pages *CursorPages `json:"pages,omitempty"`
+
+	// Tickets The list of ticket objects
+	Tickets *[]*Ticket `json:"tickets,omitempty"`
+
+	// TotalCount A count of the total number of objects.
+	//
+	// Example: 12345
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type Always ticket.list
+	//
+	// Example: ticket.list
+	Type *TicketListType `json:"type,omitempty"`
+}
+
+// TicketListType Always ticket.list
+//
+// Example: ticket.list
+type TicketListType string
+
+// TicketPart A Ticket Part represents a message in the ticket.
+type TicketPart struct {
+	// AdminAssigneeId The id of the teammate that this ticket_part assigned the ticket to, or 0 if the part removed the teammate. Null or absent when the part did not change the teammate, including an unassignment that did not name which assignee it cleared. A bot is reported here, because assignment treats anything that is not a team as a teammate.
+	//
+	// Example: 991268013
+	AdminAssigneeId *int `json:"admin_assignee_id,omitempty"`
+
+	// AppPackageCode The app package code if this part was created via API. Note this field won't show if the part was not created via API.
+	//
+	// Example: text-integration
+	AppPackageCode *string `json:"app_package_code,omitempty"`
+
+	// AssignedTo reference to another object
+	AssignedTo *Reference `json:"assigned_to,omitempty"`
+
+	// Attachments A list of attachments for the part.
+	Attachments *[]PartAttachment `json:"attachments,omitempty"`
+
+	// Author The author that wrote or triggered the part. Can be a bot, admin, team or user.
+	Author *TicketPartAuthor `json:"author,omitempty"`
+
+	// Body The message body, which may contain HTML.
+	//
+	// Example: <p>Okay!</p>
+	Body *string `json:"body,omitempty"`
+
+	// CreatedAt The time the ticket part was created.
+	//
+	// Example: 1663597223
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// ExternalId The external id of the ticket part
+	//
+	// Example: abcd1234
+	ExternalId *string `json:"external_id,omitempty"`
+
+	// Id The id representing the ticket part.
+	//
+	// Example: 3
+	Id *string `json:"id,omitempty"`
+
+	// PartType The type of ticket part.
+	//
+	// Example: comment
+	PartType *string `json:"part_type,omitempty"`
+
+	// PreviousTicketState The previous state of the ticket.
+	//
+	// Example: submitted
+	PreviousTicketState *TicketPartPreviousTicketState `json:"previous_ticket_state,omitempty"`
+
+	// Redacted Whether or not the ticket part has been redacted.
+	//
+	// Example: false
+	Redacted *bool `json:"redacted,omitempty"`
+
+	// TeamAssigneeId The id of the team that this ticket_part assigned the ticket to, or 0 if the part removed the team. Null or absent when the part did not change the team, including an unassignment that did not name which assignee it cleared. A part can assign a team and a teammate at the same time, for example when the team uses Round Robin distribution and the teammate is resolved inline. In that case assigned_to reports only the teammate, and these two fields report each assignee separately.
+	//
+	// Example: 5017691
+	TeamAssigneeId *int `json:"team_assignee_id,omitempty"`
+
+	// TicketState The state of the ticket.
+	//
+	// Example: submitted
+	TicketState *TicketPartTicketState `json:"ticket_state,omitempty"`
+
+	// Translations A map of the reply text keyed by locale code. Backs the `ticket.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in; every other key holds the reply translated into that locale.
+	//
+	// Example: {"en":"\u003cp\u003eHello\u003c/p\u003e","fr":"\u003cp\u003eBonjour\u003c/p\u003e","original":"en"}
+	Translations *TicketPart_Translations `json:"translations,omitempty"`
+
+	// Type Always ticket_part
+	//
+	// Example: ticket_part
+	Type *string `json:"type,omitempty"`
+
+	// UpdatedAt The last time the ticket part was updated.
+	//
+	// Example: 1663597260
+	UpdatedAt *int `json:"updated_at,omitempty"`
+
+	// UpdatedAttributeData The updated attribute data of the ticket part. Only present for attribute update parts.
+	UpdatedAttributeData *struct {
+		// Attribute Information about the attribute that was updated.
+		Attribute struct {
+			// Id The unique identifier of the attribute.
+			//
+			// Example: 7
+			Id string `json:"id"`
+
+			// Label The human-readable name of the attribute.
+			//
+			// Example: Progress
+			Label string `json:"label"`
+
+			// Type The type of the object. Always 'attribute'.
+			//
+			// Example: attribute
+			Type TicketPartUpdatedAttributeDataAttributeType `json:"type"`
+		} `json:"attribute"`
+
+		// Value The new value of the attribute.
+		Value struct {
+			Id    TicketPart_UpdatedAttributeData_Value_Id    `json:"id"`
+			Label TicketPart_UpdatedAttributeData_Value_Label `json:"label"`
+
+			// Type The type of the object. Always 'value'.
+			//
+			// Example: value
+			Type TicketPartUpdatedAttributeDataValueType `json:"type"`
+		} `json:"value"`
+	} `json:"updated_attribute_data,omitempty"`
+}
+
 // TicketPartPreviousTicketState The previous state of the ticket.
 //
 // Example: submitted
@@ -626,7 +788,7 @@ type UpdateAudienceRequest struct {
 
 	// RolePredicates Role-based predicates that further filter audience membership by contact role.
 	//
-	// Example: [{"attribute":"role","comparison":"eq","type":"role","value":"user"}]
+	// Example: [{"attribute":"role","comparison":"in","type":"role","value":["user_role","contact_role","visitor_role"]}]
 	RolePredicates *[]Predicate `json:"role_predicates,omitempty"`
 }
 
@@ -642,7 +804,7 @@ type UpdateCollectionRequest struct {
 	// Example: 123
 	HelpCenterId *int `json:"help_center_id,omitempty"`
 
-	// Icon The icon of the collection, for example `book-bookmark`.
+	// Icon The icon of the collection, for example `book-bookmark`. If you leave out `icon`, or send it empty, the collection's icon is reset to `folder`.
 	//
 	// Example: book-bookmark
 	Icon *string `json:"icon,omitempty"`
@@ -1170,17 +1332,25 @@ type UpdateInternalArticleRequest struct {
 	// Body The content of the article in HTML. Mutually exclusive with `body_markdown`.
 	Body *string `json:"body,omitempty"`
 
-	// BodyMarkdown The content of the article in markdown. An alternative to `body` — you can provide content as markdown instead of HTML. Mutually exclusive with `body`.
+	// BodyMarkdown The content of the article in markdown. An alternative to `body` — you can provide content as markdown instead of HTML. Mutually exclusive with `body` and `json_blocks`.
 	//
 	// Example: ## Updated
 	//
 	// New content.
 	BodyMarkdown *string `json:"body_markdown,omitempty"`
 
-	// FolderId The ID of the folder to place this article in, or null to remove it from its folder.
+	// FolderId The ID of the folder to place this article in. Pass `null` to remove it from its folder. If omitted, the folder is unchanged.
 	//
 	// Example: 6
 	FolderId *int `json:"folder_id,omitempty"`
+
+	// JsonBlocks The content of the article as a list of content blocks. Used only when `body` is not provided. Cannot be combined with `body_markdown`. If none of `body`, `body_markdown` and `json_blocks` is provided, the existing content is kept.
+	JsonBlocks *[]map[string]interface{} `json:"json_blocks,omitempty"`
+
+	// Locale The locale of the article. If omitted, the existing locale is kept.
+	//
+	// Example: en
+	Locale *string `json:"locale,omitempty"`
 
 	// OwnerId The id of the author of the article.
 	//
@@ -1192,6 +1362,57 @@ type UpdateInternalArticleRequest struct {
 	// Example: Thanks for everything
 	Title *string `json:"title,omitempty"`
 }
+
+// UpdateNewsItemRequest The body of a request that updates an existing news item. Leaving `labels` or `newsfeed_assignments` out clears them, and leaving `reactions` out disables reactions; every other optional field keeps its current value when left out.
+type UpdateNewsItemRequest struct {
+	// Body The news item body, which may contain HTML.
+	//
+	// Example: <p>New costumes in store for this spooky season</p>
+	Body *string `json:"body,omitempty"`
+
+	// CoverImageUrl URL of the image to use as the cover. Must contain `.png` or `.jpg` in lower case, so `.jpeg` and `.PNG` are rejected. Intercom copies the image and serves it from its own signed URL.
+	//
+	// Example: https://example.com/cover.jpg
+	CoverImageUrl *string `json:"cover_image_url,omitempty"`
+
+	// DeliverSilently When set to `true`, the news item will appear in the messenger newsfeed without showing a notification badge.
+	//
+	// Example: true
+	DeliverSilently *bool `json:"deliver_silently,omitempty"`
+
+	// Labels Label names displayed to users to categorize the news item. Send the full list; the labels you leave out are removed.
+	//
+	// Example: ["Product","Update","New"]
+	Labels *[]string `json:"labels,omitempty"`
+
+	// NewsfeedAssignments A list of newsfeed_assignments to assign to the specified newsfeed. Send the full list; the assignments you leave out are removed.
+	NewsfeedAssignments *[]NewsfeedAssignment `json:"newsfeed_assignments,omitempty"`
+
+	// Reactions Ordered list of emoji reactions to the news item. Send an empty list to disable reactions. Send at most five, each a single Unicode code point, so an emoji with a skin tone, a joiner sequence or a variation selector (such as ❤️) is rejected.
+	//
+	// Example: ["😆","😅"]
+	Reactions *[]string `json:"reactions,omitempty"`
+
+	// SenderId The id of the sender of the news item. Must be a teammate on the workspace.
+	//
+	// Example: 123
+	SenderId int `json:"sender_id"`
+
+	// State News items will not be visible to your users in the assigned newsfeeds until they are set live.
+	//
+	// Example: live
+	State *UpdateNewsItemRequestState `json:"state,omitempty"`
+
+	// Title The title of the news item.
+	//
+	// Example: Halloween is here!
+	Title *string `json:"title,omitempty"`
+}
+
+// UpdateNewsItemRequestState News items will not be visible to your users in the assigned newsfeeds until they are set live.
+//
+// Example: live
+type UpdateNewsItemRequestState string
 
 // UpdateOfficeHoursExceptionRequest The request payload for updating an office hours exception. Only the provided fields are updated.
 type UpdateOfficeHoursExceptionRequest struct {
@@ -2128,10 +2349,10 @@ type PublishArticleDraftParams struct {
 
 // ListAudiencesParams defines parameters for ListAudiences.
 type ListAudiencesParams struct {
-	// Page The page of results to fetch. Defaults to first page.
+	// Page The page of results to fetch. Defaults to the first page. Values below 1 are treated as 1.
 	Page *int `form:"page,omitempty" json:"page,omitempty"`
 
-	// PerPage The number of results to return per page. Defaults to 50. Maximum is 50.
+	// PerPage The number of results to return per page. Defaults to 50. Values above 50 are reduced to 50, and values below 1 are treated as 1.
 	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
@@ -2742,6 +2963,8 @@ type AttachTagToContentSnippetParams struct {
 
 // DetachTagFromContentSnippetParams defines parameters for DetachTagFromContentSnippet.
 type DetachTagFromContentSnippetParams struct {
+	// AdminId Optional id of a teammate. The id is checked, and an unknown teammate returns a 404 `admin_not_found` error, but the removal is not recorded against the teammate.
+	AdminId         *string          `form:"admin_id,omitempty" json:"admin_id,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -2965,8 +3188,8 @@ type ListSideConversationsParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
-// DeleteCustomObjectInstancesByIdParams defines parameters for DeleteCustomObjectInstancesById.
-type DeleteCustomObjectInstancesByIdParams struct {
+// DeleteCustomObjectInstancesByExternalIdParams defines parameters for DeleteCustomObjectInstancesByExternalId.
+type DeleteCustomObjectInstancesByExternalIdParams struct {
 	ExternalId      string           `form:"external_id" json:"external_id"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
@@ -2990,13 +3213,18 @@ type ListCustomObjectInstancesParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
+// ListCustomObjectInstances200JSONResponseBody defines parameters for ListCustomObjectInstances.
+type ListCustomObjectInstances200JSONResponseBody struct {
+	union json.RawMessage
+}
+
 // CreateCustomObjectInstancesParams defines parameters for CreateCustomObjectInstances.
 type CreateCustomObjectInstancesParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
-// DeleteCustomObjectInstancesByExternalIdParams defines parameters for DeleteCustomObjectInstancesByExternalId.
-type DeleteCustomObjectInstancesByExternalIdParams struct {
+// DeleteCustomObjectInstancesByIdParams defines parameters for DeleteCustomObjectInstancesById.
+type DeleteCustomObjectInstancesByIdParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -3147,10 +3375,10 @@ type GetDownloadReportingDataJobIdentifierParamsAccept string
 
 // ListDynamicContentsParams defines parameters for ListDynamicContents.
 type ListDynamicContentsParams struct {
-	// Page The page of results to fetch.
+	// Page The page of results to fetch. Defaults to the first page. Values below 1 are treated as 1.
 	Page *int `form:"page,omitempty" json:"page,omitempty"`
 
-	// PerPage The number of results to return per page. Max value of 50.
+	// PerPage The number of results to return per page. Defaults to 50. Values above 50 are reduced to 50, and values below 1 are treated as 1.
 	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
@@ -3596,7 +3824,7 @@ type UpdateFolderJSONBody struct {
 		// Example: Updated Product Documentation
 		Name *string `json:"name,omitempty"`
 
-		// ParentFolderId The ID of the parent folder
+		// ParentFolderId The ID of the parent folder. Send `null` to move the folder to the top level. If omitted, the parent folder is unchanged.
 		ParentFolderId *int `json:"parent_folder_id,omitempty"`
 	} `json:"folder"`
 }
@@ -3676,6 +3904,11 @@ type RetrieveHelpCenterRedirectParams struct {
 
 // ListInternalArticlesParams defines parameters for ListInternalArticles.
 type ListInternalArticlesParams struct {
+	// Page The page of results to fetch. Defaults to 1.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of results to return per page. Defaults to 50.
+	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -3686,8 +3919,14 @@ type CreateInternalArticleParams struct {
 
 // SearchInternalArticlesParams defines parameters for SearchInternalArticles.
 type SearchInternalArticlesParams struct {
-	// FolderId The ID of the folder to search in. Results will include articles from this folder and all its descendant folders.
-	FolderId        *int             `form:"folder_id,omitempty" json:"folder_id,omitempty"`
+	// FolderId The ID of the folder to search in. Results will include articles from this folder and all its descendant folders. If omitted or blank, the response is an empty list.
+	FolderId *int `form:"folder_id,omitempty" json:"folder_id,omitempty"`
+
+	// Page The page of results to fetch. Defaults to 1.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of results to return per page. Defaults to 10.
+	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -3726,6 +3965,8 @@ type AttachTagToInternalArticleParams struct {
 
 // DetachTagFromInternalArticleParams defines parameters for DetachTagFromInternalArticle.
 type DetachTagFromInternalArticleParams struct {
+	// AdminId Optional id of a teammate. The id is checked, and an unknown teammate returns a 404 `admin_not_found` error, but the removal is not recorded against the teammate.
+	AdminId         *string          `form:"admin_id,omitempty" json:"admin_id,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -3794,6 +4035,11 @@ type RetrieveWhatsAppMessageStatusParams struct {
 
 // ListNewsItemsParams defines parameters for ListNewsItems.
 type ListNewsItemsParams struct {
+	// Page The page of results to fetch.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of news items to return per page. Values above 20 are reduced to 20.
+	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -3819,6 +4065,11 @@ type UpdateNewsItemParams struct {
 
 // ListNewsfeedsParams defines parameters for ListNewsfeeds.
 type ListNewsfeedsParams struct {
+	// Page The page of results to fetch.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of newsfeeds to return per page. Values above 20 are reduced to 20.
+	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -3829,6 +4080,11 @@ type RetrieveNewsfeedParams struct {
 
 // ListLiveNewsfeedItemsParams defines parameters for ListLiveNewsfeedItems.
 type ListLiveNewsfeedItemsParams struct {
+	// Page The page of results to fetch.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of news items to return per page. Values above 20 are reduced to 20.
+	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -4559,7 +4815,7 @@ type CreateMessageJSONRequestBody = CreateMessageRequest
 type CreateNewsItemJSONRequestBody = NewsItemRequest
 
 // UpdateNewsItemJSONRequestBody defines body for UpdateNewsItem for application/json ContentType.
-type UpdateNewsItemJSONRequestBody = NewsItemRequest
+type UpdateNewsItemJSONRequestBody = UpdateNewsItemRequest
 
 // CreateOfficeHoursScheduleJSONRequestBody defines body for CreateOfficeHoursSchedule for application/json ContentType.
 type CreateOfficeHoursScheduleJSONRequestBody = CreateOfficeHoursScheduleRequest
@@ -8233,6 +8489,146 @@ func (t *CreateOrUpdateCompanyRequest_CustomAttributes_AdditionalProperties) Unm
 	return err
 }
 
+// AsCreateOrUpdateCustomObjectInstanceRequestCustomAttributes0 returns the union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties as a CreateOrUpdateCustomObjectInstanceRequestCustomAttributes0
+func (t CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) AsCreateOrUpdateCustomObjectInstanceRequestCustomAttributes0() (CreateOrUpdateCustomObjectInstanceRequestCustomAttributes0, error) {
+	var body CreateOrUpdateCustomObjectInstanceRequestCustomAttributes0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateOrUpdateCustomObjectInstanceRequestCustomAttributes0 overwrites any union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties as the provided CreateOrUpdateCustomObjectInstanceRequestCustomAttributes0
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) FromCreateOrUpdateCustomObjectInstanceRequestCustomAttributes0(v CreateOrUpdateCustomObjectInstanceRequestCustomAttributes0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateOrUpdateCustomObjectInstanceRequestCustomAttributes0 performs a merge with any union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties, using the provided CreateOrUpdateCustomObjectInstanceRequestCustomAttributes0
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) MergeCreateOrUpdateCustomObjectInstanceRequestCustomAttributes0(v CreateOrUpdateCustomObjectInstanceRequestCustomAttributes0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateOrUpdateCustomObjectInstanceRequestCustomAttributes1 returns the union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties as a CreateOrUpdateCustomObjectInstanceRequestCustomAttributes1
+func (t CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) AsCreateOrUpdateCustomObjectInstanceRequestCustomAttributes1() (CreateOrUpdateCustomObjectInstanceRequestCustomAttributes1, error) {
+	var body CreateOrUpdateCustomObjectInstanceRequestCustomAttributes1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateOrUpdateCustomObjectInstanceRequestCustomAttributes1 overwrites any union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties as the provided CreateOrUpdateCustomObjectInstanceRequestCustomAttributes1
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) FromCreateOrUpdateCustomObjectInstanceRequestCustomAttributes1(v CreateOrUpdateCustomObjectInstanceRequestCustomAttributes1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateOrUpdateCustomObjectInstanceRequestCustomAttributes1 performs a merge with any union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties, using the provided CreateOrUpdateCustomObjectInstanceRequestCustomAttributes1
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) MergeCreateOrUpdateCustomObjectInstanceRequestCustomAttributes1(v CreateOrUpdateCustomObjectInstanceRequestCustomAttributes1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateOrUpdateCustomObjectInstanceRequestCustomAttributes2 returns the union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties as a CreateOrUpdateCustomObjectInstanceRequestCustomAttributes2
+func (t CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) AsCreateOrUpdateCustomObjectInstanceRequestCustomAttributes2() (CreateOrUpdateCustomObjectInstanceRequestCustomAttributes2, error) {
+	var body CreateOrUpdateCustomObjectInstanceRequestCustomAttributes2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateOrUpdateCustomObjectInstanceRequestCustomAttributes2 overwrites any union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties as the provided CreateOrUpdateCustomObjectInstanceRequestCustomAttributes2
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) FromCreateOrUpdateCustomObjectInstanceRequestCustomAttributes2(v CreateOrUpdateCustomObjectInstanceRequestCustomAttributes2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateOrUpdateCustomObjectInstanceRequestCustomAttributes2 performs a merge with any union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties, using the provided CreateOrUpdateCustomObjectInstanceRequestCustomAttributes2
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) MergeCreateOrUpdateCustomObjectInstanceRequestCustomAttributes2(v CreateOrUpdateCustomObjectInstanceRequestCustomAttributes2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateOrUpdateCustomObjectInstanceRequestCustomAttributes3 returns the union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties as a CreateOrUpdateCustomObjectInstanceRequestCustomAttributes3
+func (t CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) AsCreateOrUpdateCustomObjectInstanceRequestCustomAttributes3() (CreateOrUpdateCustomObjectInstanceRequestCustomAttributes3, error) {
+	var body CreateOrUpdateCustomObjectInstanceRequestCustomAttributes3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateOrUpdateCustomObjectInstanceRequestCustomAttributes3 overwrites any union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties as the provided CreateOrUpdateCustomObjectInstanceRequestCustomAttributes3
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) FromCreateOrUpdateCustomObjectInstanceRequestCustomAttributes3(v CreateOrUpdateCustomObjectInstanceRequestCustomAttributes3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateOrUpdateCustomObjectInstanceRequestCustomAttributes3 performs a merge with any union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties, using the provided CreateOrUpdateCustomObjectInstanceRequestCustomAttributes3
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) MergeCreateOrUpdateCustomObjectInstanceRequestCustomAttributes3(v CreateOrUpdateCustomObjectInstanceRequestCustomAttributes3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateOrUpdateCustomObjectInstanceRequestCustomAttributes4 returns the union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties as a CreateOrUpdateCustomObjectInstanceRequestCustomAttributes4
+func (t CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) AsCreateOrUpdateCustomObjectInstanceRequestCustomAttributes4() (CreateOrUpdateCustomObjectInstanceRequestCustomAttributes4, error) {
+	var body CreateOrUpdateCustomObjectInstanceRequestCustomAttributes4
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateOrUpdateCustomObjectInstanceRequestCustomAttributes4 overwrites any union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties as the provided CreateOrUpdateCustomObjectInstanceRequestCustomAttributes4
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) FromCreateOrUpdateCustomObjectInstanceRequestCustomAttributes4(v CreateOrUpdateCustomObjectInstanceRequestCustomAttributes4) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateOrUpdateCustomObjectInstanceRequestCustomAttributes4 performs a merge with any union data inside the CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties, using the provided CreateOrUpdateCustomObjectInstanceRequestCustomAttributes4
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) MergeCreateOrUpdateCustomObjectInstanceRequestCustomAttributes4(v CreateOrUpdateCustomObjectInstanceRequestCustomAttributes4) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsCreateTicketRequestContacts0 returns the union data inside the CreateTicketRequest_Contacts_Item as a CreateTicketRequestContacts0
 func (t CreateTicketRequest_Contacts_Item) AsCreateTicketRequestContacts0() (CreateTicketRequestContacts0, error) {
 	var body CreateTicketRequestContacts0
@@ -10535,6 +10931,94 @@ func (t *RetrieveACompanyById200JSONResponseBody) UnmarshalJSON(b []byte) error 
 	return err
 }
 
+// AsCustomObjectInstancesPaginatedList returns the union data inside the ListCustomObjectInstances200JSONResponseBody as a CustomObjectInstancesPaginatedList
+func (t ListCustomObjectInstances200JSONResponseBody) AsCustomObjectInstancesPaginatedList() (CustomObjectInstancesPaginatedList, error) {
+	var body CustomObjectInstancesPaginatedList
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCustomObjectInstancesPaginatedList overwrites any union data inside the ListCustomObjectInstances200JSONResponseBody as the provided CustomObjectInstancesPaginatedList
+func (t *ListCustomObjectInstances200JSONResponseBody) FromCustomObjectInstancesPaginatedList(v CustomObjectInstancesPaginatedList) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCustomObjectInstancesPaginatedList performs a merge with any union data inside the ListCustomObjectInstances200JSONResponseBody, using the provided CustomObjectInstancesPaginatedList
+func (t *ListCustomObjectInstances200JSONResponseBody) MergeCustomObjectInstancesPaginatedList(v CustomObjectInstancesPaginatedList) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCustomObjectInstance returns the union data inside the ListCustomObjectInstances200JSONResponseBody as a CustomObjectInstance
+func (t ListCustomObjectInstances200JSONResponseBody) AsCustomObjectInstance() (CustomObjectInstance, error) {
+	var body CustomObjectInstance
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCustomObjectInstance overwrites any union data inside the ListCustomObjectInstances200JSONResponseBody as the provided CustomObjectInstance
+func (t *ListCustomObjectInstances200JSONResponseBody) FromCustomObjectInstance(v CustomObjectInstance) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCustomObjectInstance performs a merge with any union data inside the ListCustomObjectInstances200JSONResponseBody, using the provided CustomObjectInstance
+func (t *ListCustomObjectInstances200JSONResponseBody) MergeCustomObjectInstance(v CustomObjectInstance) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCustomObjectInstanceNotFound returns the union data inside the ListCustomObjectInstances200JSONResponseBody as a CustomObjectInstanceNotFound
+func (t ListCustomObjectInstances200JSONResponseBody) AsCustomObjectInstanceNotFound() (CustomObjectInstanceNotFound, error) {
+	var body CustomObjectInstanceNotFound
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCustomObjectInstanceNotFound overwrites any union data inside the ListCustomObjectInstances200JSONResponseBody as the provided CustomObjectInstanceNotFound
+func (t *ListCustomObjectInstances200JSONResponseBody) FromCustomObjectInstanceNotFound(v CustomObjectInstanceNotFound) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCustomObjectInstanceNotFound performs a merge with any union data inside the ListCustomObjectInstances200JSONResponseBody, using the provided CustomObjectInstanceNotFound
+func (t *ListCustomObjectInstances200JSONResponseBody) MergeCustomObjectInstanceNotFound(v CustomObjectInstanceNotFound) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t ListCustomObjectInstances200JSONResponseBody) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *ListCustomObjectInstances200JSONResponseBody) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsCustomObjectInstance returns the union data inside the GetCustomObjectInstancesById200JSONResponseBody as a CustomObjectInstance
 func (t GetCustomObjectInstancesById200JSONResponseBody) AsCustomObjectInstance() (CustomObjectInstance, error) {
 	var body CustomObjectInstance
@@ -11387,12 +11871,16 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of all audiences for the workspace.
 	//
+	// Requires the `read_audiences` or `read_write_audiences` OAuth scope.
+	//
 	// Corresponds with GET /audiences (the `ListAudiences` operationId).
 	ListAudiences(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateAudienceWithBody Create an audience
 	//
 	// You can create a new audience by making a POST request to `https://api.intercom.io/audiences`.
+	//
+	// Requires the `read_write_audiences` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11403,6 +11891,8 @@ type ClientInterface interface {
 	//
 	// You can create a new audience by making a POST request to `https://api.intercom.io/audiences`.
 	//
+	// Requires the `read_write_audiences` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /audiences (the `CreateAudience` operationId).
@@ -11412,6 +11902,10 @@ type ClientInterface interface {
 	//
 	// You can delete a single audience by making a DELETE request to `https://api.intercom.io/audiences/{id}`.
 	//
+	// An audience that is still used by other objects, such as a workflow, cannot be deleted.
+	//
+	// Requires the `read_write_audiences` OAuth scope.
+	//
 	// Corresponds with DELETE /audiences/{id} (the `DeleteAudience` operationId).
 	DeleteAudience(ctx context.Context, id string, params *DeleteAudienceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -11419,12 +11913,18 @@ type ClientInterface interface {
 	//
 	// You can fetch the details of a single audience by making a GET request to `https://api.intercom.io/audiences/{id}`.
 	//
+	// Requires the `read_audiences` or `read_write_audiences` OAuth scope.
+	//
 	// Corresponds with GET /audiences/{id} (the `RetrieveAudience` operationId).
 	RetrieveAudience(ctx context.Context, id string, params *RetrieveAudienceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateAudienceWithBody Update an audience
 	//
 	// You can update the details of a single audience by making a PUT request to `https://api.intercom.io/audiences/{id}`.
+	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
+	// Requires the `read_write_audiences` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -11434,6 +11934,10 @@ type ClientInterface interface {
 	// UpdateAudience Update an audience
 	//
 	// You can update the details of a single audience by making a PUT request to `https://api.intercom.io/audiences/{id}`.
+	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
+	// Requires the `read_write_audiences` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -12858,12 +13362,16 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of all content snippets for a workspace.
 	//
+	// Requires the `read_content_snippets` or `read_write_content_snippets` OAuth scope.
+	//
 	// Corresponds with GET /content_snippets (the `ListContentSnippets` operationId).
 	ListContentSnippets(ctx context.Context, params *ListContentSnippetsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateContentSnippetWithBody Create a content snippet
 	//
 	// You can create a new content snippet.
+	//
+	// Requires the `read_write_content_snippets` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -12873,6 +13381,8 @@ type ClientInterface interface {
 	// CreateContentSnippet Create a content snippet
 	//
 	// You can create a new content snippet.
+	//
+	// Requires the `read_write_content_snippets` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -12926,6 +13436,8 @@ type ClientInterface interface {
 	//
 	// You can delete a single content snippet by its id.
 	//
+	// Requires the `read_write_content_snippets` OAuth scope.
+	//
 	// Corresponds with DELETE /content_snippets/{id} (the `DeleteContentSnippet` operationId).
 	DeleteContentSnippet(ctx context.Context, id string, params *DeleteContentSnippetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -12933,12 +13445,16 @@ type ClientInterface interface {
 	//
 	// You can fetch a single content snippet by its id.
 	//
+	// Requires the `read_content_snippets` or `read_write_content_snippets` OAuth scope.
+	//
 	// Corresponds with GET /content_snippets/{id} (the `GetContentSnippet` operationId).
 	GetContentSnippet(ctx context.Context, id string, params *GetContentSnippetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateContentSnippetWithBody Update a content snippet
 	//
 	// You can update an existing content snippet.
+	//
+	// Requires the `read_write_content_snippets` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -12948,6 +13464,8 @@ type ClientInterface interface {
 	// UpdateContentSnippet Update a content snippet
 	//
 	// You can update an existing content snippet.
+	//
+	// Requires the `read_write_content_snippets` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -13693,12 +14211,14 @@ type ClientInterface interface {
 	// Corresponds with GET /conversations/{id}/side_conversations (the `ListSideConversations` operationId).
 	ListSideConversations(ctx context.Context, id string, params *ListSideConversationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// DeleteCustomObjectInstancesById Delete a Custom Object Instance by External ID
+	// DeleteCustomObjectInstancesByExternalId Delete a Custom Object Instance by External ID
 	//
 	// Delete a single Custom Object instance by external_id.
 	//
-	// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier} (the `DeleteCustomObjectInstancesById` operationId).
-	DeleteCustomObjectInstancesById(ctx context.Context, customObjectTypeIdentifier string, params *DeleteCustomObjectInstancesByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// Requires the `read_write_custom_object_instances` OAuth scope.
+	//
+	// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier} (the `DeleteCustomObjectInstancesByExternalId` operationId).
+	DeleteCustomObjectInstancesByExternalId(ctx context.Context, customObjectTypeIdentifier string, params *DeleteCustomObjectInstancesByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListCustomObjectInstances List Custom Object Instances
 	//
@@ -13707,14 +14227,18 @@ type ClientInterface interface {
 	// - **`references_contact_id`** — returns instances associated with the given contact.
 	// - **`references_conversation_id`** — returns instances associated with the given conversation.
 	//
-	// When **`external_id`** is provided, returns a single matching instance (not a list).
+	// When **`external_id`** is provided, returns a single matching instance (not a list). If no instance matches, the response is still `200`, with the same body the single-instance endpoint returns for a miss.
+	//
+	// Requires the `read_conversations`, `read_users_companies`, `read_write_custom_object_instances` or `read_write_users` OAuth scope.
 	//
 	// Corresponds with GET /custom_object_instances/{custom_object_type_identifier} (the `ListCustomObjectInstances` operationId).
 	ListCustomObjectInstances(ctx context.Context, customObjectTypeIdentifier string, params *ListCustomObjectInstancesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateCustomObjectInstancesWithBody Create or Update a Custom Object Instance
 	//
-	// Create or update a custom object instance.
+	// Create or update a custom object instance
+	//
+	// Requires the `read_write_custom_object_instances` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -13723,23 +14247,29 @@ type ClientInterface interface {
 
 	// CreateCustomObjectInstances Create or Update a Custom Object Instance
 	//
-	// Create or update a custom object instance.
+	// Create or update a custom object instance
+	//
+	// Requires the `read_write_custom_object_instances` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /custom_object_instances/{custom_object_type_identifier} (the `CreateCustomObjectInstances` operationId).
 	CreateCustomObjectInstances(ctx context.Context, customObjectTypeIdentifier string, params *CreateCustomObjectInstancesParams, body CreateCustomObjectInstancesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// DeleteCustomObjectInstancesByExternalId Delete a Custom Object Instance by ID
+	// DeleteCustomObjectInstancesById Delete a Custom Object Instance by ID
 	//
 	// Delete a single Custom Object instance using the Intercom defined id.
 	//
-	// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier}/{custom_object_instance_id} (the `DeleteCustomObjectInstancesByExternalId` operationId).
-	DeleteCustomObjectInstancesByExternalId(ctx context.Context, customObjectTypeIdentifier string, customObjectInstanceId string, params *DeleteCustomObjectInstancesByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// Requires the `read_write_custom_object_instances` OAuth scope.
+	//
+	// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier}/{custom_object_instance_id} (the `DeleteCustomObjectInstancesById` operationId).
+	DeleteCustomObjectInstancesById(ctx context.Context, customObjectTypeIdentifier string, customObjectInstanceId string, params *DeleteCustomObjectInstancesByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetCustomObjectInstancesById Get Custom Object Instance by ID
 	//
 	// Fetch a Custom Object Instance by id.
+	//
+	// Requires the `read_conversations`, `read_users_companies`, `read_write_custom_object_instances` or `read_write_users` OAuth scope.
 	//
 	// Corresponds with GET /custom_object_instances/{custom_object_type_identifier}/{custom_object_instance_id} (the `GetCustomObjectInstancesById` operationId).
 	GetCustomObjectInstancesById(ctx context.Context, customObjectTypeIdentifier string, customObjectInstanceId string, params *GetCustomObjectInstancesByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -13968,14 +14498,18 @@ type ClientInterface interface {
 
 	// ListDynamicContents List all dynamic content
 	//
-	// You can fetch a list of all dynamic content for a workspace, most recently updated first. Requires the `read_dynamic_content` scope.
+	// You can fetch a list of all dynamic content for a workspace, most recently updated first.
+	//
+	// Requires the `read_dynamic_content` or `read_write_dynamic_content` OAuth scope.
 	//
 	// Corresponds with GET /dynamic_contents (the `ListDynamicContents` operationId).
 	ListDynamicContents(ctx context.Context, params *ListDynamicContentsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateDynamicContentWithBody Create dynamic content
 	//
-	// You can create dynamic content. Requires the `read_write_dynamic_content` scope.
+	// You can create dynamic content.
+	//
+	// Requires the `read_write_dynamic_content` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -13984,7 +14518,9 @@ type ClientInterface interface {
 
 	// CreateDynamicContent Create dynamic content
 	//
-	// You can create dynamic content. Requires the `read_write_dynamic_content` scope.
+	// You can create dynamic content.
+	//
+	// Requires the `read_write_dynamic_content` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -13993,21 +14529,29 @@ type ClientInterface interface {
 
 	// DeleteDynamicContent Delete dynamic content
 	//
-	// You can delete a single dynamic content by its id. Dynamic content that is still used in an article can't be deleted. Requires the `read_write_dynamic_content` scope.
+	// You can delete a single dynamic content by its id. Dynamic content that is still used in an article can't be deleted.
+	//
+	// Requires the `read_write_dynamic_content` OAuth scope.
 	//
 	// Corresponds with DELETE /dynamic_contents/{id} (the `DeleteDynamicContent` operationId).
 	DeleteDynamicContent(ctx context.Context, id string, params *DeleteDynamicContentParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetDynamicContent Retrieve dynamic content
 	//
-	// You can fetch a single dynamic content by its id. Requires the `read_dynamic_content` scope.
+	// You can fetch a single dynamic content by its id.
+	//
+	// Requires the `read_dynamic_content` or `read_write_dynamic_content` OAuth scope.
 	//
 	// Corresponds with GET /dynamic_contents/{id} (the `GetDynamicContent` operationId).
 	GetDynamicContent(ctx context.Context, id string, params *GetDynamicContentParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateDynamicContentWithBody Update dynamic content
 	//
-	// You can update existing dynamic content. Only the fields you provide are changed. Requires the `read_write_dynamic_content` scope.
+	// You can update existing dynamic content. Only the fields you provide are changed.
+	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
+	// Requires the `read_write_dynamic_content` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -14016,7 +14560,11 @@ type ClientInterface interface {
 
 	// UpdateDynamicContent Update dynamic content
 	//
-	// You can update existing dynamic content. Only the fields you provide are changed. Requires the `read_write_dynamic_content` scope.
+	// You can update existing dynamic content. Only the fields you provide are changed.
+	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
+	// Requires the `read_write_dynamic_content` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -14672,12 +15220,16 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of all folders for organizing content by making a GET request to `https://api.intercom.io/folders`.
 	//
+	// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+	//
 	// Corresponds with GET /folders (the `ListFolders` operationId).
 	ListFolders(ctx context.Context, params *ListFoldersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateFolderWithBody Create a folder
 	//
 	// You can create a new folder for organizing content by making a POST request to `https://api.intercom.io/folders`.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -14688,6 +15240,8 @@ type ClientInterface interface {
 	//
 	// You can create a new folder for organizing content by making a POST request to `https://api.intercom.io/folders`.
 	//
+	// Requires the `read_write_articles_scope` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /folders (the `CreateFolder` operationId).
@@ -14697,6 +15251,8 @@ type ClientInterface interface {
 	//
 	// You can delete a folder (if it contains no content) by making a DELETE request to `https://api.intercom.io/folders/<id>`.
 	//
+	// Requires the `read_write_articles_scope` OAuth scope.
+	//
 	// Corresponds with DELETE /folders/{id} (the `DeleteFolder` operationId).
 	DeleteFolder(ctx context.Context, id int, params *DeleteFolderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -14704,12 +15260,18 @@ type ClientInterface interface {
 	//
 	// You can fetch the details of a single folder by making a GET request to `https://api.intercom.io/folders/<id>`.
 	//
+	// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+	//
 	// Corresponds with GET /folders/{id} (the `RetrieveFolder` operationId).
 	RetrieveFolder(ctx context.Context, id int, params *RetrieveFolderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateFolderWithBody Update a folder
 	//
 	// You can update a folder by making a PUT request to `https://api.intercom.io/folders/<id>`.
+	//
+	// Fields you leave out keep their current values. Send `parent_folder_id` as `null` to move the folder to the top level. Folder names longer than 191 characters are truncated.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -14719,6 +15281,10 @@ type ClientInterface interface {
 	// UpdateFolder Update a folder
 	//
 	// You can update a folder by making a PUT request to `https://api.intercom.io/folders/<id>`.
+	//
+	// Fields you leave out keep their current values. Send `parent_folder_id` as `null` to move the folder to the top level. Folder names longer than 191 characters are truncated.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -14869,12 +15435,16 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of all internal articles by making a GET request to `https://api.intercom.io/internal_articles`.
 	//
+	// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+	//
 	// Corresponds with GET /internal_articles (the `ListInternalArticles` operationId).
 	ListInternalArticles(ctx context.Context, params *ListInternalArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateInternalArticleWithBody Create an internal article
 	//
 	// You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -14885,6 +15455,8 @@ type ClientInterface interface {
 	//
 	// You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
 	//
+	// Requires the `read_write_articles_scope` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /internal_articles (the `CreateInternalArticle` operationId).
@@ -14894,12 +15466,16 @@ type ClientInterface interface {
 	//
 	// You can search for internal articles by making a GET request to `https://api.intercom.io/internal_articles/search`.
 	//
+	// Requires the `read_write_articles_scope` OAuth scope.
+	//
 	// Corresponds with GET /internal_articles/search (the `SearchInternalArticles` operationId).
 	SearchInternalArticles(ctx context.Context, params *SearchInternalArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteInternalArticle Delete an internal article
 	//
 	// You can delete a single internal article by making a DELETE request to `https://api.intercom.io/internal_articles/<id>`.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Corresponds with DELETE /internal_articles/{internal_article_id} (the `DeleteInternalArticle` operationId).
 	DeleteInternalArticle(ctx context.Context, internalArticleId int, params *DeleteInternalArticleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -14908,12 +15484,18 @@ type ClientInterface interface {
 	//
 	// You can fetch the details of a single internal article by making a GET request to `https://api.intercom.io/internal_articles/<id>`.
 	//
+	// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+	//
 	// Corresponds with GET /internal_articles/{internal_article_id} (the `RetrieveInternalArticle` operationId).
 	RetrieveInternalArticle(ctx context.Context, internalArticleId int, params *RetrieveInternalArticleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateInternalArticleWithBody Update an internal article
 	//
 	// You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
+	//
+	// Fields you leave out keep their current values.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -14923,6 +15505,10 @@ type ClientInterface interface {
 	// UpdateInternalArticle Update an internal article
 	//
 	// You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
+	//
+	// Fields you leave out keep their current values.
+	//
+	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -15149,14 +15735,20 @@ type ClientInterface interface {
 
 	// ListNewsItems List all news items
 	//
-	// You can fetch a list of all news items.
+	// You can fetch a list of all news items
+	//
+	// News items are returned newest first, by creation date.
+	//
+	// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 	//
 	// Corresponds with GET /news/news_items (the `ListNewsItems` operationId).
 	ListNewsItems(ctx context.Context, params *ListNewsItemsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateNewsItemWithBody Create a news item
 	//
-	// You can create a news item.
+	// You can create a news item
+	//
+	// Requires the `read_write_news_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -15165,7 +15757,9 @@ type ClientInterface interface {
 
 	// CreateNewsItem Create a news item
 	//
-	// You can create a news item.
+	// You can create a news item
+	//
+	// Requires the `read_write_news_scope` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -15176,6 +15770,8 @@ type ClientInterface interface {
 	//
 	// You can delete a single news item.
 	//
+	// Requires the `read_write_news_scope` OAuth scope.
+	//
 	// Corresponds with DELETE /news/news_items/{news_item_id} (the `DeleteNewsItem` operationId).
 	DeleteNewsItem(ctx context.Context, newsItemId int, params *DeleteNewsItemParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -15183,10 +15779,20 @@ type ClientInterface interface {
 	//
 	// You can fetch the details of a single news item.
 	//
+	// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
+	//
 	// Corresponds with GET /news/news_items/{news_item_id} (the `RetrieveNewsItem` operationId).
 	RetrieveNewsItem(ctx context.Context, newsItemId int, params *RetrieveNewsItemParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateNewsItemWithBody Update a news item
+	//
+	// You can update a news item.
+	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
+	// `title`, `body`, `state`, `deliver_silently` and `cover_image_url` keep their current values when you leave them out. `labels` and `newsfeed_assignments` do not: leaving either out clears it, so send the full list on every update. Leaving `reactions` out disables reactions, although the list in the response does not change.
+	//
+	// Requires the `read_write_news_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -15195,6 +15801,14 @@ type ClientInterface interface {
 
 	// UpdateNewsItem Update a news item
 	//
+	// You can update a news item.
+	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
+	// `title`, `body`, `state`, `deliver_silently` and `cover_image_url` keep their current values when you leave them out. `labels` and `newsfeed_assignments` do not: leaving either out clears it, so send the full list on every update. Leaving `reactions` out disables reactions, although the list in the response does not change.
+	//
+	// Requires the `read_write_news_scope` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with PUT /news/news_items/{news_item_id} (the `UpdateNewsItem` operationId).
@@ -15202,21 +15816,31 @@ type ClientInterface interface {
 
 	// ListNewsfeeds List all newsfeeds
 	//
-	// You can fetch a list of all newsfeeds.
+	// You can fetch a list of all newsfeeds
+	//
+	// Newsfeeds are returned newest first, by creation date.
+	//
+	// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 	//
 	// Corresponds with GET /news/newsfeeds (the `ListNewsfeeds` operationId).
 	ListNewsfeeds(ctx context.Context, params *ListNewsfeedsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RetrieveNewsfeed Retrieve a newsfeed
 	//
-	// You can fetch the details of a single newsfeed.
+	// You can fetch the details of a single newsfeed
+	//
+	// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 	//
 	// Corresponds with GET /news/newsfeeds/{newsfeed_id} (the `RetrieveNewsfeed` operationId).
 	RetrieveNewsfeed(ctx context.Context, newsfeedId string, params *RetrieveNewsfeedParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListLiveNewsfeedItems List all live newsfeed items
 	//
-	// You can fetch a list of all news items that are live on a given newsfeed.
+	// You can fetch a list of all news items that are live on a given newsfeed
+	//
+	// News items are returned most recently published first.
+	//
+	// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 	//
 	// Corresponds with GET /news/newsfeeds/{newsfeed_id}/items (the `ListLiveNewsfeedItems` operationId).
 	ListLiveNewsfeedItems(ctx context.Context, newsfeedId string, params *ListLiveNewsfeedItemsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16892,6 +17516,8 @@ func (c *Client) PublishArticleDraft(ctx context.Context, id int, params *Publis
 //
 // You can fetch a list of all audiences for the workspace.
 //
+// Requires the `read_audiences` or `read_write_audiences` OAuth scope.
+//
 // Corresponds with GET /audiences (the `ListAudiences` operationId).
 func (c *Client) ListAudiences(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListAudiencesRequest(c.Server, params)
@@ -16908,6 +17534,8 @@ func (c *Client) ListAudiences(ctx context.Context, params *ListAudiencesParams,
 // CreateAudienceWithBody Create an audience
 //
 // You can create a new audience by making a POST request to `https://api.intercom.io/audiences`.
+//
+// Requires the `read_write_audiences` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -16928,6 +17556,8 @@ func (c *Client) CreateAudienceWithBody(ctx context.Context, params *CreateAudie
 //
 // You can create a new audience by making a POST request to `https://api.intercom.io/audiences`.
 //
+// Requires the `read_write_audiences` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /audiences (the `CreateAudience` operationId).
@@ -16947,6 +17577,10 @@ func (c *Client) CreateAudience(ctx context.Context, params *CreateAudienceParam
 //
 // You can delete a single audience by making a DELETE request to `https://api.intercom.io/audiences/{id}`.
 //
+// An audience that is still used by other objects, such as a workflow, cannot be deleted.
+//
+// Requires the `read_write_audiences` OAuth scope.
+//
 // Corresponds with DELETE /audiences/{id} (the `DeleteAudience` operationId).
 func (c *Client) DeleteAudience(ctx context.Context, id string, params *DeleteAudienceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteAudienceRequest(c.Server, id, params)
@@ -16964,6 +17598,8 @@ func (c *Client) DeleteAudience(ctx context.Context, id string, params *DeleteAu
 //
 // You can fetch the details of a single audience by making a GET request to `https://api.intercom.io/audiences/{id}`.
 //
+// Requires the `read_audiences` or `read_write_audiences` OAuth scope.
+//
 // Corresponds with GET /audiences/{id} (the `RetrieveAudience` operationId).
 func (c *Client) RetrieveAudience(ctx context.Context, id string, params *RetrieveAudienceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRetrieveAudienceRequest(c.Server, id, params)
@@ -16980,6 +17616,10 @@ func (c *Client) RetrieveAudience(ctx context.Context, id string, params *Retrie
 // UpdateAudienceWithBody Update an audience
 //
 // You can update the details of a single audience by making a PUT request to `https://api.intercom.io/audiences/{id}`.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// Requires the `read_write_audiences` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -16999,6 +17639,10 @@ func (c *Client) UpdateAudienceWithBody(ctx context.Context, id string, params *
 // UpdateAudience Update an audience
 //
 // You can update the details of a single audience by making a PUT request to `https://api.intercom.io/audiences/{id}`.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// Requires the `read_write_audiences` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -19221,6 +19865,8 @@ func (c *Client) SearchContent(ctx context.Context, params *SearchContentParams,
 //
 // You can fetch a list of all content snippets for a workspace.
 //
+// Requires the `read_content_snippets` or `read_write_content_snippets` OAuth scope.
+//
 // Corresponds with GET /content_snippets (the `ListContentSnippets` operationId).
 func (c *Client) ListContentSnippets(ctx context.Context, params *ListContentSnippetsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListContentSnippetsRequest(c.Server, params)
@@ -19237,6 +19883,8 @@ func (c *Client) ListContentSnippets(ctx context.Context, params *ListContentSni
 // CreateContentSnippetWithBody Create a content snippet
 //
 // You can create a new content snippet.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -19256,6 +19904,8 @@ func (c *Client) CreateContentSnippetWithBody(ctx context.Context, params *Creat
 // CreateContentSnippet Create a content snippet
 //
 // You can create a new content snippet.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -19349,6 +19999,8 @@ func (c *Client) DetachTagFromContentSnippet(ctx context.Context, contentSnippet
 //
 // You can delete a single content snippet by its id.
 //
+// Requires the `read_write_content_snippets` OAuth scope.
+//
 // Corresponds with DELETE /content_snippets/{id} (the `DeleteContentSnippet` operationId).
 func (c *Client) DeleteContentSnippet(ctx context.Context, id string, params *DeleteContentSnippetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteContentSnippetRequest(c.Server, id, params)
@@ -19366,653 +20018,11 @@ func (c *Client) DeleteContentSnippet(ctx context.Context, id string, params *De
 //
 // You can fetch a single content snippet by its id.
 //
+// Requires the `read_content_snippets` or `read_write_content_snippets` OAuth scope.
+//
 // Corresponds with GET /content_snippets/{id} (the `GetContentSnippet` operationId).
 func (c *Client) GetContentSnippet(ctx context.Context, id string, params *GetContentSnippetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetContentSnippetRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateContentSnippetWithBody Update a content snippet
-//
-// You can update an existing content snippet.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /content_snippets/{id} (the `UpdateContentSnippet` operationId).
-func (c *Client) UpdateContentSnippetWithBody(ctx context.Context, id string, params *UpdateContentSnippetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateContentSnippetRequestWithBody(c.Server, id, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateContentSnippet Update a content snippet
-//
-// You can update an existing content snippet.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /content_snippets/{id} (the `UpdateContentSnippet` operationId).
-func (c *Client) UpdateContentSnippet(ctx context.Context, id string, params *UpdateContentSnippetParams, body UpdateContentSnippetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateContentSnippetRequest(c.Server, id, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListConversations List all conversations
-//
-// You can fetch a list of all conversations.
-//
-// You can optionally request the result page size and the cursor to start after to fetch the result.
-// {% admonition type="warning" name="Pagination" %}
-//
-//	You can use pagination to limit the number of results returned. The default is `20` results per page.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-//
-// Corresponds with GET /conversations (the `ListConversations` operationId).
-func (c *Client) ListConversations(ctx context.Context, params *ListConversationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListConversationsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateConversationWithBody Creates a conversation
-//
-// You can create a conversation that has been initiated by a contact (ie. user or lead).
-// The conversation can be an in-app message only.
-//
-// {% admonition type="info" name="Sending for visitors" %}
-// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
-// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
-// {% /admonition %}
-//
-// This will return the Message model that has been created.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations (the `CreateConversation` operationId).
-func (c *Client) CreateConversationWithBody(ctx context.Context, params *CreateConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateConversationRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateConversation Creates a conversation
-//
-// You can create a conversation that has been initiated by a contact (ie. user or lead).
-// The conversation can be an in-app message only.
-//
-// {% admonition type="info" name="Sending for visitors" %}
-// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
-// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
-// {% /admonition %}
-//
-// This will return the Message model that has been created.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations (the `CreateConversation` operationId).
-func (c *Client) CreateConversation(ctx context.Context, params *CreateConversationParams, body CreateConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateConversationRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListConversationAttributes List all conversation attributes
-//
-// You can fetch a list of all conversation attributes for your workspace.
-//
-// Corresponds with GET /conversations/attributes (the `ListConversationAttributes` operationId).
-func (c *Client) ListConversationAttributes(ctx context.Context, params *ListConversationAttributesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListConversationAttributesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateConversationAttributeWithBody Create a conversation attribute
-//
-// Create a new conversation attribute.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations/attributes (the `CreateConversationAttribute` operationId).
-func (c *Client) CreateConversationAttributeWithBody(ctx context.Context, params *CreateConversationAttributeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateConversationAttributeRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateConversationAttribute Create a conversation attribute
-//
-// Create a new conversation attribute.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations/attributes (the `CreateConversationAttribute` operationId).
-func (c *Client) CreateConversationAttribute(ctx context.Context, params *CreateConversationAttributeParams, body CreateConversationAttributeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateConversationAttributeRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteConversationAttribute Delete (archive) a conversation attribute
-//
-// Archive a conversation attribute (soft delete). The attribute is marked as archived but not permanently deleted.
-//
-// Corresponds with DELETE /conversations/attributes/{id} (the `DeleteConversationAttribute` operationId).
-func (c *Client) DeleteConversationAttribute(ctx context.Context, id int, params *DeleteConversationAttributeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteConversationAttributeRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// GetConversationAttribute Get a conversation attribute
-//
-// Retrieve a single conversation attribute by ID.
-//
-// Corresponds with GET /conversations/attributes/{id} (the `GetConversationAttribute` operationId).
-func (c *Client) GetConversationAttribute(ctx context.Context, id int, params *GetConversationAttributeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetConversationAttributeRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateConversationAttributeWithBody Update a conversation attribute
-//
-// Update an existing conversation attribute.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /conversations/attributes/{id} (the `UpdateConversationAttribute` operationId).
-func (c *Client) UpdateConversationAttributeWithBody(ctx context.Context, id int, params *UpdateConversationAttributeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateConversationAttributeRequestWithBody(c.Server, id, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateConversationAttribute Update a conversation attribute
-//
-// Update an existing conversation attribute.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /conversations/attributes/{id} (the `UpdateConversationAttribute` operationId).
-func (c *Client) UpdateConversationAttribute(ctx context.Context, id int, params *UpdateConversationAttributeParams, body UpdateConversationAttributeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateConversationAttributeRequest(c.Server, id, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateConversationAttributeOptionWithBody Add an option to a list conversation attribute
-//
-// Add a new option to a list-type conversation attribute. Returns the full attribute with the updated options array.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations/attributes/{id}/options (the `CreateConversationAttributeOption` operationId).
-func (c *Client) CreateConversationAttributeOptionWithBody(ctx context.Context, id int, params *CreateConversationAttributeOptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateConversationAttributeOptionRequestWithBody(c.Server, id, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateConversationAttributeOption Add an option to a list conversation attribute
-//
-// Add a new option to a list-type conversation attribute. Returns the full attribute with the updated options array.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations/attributes/{id}/options (the `CreateConversationAttributeOption` operationId).
-func (c *Client) CreateConversationAttributeOption(ctx context.Context, id int, params *CreateConversationAttributeOptionParams, body CreateConversationAttributeOptionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateConversationAttributeOptionRequest(c.Server, id, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteConversationAttributeOption Archive an option on a list conversation attribute
-//
-// Archive a single option on a list-type conversation attribute (soft delete). The option remains in the response with `archived: true`. Returns the full attribute with the updated options array.
-//
-// Corresponds with DELETE /conversations/attributes/{id}/options/{option_id} (the `DeleteConversationAttributeOption` operationId).
-func (c *Client) DeleteConversationAttributeOption(ctx context.Context, id int, optionId string, params *DeleteConversationAttributeOptionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteConversationAttributeOptionRequest(c.Server, id, optionId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateConversationAttributeOptionWithBody Update an option on a list conversation attribute
-//
-// Update the label of a single option on a list-type conversation attribute. Returns the full attribute with the updated options array.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /conversations/attributes/{id}/options/{option_id} (the `UpdateConversationAttributeOption` operationId).
-func (c *Client) UpdateConversationAttributeOptionWithBody(ctx context.Context, id int, optionId string, params *UpdateConversationAttributeOptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateConversationAttributeOptionRequestWithBody(c.Server, id, optionId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateConversationAttributeOption Update an option on a list conversation attribute
-//
-// Update the label of a single option on a list-type conversation attribute. Returns the full attribute with the updated options array.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /conversations/attributes/{id}/options/{option_id} (the `UpdateConversationAttributeOption` operationId).
-func (c *Client) UpdateConversationAttributeOption(ctx context.Context, id int, optionId string, params *UpdateConversationAttributeOptionParams, body UpdateConversationAttributeOptionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateConversationAttributeOptionRequest(c.Server, id, optionId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListDeletedConversationIds List all deleted conversation IDs
-//
-// List all deleted conversation IDs.
-//
-// {% admonition type="warning" name="Pagination" %}
-//
-//	You can use pagination to limit the number of results returned. The default is `20` results per page. You can navigate to next pages using the `page` param.
-//
-// {% /admonition %}
-//
-// Corresponds with GET /conversations/deleted (the `ListDeletedConversationIds` operationId).
-func (c *Client) ListDeletedConversationIds(ctx context.Context, params *ListDeletedConversationIdsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListDeletedConversationIdsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RedactConversationWithBody Redact a conversation part
-//
-// You can redact a conversation part or the source message of a conversation (as seen in the source object).
-//
-// {% admonition type="info" name="Redacting parts and messages" %}
-// If you are redacting a conversation part, it must have a `body`. If you are redacting a source message, it must have been created by a contact. We will return a `conversation_part_not_redactable` error if these criteria are not met.
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations/redact (the `RedactConversation` operationId).
-func (c *Client) RedactConversationWithBody(ctx context.Context, params *RedactConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRedactConversationRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RedactConversation Redact a conversation part
-//
-// You can redact a conversation part or the source message of a conversation (as seen in the source object).
-//
-// {% admonition type="info" name="Redacting parts and messages" %}
-// If you are redacting a conversation part, it must have a `body`. If you are redacting a source message, it must have been created by a contact. We will return a `conversation_part_not_redactable` error if these criteria are not met.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations/redact (the `RedactConversation` operationId).
-func (c *Client) RedactConversation(ctx context.Context, params *RedactConversationParams, body RedactConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRedactConversationRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// SearchConversationsWithBody Search conversations
-//
-// You can search for multiple conversations by the value of their attributes in order to fetch exactly which ones you want.
-//
-// To search for conversations, you need to send a `POST` request to `https://api.intercom.io/conversations/search`.
-//
-// This will accept a query object in the body which will define your filters in order to search for conversations.
-// {% admonition type="warning" name="Optimizing search queries" %}
-//
-//	Search queries can be complex, so optimizing them can help the performance of your search.
-//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-//
-// ### Nesting & Limitations
-//
-// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
-// There are some limitations to the amount of multiple's there can be:
-// - There's a limit of max 2 nested filters
-// - There's a limit of max 15 filters for each AND or OR group
-//
-// ### Accepted Fields
-//
-// Most keys listed in the conversation model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
-// The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
-//
-// | Field                                     | Type                                                                                                                                                   |
-// | :---------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-// | id                                        | String                                                                                                                                                 |
-// | created_at                                | Date (UNIX timestamp)                                                                                                                                  |
-// | updated_at                                | Date (UNIX timestamp)                                                                                                                                  |
-// | source.type                               | String<br>Accepted fields are `conversation`, `email`, `facebook`, `instagram`, `phone_call`, `phone_switch`, `push`, `sms`, `twitter` and `whatsapp`. |
-// | source.id                                 | String                                                                                                                                                 |
-// | source.delivered_as                       | String                                                                                                                                                 |
-// | source.subject                            | String                                                                                                                                                 |
-// | source.body                               | String                                                                                                                                                 |
-// | source.author.id                          | String                                                                                                                                                 |
-// | source.author.type                        | String                                                                                                                                                 |
-// | source.author.name                        | String                                                                                                                                                 |
-// | source.author.email                       | String                                                                                                                                                 |
-// | source.url                                | String                                                                                                                                                 |
-// | contact_ids                               | String                                                                                                                                                 |
-// | teammate_ids                              | String                                                                                                                                                 |
-// | admin_assignee_id                         | Integer                                                                                                                                                |
-// | team_assignee_id                          | Integer                                                                                                                                                |
-// | channel_initiated                         | String                                                                                                                                                 |
-// | open                                      | Boolean                                                                                                                                                |
-// | read                                      | Boolean                                                                                                                                                |
-// | state                                     | String                                                                                                                                                 |
-// | waiting_since                             | Date (UNIX timestamp)                                                                                                                                  |
-// | snoozed_until                             | Date (UNIX timestamp)                                                                                                                                  |
-// | tag_ids                                   | String                                                                                                                                                 |
-// | priority                                  | String                                                                                                                                                 |
-// | statistics.time_to_assignment             | Integer                                                                                                                                                |
-// | statistics.time_to_admin_reply            | Integer                                                                                                                                                |
-// | statistics.time_to_first_close            | Integer                                                                                                                                                |
-// | statistics.time_to_last_close             | Integer                                                                                                                                                |
-// | statistics.median_time_to_reply           | Integer                                                                                                                                                |
-// | statistics.first_contact_reply_at         | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.first_assignment_at            | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.first_admin_reply_at           | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.first_close_at                 | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_assignment_at             | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_assignment_admin_reply_at | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_contact_reply_at          | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_admin_reply_at            | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_close_at                  | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_closed_by_id              | String                                                                                                                                                 |
-// | statistics.count_reopens                  | Integer                                                                                                                                                |
-// | statistics.count_assignments              | Integer                                                                                                                                                |
-// | statistics.count_conversation_parts       | Integer                                                                                                                                                |
-// | conversation_rating.requested_at          | Date (UNIX timestamp)                                                                                                                                  |
-// | conversation_rating.replied_at            | Date (UNIX timestamp)                                                                                                                                  |
-// | conversation_rating.score                 | Integer                                                                                                                                                |
-// | conversation_rating.remark                | String                                                                                                                                                 |
-// | conversation_rating.contact_id            | String                                                                                                                                                 |
-// | conversation_rating.admin_d               | String                                                                                                                                                 |
-// | ai_agent_participated                     | Boolean                                                                                                                                                |
-// | ai_agent.resolution_state                 | String                                                                                                                                                 |
-// | ai_agent.last_answer_type                 | String                                                                                                                                                 |
-// | ai_agent.rating                           | Integer                                                                                                                                                |
-// | ai_agent.rating_remark                    | String                                                                                                                                                 |
-// | ai_agent.source_type                      | String                                                                                                                                                 |
-// | ai_agent.source_title                     | String                                                                                                                                                 |
-//
-// ### Accepted Operators
-//
-// The table below shows the operators you can use to define how you want to search for the value.  The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type  (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates).
-//
-// | Operator | Valid Types                    | Description                                                  |
-// | :------- | :----------------------------- | :----------------------------------------------------------- |
-// | =        | All                            | Equals                                                       |
-// | !=       | All                            | Doesn't Equal                                                |
-// | IN       | All                            | In  Shortcut for `OR` queries  Values most be in Array       |
-// | NIN      | All                            | Not In  Shortcut for `OR !` queries  Values must be in Array |
-// | >        | Integer  Date (UNIX Timestamp) | Greater (or equal) than                                      |
-// | <       | Integer  Date (UNIX Timestamp) | Lower (or equal) than                                        |
-// | ~        | String                         | Contains                                                     |
-// | !~       | String                         | Doesn't Contain                                              |
-// | ^        | String                         | Starts With                                                  |
-// | $        | String                         | Ends With                                                    |
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /conversations/search (the `SearchConversations` operationId).
-func (c *Client) SearchConversationsWithBody(ctx context.Context, params *SearchConversationsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchConversationsRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// SearchConversations Search conversations
-//
-// You can search for multiple conversations by the value of their attributes in order to fetch exactly which ones you want.
-//
-// To search for conversations, you need to send a `POST` request to `https://api.intercom.io/conversations/search`.
-//
-// This will accept a query object in the body which will define your filters in order to search for conversations.
-// {% admonition type="warning" name="Optimizing search queries" %}
-//
-//	Search queries can be complex, so optimizing them can help the performance of your search.
-//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-//
-// ### Nesting & Limitations
-//
-// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
-// There are some limitations to the amount of multiple's there can be:
-// - There's a limit of max 2 nested filters
-// - There's a limit of max 15 filters for each AND or OR group
-//
-// ### Accepted Fields
-//
-// Most keys listed in the conversation model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
-// The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
-//
-// | Field                                     | Type                                                                                                                                                   |
-// | :---------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-// | id                                        | String                                                                                                                                                 |
-// | created_at                                | Date (UNIX timestamp)                                                                                                                                  |
-// | updated_at                                | Date (UNIX timestamp)                                                                                                                                  |
-// | source.type                               | String<br>Accepted fields are `conversation`, `email`, `facebook`, `instagram`, `phone_call`, `phone_switch`, `push`, `sms`, `twitter` and `whatsapp`. |
-// | source.id                                 | String                                                                                                                                                 |
-// | source.delivered_as                       | String                                                                                                                                                 |
-// | source.subject                            | String                                                                                                                                                 |
-// | source.body                               | String                                                                                                                                                 |
-// | source.author.id                          | String                                                                                                                                                 |
-// | source.author.type                        | String                                                                                                                                                 |
-// | source.author.name                        | String                                                                                                                                                 |
-// | source.author.email                       | String                                                                                                                                                 |
-// | source.url                                | String                                                                                                                                                 |
-// | contact_ids                               | String                                                                                                                                                 |
-// | teammate_ids                              | String                                                                                                                                                 |
-// | admin_assignee_id                         | Integer                                                                                                                                                |
-// | team_assignee_id                          | Integer                                                                                                                                                |
-// | channel_initiated                         | String                                                                                                                                                 |
-// | open                                      | Boolean                                                                                                                                                |
-// | read                                      | Boolean                                                                                                                                                |
-// | state                                     | String                                                                                                                                                 |
-// | waiting_since                             | Date (UNIX timestamp)                                                                                                                                  |
-// | snoozed_until                             | Date (UNIX timestamp)                                                                                                                                  |
-// | tag_ids                                   | String                                                                                                                                                 |
-// | priority                                  | String                                                                                                                                                 |
-// | statistics.time_to_assignment             | Integer                                                                                                                                                |
-// | statistics.time_to_admin_reply            | Integer                                                                                                                                                |
-// | statistics.time_to_first_close            | Integer                                                                                                                                                |
-// | statistics.time_to_last_close             | Integer                                                                                                                                                |
-// | statistics.median_time_to_reply           | Integer                                                                                                                                                |
-// | statistics.first_contact_reply_at         | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.first_assignment_at            | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.first_admin_reply_at           | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.first_close_at                 | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_assignment_at             | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_assignment_admin_reply_at | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_contact_reply_at          | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_admin_reply_at            | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_close_at                  | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_closed_by_id              | String                                                                                                                                                 |
-// | statistics.count_reopens                  | Integer                                                                                                                                                |
-// | statistics.count_assignments              | Integer                                                                                                                                                |
-// | statistics.count_conversation_parts       | Integer                                                                                                                                                |
-// | conversation_rating.requested_at          | Date (UNIX timestamp)                                                                                                                                  |
-// | conversation_rating.replied_at            | Date (UNIX timestamp)                                                                                                                                  |
-// | conversation_rating.score                 | Integer                                                                                                                                                |
-// | conversation_rating.remark                | String                                                                                                                                                 |
-// | conversation_rating.contact_id            | String                                                                                                                                                 |
-// | conversation_rating.admin_d               | String                                                                                                                                                 |
-// | ai_agent_participated                     | Boolean                                                                                                                                                |
-// | ai_agent.resolution_state                 | String                                                                                                                                                 |
-// | ai_agent.last_answer_type                 | String                                                                                                                                                 |
-// | ai_agent.rating                           | Integer                                                                                                                                                |
-// | ai_agent.rating_remark                    | String                                                                                                                                                 |
-// | ai_agent.source_type                      | String                                                                                                                                                 |
-// | ai_agent.source_title                     | String                                                                                                                                                 |
-//
-// ### Accepted Operators
-//
-// The table below shows the operators you can use to define how you want to search for the value.  The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type  (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates).
-//
-// | Operator | Valid Types                    | Description                                                  |
-// | :------- | :----------------------------- | :----------------------------------------------------------- |
-// | =        | All                            | Equals                                                       |
-// | !=       | All                            | Doesn't Equal                                                |
-// | IN       | All                            | In  Shortcut for `OR` queries  Values most be in Array       |
-// | NIN      | All                            | Not In  Shortcut for `OR !` queries  Values must be in Array |
-// | >        | Integer  Date (UNIX Timestamp) | Greater (or equal) than                                      |
-// | <       | Integer  Date (UNIX Timestamp) | Lower (or equal) than                                        |
-// | ~        | String                         | Contains                                                     |
-// | !~       | String                         | Doesn't Contain                                              |
-// | ^        | String                         | Starts With                                                  |
-// | $        | String                         | Ends With                                                    |
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /conversations/search (the `SearchConversations` operationId).
-func (c *Client) SearchConversations(ctx context.Context, params *SearchConversationsParams, body SearchConversationsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchConversationsRequest(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}

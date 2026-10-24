@@ -9,9 +9,1280 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/oapi-codegen/runtime"
 )
+
+// GetBody returns the raw response body bytes
+func (r SubmitFinCsatResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r SubmitFinCsatResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SubmitFinCsatResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SubmitFinCsatResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type EscalateFinConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// ConversationId The external ID of the conversation. When you escalate an existing conversation by `conversation_id`, this echoes the ID you sent. When you escalate a `user`, Fin creates an agent conversation for the escalation and generates this ID for it.
+		//
+		// Example: ext-123
+		ConversationId *string `json:"conversation_id,omitempty"`
+
+		// IntercomConversationId The internal Intercom ID of the agent conversation created for the escalation. Returned only when escalating on behalf of a `user`. Fin closes this conversation once the handoff completes; the teammate works in a separate Helpdesk conversation.
+		//
+		// Example: 987654321
+		IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
+
+		// Status The resulting status of the conversation.
+		//
+		// Example: escalated
+		Status *EscalateFinConversation200JSONResponseBodyStatus `json:"status,omitempty"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *struct {
+		// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
+		//
+		// Example: {"conversation_id":"Conversation not found for the given conversation_id"}
+		Errors *map[string]interface{} `json:"errors,omitempty"`
+	}
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r EscalateFinConversationResponse) GetJSON200() *struct {
+	// ConversationId The external ID of the conversation. When you escalate an existing conversation by `conversation_id`, this echoes the ID you sent. When you escalate a `user`, Fin creates an agent conversation for the escalation and generates this ID for it.
+	//
+	// Example: ext-123
+	ConversationId *string `json:"conversation_id,omitempty"`
+
+	// IntercomConversationId The internal Intercom ID of the agent conversation created for the escalation. Returned only when escalating on behalf of a `user`. Fin closes this conversation once the handoff completes; the teammate works in a separate Helpdesk conversation.
+	//
+	// Example: 987654321
+	IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
+
+	// Status The resulting status of the conversation.
+	//
+	// Example: escalated
+	Status *EscalateFinConversation200JSONResponseBodyStatus `json:"status,omitempty"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r EscalateFinConversationResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r EscalateFinConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r EscalateFinConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r EscalateFinConversationResponse) GetJSON422() *struct {
+	// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
+	//
+	// Example: {"conversation_id":"Conversation not found for the given conversation_id"}
+	Errors *map[string]interface{} `json:"errors,omitempty"`
+} {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r EscalateFinConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r EscalateFinConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r EscalateFinConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r EscalateFinConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RunFinProcedureResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// ConversationId The ID of the conversation.
+		//
+		// Example: ext-123
+		ConversationId *string `json:"conversation_id,omitempty"`
+
+		// CreatedAtMs The timestamp the response was created at, with millisecond precision.
+		//
+		// Example: 2025-01-24T10:00:00.123Z
+		CreatedAtMs *time.Time `json:"created_at_ms,omitempty"`
+
+		// Errors Contains error details if any user or conversation attribute updates failed.
+		Errors *FinAgentAttributeErrors `json:"errors,omitempty"`
+
+		// IntercomConversationId The internal Intercom conversation ID, useful for matching this Agent API session to the conversation in Intercom.
+		//
+		// Example: 192837465
+		IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
+
+		// ProcedureId The ID of the procedure that was run.
+		//
+		// Example: 12345
+		ProcedureId *string `json:"procedure_id,omitempty"`
+
+		// Status Fin's status when the request was accepted. Always `thinking`; later statuses arrive as events.
+		//
+		//
+		// Example: thinking
+		Status *RunFinProcedure200JSONResponseBodyStatus `json:"status,omitempty"`
+
+		// UserId The ID of the user.
+		//
+		// Example: user-456
+		UserId *string `json:"user_id,omitempty"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *struct {
+		// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
+		//
+		// Example: {"conversation_id":"Conversation ID is required"}
+		Errors *map[string]interface{} `json:"errors,omitempty"`
+	}
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r RunFinProcedureResponse) GetJSON200() *struct {
+	// ConversationId The ID of the conversation.
+	//
+	// Example: ext-123
+	ConversationId *string `json:"conversation_id,omitempty"`
+
+	// CreatedAtMs The timestamp the response was created at, with millisecond precision.
+	//
+	// Example: 2025-01-24T10:00:00.123Z
+	CreatedAtMs *time.Time `json:"created_at_ms,omitempty"`
+
+	// Errors Contains error details if any user or conversation attribute updates failed.
+	Errors *FinAgentAttributeErrors `json:"errors,omitempty"`
+
+	// IntercomConversationId The internal Intercom conversation ID, useful for matching this Agent API session to the conversation in Intercom.
+	//
+	// Example: 192837465
+	IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
+
+	// ProcedureId The ID of the procedure that was run.
+	//
+	// Example: 12345
+	ProcedureId *string `json:"procedure_id,omitempty"`
+
+	// Status Fin's status when the request was accepted. Always `thinking`; later statuses arrive as events.
+	//
+	//
+	// Example: thinking
+	Status *RunFinProcedure200JSONResponseBodyStatus `json:"status,omitempty"`
+
+	// UserId The ID of the user.
+	//
+	// Example: user-456
+	UserId *string `json:"user_id,omitempty"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r RunFinProcedureResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r RunFinProcedureResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r RunFinProcedureResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r RunFinProcedureResponse) GetJSON422() *struct {
+	// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
+	//
+	// Example: {"conversation_id":"Conversation ID is required"}
+	Errors *map[string]interface{} `json:"errors,omitempty"`
+} {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r RunFinProcedureResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RunFinProcedureResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RunFinProcedureResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RunFinProcedureResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ReplyToFinResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// ConversationId The ID of the conversation.
+		//
+		// Example: ext-123
+		ConversationId *string `json:"conversation_id,omitempty"`
+
+		// CreatedAtMs The timestamp the response was created at, with millisecond precision.
+		//
+		// Example: 2025-01-24T10:00:00.123Z
+		CreatedAtMs *time.Time `json:"created_at_ms,omitempty"`
+
+		// Errors Contains error details if any user or conversation attribute updates failed.
+		Errors *FinAgentAttributeErrors `json:"errors,omitempty"`
+
+		// IntercomConversationId The internal Intercom conversation ID, useful for matching this Agent API session to the conversation in Intercom.
+		//
+		// Example: 192837465
+		IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
+
+		// Status Fin's status when the request was accepted. Always `thinking`; later statuses arrive as events.
+		//
+		//
+		// Example: thinking
+		Status *ReplyToFin200JSONResponseBodyStatus `json:"status,omitempty"`
+
+		// UserId The ID of the user.
+		//
+		// Example: user-456
+		UserId *string `json:"user_id,omitempty"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *struct {
+		// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
+		//
+		// Example: {"conversation_id":"Conversation ID is required"}
+		Errors *map[string]interface{} `json:"errors,omitempty"`
+	}
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ReplyToFinResponse) GetJSON200() *struct {
+	// ConversationId The ID of the conversation.
+	//
+	// Example: ext-123
+	ConversationId *string `json:"conversation_id,omitempty"`
+
+	// CreatedAtMs The timestamp the response was created at, with millisecond precision.
+	//
+	// Example: 2025-01-24T10:00:00.123Z
+	CreatedAtMs *time.Time `json:"created_at_ms,omitempty"`
+
+	// Errors Contains error details if any user or conversation attribute updates failed.
+	Errors *FinAgentAttributeErrors `json:"errors,omitempty"`
+
+	// IntercomConversationId The internal Intercom conversation ID, useful for matching this Agent API session to the conversation in Intercom.
+	//
+	// Example: 192837465
+	IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
+
+	// Status Fin's status when the request was accepted. Always `thinking`; later statuses arrive as events.
+	//
+	//
+	// Example: thinking
+	Status *ReplyToFin200JSONResponseBodyStatus `json:"status,omitempty"`
+
+	// UserId The ID of the user.
+	//
+	// Example: user-456
+	UserId *string `json:"user_id,omitempty"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ReplyToFinResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ReplyToFinResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r ReplyToFinResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r ReplyToFinResponse) GetJSON422() *struct {
+	// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
+	//
+	// Example: {"conversation_id":"Conversation ID is required"}
+	Errors *map[string]interface{} `json:"errors,omitempty"`
+} {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r ReplyToFinResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ReplyToFinResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReplyToFinResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ReplyToFinResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type StartFinConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// ConversationId The ID of the conversation.
+		//
+		// Example: ext-123
+		ConversationId *string `json:"conversation_id,omitempty"`
+
+		// CreatedAtMs The timestamp the response was created at, with millisecond precision.
+		//
+		// Example: 2025-01-24T10:00:00.123Z
+		CreatedAtMs *time.Time `json:"created_at_ms,omitempty"`
+
+		// Errors Contains error details if any user or conversation attribute updates failed.
+		Errors *FinAgentAttributeErrors `json:"errors,omitempty"`
+
+		// IntercomConversationId The internal Intercom conversation ID, useful for matching this Agent API session to the conversation in Intercom.
+		//
+		// Example: 192837465
+		IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
+
+		// Status Fin's status when the request was accepted. Always `thinking`; later statuses arrive as events.
+		//
+		//
+		// Example: thinking
+		Status *StartFinConversation200JSONResponseBodyStatus `json:"status,omitempty"`
+
+		// UserId The ID of the user.
+		//
+		// Example: user-456
+		UserId *string `json:"user_id,omitempty"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *struct {
+		// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
+		//
+		// Example: {"conversation_id":"Conversation ID is required"}
+		Errors *map[string]interface{} `json:"errors,omitempty"`
+	}
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r StartFinConversationResponse) GetJSON200() *struct {
+	// ConversationId The ID of the conversation.
+	//
+	// Example: ext-123
+	ConversationId *string `json:"conversation_id,omitempty"`
+
+	// CreatedAtMs The timestamp the response was created at, with millisecond precision.
+	//
+	// Example: 2025-01-24T10:00:00.123Z
+	CreatedAtMs *time.Time `json:"created_at_ms,omitempty"`
+
+	// Errors Contains error details if any user or conversation attribute updates failed.
+	Errors *FinAgentAttributeErrors `json:"errors,omitempty"`
+
+	// IntercomConversationId The internal Intercom conversation ID, useful for matching this Agent API session to the conversation in Intercom.
+	//
+	// Example: 192837465
+	IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
+
+	// Status Fin's status when the request was accepted. Always `thinking`; later statuses arrive as events.
+	//
+	//
+	// Example: thinking
+	Status *StartFinConversation200JSONResponseBodyStatus `json:"status,omitempty"`
+
+	// UserId The ID of the user.
+	//
+	// Example: user-456
+	UserId *string `json:"user_id,omitempty"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r StartFinConversationResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r StartFinConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r StartFinConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r StartFinConversationResponse) GetJSON422() *struct {
+	// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
+	//
+	// Example: {"conversation_id":"Conversation ID is required"}
+	Errors *map[string]interface{} `json:"errors,omitempty"`
+} {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r StartFinConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r StartFinConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r StartFinConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r StartFinConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CollectFinVoiceCallByIdResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *AiCallResponse
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSONDefault the response for an HTTP default `application/json` response
+	JSONDefault *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CollectFinVoiceCallByIdResponse) GetJSON200() *AiCallResponse {
+	return r.JSON200
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r CollectFinVoiceCallByIdResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSONDefault returns the response for an HTTP default `application/json` response
+func (r CollectFinVoiceCallByIdResponse) GetJSONDefault() *Error {
+	return r.JSONDefault
+}
+
+// GetBody returns the raw response body bytes
+func (r CollectFinVoiceCallByIdResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CollectFinVoiceCallByIdResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CollectFinVoiceCallByIdResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CollectFinVoiceCallByIdResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CollectFinVoiceCallsByConversationIdResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *[]AiCallResponse
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSONDefault the response for an HTTP default `application/json` response
+	JSONDefault *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CollectFinVoiceCallsByConversationIdResponse) GetJSON200() *[]AiCallResponse {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r CollectFinVoiceCallsByConversationIdResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSONDefault returns the response for an HTTP default `application/json` response
+func (r CollectFinVoiceCallsByConversationIdResponse) GetJSONDefault() *Error {
+	return r.JSONDefault
+}
+
+// GetBody returns the raw response body bytes
+func (r CollectFinVoiceCallsByConversationIdResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CollectFinVoiceCallsByConversationIdResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CollectFinVoiceCallsByConversationIdResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CollectFinVoiceCallsByConversationIdResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CollectFinVoiceCallByExternalIdResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *AiCallResponse
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSONDefault the response for an HTTP default `application/json` response
+	JSONDefault *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CollectFinVoiceCallByExternalIdResponse) GetJSON200() *AiCallResponse {
+	return r.JSON200
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r CollectFinVoiceCallByExternalIdResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSONDefault returns the response for an HTTP default `application/json` response
+func (r CollectFinVoiceCallByExternalIdResponse) GetJSONDefault() *Error {
+	return r.JSONDefault
+}
+
+// GetBody returns the raw response body bytes
+func (r CollectFinVoiceCallByExternalIdResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CollectFinVoiceCallByExternalIdResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CollectFinVoiceCallByExternalIdResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CollectFinVoiceCallByExternalIdResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CollectFinVoiceCallByPhoneNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *AiCallResponse
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSONDefault the response for an HTTP default `application/json` response
+	JSONDefault *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CollectFinVoiceCallByPhoneNumberResponse) GetJSON200() *AiCallResponse {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r CollectFinVoiceCallByPhoneNumberResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r CollectFinVoiceCallByPhoneNumberResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSONDefault returns the response for an HTTP default `application/json` response
+func (r CollectFinVoiceCallByPhoneNumberResponse) GetJSONDefault() *Error {
+	return r.JSONDefault
+}
+
+// GetBody returns the raw response body bytes
+func (r CollectFinVoiceCallByPhoneNumberResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CollectFinVoiceCallByPhoneNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CollectFinVoiceCallByPhoneNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CollectFinVoiceCallByPhoneNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RegisterFinVoiceCallResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *AiCallResponse
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON409 the response for an HTTP 409 `application/json` response
+	JSON409 *Error
+	// JSONDefault the response for an HTTP default `application/json` response
+	JSONDefault *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r RegisterFinVoiceCallResponse) GetJSON200() *AiCallResponse {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r RegisterFinVoiceCallResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON409 returns the response for an HTTP 409 `application/json` response
+func (r RegisterFinVoiceCallResponse) GetJSON409() *Error {
+	return r.JSON409
+}
+
+// GetJSONDefault returns the response for an HTTP default `application/json` response
+func (r RegisterFinVoiceCallResponse) GetJSONDefault() *Error {
+	return r.JSONDefault
+}
+
+// GetBody returns the raw response body bytes
+func (r RegisterFinVoiceCallResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RegisterFinVoiceCallResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegisterFinVoiceCallResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RegisterFinVoiceCallResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListFoldersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// Data The folders on this page. Unlike when you retrieve a single folder, the keys `description`, `emoji` and `parent_folder_id` are omitted when they are `null`.
+		Data *[]Folder `json:"data,omitempty"`
+
+		// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+		//
+		// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+		Pages *PagesLink `json:"pages,omitempty"`
+
+		// TotalCount Total number of folders
+		//
+		// Example: 2
+		TotalCount *int `json:"total_count,omitempty"`
+
+		// Type Example: list
+		Type *ListFolders200JSONResponseBodyType `json:"type,omitempty"`
+	}
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListFoldersResponse) GetJSON200() *struct {
+	// Data The folders on this page. Unlike when you retrieve a single folder, the keys `description`, `emoji` and `parent_folder_id` are omitted when they are `null`.
+	Data *[]Folder `json:"data,omitempty"`
+
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
+
+	// TotalCount Total number of folders
+	//
+	// Example: 2
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type Example: list
+	Type *ListFolders200JSONResponseBodyType `json:"type,omitempty"`
+} {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListFoldersResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetBody returns the raw response body bytes
+func (r ListFoldersResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListFoldersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListFoldersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListFoldersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateFolderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Folder
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CreateFolderResponse) GetJSON200() *Folder {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CreateFolderResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r CreateFolderResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetBody returns the raw response body bytes
+func (r CreateFolderResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateFolderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateFolderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateFolderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteFolderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *DeletedFolderObject
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r DeleteFolderResponse) GetJSON200() *DeletedFolderObject {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r DeleteFolderResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r DeleteFolderResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r DeleteFolderResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r DeleteFolderResponse) GetJSON422() *Error {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r DeleteFolderResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteFolderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteFolderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteFolderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RetrieveFolderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Folder
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r RetrieveFolderResponse) GetJSON200() *Folder {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r RetrieveFolderResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r RetrieveFolderResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r RetrieveFolderResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r RetrieveFolderResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RetrieveFolderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RetrieveFolderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RetrieveFolderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateFolderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Folder
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r UpdateFolderResponse) GetJSON200() *Folder {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r UpdateFolderResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r UpdateFolderResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r UpdateFolderResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r UpdateFolderResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateFolderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateFolderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateFolderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAllCollectionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *CollectionList
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListAllCollectionsResponse) GetJSON200() *CollectionList {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListAllCollectionsResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListAllCollectionsResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetBody returns the raw response body bytes
+func (r ListAllCollectionsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAllCollectionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAllCollectionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAllCollectionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateCollectionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Collection
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CreateCollectionResponse) GetJSON200() *Collection {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CreateCollectionResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r CreateCollectionResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetBody returns the raw response body bytes
+func (r CreateCollectionResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateCollectionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r CreateCollectionResponse) StatusCode() int {
@@ -602,6 +1873,10 @@ type CreateInternalArticleResponse struct {
 	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -617,6 +1892,16 @@ func (r CreateInternalArticleResponse) GetJSON400() *Error {
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r CreateInternalArticleResponse) GetJSON401() *Error {
 	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r CreateInternalArticleResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r CreateInternalArticleResponse) GetJSON422() *Error {
+	return r.JSON422
 }
 
 // GetBody returns the raw response body bytes
@@ -655,6 +1940,8 @@ type SearchInternalArticlesResponse struct {
 	JSON200 *InternalArticleSearchResponse
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -665,6 +1952,11 @@ func (r SearchInternalArticlesResponse) GetJSON200() *InternalArticleSearchRespo
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r SearchInternalArticlesResponse) GetJSON401() *Error {
 	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r SearchInternalArticlesResponse) GetJSON404() *Error {
+	return r.JSON404
 }
 
 // GetBody returns the raw response body bytes
@@ -705,6 +1997,8 @@ type DeleteInternalArticleResponse struct {
 	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -720,6 +2014,11 @@ func (r DeleteInternalArticleResponse) GetJSON401() *Error {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r DeleteInternalArticleResponse) GetJSON404() *Error {
 	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r DeleteInternalArticleResponse) GetJSON422() *Error {
+	return r.JSON422
 }
 
 // GetBody returns the raw response body bytes
@@ -760,6 +2059,8 @@ type RetrieveInternalArticleResponse struct {
 	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -775,6 +2076,11 @@ func (r RetrieveInternalArticleResponse) GetJSON401() *Error {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r RetrieveInternalArticleResponse) GetJSON404() *Error {
 	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r RetrieveInternalArticleResponse) GetJSON422() *Error {
+	return r.JSON422
 }
 
 // GetBody returns the raw response body bytes
@@ -811,15 +2117,24 @@ type UpdateInternalArticleResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *InternalArticle
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r UpdateInternalArticleResponse) GetJSON200() *InternalArticle {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r UpdateInternalArticleResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -830,6 +2145,11 @@ func (r UpdateInternalArticleResponse) GetJSON401() *Error {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r UpdateInternalArticleResponse) GetJSON404() *Error {
 	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r UpdateInternalArticleResponse) GetJSON422() *Error {
+	return r.JSON422
 }
 
 // GetBody returns the raw response body bytes
@@ -1455,6 +2775,8 @@ type RetrieveWhatsAppMessageStatusResponse struct {
 	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
 }
@@ -1472,6 +2794,11 @@ func (r RetrieveWhatsAppMessageStatusResponse) GetJSON400() *Error {
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r RetrieveWhatsAppMessageStatusResponse) GetJSON401() *Error {
 	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r RetrieveWhatsAppMessageStatusResponse) GetJSON403() *Error {
+	return r.JSON403
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
@@ -1513,6 +2840,8 @@ type ListNewsItemsResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *PaginatedResponse
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 }
@@ -1520,6 +2849,11 @@ type ListNewsItemsResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r ListNewsItemsResponse) GetJSON200() *PaginatedResponse {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListNewsItemsResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -1561,8 +2895,12 @@ type CreateNewsItemResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *NewsItem
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -1570,9 +2908,19 @@ func (r CreateNewsItemResponse) GetJSON200() *NewsItem {
 	return r.JSON200
 }
 
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CreateNewsItemResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r CreateNewsItemResponse) GetJSON401() *Error {
 	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r CreateNewsItemResponse) GetJSON404() *Error {
+	return r.JSON404
 }
 
 // GetBody returns the raw response body bytes
@@ -1719,6 +3067,8 @@ type UpdateNewsItemResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *NewsItem
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
@@ -1728,6 +3078,11 @@ type UpdateNewsItemResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r UpdateNewsItemResponse) GetJSON200() *NewsItem {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r UpdateNewsItemResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -1774,6 +3129,8 @@ type ListNewsfeedsResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *PaginatedResponse
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 }
@@ -1781,6 +3138,11 @@ type ListNewsfeedsResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r ListNewsfeedsResponse) GetJSON200() *PaginatedResponse {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListNewsfeedsResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -1824,6 +3186,8 @@ type RetrieveNewsfeedResponse struct {
 	JSON200 *Newsfeed
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -1834,6 +3198,11 @@ func (r RetrieveNewsfeedResponse) GetJSON200() *Newsfeed {
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r RetrieveNewsfeedResponse) GetJSON401() *Error {
 	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r RetrieveNewsfeedResponse) GetJSON404() *Error {
+	return r.JSON404
 }
 
 // GetBody returns the raw response body bytes
@@ -1870,8 +3239,12 @@ type ListLiveNewsfeedItemsResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *PaginatedResponse
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -1879,9 +3252,19 @@ func (r ListLiveNewsfeedItemsResponse) GetJSON200() *PaginatedResponse {
 	return r.JSON200
 }
 
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListLiveNewsfeedItemsResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r ListLiveNewsfeedItemsResponse) GetJSON401() *Error {
 	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListLiveNewsfeedItemsResponse) GetJSON404() *Error {
+	return r.JSON404
 }
 
 // GetBody returns the raw response body bytes
@@ -5170,6 +6553,8 @@ func (c *ClientWithResponses) PublishArticleDraftWithResponse(ctx context.Contex
 //
 // You can fetch a list of all audiences for the workspace.
 //
+// Requires the `read_audiences` or `read_write_audiences` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /audiences (the `ListAudiences` operationId).
@@ -5184,6 +6569,8 @@ func (c *ClientWithResponses) ListAudiencesWithResponse(ctx context.Context, par
 // CreateAudienceWithBodyWithResponse Create an audience
 //
 // You can create a new audience by making a POST request to `https://api.intercom.io/audiences`.
+//
+// Requires the `read_write_audiences` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -5200,6 +6587,8 @@ func (c *ClientWithResponses) CreateAudienceWithBodyWithResponse(ctx context.Con
 //
 // You can create a new audience by making a POST request to `https://api.intercom.io/audiences`.
 //
+// Requires the `read_write_audiences` OAuth scope.
+//
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /audiences (the `CreateAudience` operationId).
@@ -5214,6 +6603,10 @@ func (c *ClientWithResponses) CreateAudienceWithResponse(ctx context.Context, pa
 // DeleteAudienceWithResponse Delete an audience
 //
 // You can delete a single audience by making a DELETE request to `https://api.intercom.io/audiences/{id}`.
+//
+// An audience that is still used by other objects, such as a workflow, cannot be deleted.
+//
+// Requires the `read_write_audiences` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -5230,6 +6623,8 @@ func (c *ClientWithResponses) DeleteAudienceWithResponse(ctx context.Context, id
 //
 // You can fetch the details of a single audience by making a GET request to `https://api.intercom.io/audiences/{id}`.
 //
+// Requires the `read_audiences` or `read_write_audiences` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /audiences/{id} (the `RetrieveAudience` operationId).
@@ -5245,6 +6640,10 @@ func (c *ClientWithResponses) RetrieveAudienceWithResponse(ctx context.Context, 
 //
 // You can update the details of a single audience by making a PUT request to `https://api.intercom.io/audiences/{id}`.
 //
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// Requires the `read_write_audiences` OAuth scope.
+//
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with PUT /audiences/{id} (the `UpdateAudience` operationId).
@@ -5259,6 +6658,10 @@ func (c *ClientWithResponses) UpdateAudienceWithBodyWithResponse(ctx context.Con
 // UpdateAudienceWithResponse Update an audience
 //
 // You can update the details of a single audience by making a PUT request to `https://api.intercom.io/audiences/{id}`.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// Requires the `read_write_audiences` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -7259,6 +8662,8 @@ func (c *ClientWithResponses) SearchContentWithResponse(ctx context.Context, par
 //
 // You can fetch a list of all content snippets for a workspace.
 //
+// Requires the `read_content_snippets` or `read_write_content_snippets` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /content_snippets (the `ListContentSnippets` operationId).
@@ -7274,6 +8679,8 @@ func (c *ClientWithResponses) ListContentSnippetsWithResponse(ctx context.Contex
 //
 // You can create a new content snippet.
 //
+// Requires the `read_write_content_snippets` OAuth scope.
+//
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /content_snippets (the `CreateContentSnippet` operationId).
@@ -7288,6 +8695,8 @@ func (c *ClientWithResponses) CreateContentSnippetWithBodyWithResponse(ctx conte
 // CreateContentSnippetWithResponse Create a content snippet
 //
 // You can create a new content snippet.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -7367,6 +8776,8 @@ func (c *ClientWithResponses) DetachTagFromContentSnippetWithResponse(ctx contex
 //
 // You can delete a single content snippet by its id.
 //
+// Requires the `read_write_content_snippets` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with DELETE /content_snippets/{id} (the `DeleteContentSnippet` operationId).
@@ -7381,6 +8792,8 @@ func (c *ClientWithResponses) DeleteContentSnippetWithResponse(ctx context.Conte
 // GetContentSnippetWithResponse Retrieve a content snippet
 //
 // You can fetch a single content snippet by its id.
+//
+// Requires the `read_content_snippets` or `read_write_content_snippets` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -7397,6 +8810,8 @@ func (c *ClientWithResponses) GetContentSnippetWithResponse(ctx context.Context,
 //
 // You can update an existing content snippet.
 //
+// Requires the `read_write_content_snippets` OAuth scope.
+//
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with PUT /content_snippets/{id} (the `UpdateContentSnippet` operationId).
@@ -7411,6 +8826,8 @@ func (c *ClientWithResponses) UpdateContentSnippetWithBodyWithResponse(ctx conte
 // UpdateContentSnippetWithResponse Update a content snippet
 //
 // You can update an existing content snippet.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -8454,19 +9871,21 @@ func (c *ClientWithResponses) ListSideConversationsWithResponse(ctx context.Cont
 	return ParseListSideConversationsResponse(rsp)
 }
 
-// DeleteCustomObjectInstancesByIdWithResponse Delete a Custom Object Instance by External ID
+// DeleteCustomObjectInstancesByExternalIdWithResponse Delete a Custom Object Instance by External ID
 //
 // Delete a single Custom Object instance by external_id.
 //
+// Requires the `read_write_custom_object_instances` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
-// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier} (the `DeleteCustomObjectInstancesById` operationId).
-func (c *ClientWithResponses) DeleteCustomObjectInstancesByIdWithResponse(ctx context.Context, customObjectTypeIdentifier string, params *DeleteCustomObjectInstancesByIdParams, reqEditors ...RequestEditorFn) (*DeleteCustomObjectInstancesByIdResponse, error) {
-	rsp, err := c.DeleteCustomObjectInstancesById(ctx, customObjectTypeIdentifier, params, reqEditors...)
+// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier} (the `DeleteCustomObjectInstancesByExternalId` operationId).
+func (c *ClientWithResponses) DeleteCustomObjectInstancesByExternalIdWithResponse(ctx context.Context, customObjectTypeIdentifier string, params *DeleteCustomObjectInstancesByExternalIdParams, reqEditors ...RequestEditorFn) (*DeleteCustomObjectInstancesByExternalIdResponse, error) {
+	rsp, err := c.DeleteCustomObjectInstancesByExternalId(ctx, customObjectTypeIdentifier, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseDeleteCustomObjectInstancesByIdResponse(rsp)
+	return ParseDeleteCustomObjectInstancesByExternalIdResponse(rsp)
 }
 
 // ListCustomObjectInstancesWithResponse List Custom Object Instances
@@ -8476,7 +9895,9 @@ func (c *ClientWithResponses) DeleteCustomObjectInstancesByIdWithResponse(ctx co
 // - **`references_contact_id`** — returns instances associated with the given contact.
 // - **`references_conversation_id`** — returns instances associated with the given conversation.
 //
-// When **`external_id`** is provided, returns a single matching instance (not a list).
+// When **`external_id`** is provided, returns a single matching instance (not a list). If no instance matches, the response is still `200`, with the same body the single-instance endpoint returns for a miss.
+//
+// Requires the `read_conversations`, `read_users_companies`, `read_write_custom_object_instances` or `read_write_users` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -8491,7 +9912,9 @@ func (c *ClientWithResponses) ListCustomObjectInstancesWithResponse(ctx context.
 
 // CreateCustomObjectInstancesWithBodyWithResponse Create or Update a Custom Object Instance
 //
-// Create or update a custom object instance.
+// # Create or update a custom object instance
+//
+// Requires the `read_write_custom_object_instances` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -8506,7 +9929,9 @@ func (c *ClientWithResponses) CreateCustomObjectInstancesWithBodyWithResponse(ct
 
 // CreateCustomObjectInstancesWithResponse Create or Update a Custom Object Instance
 //
-// Create or update a custom object instance.
+// # Create or update a custom object instance
+//
+// Requires the `read_write_custom_object_instances` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -8519,24 +9944,28 @@ func (c *ClientWithResponses) CreateCustomObjectInstancesWithResponse(ctx contex
 	return ParseCreateCustomObjectInstancesResponse(rsp)
 }
 
-// DeleteCustomObjectInstancesByExternalIdWithResponse Delete a Custom Object Instance by ID
+// DeleteCustomObjectInstancesByIdWithResponse Delete a Custom Object Instance by ID
 //
 // Delete a single Custom Object instance using the Intercom defined id.
 //
+// Requires the `read_write_custom_object_instances` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
-// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier}/{custom_object_instance_id} (the `DeleteCustomObjectInstancesByExternalId` operationId).
-func (c *ClientWithResponses) DeleteCustomObjectInstancesByExternalIdWithResponse(ctx context.Context, customObjectTypeIdentifier string, customObjectInstanceId string, params *DeleteCustomObjectInstancesByExternalIdParams, reqEditors ...RequestEditorFn) (*DeleteCustomObjectInstancesByExternalIdResponse, error) {
-	rsp, err := c.DeleteCustomObjectInstancesByExternalId(ctx, customObjectTypeIdentifier, customObjectInstanceId, params, reqEditors...)
+// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier}/{custom_object_instance_id} (the `DeleteCustomObjectInstancesById` operationId).
+func (c *ClientWithResponses) DeleteCustomObjectInstancesByIdWithResponse(ctx context.Context, customObjectTypeIdentifier string, customObjectInstanceId string, params *DeleteCustomObjectInstancesByIdParams, reqEditors ...RequestEditorFn) (*DeleteCustomObjectInstancesByIdResponse, error) {
+	rsp, err := c.DeleteCustomObjectInstancesById(ctx, customObjectTypeIdentifier, customObjectInstanceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseDeleteCustomObjectInstancesByExternalIdResponse(rsp)
+	return ParseDeleteCustomObjectInstancesByIdResponse(rsp)
 }
 
 // GetCustomObjectInstancesByIdWithResponse Get Custom Object Instance by ID
 //
 // Fetch a Custom Object Instance by id.
+//
+// Requires the `read_conversations`, `read_users_companies`, `read_write_custom_object_instances` or `read_write_users` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -8911,7 +10340,9 @@ func (c *ClientWithResponses) GetDownloadReportingDataJobIdentifierWithResponse(
 
 // ListDynamicContentsWithResponse List all dynamic content
 //
-// You can fetch a list of all dynamic content for a workspace, most recently updated first. Requires the `read_dynamic_content` scope.
+// You can fetch a list of all dynamic content for a workspace, most recently updated first.
+//
+// Requires the `read_dynamic_content` or `read_write_dynamic_content` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -8926,7 +10357,9 @@ func (c *ClientWithResponses) ListDynamicContentsWithResponse(ctx context.Contex
 
 // CreateDynamicContentWithBodyWithResponse Create dynamic content
 //
-// You can create dynamic content. Requires the `read_write_dynamic_content` scope.
+// You can create dynamic content.
+//
+// Requires the `read_write_dynamic_content` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -8941,7 +10374,9 @@ func (c *ClientWithResponses) CreateDynamicContentWithBodyWithResponse(ctx conte
 
 // CreateDynamicContentWithResponse Create dynamic content
 //
-// You can create dynamic content. Requires the `read_write_dynamic_content` scope.
+// You can create dynamic content.
+//
+// Requires the `read_write_dynamic_content` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -8956,7 +10391,9 @@ func (c *ClientWithResponses) CreateDynamicContentWithResponse(ctx context.Conte
 
 // DeleteDynamicContentWithResponse Delete dynamic content
 //
-// You can delete a single dynamic content by its id. Dynamic content that is still used in an article can't be deleted. Requires the `read_write_dynamic_content` scope.
+// You can delete a single dynamic content by its id. Dynamic content that is still used in an article can't be deleted.
+//
+// Requires the `read_write_dynamic_content` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -8971,7 +10408,9 @@ func (c *ClientWithResponses) DeleteDynamicContentWithResponse(ctx context.Conte
 
 // GetDynamicContentWithResponse Retrieve dynamic content
 //
-// You can fetch a single dynamic content by its id. Requires the `read_dynamic_content` scope.
+// You can fetch a single dynamic content by its id.
+//
+// Requires the `read_dynamic_content` or `read_write_dynamic_content` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -8986,7 +10425,11 @@ func (c *ClientWithResponses) GetDynamicContentWithResponse(ctx context.Context,
 
 // UpdateDynamicContentWithBodyWithResponse Update dynamic content
 //
-// You can update existing dynamic content. Only the fields you provide are changed. Requires the `read_write_dynamic_content` scope.
+// You can update existing dynamic content. Only the fields you provide are changed.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// Requires the `read_write_dynamic_content` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -9001,7 +10444,11 @@ func (c *ClientWithResponses) UpdateDynamicContentWithBodyWithResponse(ctx conte
 
 // UpdateDynamicContentWithResponse Update dynamic content
 //
-// You can update existing dynamic content. Only the fields you provide are changed. Requires the `read_write_dynamic_content` scope.
+// You can update existing dynamic content. Only the fields you provide are changed.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// Requires the `read_write_dynamic_content` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -9902,6 +11349,8 @@ func (c *ClientWithResponses) RegisterFinVoiceCallWithResponse(ctx context.Conte
 //
 // You can fetch a list of all folders for organizing content by making a GET request to `https://api.intercom.io/folders`.
 //
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /folders (the `ListFolders` operationId).
@@ -9916,6 +11365,8 @@ func (c *ClientWithResponses) ListFoldersWithResponse(ctx context.Context, param
 // CreateFolderWithBodyWithResponse Create a folder
 //
 // You can create a new folder for organizing content by making a POST request to `https://api.intercom.io/folders`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -9932,6 +11383,8 @@ func (c *ClientWithResponses) CreateFolderWithBodyWithResponse(ctx context.Conte
 //
 // You can create a new folder for organizing content by making a POST request to `https://api.intercom.io/folders`.
 //
+// Requires the `read_write_articles_scope` OAuth scope.
+//
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /folders (the `CreateFolder` operationId).
@@ -9946,6 +11399,8 @@ func (c *ClientWithResponses) CreateFolderWithResponse(ctx context.Context, para
 // DeleteFolderWithResponse Delete a folder
 //
 // You can delete a folder (if it contains no content) by making a DELETE request to `https://api.intercom.io/folders/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -9962,6 +11417,8 @@ func (c *ClientWithResponses) DeleteFolderWithResponse(ctx context.Context, id i
 //
 // You can fetch the details of a single folder by making a GET request to `https://api.intercom.io/folders/<id>`.
 //
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /folders/{id} (the `RetrieveFolder` operationId).
@@ -9977,6 +11434,10 @@ func (c *ClientWithResponses) RetrieveFolderWithResponse(ctx context.Context, id
 //
 // You can update a folder by making a PUT request to `https://api.intercom.io/folders/<id>`.
 //
+// Fields you leave out keep their current values. Send `parent_folder_id` as `null` to move the folder to the top level. Folder names longer than 191 characters are truncated.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with PUT /folders/{id} (the `UpdateFolder` operationId).
@@ -9991,6 +11452,10 @@ func (c *ClientWithResponses) UpdateFolderWithBodyWithResponse(ctx context.Conte
 // UpdateFolderWithResponse Update a folder
 //
 // You can update a folder by making a PUT request to `https://api.intercom.io/folders/<id>`.
+//
+// Fields you leave out keep their current values. Send `parent_folder_id` as `null` to move the folder to the top level. Folder names longer than 191 characters are truncated.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -10247,6 +11712,8 @@ func (c *ClientWithResponses) RetrieveHelpCenterRedirectWithResponse(ctx context
 //
 // You can fetch a list of all internal articles by making a GET request to `https://api.intercom.io/internal_articles`.
 //
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /internal_articles (the `ListInternalArticles` operationId).
@@ -10261,6 +11728,8 @@ func (c *ClientWithResponses) ListInternalArticlesWithResponse(ctx context.Conte
 // CreateInternalArticleWithBodyWithResponse Create an internal article
 //
 // You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -10277,6 +11746,8 @@ func (c *ClientWithResponses) CreateInternalArticleWithBodyWithResponse(ctx cont
 //
 // You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
 //
+// Requires the `read_write_articles_scope` OAuth scope.
+//
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /internal_articles (the `CreateInternalArticle` operationId).
@@ -10291,6 +11762,8 @@ func (c *ClientWithResponses) CreateInternalArticleWithResponse(ctx context.Cont
 // SearchInternalArticlesWithResponse Search for internal articles
 //
 // You can search for internal articles by making a GET request to `https://api.intercom.io/internal_articles/search`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -10307,6 +11780,8 @@ func (c *ClientWithResponses) SearchInternalArticlesWithResponse(ctx context.Con
 //
 // You can delete a single internal article by making a DELETE request to `https://api.intercom.io/internal_articles/<id>`.
 //
+// Requires the `read_write_articles_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with DELETE /internal_articles/{internal_article_id} (the `DeleteInternalArticle` operationId).
@@ -10321,6 +11796,8 @@ func (c *ClientWithResponses) DeleteInternalArticleWithResponse(ctx context.Cont
 // RetrieveInternalArticleWithResponse Retrieve an internal article
 //
 // You can fetch the details of a single internal article by making a GET request to `https://api.intercom.io/internal_articles/<id>`.
+//
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -10337,6 +11814,10 @@ func (c *ClientWithResponses) RetrieveInternalArticleWithResponse(ctx context.Co
 //
 // You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
 //
+// Fields you leave out keep their current values.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with PUT /internal_articles/{internal_article_id} (the `UpdateInternalArticle` operationId).
@@ -10351,6 +11832,10 @@ func (c *ClientWithResponses) UpdateInternalArticleWithBodyWithResponse(ctx cont
 // UpdateInternalArticleWithResponse Update an internal article
 //
 // You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
+//
+// Fields you leave out keep their current values.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -10684,7 +12169,11 @@ func (c *ClientWithResponses) RetrieveWhatsAppMessageStatusWithResponse(ctx cont
 
 // ListNewsItemsWithResponse List all news items
 //
-// You can fetch a list of all news items.
+// # You can fetch a list of all news items
+//
+// News items are returned newest first, by creation date.
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -10699,7 +12188,9 @@ func (c *ClientWithResponses) ListNewsItemsWithResponse(ctx context.Context, par
 
 // CreateNewsItemWithBodyWithResponse Create a news item
 //
-// You can create a news item.
+// # You can create a news item
+//
+// Requires the `read_write_news_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -10714,7 +12205,9 @@ func (c *ClientWithResponses) CreateNewsItemWithBodyWithResponse(ctx context.Con
 
 // CreateNewsItemWithResponse Create a news item
 //
-// You can create a news item.
+// # You can create a news item
+//
+// Requires the `read_write_news_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -10731,6 +12224,8 @@ func (c *ClientWithResponses) CreateNewsItemWithResponse(ctx context.Context, pa
 //
 // You can delete a single news item.
 //
+// Requires the `read_write_news_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with DELETE /news/news_items/{news_item_id} (the `DeleteNewsItem` operationId).
@@ -10746,6 +12241,8 @@ func (c *ClientWithResponses) DeleteNewsItemWithResponse(ctx context.Context, ne
 //
 // You can fetch the details of a single news item.
 //
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /news/news_items/{news_item_id} (the `RetrieveNewsItem` operationId).
@@ -10758,6 +12255,14 @@ func (c *ClientWithResponses) RetrieveNewsItemWithResponse(ctx context.Context, 
 }
 
 // UpdateNewsItemWithBodyWithResponse Update a news item
+//
+// You can update a news item.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// `title`, `body`, `state`, `deliver_silently` and `cover_image_url` keep their current values when you leave them out. `labels` and `newsfeed_assignments` do not: leaving either out clears it, so send the full list on every update. Leaving `reactions` out disables reactions, although the list in the response does not change.
+//
+// Requires the `read_write_news_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -10772,6 +12277,14 @@ func (c *ClientWithResponses) UpdateNewsItemWithBodyWithResponse(ctx context.Con
 
 // UpdateNewsItemWithResponse Update a news item
 //
+// You can update a news item.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// `title`, `body`, `state`, `deliver_silently` and `cover_image_url` keep their current values when you leave them out. `labels` and `newsfeed_assignments` do not: leaving either out clears it, so send the full list on every update. Leaving `reactions` out disables reactions, although the list in the response does not change.
+//
+// Requires the `read_write_news_scope` OAuth scope.
+//
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with PUT /news/news_items/{news_item_id} (the `UpdateNewsItem` operationId).
@@ -10785,7 +12298,11 @@ func (c *ClientWithResponses) UpdateNewsItemWithResponse(ctx context.Context, ne
 
 // ListNewsfeedsWithResponse List all newsfeeds
 //
-// You can fetch a list of all newsfeeds.
+// # You can fetch a list of all newsfeeds
+//
+// Newsfeeds are returned newest first, by creation date.
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -10800,7 +12317,9 @@ func (c *ClientWithResponses) ListNewsfeedsWithResponse(ctx context.Context, par
 
 // RetrieveNewsfeedWithResponse Retrieve a newsfeed
 //
-// You can fetch the details of a single newsfeed.
+// # You can fetch the details of a single newsfeed
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -10815,7 +12334,11 @@ func (c *ClientWithResponses) RetrieveNewsfeedWithResponse(ctx context.Context, 
 
 // ListLiveNewsfeedItemsWithResponse List all live newsfeed items
 //
-// You can fetch a list of all news items that are live on a given newsfeed.
+// # You can fetch a list of all news items that are live on a given newsfeed
+//
+// News items are returned most recently published first.
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -13393,6 +14916,13 @@ func ParseDeleteAudienceResponse(rsp *http.Response) (*DeleteAudienceResponse, e
 	switch {
 	case rsp.StatusCode == 204:
 		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
@@ -17279,13 +18809,6 @@ func ParseBulkContentActionsResponse(rsp *http.Response) (*BulkContentActionsRes
 		}
 		response.JSON401 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -17319,15 +18842,22 @@ func ParseSearchContentResponse(rsp *http.Response) (*SearchContentResponse, err
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest ValidationError
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -17359,6 +18889,13 @@ func ParseListContentSnippetsResponse(rsp *http.Response) (*ListContentSnippetsR
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
 	}
 
 	return response, nil
@@ -17384,6 +18921,20 @@ func ParseCreateContentSnippetResponse(rsp *http.Response) (*CreateContentSnippe
 			return nil, err
 		}
 		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
 		var dest Error
@@ -17515,6 +19066,13 @@ func ParseDeleteContentSnippetResponse(rsp *http.Response) (*DeleteContentSnippe
 	case rsp.StatusCode == 204:
 		break // No content-type
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -17555,6 +19113,13 @@ func ParseGetContentSnippetResponse(rsp *http.Response) (*GetContentSnippetRespo
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -17587,6 +19152,20 @@ func ParseUpdateContentSnippetResponse(rsp *http.Response) (*UpdateContentSnippe
 			return nil, err
 		}
 		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
 		var dest Error
@@ -18190,6 +19769,13 @@ func ParseDeleteConversationResponse(rsp *http.Response) (*DeleteConversationRes
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -18357,6 +19943,13 @@ func ParseAttachContactToConversationResponse(rsp *http.Response) (*AttachContac
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -18404,6 +19997,13 @@ func ParseDetachContactFromConversationResponse(rsp *http.Response) (*DetachCont
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -18431,1598 +20031,6 @@ func ParseDetachContactFromConversationResponse(rsp *http.Response) (*DetachCont
 			return nil, err
 		}
 		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseManageConversationResponse parses an HTTP response from a ManageConversationWithResponse call
-func ParseManageConversationResponse(rsp *http.Response) (*ManageConversationResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ManageConversationResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest Conversation
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseReplyConversationResponse parses an HTTP response from a ReplyConversationWithResponse call
-func ParseReplyConversationResponse(rsp *http.Response) (*ReplyConversationResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ReplyConversationResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest Conversation
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseAttachTagToConversationResponse parses an HTTP response from a AttachTagToConversationWithResponse call
-func ParseAttachTagToConversationResponse(rsp *http.Response) (*AttachTagToConversationResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &AttachTagToConversationResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest Tag
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseDetachTagFromConversationResponse parses an HTTP response from a DetachTagFromConversationWithResponse call
-func ParseDetachTagFromConversationResponse(rsp *http.Response) (*DetachTagFromConversationResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &DetachTagFromConversationResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest Tag
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListHandlingEventsResponse parses an HTTP response from a ListHandlingEventsWithResponse call
-func ParseListHandlingEventsResponse(rsp *http.Response) (*ListHandlingEventsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListHandlingEventsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest HandlingEventList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListHitlEventsResponse parses an HTTP response from a ListHitlEventsWithResponse call
-func ParseListHitlEventsResponse(rsp *http.Response) (*ListHitlEventsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListHitlEventsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest HitlEventList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseMergeConversationResponse parses an HTTP response from a MergeConversationWithResponse call
-func ParseMergeConversationResponse(rsp *http.Response) (*MergeConversationResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &MergeConversationResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest Conversation
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListSideConversationsResponse parses an HTTP response from a ListSideConversationsWithResponse call
-func ParseListSideConversationsResponse(rsp *http.Response) (*ListSideConversationsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListSideConversationsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SideConversationList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseDeleteCustomObjectInstancesByIdResponse parses an HTTP response from a DeleteCustomObjectInstancesByIdWithResponse call
-func ParseDeleteCustomObjectInstancesByIdResponse(rsp *http.Response) (*DeleteCustomObjectInstancesByIdResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &DeleteCustomObjectInstancesByIdResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CustomObjectInstanceDeleted
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListCustomObjectInstancesResponse parses an HTTP response from a ListCustomObjectInstancesWithResponse call
-func ParseListCustomObjectInstancesResponse(rsp *http.Response) (*ListCustomObjectInstancesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListCustomObjectInstancesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CustomObjectInstancesPaginatedList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest TypeNotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCreateCustomObjectInstancesResponse parses an HTTP response from a CreateCustomObjectInstancesWithResponse call
-func ParseCreateCustomObjectInstancesResponse(rsp *http.Response) (*CreateCustomObjectInstancesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CreateCustomObjectInstancesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CustomObjectInstance
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest TypeNotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseDeleteCustomObjectInstancesByExternalIdResponse parses an HTTP response from a DeleteCustomObjectInstancesByExternalIdWithResponse call
-func ParseDeleteCustomObjectInstancesByExternalIdResponse(rsp *http.Response) (*DeleteCustomObjectInstancesByExternalIdResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &DeleteCustomObjectInstancesByExternalIdResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CustomObjectInstanceDeleted
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseGetCustomObjectInstancesByIdResponse parses an HTTP response from a GetCustomObjectInstancesByIdWithResponse call
-func ParseGetCustomObjectInstancesByIdResponse(rsp *http.Response) (*GetCustomObjectInstancesByIdResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &GetCustomObjectInstancesByIdResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest GetCustomObjectInstancesById200JSONResponseBody
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest TypeNotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseLisDataAttributesResponse parses an HTTP response from a LisDataAttributesWithResponse call
-func ParseLisDataAttributesResponse(rsp *http.Response) (*LisDataAttributesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &LisDataAttributesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataAttributeList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCreateDataAttributeResponse parses an HTTP response from a CreateDataAttributeWithResponse call
-func ParseCreateDataAttributeResponse(rsp *http.Response) (*CreateDataAttributeResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CreateDataAttributeResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataAttribute
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseUpdateDataAttributeResponse parses an HTTP response from a UpdateDataAttributeWithResponse call
-func ParseUpdateDataAttributeResponse(rsp *http.Response) (*UpdateDataAttributeResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &UpdateDataAttributeResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataAttribute
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListDataConnectorsResponse parses an HTTP response from a ListDataConnectorsWithResponse call
-func ParseListDataConnectorsResponse(rsp *http.Response) (*ListDataConnectorsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListDataConnectorsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataConnectorList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCreateDataConnectorResponse parses an HTTP response from a CreateDataConnectorWithResponse call
-func ParseCreateDataConnectorResponse(rsp *http.Response) (*CreateDataConnectorResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CreateDataConnectorResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
-		var dest DataConnectorDetail
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON201 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListDataConnectorExecutionResultsResponse parses an HTTP response from a ListDataConnectorExecutionResultsWithResponse call
-func ParseListDataConnectorExecutionResultsResponse(rsp *http.Response) (*ListDataConnectorExecutionResultsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListDataConnectorExecutionResultsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataConnectorExecutionResultList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseShowDataConnectorExecutionResultResponse parses an HTTP response from a ShowDataConnectorExecutionResultWithResponse call
-func ParseShowDataConnectorExecutionResultResponse(rsp *http.Response) (*ShowDataConnectorExecutionResultResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ShowDataConnectorExecutionResultResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataConnectorExecutionResult
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseDeleteDataConnectorResponse parses an HTTP response from a DeleteDataConnectorWithResponse call
-func ParseDeleteDataConnectorResponse(rsp *http.Response) (*DeleteDataConnectorResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &DeleteDataConnectorResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeletedDataConnectorObject
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON409 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseRetrieveDataConnectorResponse parses an HTTP response from a RetrieveDataConnectorWithResponse call
-func ParseRetrieveDataConnectorResponse(rsp *http.Response) (*RetrieveDataConnectorResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RetrieveDataConnectorResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataConnectorDetail
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseUpdateDataConnectorResponse parses an HTTP response from a UpdateDataConnectorWithResponse call
-func ParseUpdateDataConnectorResponse(rsp *http.Response) (*UpdateDataConnectorResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &UpdateDataConnectorResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataConnectorDetail
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON409 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListDataConnectorVersionsResponse parses an HTTP response from a ListDataConnectorVersionsWithResponse call
-func ParseListDataConnectorVersionsResponse(rsp *http.Response) (*ListDataConnectorVersionsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListDataConnectorVersionsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataConnectorVersionList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseRetrieveDataConnectorVersionResponse parses an HTTP response from a RetrieveDataConnectorVersionWithResponse call
-func ParseRetrieveDataConnectorVersionResponse(rsp *http.Response) (*RetrieveDataConnectorVersionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RetrieveDataConnectorVersionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataConnectorVersion
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseUpdateDataConnectorVersionResponse parses an HTTP response from a UpdateDataConnectorVersionWithResponse call
-func ParseUpdateDataConnectorVersionResponse(rsp *http.Response) (*UpdateDataConnectorVersionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &UpdateDataConnectorVersionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DataConnectorVersion
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseDownloadDataExportResponse parses an HTTP response from a DownloadDataExportWithResponse call
-func ParseDownloadDataExportResponse(rsp *http.Response) (*DownloadDataExportResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &DownloadDataExportResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	return response, nil
-}
-
-// ParseGetDownloadReportingDataJobIdentifierResponse parses an HTTP response from a GetDownloadReportingDataJobIdentifierWithResponse call
-func ParseGetDownloadReportingDataJobIdentifierResponse(rsp *http.Response) (*GetDownloadReportingDataJobIdentifierResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &GetDownloadReportingDataJobIdentifierResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case rsp.StatusCode == 200:
-		break // No content-type
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListDynamicContentsResponse parses an HTTP response from a ListDynamicContentsWithResponse call
-func ParseListDynamicContentsResponse(rsp *http.Response) (*ListDynamicContentsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListDynamicContentsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DynamicContentList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCreateDynamicContentResponse parses an HTTP response from a CreateDynamicContentWithResponse call
-func ParseCreateDynamicContentResponse(rsp *http.Response) (*CreateDynamicContentResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CreateDynamicContentResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
-		var dest DynamicContent
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON201 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseDeleteDynamicContentResponse parses an HTTP response from a DeleteDynamicContentWithResponse call
-func ParseDeleteDynamicContentResponse(rsp *http.Response) (*DeleteDynamicContentResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &DeleteDynamicContentResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case rsp.StatusCode == 204:
-		break // No content-type
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseGetDynamicContentResponse parses an HTTP response from a GetDynamicContentWithResponse call
-func ParseGetDynamicContentResponse(rsp *http.Response) (*GetDynamicContentResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &GetDynamicContentResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DynamicContent
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseUpdateDynamicContentResponse parses an HTTP response from a UpdateDynamicContentWithResponse call
-func ParseUpdateDynamicContentResponse(rsp *http.Response) (*UpdateDynamicContentResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &UpdateDynamicContentResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DynamicContent
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListEmailsResponse parses an HTTP response from a ListEmailsWithResponse call
-func ParseListEmailsResponse(rsp *http.Response) (*ListEmailsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListEmailsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest EmailList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseRetrieveEmailResponse parses an HTTP response from a RetrieveEmailWithResponse call
-func ParseRetrieveEmailResponse(rsp *http.Response) (*RetrieveEmailResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RetrieveEmailResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest EmailSetting
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseLisDataEventsResponse parses an HTTP response from a LisDataEventsWithResponse call
-func ParseLisDataEventsResponse(rsp *http.Response) (*LisDataEventsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &LisDataEventsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest LisDataEvents200JSONResponseBody
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCreateDataEventResponse parses an HTTP response from a CreateDataEventWithResponse call
-func ParseCreateDataEventResponse(rsp *http.Response) (*CreateDataEventResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CreateDataEventResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case rsp.StatusCode == 202:
-		break // No content-type
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseDataEventSummariesResponse parses an HTTP response from a DataEventSummariesWithResponse call
-func ParseDataEventSummariesResponse(rsp *http.Response) (*DataEventSummariesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &DataEventSummariesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case rsp.StatusCode == 200:
-		break // No content-type
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
 
 	}
 

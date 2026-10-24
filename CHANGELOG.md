@@ -2,6 +2,18 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.4.0, 2026-10-24
+
+- Breaking: `DeleteCustomObjectInstancesByExternalId` and `DeleteCustomObjectInstancesById` change arguments on `Client`, `ClientWithResponses` and both interfaces. `DeleteCustomObjectInstancesByExternalId` drops one string argument, `DeleteCustomObjectInstancesById` gains one, and `NewDeleteCustomObjectInstancesByExternalIdRequest` and `NewDeleteCustomObjectInstancesByIdRequest` change the same way. `DeleteCustomObjectInstancesByIdParams.ExternalId` moves to `DeleteCustomObjectInstancesByExternalIdParams.ExternalId`.
+- Breaking: `UpdateNewsItem` and `UpdateNewsItemWithResponse` now take `UpdateNewsItemRequest` as the body. `UpdateNewsItemJSONRequestBody` changes from `NewsItemRequest` to it. Added `UpdateNewsItemRequestState` with `Draft` and `Live` values.
+- Breaking: `CustomObjectInstancesPaginatedList` loses `Data`, `Pages`, `TotalCount` and `Type`, and is no longer comparable. `ListCustomObjectInstances200JSONResponseBody` is a new union with `AsCustomObjectInstance`, `AsCustomObjectInstanceNotFound`, `AsCustomObjectInstancesPaginatedList` and matching `From`, `Merge` and JSON methods.
+- Breaking: `CreateOrUpdateCustomObjectInstanceRequest.CustomAttributes` is now a map of `CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties` instead of `map[string]string`.
+- Breaking: `NewsItem.Labels`, `NewsItem.Reactions` and `NewsItemRequest.Reactions` are now `*[]string` instead of `*[]*string`. `Predicate.Value` is now `interface{}`. `PaginatedResponse.Pages` is now `*PagesLink`. Removed `PaginatedResponseTypeConversationList`.
+- Breaking: removed `BulkContentActionsResponse.JSON403` and `GetJSON403`.
+- Added `NewsItemRequest.CoverImageUrl`, `Predicate.Predicates`, `InternalArticleListItem.Tags`, `Locale` and `JsonBlocks` on the internal article create and update requests, and `AdminId` on `DetachTagFromContentSnippetParams` and `DetachTagFromInternalArticleParams`.
+- Added `Page` and `PerPage` on `ListInternalArticlesParams`, `SearchInternalArticlesParams`, `ListLiveNewsfeedItemsParams`, `ListNewsItemsParams` and `ListNewsfeedsParams`.
+- Added `JSON400`, `JSON401`, `JSON404`, `JSON422` and `JSON403` response fields with `GetJSON` methods on many content snippet, internal article, news item, newsfeed, folder, audience, conversation, dynamic content, custom object and search responses.
+
 ## v0.3.0, 2026-10-23
 
 - Breaking: `AskFinResponse.JSON200`, `ReplyToFinResponse.JSON200`, `EscalateFinConversationResponse.JSON200` and `ListFinCapabilitiesResponse.JSON200` have new body types, and `SseSubscriptionUrl` is removed from the Ask Fin body. `CreateContactResponse.JSON200` and `MergeContactResponse.JSON200` also have new body types, as do their `GetJSON200` methods.

@@ -16,6 +16,654 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// UpdateContentSnippetWithBody Update a content snippet
+//
+// You can update an existing content snippet.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /content_snippets/{id} (the `UpdateContentSnippet` operationId).
+func (c *Client) UpdateContentSnippetWithBody(ctx context.Context, id string, params *UpdateContentSnippetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateContentSnippetRequestWithBody(c.Server, id, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateContentSnippet Update a content snippet
+//
+// You can update an existing content snippet.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /content_snippets/{id} (the `UpdateContentSnippet` operationId).
+func (c *Client) UpdateContentSnippet(ctx context.Context, id string, params *UpdateContentSnippetParams, body UpdateContentSnippetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateContentSnippetRequest(c.Server, id, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListConversations List all conversations
+//
+// You can fetch a list of all conversations.
+//
+// You can optionally request the result page size and the cursor to start after to fetch the result.
+// {% admonition type="warning" name="Pagination" %}
+//
+//	You can use pagination to limit the number of results returned. The default is `20` results per page.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
+//
+// {% /admonition %}
+//
+// Corresponds with GET /conversations (the `ListConversations` operationId).
+func (c *Client) ListConversations(ctx context.Context, params *ListConversationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListConversationsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateConversationWithBody Creates a conversation
+//
+// You can create a conversation that has been initiated by a contact (ie. user or lead).
+// The conversation can be an in-app message only.
+//
+// {% admonition type="info" name="Sending for visitors" %}
+// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
+// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
+// {% /admonition %}
+//
+// This will return the Message model that has been created.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /conversations (the `CreateConversation` operationId).
+func (c *Client) CreateConversationWithBody(ctx context.Context, params *CreateConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateConversationRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateConversation Creates a conversation
+//
+// You can create a conversation that has been initiated by a contact (ie. user or lead).
+// The conversation can be an in-app message only.
+//
+// {% admonition type="info" name="Sending for visitors" %}
+// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
+// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
+// {% /admonition %}
+//
+// This will return the Message model that has been created.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /conversations (the `CreateConversation` operationId).
+func (c *Client) CreateConversation(ctx context.Context, params *CreateConversationParams, body CreateConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateConversationRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListConversationAttributes List all conversation attributes
+//
+// You can fetch a list of all conversation attributes for your workspace.
+//
+// Corresponds with GET /conversations/attributes (the `ListConversationAttributes` operationId).
+func (c *Client) ListConversationAttributes(ctx context.Context, params *ListConversationAttributesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListConversationAttributesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateConversationAttributeWithBody Create a conversation attribute
+//
+// Create a new conversation attribute.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /conversations/attributes (the `CreateConversationAttribute` operationId).
+func (c *Client) CreateConversationAttributeWithBody(ctx context.Context, params *CreateConversationAttributeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateConversationAttributeRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateConversationAttribute Create a conversation attribute
+//
+// Create a new conversation attribute.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /conversations/attributes (the `CreateConversationAttribute` operationId).
+func (c *Client) CreateConversationAttribute(ctx context.Context, params *CreateConversationAttributeParams, body CreateConversationAttributeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateConversationAttributeRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DeleteConversationAttribute Delete (archive) a conversation attribute
+//
+// Archive a conversation attribute (soft delete). The attribute is marked as archived but not permanently deleted.
+//
+// Corresponds with DELETE /conversations/attributes/{id} (the `DeleteConversationAttribute` operationId).
+func (c *Client) DeleteConversationAttribute(ctx context.Context, id int, params *DeleteConversationAttributeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteConversationAttributeRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetConversationAttribute Get a conversation attribute
+//
+// Retrieve a single conversation attribute by ID.
+//
+// Corresponds with GET /conversations/attributes/{id} (the `GetConversationAttribute` operationId).
+func (c *Client) GetConversationAttribute(ctx context.Context, id int, params *GetConversationAttributeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetConversationAttributeRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateConversationAttributeWithBody Update a conversation attribute
+//
+// Update an existing conversation attribute.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /conversations/attributes/{id} (the `UpdateConversationAttribute` operationId).
+func (c *Client) UpdateConversationAttributeWithBody(ctx context.Context, id int, params *UpdateConversationAttributeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateConversationAttributeRequestWithBody(c.Server, id, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateConversationAttribute Update a conversation attribute
+//
+// Update an existing conversation attribute.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /conversations/attributes/{id} (the `UpdateConversationAttribute` operationId).
+func (c *Client) UpdateConversationAttribute(ctx context.Context, id int, params *UpdateConversationAttributeParams, body UpdateConversationAttributeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateConversationAttributeRequest(c.Server, id, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateConversationAttributeOptionWithBody Add an option to a list conversation attribute
+//
+// Add a new option to a list-type conversation attribute. Returns the full attribute with the updated options array.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /conversations/attributes/{id}/options (the `CreateConversationAttributeOption` operationId).
+func (c *Client) CreateConversationAttributeOptionWithBody(ctx context.Context, id int, params *CreateConversationAttributeOptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateConversationAttributeOptionRequestWithBody(c.Server, id, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateConversationAttributeOption Add an option to a list conversation attribute
+//
+// Add a new option to a list-type conversation attribute. Returns the full attribute with the updated options array.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /conversations/attributes/{id}/options (the `CreateConversationAttributeOption` operationId).
+func (c *Client) CreateConversationAttributeOption(ctx context.Context, id int, params *CreateConversationAttributeOptionParams, body CreateConversationAttributeOptionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateConversationAttributeOptionRequest(c.Server, id, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DeleteConversationAttributeOption Archive an option on a list conversation attribute
+//
+// Archive a single option on a list-type conversation attribute (soft delete). The option remains in the response with `archived: true`. Returns the full attribute with the updated options array.
+//
+// Corresponds with DELETE /conversations/attributes/{id}/options/{option_id} (the `DeleteConversationAttributeOption` operationId).
+func (c *Client) DeleteConversationAttributeOption(ctx context.Context, id int, optionId string, params *DeleteConversationAttributeOptionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteConversationAttributeOptionRequest(c.Server, id, optionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateConversationAttributeOptionWithBody Update an option on a list conversation attribute
+//
+// Update the label of a single option on a list-type conversation attribute. Returns the full attribute with the updated options array.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /conversations/attributes/{id}/options/{option_id} (the `UpdateConversationAttributeOption` operationId).
+func (c *Client) UpdateConversationAttributeOptionWithBody(ctx context.Context, id int, optionId string, params *UpdateConversationAttributeOptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateConversationAttributeOptionRequestWithBody(c.Server, id, optionId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateConversationAttributeOption Update an option on a list conversation attribute
+//
+// Update the label of a single option on a list-type conversation attribute. Returns the full attribute with the updated options array.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /conversations/attributes/{id}/options/{option_id} (the `UpdateConversationAttributeOption` operationId).
+func (c *Client) UpdateConversationAttributeOption(ctx context.Context, id int, optionId string, params *UpdateConversationAttributeOptionParams, body UpdateConversationAttributeOptionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateConversationAttributeOptionRequest(c.Server, id, optionId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListDeletedConversationIds List all deleted conversation IDs
+//
+// List all deleted conversation IDs.
+//
+// {% admonition type="warning" name="Pagination" %}
+//
+//	You can use pagination to limit the number of results returned. The default is `20` results per page. You can navigate to next pages using the `page` param.
+//
+// {% /admonition %}
+//
+// Corresponds with GET /conversations/deleted (the `ListDeletedConversationIds` operationId).
+func (c *Client) ListDeletedConversationIds(ctx context.Context, params *ListDeletedConversationIdsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListDeletedConversationIdsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RedactConversationWithBody Redact a conversation part
+//
+// You can redact a conversation part or the source message of a conversation (as seen in the source object).
+//
+// {% admonition type="info" name="Redacting parts and messages" %}
+// If you are redacting a conversation part, it must have a `body`. If you are redacting a source message, it must have been created by a contact. We will return a `conversation_part_not_redactable` error if these criteria are not met.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /conversations/redact (the `RedactConversation` operationId).
+func (c *Client) RedactConversationWithBody(ctx context.Context, params *RedactConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRedactConversationRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RedactConversation Redact a conversation part
+//
+// You can redact a conversation part or the source message of a conversation (as seen in the source object).
+//
+// {% admonition type="info" name="Redacting parts and messages" %}
+// If you are redacting a conversation part, it must have a `body`. If you are redacting a source message, it must have been created by a contact. We will return a `conversation_part_not_redactable` error if these criteria are not met.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /conversations/redact (the `RedactConversation` operationId).
+func (c *Client) RedactConversation(ctx context.Context, params *RedactConversationParams, body RedactConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRedactConversationRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SearchConversationsWithBody Search conversations
+//
+// You can search for multiple conversations by the value of their attributes in order to fetch exactly which ones you want.
+//
+// To search for conversations, you need to send a `POST` request to `https://api.intercom.io/conversations/search`.
+//
+// This will accept a query object in the body which will define your filters in order to search for conversations.
+// {% admonition type="warning" name="Optimizing search queries" %}
+//
+//	Search queries can be complex, so optimizing them can help the performance of your search.
+//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
+//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
+//
+// {% /admonition %}
+//
+// ### Nesting & Limitations
+//
+// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
+// There are some limitations to the amount of multiple's there can be:
+// - There's a limit of max 2 nested filters
+// - There's a limit of max 15 filters for each AND or OR group
+//
+// ### Accepted Fields
+//
+// Most keys listed in the conversation model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
+// The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
+//
+// | Field                                     | Type                                                                                                                                                   |
+// | :---------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+// | id                                        | String                                                                                                                                                 |
+// | created_at                                | Date (UNIX timestamp)                                                                                                                                  |
+// | updated_at                                | Date (UNIX timestamp)                                                                                                                                  |
+// | source.type                               | String<br>Accepted fields are `conversation`, `email`, `facebook`, `instagram`, `phone_call`, `phone_switch`, `push`, `sms`, `twitter` and `whatsapp`. |
+// | source.id                                 | String                                                                                                                                                 |
+// | source.delivered_as                       | String                                                                                                                                                 |
+// | source.subject                            | String                                                                                                                                                 |
+// | source.body                               | String                                                                                                                                                 |
+// | source.author.id                          | String                                                                                                                                                 |
+// | source.author.type                        | String                                                                                                                                                 |
+// | source.author.name                        | String                                                                                                                                                 |
+// | source.author.email                       | String                                                                                                                                                 |
+// | source.url                                | String                                                                                                                                                 |
+// | contact_ids                               | String                                                                                                                                                 |
+// | teammate_ids                              | String                                                                                                                                                 |
+// | admin_assignee_id                         | Integer                                                                                                                                                |
+// | team_assignee_id                          | Integer                                                                                                                                                |
+// | channel_initiated                         | String                                                                                                                                                 |
+// | open                                      | Boolean                                                                                                                                                |
+// | read                                      | Boolean                                                                                                                                                |
+// | state                                     | String                                                                                                                                                 |
+// | waiting_since                             | Date (UNIX timestamp)                                                                                                                                  |
+// | snoozed_until                             | Date (UNIX timestamp)                                                                                                                                  |
+// | tag_ids                                   | String                                                                                                                                                 |
+// | priority                                  | String                                                                                                                                                 |
+// | statistics.time_to_assignment             | Integer                                                                                                                                                |
+// | statistics.time_to_admin_reply            | Integer                                                                                                                                                |
+// | statistics.time_to_first_close            | Integer                                                                                                                                                |
+// | statistics.time_to_last_close             | Integer                                                                                                                                                |
+// | statistics.median_time_to_reply           | Integer                                                                                                                                                |
+// | statistics.first_contact_reply_at         | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.first_assignment_at            | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.first_admin_reply_at           | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.first_close_at                 | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_assignment_at             | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_assignment_admin_reply_at | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_contact_reply_at          | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_admin_reply_at            | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_close_at                  | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_closed_by_id              | String                                                                                                                                                 |
+// | statistics.count_reopens                  | Integer                                                                                                                                                |
+// | statistics.count_assignments              | Integer                                                                                                                                                |
+// | statistics.count_conversation_parts       | Integer                                                                                                                                                |
+// | conversation_rating.requested_at          | Date (UNIX timestamp)                                                                                                                                  |
+// | conversation_rating.replied_at            | Date (UNIX timestamp)                                                                                                                                  |
+// | conversation_rating.score                 | Integer                                                                                                                                                |
+// | conversation_rating.remark                | String                                                                                                                                                 |
+// | conversation_rating.contact_id            | String                                                                                                                                                 |
+// | conversation_rating.admin_d               | String                                                                                                                                                 |
+// | ai_agent_participated                     | Boolean                                                                                                                                                |
+// | ai_agent.resolution_state                 | String                                                                                                                                                 |
+// | ai_agent.last_answer_type                 | String                                                                                                                                                 |
+// | ai_agent.rating                           | Integer                                                                                                                                                |
+// | ai_agent.rating_remark                    | String                                                                                                                                                 |
+// | ai_agent.source_type                      | String                                                                                                                                                 |
+// | ai_agent.source_title                     | String                                                                                                                                                 |
+//
+// ### Accepted Operators
+//
+// The table below shows the operators you can use to define how you want to search for the value.  The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type  (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates).
+//
+// | Operator | Valid Types                    | Description                                                  |
+// | :------- | :----------------------------- | :----------------------------------------------------------- |
+// | =        | All                            | Equals                                                       |
+// | !=       | All                            | Doesn't Equal                                                |
+// | IN       | All                            | In  Shortcut for `OR` queries  Values most be in Array       |
+// | NIN      | All                            | Not In  Shortcut for `OR !` queries  Values must be in Array |
+// | >        | Integer  Date (UNIX Timestamp) | Greater (or equal) than                                      |
+// | <       | Integer  Date (UNIX Timestamp) | Lower (or equal) than                                        |
+// | ~        | String                         | Contains                                                     |
+// | !~       | String                         | Doesn't Contain                                              |
+// | ^        | String                         | Starts With                                                  |
+// | $        | String                         | Ends With                                                    |
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /conversations/search (the `SearchConversations` operationId).
+func (c *Client) SearchConversationsWithBody(ctx context.Context, params *SearchConversationsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchConversationsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SearchConversations Search conversations
+//
+// You can search for multiple conversations by the value of their attributes in order to fetch exactly which ones you want.
+//
+// To search for conversations, you need to send a `POST` request to `https://api.intercom.io/conversations/search`.
+//
+// This will accept a query object in the body which will define your filters in order to search for conversations.
+// {% admonition type="warning" name="Optimizing search queries" %}
+//
+//	Search queries can be complex, so optimizing them can help the performance of your search.
+//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
+//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
+//
+// {% /admonition %}
+//
+// ### Nesting & Limitations
+//
+// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
+// There are some limitations to the amount of multiple's there can be:
+// - There's a limit of max 2 nested filters
+// - There's a limit of max 15 filters for each AND or OR group
+//
+// ### Accepted Fields
+//
+// Most keys listed in the conversation model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
+// The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
+//
+// | Field                                     | Type                                                                                                                                                   |
+// | :---------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+// | id                                        | String                                                                                                                                                 |
+// | created_at                                | Date (UNIX timestamp)                                                                                                                                  |
+// | updated_at                                | Date (UNIX timestamp)                                                                                                                                  |
+// | source.type                               | String<br>Accepted fields are `conversation`, `email`, `facebook`, `instagram`, `phone_call`, `phone_switch`, `push`, `sms`, `twitter` and `whatsapp`. |
+// | source.id                                 | String                                                                                                                                                 |
+// | source.delivered_as                       | String                                                                                                                                                 |
+// | source.subject                            | String                                                                                                                                                 |
+// | source.body                               | String                                                                                                                                                 |
+// | source.author.id                          | String                                                                                                                                                 |
+// | source.author.type                        | String                                                                                                                                                 |
+// | source.author.name                        | String                                                                                                                                                 |
+// | source.author.email                       | String                                                                                                                                                 |
+// | source.url                                | String                                                                                                                                                 |
+// | contact_ids                               | String                                                                                                                                                 |
+// | teammate_ids                              | String                                                                                                                                                 |
+// | admin_assignee_id                         | Integer                                                                                                                                                |
+// | team_assignee_id                          | Integer                                                                                                                                                |
+// | channel_initiated                         | String                                                                                                                                                 |
+// | open                                      | Boolean                                                                                                                                                |
+// | read                                      | Boolean                                                                                                                                                |
+// | state                                     | String                                                                                                                                                 |
+// | waiting_since                             | Date (UNIX timestamp)                                                                                                                                  |
+// | snoozed_until                             | Date (UNIX timestamp)                                                                                                                                  |
+// | tag_ids                                   | String                                                                                                                                                 |
+// | priority                                  | String                                                                                                                                                 |
+// | statistics.time_to_assignment             | Integer                                                                                                                                                |
+// | statistics.time_to_admin_reply            | Integer                                                                                                                                                |
+// | statistics.time_to_first_close            | Integer                                                                                                                                                |
+// | statistics.time_to_last_close             | Integer                                                                                                                                                |
+// | statistics.median_time_to_reply           | Integer                                                                                                                                                |
+// | statistics.first_contact_reply_at         | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.first_assignment_at            | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.first_admin_reply_at           | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.first_close_at                 | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_assignment_at             | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_assignment_admin_reply_at | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_contact_reply_at          | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_admin_reply_at            | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_close_at                  | Date (UNIX timestamp)                                                                                                                                  |
+// | statistics.last_closed_by_id              | String                                                                                                                                                 |
+// | statistics.count_reopens                  | Integer                                                                                                                                                |
+// | statistics.count_assignments              | Integer                                                                                                                                                |
+// | statistics.count_conversation_parts       | Integer                                                                                                                                                |
+// | conversation_rating.requested_at          | Date (UNIX timestamp)                                                                                                                                  |
+// | conversation_rating.replied_at            | Date (UNIX timestamp)                                                                                                                                  |
+// | conversation_rating.score                 | Integer                                                                                                                                                |
+// | conversation_rating.remark                | String                                                                                                                                                 |
+// | conversation_rating.contact_id            | String                                                                                                                                                 |
+// | conversation_rating.admin_d               | String                                                                                                                                                 |
+// | ai_agent_participated                     | Boolean                                                                                                                                                |
+// | ai_agent.resolution_state                 | String                                                                                                                                                 |
+// | ai_agent.last_answer_type                 | String                                                                                                                                                 |
+// | ai_agent.rating                           | Integer                                                                                                                                                |
+// | ai_agent.rating_remark                    | String                                                                                                                                                 |
+// | ai_agent.source_type                      | String                                                                                                                                                 |
+// | ai_agent.source_title                     | String                                                                                                                                                 |
+//
+// ### Accepted Operators
+//
+// The table below shows the operators you can use to define how you want to search for the value.  The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type  (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates).
+//
+// | Operator | Valid Types                    | Description                                                  |
+// | :------- | :----------------------------- | :----------------------------------------------------------- |
+// | =        | All                            | Equals                                                       |
+// | !=       | All                            | Doesn't Equal                                                |
+// | IN       | All                            | In  Shortcut for `OR` queries  Values most be in Array       |
+// | NIN      | All                            | Not In  Shortcut for `OR !` queries  Values must be in Array |
+// | >        | Integer  Date (UNIX Timestamp) | Greater (or equal) than                                      |
+// | <       | Integer  Date (UNIX Timestamp) | Lower (or equal) than                                        |
+// | ~        | String                         | Contains                                                     |
+// | !~       | String                         | Doesn't Contain                                              |
+// | ^        | String                         | Starts With                                                  |
+// | $        | String                         | Ends With                                                    |
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /conversations/search (the `SearchConversations` operationId).
+func (c *Client) SearchConversations(ctx context.Context, params *SearchConversationsParams, body SearchConversationsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchConversationsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // DeleteConversation Delete a conversation
 //
 // {% admonition type="warning" name="Irreversible operation" %}
@@ -591,13 +1239,15 @@ func (c *Client) ListSideConversations(ctx context.Context, id string, params *L
 	return c.Client.Do(req)
 }
 
-// DeleteCustomObjectInstancesById Delete a Custom Object Instance by External ID
+// DeleteCustomObjectInstancesByExternalId Delete a Custom Object Instance by External ID
 //
 // Delete a single Custom Object instance by external_id.
 //
-// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier} (the `DeleteCustomObjectInstancesById` operationId).
-func (c *Client) DeleteCustomObjectInstancesById(ctx context.Context, customObjectTypeIdentifier string, params *DeleteCustomObjectInstancesByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteCustomObjectInstancesByIdRequest(c.Server, customObjectTypeIdentifier, params)
+// Requires the `read_write_custom_object_instances` OAuth scope.
+//
+// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier} (the `DeleteCustomObjectInstancesByExternalId` operationId).
+func (c *Client) DeleteCustomObjectInstancesByExternalId(ctx context.Context, customObjectTypeIdentifier string, params *DeleteCustomObjectInstancesByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteCustomObjectInstancesByExternalIdRequest(c.Server, customObjectTypeIdentifier, params)
 	if err != nil {
 		return nil, err
 	}
@@ -615,7 +1265,9 @@ func (c *Client) DeleteCustomObjectInstancesById(ctx context.Context, customObje
 // - **`references_contact_id`** — returns instances associated with the given contact.
 // - **`references_conversation_id`** — returns instances associated with the given conversation.
 //
-// When **`external_id`** is provided, returns a single matching instance (not a list).
+// When **`external_id`** is provided, returns a single matching instance (not a list). If no instance matches, the response is still `200`, with the same body the single-instance endpoint returns for a miss.
+//
+// Requires the `read_conversations`, `read_users_companies`, `read_write_custom_object_instances` or `read_write_users` OAuth scope.
 //
 // Corresponds with GET /custom_object_instances/{custom_object_type_identifier} (the `ListCustomObjectInstances` operationId).
 func (c *Client) ListCustomObjectInstances(ctx context.Context, customObjectTypeIdentifier string, params *ListCustomObjectInstancesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -632,7 +1284,9 @@ func (c *Client) ListCustomObjectInstances(ctx context.Context, customObjectType
 
 // CreateCustomObjectInstancesWithBody Create or Update a Custom Object Instance
 //
-// Create or update a custom object instance.
+// # Create or update a custom object instance
+//
+// Requires the `read_write_custom_object_instances` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -651,7 +1305,9 @@ func (c *Client) CreateCustomObjectInstancesWithBody(ctx context.Context, custom
 
 // CreateCustomObjectInstances Create or Update a Custom Object Instance
 //
-// Create or update a custom object instance.
+// # Create or update a custom object instance
+//
+// Requires the `read_write_custom_object_instances` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -668,13 +1324,15 @@ func (c *Client) CreateCustomObjectInstances(ctx context.Context, customObjectTy
 	return c.Client.Do(req)
 }
 
-// DeleteCustomObjectInstancesByExternalId Delete a Custom Object Instance by ID
+// DeleteCustomObjectInstancesById Delete a Custom Object Instance by ID
 //
 // Delete a single Custom Object instance using the Intercom defined id.
 //
-// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier}/{custom_object_instance_id} (the `DeleteCustomObjectInstancesByExternalId` operationId).
-func (c *Client) DeleteCustomObjectInstancesByExternalId(ctx context.Context, customObjectTypeIdentifier string, customObjectInstanceId string, params *DeleteCustomObjectInstancesByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteCustomObjectInstancesByExternalIdRequest(c.Server, customObjectTypeIdentifier, customObjectInstanceId, params)
+// Requires the `read_write_custom_object_instances` OAuth scope.
+//
+// Corresponds with DELETE /custom_object_instances/{custom_object_type_identifier}/{custom_object_instance_id} (the `DeleteCustomObjectInstancesById` operationId).
+func (c *Client) DeleteCustomObjectInstancesById(ctx context.Context, customObjectTypeIdentifier string, customObjectInstanceId string, params *DeleteCustomObjectInstancesByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteCustomObjectInstancesByIdRequest(c.Server, customObjectTypeIdentifier, customObjectInstanceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -688,6 +1346,8 @@ func (c *Client) DeleteCustomObjectInstancesByExternalId(ctx context.Context, cu
 // GetCustomObjectInstancesById Get Custom Object Instance by ID
 //
 // Fetch a Custom Object Instance by id.
+//
+// Requires the `read_conversations`, `read_users_companies`, `read_write_custom_object_instances` or `read_write_users` OAuth scope.
 //
 // Corresponds with GET /custom_object_instances/{custom_object_type_identifier}/{custom_object_instance_id} (the `GetCustomObjectInstancesById` operationId).
 func (c *Client) GetCustomObjectInstancesById(ctx context.Context, customObjectTypeIdentifier string, customObjectInstanceId string, params *GetCustomObjectInstancesByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1124,7 +1784,9 @@ func (c *Client) GetDownloadReportingDataJobIdentifier(ctx context.Context, jobI
 
 // ListDynamicContents List all dynamic content
 //
-// You can fetch a list of all dynamic content for a workspace, most recently updated first. Requires the `read_dynamic_content` scope.
+// You can fetch a list of all dynamic content for a workspace, most recently updated first.
+//
+// Requires the `read_dynamic_content` or `read_write_dynamic_content` OAuth scope.
 //
 // Corresponds with GET /dynamic_contents (the `ListDynamicContents` operationId).
 func (c *Client) ListDynamicContents(ctx context.Context, params *ListDynamicContentsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1141,7 +1803,9 @@ func (c *Client) ListDynamicContents(ctx context.Context, params *ListDynamicCon
 
 // CreateDynamicContentWithBody Create dynamic content
 //
-// You can create dynamic content. Requires the `read_write_dynamic_content` scope.
+// You can create dynamic content.
+//
+// Requires the `read_write_dynamic_content` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -1160,7 +1824,9 @@ func (c *Client) CreateDynamicContentWithBody(ctx context.Context, params *Creat
 
 // CreateDynamicContent Create dynamic content
 //
-// You can create dynamic content. Requires the `read_write_dynamic_content` scope.
+// You can create dynamic content.
+//
+// Requires the `read_write_dynamic_content` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -1179,7 +1845,9 @@ func (c *Client) CreateDynamicContent(ctx context.Context, params *CreateDynamic
 
 // DeleteDynamicContent Delete dynamic content
 //
-// You can delete a single dynamic content by its id. Dynamic content that is still used in an article can't be deleted. Requires the `read_write_dynamic_content` scope.
+// You can delete a single dynamic content by its id. Dynamic content that is still used in an article can't be deleted.
+//
+// Requires the `read_write_dynamic_content` OAuth scope.
 //
 // Corresponds with DELETE /dynamic_contents/{id} (the `DeleteDynamicContent` operationId).
 func (c *Client) DeleteDynamicContent(ctx context.Context, id string, params *DeleteDynamicContentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1196,7 +1864,9 @@ func (c *Client) DeleteDynamicContent(ctx context.Context, id string, params *De
 
 // GetDynamicContent Retrieve dynamic content
 //
-// You can fetch a single dynamic content by its id. Requires the `read_dynamic_content` scope.
+// You can fetch a single dynamic content by its id.
+//
+// Requires the `read_dynamic_content` or `read_write_dynamic_content` OAuth scope.
 //
 // Corresponds with GET /dynamic_contents/{id} (the `GetDynamicContent` operationId).
 func (c *Client) GetDynamicContent(ctx context.Context, id string, params *GetDynamicContentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1213,7 +1883,11 @@ func (c *Client) GetDynamicContent(ctx context.Context, id string, params *GetDy
 
 // UpdateDynamicContentWithBody Update dynamic content
 //
-// You can update existing dynamic content. Only the fields you provide are changed. Requires the `read_write_dynamic_content` scope.
+// You can update existing dynamic content. Only the fields you provide are changed.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// Requires the `read_write_dynamic_content` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -1232,7 +1906,11 @@ func (c *Client) UpdateDynamicContentWithBody(ctx context.Context, id string, pa
 
 // UpdateDynamicContent Update dynamic content
 //
-// You can update existing dynamic content. Only the fields you provide are changed. Requires the `read_write_dynamic_content` scope.
+// You can update existing dynamic content. Only the fields you provide are changed.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// Requires the `read_write_dynamic_content` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -2257,6 +2935,8 @@ func (c *Client) RegisterFinVoiceCall(ctx context.Context, body RegisterFinVoice
 //
 // You can fetch a list of all folders for organizing content by making a GET request to `https://api.intercom.io/folders`.
 //
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
 // Corresponds with GET /folders (the `ListFolders` operationId).
 func (c *Client) ListFolders(ctx context.Context, params *ListFoldersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListFoldersRequest(c.Server, params)
@@ -2273,6 +2953,8 @@ func (c *Client) ListFolders(ctx context.Context, params *ListFoldersParams, req
 // CreateFolderWithBody Create a folder
 //
 // You can create a new folder for organizing content by making a POST request to `https://api.intercom.io/folders`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -2293,6 +2975,8 @@ func (c *Client) CreateFolderWithBody(ctx context.Context, params *CreateFolderP
 //
 // You can create a new folder for organizing content by making a POST request to `https://api.intercom.io/folders`.
 //
+// Requires the `read_write_articles_scope` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /folders (the `CreateFolder` operationId).
@@ -2312,6 +2996,8 @@ func (c *Client) CreateFolder(ctx context.Context, params *CreateFolderParams, b
 //
 // You can delete a folder (if it contains no content) by making a DELETE request to `https://api.intercom.io/folders/<id>`.
 //
+// Requires the `read_write_articles_scope` OAuth scope.
+//
 // Corresponds with DELETE /folders/{id} (the `DeleteFolder` operationId).
 func (c *Client) DeleteFolder(ctx context.Context, id int, params *DeleteFolderParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteFolderRequest(c.Server, id, params)
@@ -2329,6 +3015,8 @@ func (c *Client) DeleteFolder(ctx context.Context, id int, params *DeleteFolderP
 //
 // You can fetch the details of a single folder by making a GET request to `https://api.intercom.io/folders/<id>`.
 //
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
 // Corresponds with GET /folders/{id} (the `RetrieveFolder` operationId).
 func (c *Client) RetrieveFolder(ctx context.Context, id int, params *RetrieveFolderParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRetrieveFolderRequest(c.Server, id, params)
@@ -2345,6 +3033,10 @@ func (c *Client) RetrieveFolder(ctx context.Context, id int, params *RetrieveFol
 // UpdateFolderWithBody Update a folder
 //
 // You can update a folder by making a PUT request to `https://api.intercom.io/folders/<id>`.
+//
+// Fields you leave out keep their current values. Send `parent_folder_id` as `null` to move the folder to the top level. Folder names longer than 191 characters are truncated.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -2364,6 +3056,10 @@ func (c *Client) UpdateFolderWithBody(ctx context.Context, id int, params *Updat
 // UpdateFolder Update a folder
 //
 // You can update a folder by making a PUT request to `https://api.intercom.io/folders/<id>`.
+//
+// Fields you leave out keep their current values. Send `parent_folder_id` as `null` to move the folder to the top level. Folder names longer than 191 characters are truncated.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -2664,6 +3360,8 @@ func (c *Client) RetrieveHelpCenterRedirect(ctx context.Context, helpCenterId st
 //
 // You can fetch a list of all internal articles by making a GET request to `https://api.intercom.io/internal_articles`.
 //
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
 // Corresponds with GET /internal_articles (the `ListInternalArticles` operationId).
 func (c *Client) ListInternalArticles(ctx context.Context, params *ListInternalArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListInternalArticlesRequest(c.Server, params)
@@ -2680,6 +3378,8 @@ func (c *Client) ListInternalArticles(ctx context.Context, params *ListInternalA
 // CreateInternalArticleWithBody Create an internal article
 //
 // You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -2700,6 +3400,8 @@ func (c *Client) CreateInternalArticleWithBody(ctx context.Context, params *Crea
 //
 // You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
 //
+// Requires the `read_write_articles_scope` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /internal_articles (the `CreateInternalArticle` operationId).
@@ -2719,6 +3421,8 @@ func (c *Client) CreateInternalArticle(ctx context.Context, params *CreateIntern
 //
 // You can search for internal articles by making a GET request to `https://api.intercom.io/internal_articles/search`.
 //
+// Requires the `read_write_articles_scope` OAuth scope.
+//
 // Corresponds with GET /internal_articles/search (the `SearchInternalArticles` operationId).
 func (c *Client) SearchInternalArticles(ctx context.Context, params *SearchInternalArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewSearchInternalArticlesRequest(c.Server, params)
@@ -2735,6 +3439,8 @@ func (c *Client) SearchInternalArticles(ctx context.Context, params *SearchInter
 // DeleteInternalArticle Delete an internal article
 //
 // You can delete a single internal article by making a DELETE request to `https://api.intercom.io/internal_articles/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Corresponds with DELETE /internal_articles/{internal_article_id} (the `DeleteInternalArticle` operationId).
 func (c *Client) DeleteInternalArticle(ctx context.Context, internalArticleId int, params *DeleteInternalArticleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -2753,6 +3459,8 @@ func (c *Client) DeleteInternalArticle(ctx context.Context, internalArticleId in
 //
 // You can fetch the details of a single internal article by making a GET request to `https://api.intercom.io/internal_articles/<id>`.
 //
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
 // Corresponds with GET /internal_articles/{internal_article_id} (the `RetrieveInternalArticle` operationId).
 func (c *Client) RetrieveInternalArticle(ctx context.Context, internalArticleId int, params *RetrieveInternalArticleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRetrieveInternalArticleRequest(c.Server, internalArticleId, params)
@@ -2769,6 +3477,10 @@ func (c *Client) RetrieveInternalArticle(ctx context.Context, internalArticleId 
 // UpdateInternalArticleWithBody Update an internal article
 //
 // You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
+//
+// Fields you leave out keep their current values.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -2788,6 +3500,10 @@ func (c *Client) UpdateInternalArticleWithBody(ctx context.Context, internalArti
 // UpdateInternalArticle Update an internal article
 //
 // You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
+//
+// Fields you leave out keep their current values.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -3165,7 +3881,11 @@ func (c *Client) RetrieveWhatsAppMessageStatus(ctx context.Context, params *Retr
 
 // ListNewsItems List all news items
 //
-// You can fetch a list of all news items.
+// # You can fetch a list of all news items
+//
+// News items are returned newest first, by creation date.
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 //
 // Corresponds with GET /news/news_items (the `ListNewsItems` operationId).
 func (c *Client) ListNewsItems(ctx context.Context, params *ListNewsItemsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -3182,7 +3902,9 @@ func (c *Client) ListNewsItems(ctx context.Context, params *ListNewsItemsParams,
 
 // CreateNewsItemWithBody Create a news item
 //
-// You can create a news item.
+// # You can create a news item
+//
+// Requires the `read_write_news_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -3201,7 +3923,9 @@ func (c *Client) CreateNewsItemWithBody(ctx context.Context, params *CreateNewsI
 
 // CreateNewsItem Create a news item
 //
-// You can create a news item.
+// # You can create a news item
+//
+// Requires the `read_write_news_scope` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -3222,6 +3946,8 @@ func (c *Client) CreateNewsItem(ctx context.Context, params *CreateNewsItemParam
 //
 // You can delete a single news item.
 //
+// Requires the `read_write_news_scope` OAuth scope.
+//
 // Corresponds with DELETE /news/news_items/{news_item_id} (the `DeleteNewsItem` operationId).
 func (c *Client) DeleteNewsItem(ctx context.Context, newsItemId int, params *DeleteNewsItemParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteNewsItemRequest(c.Server, newsItemId, params)
@@ -3239,6 +3965,8 @@ func (c *Client) DeleteNewsItem(ctx context.Context, newsItemId int, params *Del
 //
 // You can fetch the details of a single news item.
 //
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
+//
 // Corresponds with GET /news/news_items/{news_item_id} (the `RetrieveNewsItem` operationId).
 func (c *Client) RetrieveNewsItem(ctx context.Context, newsItemId int, params *RetrieveNewsItemParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRetrieveNewsItemRequest(c.Server, newsItemId, params)
@@ -3253,6 +3981,14 @@ func (c *Client) RetrieveNewsItem(ctx context.Context, newsItemId int, params *R
 }
 
 // UpdateNewsItemWithBody Update a news item
+//
+// You can update a news item.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// `title`, `body`, `state`, `deliver_silently` and `cover_image_url` keep their current values when you leave them out. `labels` and `newsfeed_assignments` do not: leaving either out clears it, so send the full list on every update. Leaving `reactions` out disables reactions, although the list in the response does not change.
+//
+// Requires the `read_write_news_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -3271,6 +4007,14 @@ func (c *Client) UpdateNewsItemWithBody(ctx context.Context, newsItemId int, par
 
 // UpdateNewsItem Update a news item
 //
+// You can update a news item.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// `title`, `body`, `state`, `deliver_silently` and `cover_image_url` keep their current values when you leave them out. `labels` and `newsfeed_assignments` do not: leaving either out clears it, so send the full list on every update. Leaving `reactions` out disables reactions, although the list in the response does not change.
+//
+// Requires the `read_write_news_scope` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with PUT /news/news_items/{news_item_id} (the `UpdateNewsItem` operationId).
@@ -3288,7 +4032,11 @@ func (c *Client) UpdateNewsItem(ctx context.Context, newsItemId int, params *Upd
 
 // ListNewsfeeds List all newsfeeds
 //
-// You can fetch a list of all newsfeeds.
+// # You can fetch a list of all newsfeeds
+//
+// Newsfeeds are returned newest first, by creation date.
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 //
 // Corresponds with GET /news/newsfeeds (the `ListNewsfeeds` operationId).
 func (c *Client) ListNewsfeeds(ctx context.Context, params *ListNewsfeedsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -3305,7 +4053,9 @@ func (c *Client) ListNewsfeeds(ctx context.Context, params *ListNewsfeedsParams,
 
 // RetrieveNewsfeed Retrieve a newsfeed
 //
-// You can fetch the details of a single newsfeed.
+// # You can fetch the details of a single newsfeed
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 //
 // Corresponds with GET /news/newsfeeds/{newsfeed_id} (the `RetrieveNewsfeed` operationId).
 func (c *Client) RetrieveNewsfeed(ctx context.Context, newsfeedId string, params *RetrieveNewsfeedParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -3322,7 +4072,11 @@ func (c *Client) RetrieveNewsfeed(ctx context.Context, newsfeedId string, params
 
 // ListLiveNewsfeedItems List all live newsfeed items
 //
-// You can fetch a list of all news items that are live on a given newsfeed.
+// # You can fetch a list of all news items that are live on a given newsfeed
+//
+// News items are returned most recently published first.
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
 //
 // Corresponds with GET /news/newsfeeds/{newsfeed_id}/items (the `ListLiveNewsfeedItems` operationId).
 func (c *Client) ListLiveNewsfeedItems(ctx context.Context, newsfeedId string, params *ListLiveNewsfeedItemsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -10986,6 +11740,33 @@ func NewDetachTagFromContentSnippetRequest(server string, contentSnippetId strin
 		return nil, err
 	}
 
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.AdminId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "admin_id", *params.AdminId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
 	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -13015,8 +13796,8 @@ func NewListSideConversationsRequest(server string, id string, params *ListSideC
 	return req, nil
 }
 
-// NewDeleteCustomObjectInstancesByIdRequest constructs an http.Request for the DeleteCustomObjectInstancesById method
-func NewDeleteCustomObjectInstancesByIdRequest(server string, customObjectTypeIdentifier string, params *DeleteCustomObjectInstancesByIdParams) (*http.Request, error) {
+// NewDeleteCustomObjectInstancesByExternalIdRequest constructs an http.Request for the DeleteCustomObjectInstancesByExternalId method
+func NewDeleteCustomObjectInstancesByExternalIdRequest(server string, customObjectTypeIdentifier string, params *DeleteCustomObjectInstancesByExternalIdParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -13273,8 +14054,8 @@ func NewCreateCustomObjectInstancesRequestWithBody(server string, customObjectTy
 	return req, nil
 }
 
-// NewDeleteCustomObjectInstancesByExternalIdRequest constructs an http.Request for the DeleteCustomObjectInstancesByExternalId method
-func NewDeleteCustomObjectInstancesByExternalIdRequest(server string, customObjectTypeIdentifier string, customObjectInstanceId string, params *DeleteCustomObjectInstancesByExternalIdParams) (*http.Request, error) {
+// NewDeleteCustomObjectInstancesByIdRequest constructs an http.Request for the DeleteCustomObjectInstancesById method
+func NewDeleteCustomObjectInstancesByIdRequest(server string, customObjectTypeIdentifier string, customObjectInstanceId string, params *DeleteCustomObjectInstancesByIdParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -16986,6 +17767,45 @@ func NewListInternalArticlesRequest(server string, params *ListInternalArticlesP
 		return nil, err
 	}
 
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -17095,6 +17915,30 @@ func NewSearchInternalArticlesRequest(server string, params *SearchInternalArtic
 		if params.FolderId != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "folder_id", *params.FolderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -17386,6 +18230,33 @@ func NewDetachTagFromInternalArticleRequest(server string, internalArticleId int
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.AdminId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "admin_id", *params.AdminId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
 	}
 
 	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
@@ -17969,6 +18840,45 @@ func NewListNewsItemsRequest(server string, params *ListNewsItemsParams) (*http.
 		return nil, err
 	}
 
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -18226,6 +19136,45 @@ func NewListNewsfeedsRequest(server string, params *ListNewsfeedsParams) (*http.
 		return nil, err
 	}
 
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -18322,6 +19271,45 @@ func NewListLiveNewsfeedItemsRequest(server string, newsfeedId string, params *L
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
@@ -19015,1013 +20003,6 @@ func NewCreatePhoneSwitchRequestWithBody(server string, params *CreatePhoneSwitc
 	}
 
 	operationPath := fmt.Sprintf("/phone_call_redirects")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListSegmentsRequest constructs an http.Request for the ListSegments method
-func NewListSegmentsRequest(server string, params *ListSegmentsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/segments")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.IncludeCount != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_count", *params.IncludeCount, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRetrieveSegmentRequest constructs an http.Request for the RetrieveSegment method
-func NewRetrieveSegmentRequest(server string, segmentId string, params *RetrieveSegmentParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "segment_id", segmentId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/segments/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListSubscriptionTypesRequest constructs an http.Request for the ListSubscriptionTypes method
-func NewListSubscriptionTypesRequest(server string, params *ListSubscriptionTypesParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/subscription_types")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetSubscriptionTypeRequest constructs an http.Request for the GetSubscriptionType method
-func NewGetSubscriptionTypeRequest(server string, id string, params *GetSubscriptionTypeParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/subscription_types/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListTagsRequest constructs an http.Request for the ListTags method
-func NewListTagsRequest(server string, params *ListTagsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/tags")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreateTagRequest calls the generic CreateTag builder with application/json body
-func NewCreateTagRequest(server string, params *CreateTagParams, body CreateTagJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreateTagRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewCreateTagRequestWithBody constructs an http.Request for the CreateTag method, with any body, and a specified content type
-func NewCreateTagRequestWithBody(server string, params *CreateTagParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/tags")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewDeleteTagRequest constructs an http.Request for the DeleteTag method
-func NewDeleteTagRequest(server string, tagId string, params *DeleteTagParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "tag_id", tagId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/tags/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewFindTagRequest constructs an http.Request for the FindTag method
-func NewFindTagRequest(server string, tagId string, params *FindTagParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "tag_id", tagId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/tags/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListTeamsRequest constructs an http.Request for the ListTeams method
-func NewListTeamsRequest(server string, params *ListTeamsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/teams")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRetrieveTeamRequest constructs an http.Request for the RetrieveTeam method
-func NewRetrieveTeamRequest(server string, teamId string, params *RetrieveTeamParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "team_id", teamId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/teams/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetTeamMetricsRequest constructs an http.Request for the GetTeamMetrics method
-func NewGetTeamMetricsRequest(server string, teamId string, params *GetTeamMetricsParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "team_id", teamId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/teams/%s/metrics", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.IdleThreshold != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "idle_threshold", *params.IdleThreshold, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListTicketStatesRequest constructs an http.Request for the ListTicketStates method
-func NewListTicketStatesRequest(server string, params *ListTicketStatesParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/ticket_states")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListTicketTypesRequest constructs an http.Request for the ListTicketTypes method
-func NewListTicketTypesRequest(server string, params *ListTicketTypesParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/ticket_types")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreateTicketTypeRequest calls the generic CreateTicketType builder with application/json body
-func NewCreateTicketTypeRequest(server string, params *CreateTicketTypeParams, body CreateTicketTypeJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreateTicketTypeRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewCreateTicketTypeRequestWithBody constructs an http.Request for the CreateTicketType method, with any body, and a specified content type
-func NewCreateTicketTypeRequestWithBody(server string, params *CreateTicketTypeParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/ticket_types")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetTicketTypeRequest constructs an http.Request for the GetTicketType method
-func NewGetTicketTypeRequest(server string, ticketTypeId string, params *GetTicketTypeParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "ticket_type_id", ticketTypeId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/ticket_types/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewUpdateTicketTypeRequest calls the generic UpdateTicketType builder with application/json body
-func NewUpdateTicketTypeRequest(server string, ticketTypeId string, params *UpdateTicketTypeParams, body UpdateTicketTypeJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateTicketTypeRequestWithBody(server, ticketTypeId, params, "application/json", bodyReader)
-}
-
-// NewUpdateTicketTypeRequestWithBody constructs an http.Request for the UpdateTicketType method, with any body, and a specified content type
-func NewUpdateTicketTypeRequestWithBody(server string, ticketTypeId string, params *UpdateTicketTypeParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "ticket_type_id", ticketTypeId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/ticket_types/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreateTicketTypeAttributeRequest calls the generic CreateTicketTypeAttribute builder with application/json body
-func NewCreateTicketTypeAttributeRequest(server string, ticketTypeId string, params *CreateTicketTypeAttributeParams, body CreateTicketTypeAttributeJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreateTicketTypeAttributeRequestWithBody(server, ticketTypeId, params, "application/json", bodyReader)
-}
-
-// NewCreateTicketTypeAttributeRequestWithBody constructs an http.Request for the CreateTicketTypeAttribute method, with any body, and a specified content type
-func NewCreateTicketTypeAttributeRequestWithBody(server string, ticketTypeId string, params *CreateTicketTypeAttributeParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "ticket_type_id", ticketTypeId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/ticket_types/%s/attributes", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewUpdateTicketTypeAttributeRequest calls the generic UpdateTicketTypeAttribute builder with application/json body
-func NewUpdateTicketTypeAttributeRequest(server string, ticketTypeId string, attributeId string, params *UpdateTicketTypeAttributeParams, body UpdateTicketTypeAttributeJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateTicketTypeAttributeRequestWithBody(server, ticketTypeId, attributeId, params, "application/json", bodyReader)
-}
-
-// NewUpdateTicketTypeAttributeRequestWithBody constructs an http.Request for the UpdateTicketTypeAttribute method, with any body, and a specified content type
-func NewUpdateTicketTypeAttributeRequestWithBody(server string, ticketTypeId string, attributeId string, params *UpdateTicketTypeAttributeParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "ticket_type_id", ticketTypeId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "attribute_id", attributeId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/ticket_types/%s/attributes/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreateTicketRequest calls the generic CreateTicket builder with application/json body
-func NewCreateTicketRequest(server string, params *CreateTicketParams, body CreateTicketJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreateTicketRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewCreateTicketRequestWithBody constructs an http.Request for the CreateTicket method, with any body, and a specified content type
-func NewCreateTicketRequestWithBody(server string, params *CreateTicketParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/tickets")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}

@@ -5010,15 +5010,12 @@ func (e PagesLinkType) Valid() bool {
 
 // Defines values for PaginatedResponseType.
 const (
-	PaginatedResponseTypeConversationList PaginatedResponseType = "conversation.list"
-	PaginatedResponseTypeList             PaginatedResponseType = "list"
+	PaginatedResponseTypeList PaginatedResponseType = "list"
 )
 
 // Valid indicates whether the value is a known member of the PaginatedResponseType enum.
 func (e PaginatedResponseType) Valid() bool {
 	switch e {
-	case PaginatedResponseTypeConversationList:
-		return true
 	case PaginatedResponseTypeList:
 		return true
 	default:
@@ -5902,6 +5899,24 @@ func (e UpdateDataConnectorRequestState) Valid() bool {
 	case UpdateDataConnectorRequestStateDraft:
 		return true
 	case UpdateDataConnectorRequestStateLive:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UpdateNewsItemRequestState.
+const (
+	UpdateNewsItemRequestStateDraft UpdateNewsItemRequestState = "draft"
+	UpdateNewsItemRequestStateLive  UpdateNewsItemRequestState = "live"
+)
+
+// Valid indicates whether the value is a known member of the UpdateNewsItemRequestState enum.
+func (e UpdateNewsItemRequestState) Valid() bool {
+	switch e {
+	case UpdateNewsItemRequestStateDraft:
+		return true
+	case UpdateNewsItemRequestStateLive:
 		return true
 	default:
 		return false
@@ -7690,7 +7705,7 @@ type Article struct {
 	// Statistics The statistics of an article.
 	Statistics *ArticleStatistics `json:"statistics,omitempty"`
 
-	// Tags A list of tags objects associated with a conversation
+	// Tags A list of tags objects associated with a conversation, article or internal article
 	Tags *Tags `json:"tags,omitempty"`
 
 	// Title The title of the article. For multilingual articles, this will be the title of the default language's content.
@@ -7990,7 +8005,7 @@ type ArticleListItem struct {
 	// Example: published
 	State *ArticleListItemState `json:"state,omitempty"`
 
-	// Tags A list of tags objects associated with a conversation
+	// Tags A list of tags objects associated with a conversation, article or internal article
 	Tags *Tags `json:"tags,omitempty"`
 
 	// Title The title of the article. For multilingual articles, this will be the title of the default language's content.
@@ -8566,7 +8581,7 @@ type Audience struct {
 	// Example: 123
 	Id *string `json:"id,omitempty"`
 
-	// Name The name of the audience.
+	// Name The name of the audience. Returned HTML-escaped, for example `&` as `&amp;`.
 	//
 	// Example: VIP Customers
 	Name *string `json:"name,omitempty"`
@@ -8578,7 +8593,7 @@ type Audience struct {
 
 	// RolePredicates Role-based predicates that further filter audience membership by contact role.
 	//
-	// Example: [{"attribute":"role","comparison":"eq","type":"role","value":"user"}]
+	// Example: [{"attribute":"role","comparison":"in","type":"role","value":["user_role","contact_role","visitor_role"]}]
 	RolePredicates *[]Predicate `json:"role_predicates,omitempty"`
 
 	// Type The type of object.
@@ -11243,9 +11258,9 @@ type ContentSearchResponse struct {
 
 	// Pages Pagination metadata, including links to neighbouring pages.
 	Pages *struct {
-		// Next A link to the next page of results, or null when on the last page.
+		// Next A link to the next page of results. Omitted when on the last page.
 		//
-		// Example: https://api.intercom.io/content/search?query=billing&page=2
+		// Example: https://api.intercom.io/content/search?query=billing&per_page=10&page=2
 		Next *string `json:"next,omitempty"`
 
 		// Page The current page number.
@@ -11258,7 +11273,9 @@ type ContentSearchResponse struct {
 		// Example: 10
 		PerPage *int `json:"per_page,omitempty"`
 
-		// Prev A link to the previous page of results, or null when on the first page.
+		// Prev A link to the previous page of results. Omitted when on the first page.
+		//
+		// Example: https://api.intercom.io/content/search?query=billing&per_page=10&page=1
 		Prev *string `json:"prev,omitempty"`
 
 		// TotalPages Total number of pages of results.
@@ -11318,9 +11335,7 @@ type ContentSnippet struct {
 
 	// BodyMarkdown The body of the content snippet in markdown.
 	//
-	// Example: # How to reset your password
-	//
-	// Navigate to Settings > Security > Reset password.
+	// Example: Navigate to Settings \> Security \> Reset password.
 	BodyMarkdown *string `json:"body_markdown,omitempty"`
 
 	// ChatbotAvailability Deprecated. Use ai_chatbot_availability instead.
@@ -11345,7 +11360,7 @@ type ContentSnippet struct {
 	// Example: 123
 	Id *string `json:"id,omitempty"`
 
-	// JsonBlocks The content blocks that make up the body of the snippet.
+	// JsonBlocks The content blocks that make up the body of the snippet. In responses, the blocks are returned as a JSON-encoded string rather than as an array.
 	//
 	// Example: [{"text":"Navigate to Settings \u003e Security \u003e Reset password.","type":"paragraph"}]
 	JsonBlocks *[]map[string]interface{} `json:"json_blocks,omitempty"`
@@ -11643,7 +11658,7 @@ type Conversation struct {
 	// Statistics A Statistics object containing all information required for reporting, with timestamps and calculated metrics.
 	Statistics *ConversationStatistics `json:"statistics,omitempty"`
 
-	// Tags A list of tags objects associated with a conversation
+	// Tags A list of tags objects associated with a conversation, article or internal article
 	Tags *Tags `json:"tags,omitempty"`
 
 	// TeamAssigneeId The id of the team assigned to the conversation. If it's not assigned to a team it will return 0.
@@ -12596,7 +12611,7 @@ type ConversationListItem struct {
 	// Statistics A Statistics object containing all information required for reporting, with timestamps and calculated metrics.
 	Statistics *ConversationStatistics `json:"statistics,omitempty"`
 
-	// Tags A list of tags objects associated with a conversation
+	// Tags A list of tags objects associated with a conversation, article or internal article
 	Tags *Tags `json:"tags,omitempty"`
 
 	// TeamAssigneeId The id of the team assigned to the conversation. If it's not assigned to a team it will return 0.
@@ -13588,9 +13603,9 @@ type CreateAudienceRequest struct {
 	// Example: [{"attribute":"company.name","comparison":"contains","type":"string","value":"Acme"}]
 	Predicates *[]Predicate `json:"predicates,omitempty"`
 
-	// RolePredicates Role-based predicates that further filter audience membership by contact role.
+	// RolePredicates Role-based predicates that further filter audience membership by contact role. Defaults to all three contact roles when omitted.
 	//
-	// Example: [{"attribute":"role","comparison":"eq","type":"role","value":"user"}]
+	// Example: [{"attribute":"role","comparison":"in","type":"role","value":["user_role","contact_role","visitor_role"]}]
 	RolePredicates *[]Predicate `json:"role_predicates,omitempty"`
 }
 
@@ -14468,17 +14483,25 @@ type CreateInternalArticleRequest struct {
 	// Example: <p>This is the body in html</p>
 	Body *string `json:"body,omitempty"`
 
-	// BodyMarkdown The content of the article in markdown. An alternative to `body` — you can provide content as markdown instead of HTML. Mutually exclusive with `body`.
+	// BodyMarkdown The content of the article in markdown. An alternative to `body` — you can provide content as markdown instead of HTML. Mutually exclusive with `body` and `json_blocks`.
 	//
 	// Example: # Internal Guide
 	//
 	// Some instructions.
 	BodyMarkdown *string `json:"body_markdown,omitempty"`
 
-	// FolderId The ID of the folder to place this article in, or null to leave it without a folder.
+	// FolderId The ID of the folder to place this article in. Pass `null` to leave it without a folder.
 	//
 	// Example: 6
 	FolderId *int `json:"folder_id,omitempty"`
+
+	// JsonBlocks The content of the article as a list of content blocks. Used only when `body` is not provided. Cannot be combined with `body_markdown`.
+	JsonBlocks *[]map[string]interface{} `json:"json_blocks,omitempty"`
+
+	// Locale The locale of the article. Defaults to `en`.
+	//
+	// Example: en
+	Locale *string `json:"locale,omitempty"`
 
 	// OwnerId The id of the owner of the article.
 	//
@@ -14716,20 +14739,44 @@ type CreateOrUpdateCompanyRequest_CustomAttributes_AdditionalProperties struct {
 // CreateOrUpdateCustomObjectInstanceRequest Payload to create or update a Custom Object instance
 type CreateOrUpdateCustomObjectInstanceRequest struct {
 	// CustomAttributes The custom attributes which are set for the Custom Object instance.
-	CustomAttributes *map[string]string `json:"custom_attributes,omitempty"`
+	//
+	// Each value must match the type of the attribute it is set on: a string, integer, number or boolean, a Unix timestamp or date string for a datetime attribute, or `null` to clear the attribute. A list attribute takes the label or id of one of its options; a value that matches no option clears the attribute rather than being rejected. A reference attribute takes the Intercom id of the record it points at, or an array of ids for a reference to several records; an id that matches no record is skipped.
+	//
+	// Example: {"order_number":"ORDER-12345","total_amount":99.99}
+	CustomAttributes *map[string]CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties `json:"custom_attributes,omitempty"`
 
-	// ExternalCreatedAt The time when the Custom Object instance was created in the external system it originated from.
+	// ExternalCreatedAt The time when the Custom Object instance was created in the external system it originated from. A value that cannot be read as a time is stored as `null` rather than rejected.
 	//
 	// Example: 1571672154
 	ExternalCreatedAt *int `json:"external_created_at,omitempty"`
 
-	// ExternalId A unique identifier for the Custom Object instance in the external system it originated from.
+	// ExternalId A unique identifier for the Custom Object instance in the external system it originated from. The value `reference_not_found` is reserved and is rejected with a `400`. Omitting this field creates a new instance on every request instead of updating an existing one.
 	ExternalId *string `json:"external_id,omitempty"`
 
-	// ExternalUpdatedAt The time when the Custom Object instance was last updated in the external system it originated from.
+	// ExternalUpdatedAt The time when the Custom Object instance was last updated in the external system it originated from. A value that cannot be read as a time is stored as `null` rather than rejected.
 	//
 	// Example: 1571672154
 	ExternalUpdatedAt *int `json:"external_updated_at,omitempty"`
+}
+
+// CreateOrUpdateCustomObjectInstanceRequestCustomAttributes0 defines model for CreateOrUpdateCustomObjectInstanceRequest.CustomAttributes.0.
+type CreateOrUpdateCustomObjectInstanceRequestCustomAttributes0 = string
+
+// CreateOrUpdateCustomObjectInstanceRequestCustomAttributes1 defines model for CreateOrUpdateCustomObjectInstanceRequest.CustomAttributes.1.
+type CreateOrUpdateCustomObjectInstanceRequestCustomAttributes1 = int
+
+// CreateOrUpdateCustomObjectInstanceRequestCustomAttributes2 defines model for CreateOrUpdateCustomObjectInstanceRequest.CustomAttributes.2.
+type CreateOrUpdateCustomObjectInstanceRequestCustomAttributes2 = float64
+
+// CreateOrUpdateCustomObjectInstanceRequestCustomAttributes3 defines model for CreateOrUpdateCustomObjectInstanceRequest.CustomAttributes.3.
+type CreateOrUpdateCustomObjectInstanceRequestCustomAttributes3 = bool
+
+// CreateOrUpdateCustomObjectInstanceRequestCustomAttributes4 defines model for CreateOrUpdateCustomObjectInstanceRequest.CustomAttributes.4.
+type CreateOrUpdateCustomObjectInstanceRequestCustomAttributes4 = []string
+
+// CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties defines model for create_or_update_custom_object_instance_request.custom_attributes.AdditionalProperties.
+type CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProperties struct {
+	union json.RawMessage
 }
 
 // CreateOrUpdateTagRequest You can create or update an existing tag.
@@ -16639,7 +16686,7 @@ type DynamicContent struct {
 	// Example: support-phone-number
 	Key *string `json:"key,omitempty"`
 
-	// Name The name of the dynamic content.
+	// Name The name of the dynamic content. Returned HTML-escaped, for example `&` as `&amp;`.
 	//
 	// Example: Support phone number
 	Name *string `json:"name,omitempty"`
@@ -17881,6 +17928,9 @@ type InternalArticleListItem struct {
 	// Example: 5017691
 	OwnerId *int `json:"owner_id,omitempty"`
 
+	// Tags A list of tags objects associated with a conversation, article or internal article
+	Tags *Tags `json:"tags,omitempty"`
+
 	// Title The title of the article.
 	Title *string `json:"title,omitempty"`
 
@@ -18466,7 +18516,7 @@ type NewsItem struct {
 	// Example: We are excited to announce the launch of News Items, a new content type in Intercom enabling you to announce product updates, company news, promotions, events and more with your customers.
 	Body *string `json:"body,omitempty"`
 
-	// CoverImageUrl URL of the image used as cover. Must have .jpg or .png extension.
+	// CoverImageUrl URL of the image used as cover. Must have .jpg or .png extension. Intercom copies the image you send on write, so the URL returned here is a signed Intercom URL that expires; fetch the news item again for a fresh one.
 	//
 	// Example: https://example.com/cover.jpg
 	CoverImageUrl *string `json:"cover_image_url,omitempty"`
@@ -18486,8 +18536,8 @@ type NewsItem struct {
 	// Example: 141
 	Id *string `json:"id,omitempty"`
 
-	// Labels Label names displayed to users to categorize the news item.
-	Labels *[]*string `json:"labels,omitempty"`
+	// Labels Label names displayed to users to categorize the news item, sorted with uppercase letters before lowercase.
+	Labels *[]string `json:"labels,omitempty"`
 
 	// NewsfeedAssignments A list of newsfeed_assignments to assign to the specified newsfeed.
 	NewsfeedAssignments *[]NewsfeedAssignment `json:"newsfeed_assignments,omitempty"`
@@ -18497,8 +18547,8 @@ type NewsItem struct {
 	// Example: 1610589632
 	PublishedAt *int `json:"published_at,omitempty"`
 
-	// Reactions Ordered list of emoji reactions to the news item. When empty, reactions are disabled.
-	Reactions *[]*string `json:"reactions,omitempty"`
+	// Reactions Ordered list of emoji reactions to the news item. When empty, reactions are disabled. An update that leaves out `reactions` also disables them but leaves this list as it was.
+	Reactions *[]string `json:"reactions,omitempty"`
 
 	// SenderId The id of the sender of the news item. Must be a teammate on the workspace.
 	//
@@ -18548,6 +18598,11 @@ type NewsItemRequest struct {
 	// Example: <p>New costumes in store for this spooky season</p>
 	Body *string `json:"body,omitempty"`
 
+	// CoverImageUrl URL of the image to use as the cover. Must contain `.png` or `.jpg` in lower case, so `.jpeg` and `.PNG` are rejected. Intercom copies the image and serves it from its own signed URL.
+	//
+	// Example: https://example.com/cover.jpg
+	CoverImageUrl *string `json:"cover_image_url,omitempty"`
+
 	// DeliverSilently When set to `true`, the news item will appear in the messenger newsfeed without showing a notification badge.
 	//
 	// Example: true
@@ -18561,10 +18616,10 @@ type NewsItemRequest struct {
 	// NewsfeedAssignments A list of newsfeed_assignments to assign to the specified newsfeed.
 	NewsfeedAssignments *[]NewsfeedAssignment `json:"newsfeed_assignments,omitempty"`
 
-	// Reactions Ordered list of emoji reactions to the news item. When empty, reactions are disabled.
+	// Reactions Ordered list of emoji reactions to the news item. Send an empty list to disable reactions. Send at most five, each a single Unicode code point, so an emoji with a skin tone, a joiner sequence or a variation selector (such as ❤️) is rejected. More than five returns a 400, but the news item is still saved as a draft, with no reactions or cover image.
 	//
 	// Example: ["😆","😅"]
-	Reactions *[]*string `json:"reactions,omitempty"`
+	Reactions *[]string `json:"reactions,omitempty"`
 
 	// SenderId The id of the sender of the news item. Must be a teammate on the workspace.
 	//
@@ -18601,7 +18656,7 @@ type Newsfeed struct {
 	// Example: 12312
 	Id *string `json:"id,omitempty"`
 
-	// Name The name of the newsfeed. This name will never be visible to your users.
+	// Name The name of the newsfeed. This name will never be visible to your users. Returned HTML-escaped, for example `&` as `&amp;`. The News Center newsfeed always returns the name `News center newsfeed`.
 	//
 	// Example: My Newsfeed
 	Name *string `json:"name,omitempty"`
@@ -18624,12 +18679,12 @@ type NewsfeedType string
 
 // NewsfeedAssignment Assigns a news item to a newsfeed.
 type NewsfeedAssignment struct {
-	// NewsfeedId The unique identifier for the newsfeed which is given by Intercom. Publish dates cannot be in the future, to schedule news items use the dedicated feature in app (see this article).
+	// NewsfeedId The unique identifier for the newsfeed which is given by Intercom.
 	//
 	// Example: 198313
 	NewsfeedId *int `json:"newsfeed_id,omitempty"`
 
-	// PublishedAt Publish date of the news item on the newsfeed, use this field if you want to set a publish date in the past (e.g. when importing existing news items). On write, this field will be ignored if the news item state is "draft".
+	// PublishedAt Publish date of the news item on the newsfeed, use this field if you want to set a publish date in the past (e.g. when importing existing news items). On write, this field will be ignored if the news item state is "draft", and a date in the future is rejected with a `400`. Null while the news item isn't live.
 	//
 	// Example: 1674917488
 	PublishedAt *int `json:"published_at,omitempty"`
@@ -18906,9 +18961,10 @@ type PaginatedResponse struct {
 	// Data An array of Objects
 	Data *[]PaginatedResponse_Data_Item `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount A count of the total number of objects.
 	//
@@ -18983,27 +19039,30 @@ type PhoneSwitch struct {
 // PhoneSwitchType Example: phone_call_redirect
 type PhoneSwitchType string
 
-// Predicate A condition used to filter contacts in an audience.
+// Predicate A condition used to filter contacts in an audience. An attribute predicate compares one attribute. A logical predicate has a `type` of `and`, `or` or `not` and groups other predicates instead.
 type Predicate struct {
-	// Attribute The attribute to filter on.
+	// Attribute The attribute to filter on. Required on an attribute predicate.
 	//
 	// Example: company.name
 	Attribute *string `json:"attribute,omitempty"`
 
-	// Comparison The comparison operator.
+	// Comparison The comparison operator. Required on an attribute predicate.
 	//
 	// Example: contains
 	Comparison *string `json:"comparison,omitempty"`
 
-	// Type The type of the attribute.
+	// Predicates The predicates grouped by a logical predicate. Only used when `type` is `and`, `or` or `not`.
+	Predicates *[]Predicate `json:"predicates,omitempty"`
+
+	// Type The type of the attribute, or `and`, `or` or `not` on a logical predicate.
 	//
 	// Example: string
 	Type *string `json:"type,omitempty"`
 
-	// Value The value to compare against.
+	// Value The value to compare against. The accepted value depends on the attribute and the comparison, and can be a string, a number, a boolean, an array or `null`.
 	//
 	// Example: Acme
-	Value *string `json:"value,omitempty"`
+	Value interface{} `json:"value,omitempty"`
 }
 
 // PublishArticleDraftRequest Optional body for publishing a staged article draft. On a single-language
@@ -19532,14 +19591,14 @@ type SubscriptionTypeList struct {
 // Example: list
 type SubscriptionTypeListType string
 
-// Tag A tag allows you to label your contacts, companies, and conversations and list them using that tag.
+// Tag A tag allows you to label your contacts, companies, conversations, tickets, articles, internal articles and content snippets, and list them using that tag.
 type Tag struct {
-	// AppliedAt The time when the tag was applied to the object. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet, or when it is returned as part of an external page.
+	// AppliedAt The time when the tag was applied to the object. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet, when listing the tags on a contact, or when it is returned as part of an external page. `null` when the tag has just been removed from an article, internal article, content snippet or external page. Removing a tag from a contact, conversation or ticket returns the original value.
 	//
 	// Example: 1663597223
 	AppliedAt *int `json:"applied_at,omitempty"`
 
-	// AppliedBy The admin who applied the tag. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet, or when it is returned as part of an external page.
+	// AppliedBy The admin who applied the tag. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet, when listing the tags on a contact, or when it is returned as part of an external page. `null` when the tag has just been removed from an article, internal article, content snippet or external page. Removing a tag from a contact, conversation or ticket returns the original value. When no admin is recorded, `type` is `nobody_admin` and `id` is `null`.
 	AppliedBy *Reference `json:"applied_by,omitempty"`
 
 	// Id The id of the tag
@@ -19675,9 +19734,9 @@ type TagMultipleUsersRequest struct {
 	} `json:"users"`
 }
 
-// Tags A list of tags objects associated with a conversation
+// Tags A list of tags objects associated with a conversation, article or internal article
 type Tags struct {
-	// Tags A list of tags objects associated with the conversation.
+	// Tags A list of tags objects associated with the object.
 	Tags *[]Tag `json:"tags,omitempty"`
 
 	// Type The type of the object
@@ -19952,166 +20011,4 @@ type TicketCustomAttributes3 = []interface{}
 // TicketCustomAttributes_AdditionalProperties defines model for ticket_custom_attributes.AdditionalProperties.
 type TicketCustomAttributes_AdditionalProperties struct {
 	union json.RawMessage
-}
-
-// TicketDeleted deleted ticket object
-type TicketDeleted struct {
-	// Deleted Whether the ticket is deleted or not.
-	//
-	// Example: true
-	Deleted *bool `json:"deleted,omitempty"`
-
-	// Id The unique identifier for the ticket.
-	//
-	// Example: 5ba682d23d7cf92bef87bfd4
-	Id *string `json:"id,omitempty"`
-
-	// Object always ticket
-	//
-	// Example: ticket
-	Object *TicketDeletedObject `json:"object,omitempty"`
-}
-
-// TicketDeletedObject always ticket
-//
-// Example: ticket
-type TicketDeletedObject string
-
-// TicketList Tickets are how you track requests from your users.
-type TicketList struct {
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
-
-	// Tickets The list of ticket objects
-	Tickets *[]*Ticket `json:"tickets,omitempty"`
-
-	// TotalCount A count of the total number of objects.
-	//
-	// Example: 12345
-	TotalCount *int `json:"total_count,omitempty"`
-
-	// Type Always ticket.list
-	//
-	// Example: ticket.list
-	Type *TicketListType `json:"type,omitempty"`
-}
-
-// TicketListType Always ticket.list
-//
-// Example: ticket.list
-type TicketListType string
-
-// TicketPart A Ticket Part represents a message in the ticket.
-type TicketPart struct {
-	// AdminAssigneeId The id of the teammate that this ticket_part assigned the ticket to, or 0 if the part removed the teammate. Null or absent when the part did not change the teammate, including an unassignment that did not name which assignee it cleared. A bot is reported here, because assignment treats anything that is not a team as a teammate.
-	//
-	// Example: 991268013
-	AdminAssigneeId *int `json:"admin_assignee_id,omitempty"`
-
-	// AppPackageCode The app package code if this part was created via API. Note this field won't show if the part was not created via API.
-	//
-	// Example: text-integration
-	AppPackageCode *string `json:"app_package_code,omitempty"`
-
-	// AssignedTo reference to another object
-	AssignedTo *Reference `json:"assigned_to,omitempty"`
-
-	// Attachments A list of attachments for the part.
-	Attachments *[]PartAttachment `json:"attachments,omitempty"`
-
-	// Author The author that wrote or triggered the part. Can be a bot, admin, team or user.
-	Author *TicketPartAuthor `json:"author,omitempty"`
-
-	// Body The message body, which may contain HTML.
-	//
-	// Example: <p>Okay!</p>
-	Body *string `json:"body,omitempty"`
-
-	// CreatedAt The time the ticket part was created.
-	//
-	// Example: 1663597223
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// ExternalId The external id of the ticket part
-	//
-	// Example: abcd1234
-	ExternalId *string `json:"external_id,omitempty"`
-
-	// Id The id representing the ticket part.
-	//
-	// Example: 3
-	Id *string `json:"id,omitempty"`
-
-	// PartType The type of ticket part.
-	//
-	// Example: comment
-	PartType *string `json:"part_type,omitempty"`
-
-	// PreviousTicketState The previous state of the ticket.
-	//
-	// Example: submitted
-	PreviousTicketState *TicketPartPreviousTicketState `json:"previous_ticket_state,omitempty"`
-
-	// Redacted Whether or not the ticket part has been redacted.
-	//
-	// Example: false
-	Redacted *bool `json:"redacted,omitempty"`
-
-	// TeamAssigneeId The id of the team that this ticket_part assigned the ticket to, or 0 if the part removed the team. Null or absent when the part did not change the team, including an unassignment that did not name which assignee it cleared. A part can assign a team and a teammate at the same time, for example when the team uses Round Robin distribution and the teammate is resolved inline. In that case assigned_to reports only the teammate, and these two fields report each assignee separately.
-	//
-	// Example: 5017691
-	TeamAssigneeId *int `json:"team_assignee_id,omitempty"`
-
-	// TicketState The state of the ticket.
-	//
-	// Example: submitted
-	TicketState *TicketPartTicketState `json:"ticket_state,omitempty"`
-
-	// Translations A map of the reply text keyed by locale code. Backs the `ticket.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in; every other key holds the reply translated into that locale.
-	//
-	// Example: {"en":"\u003cp\u003eHello\u003c/p\u003e","fr":"\u003cp\u003eBonjour\u003c/p\u003e","original":"en"}
-	Translations *TicketPart_Translations `json:"translations,omitempty"`
-
-	// Type Always ticket_part
-	//
-	// Example: ticket_part
-	Type *string `json:"type,omitempty"`
-
-	// UpdatedAt The last time the ticket part was updated.
-	//
-	// Example: 1663597260
-	UpdatedAt *int `json:"updated_at,omitempty"`
-
-	// UpdatedAttributeData The updated attribute data of the ticket part. Only present for attribute update parts.
-	UpdatedAttributeData *struct {
-		// Attribute Information about the attribute that was updated.
-		Attribute struct {
-			// Id The unique identifier of the attribute.
-			//
-			// Example: 7
-			Id string `json:"id"`
-
-			// Label The human-readable name of the attribute.
-			//
-			// Example: Progress
-			Label string `json:"label"`
-
-			// Type The type of the object. Always 'attribute'.
-			//
-			// Example: attribute
-			Type TicketPartUpdatedAttributeDataAttributeType `json:"type"`
-		} `json:"attribute"`
-
-		// Value The new value of the attribute.
-		Value struct {
-			Id    TicketPart_UpdatedAttributeData_Value_Id    `json:"id"`
-			Label TicketPart_UpdatedAttributeData_Value_Label `json:"label"`
-
-			// Type The type of the object. Always 'value'.
-			//
-			// Example: value
-			Type TicketPartUpdatedAttributeDataValueType `json:"type"`
-		} `json:"value"`
-	} `json:"updated_attribute_data,omitempty"`
 }
