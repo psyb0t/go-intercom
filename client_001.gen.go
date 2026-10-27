@@ -14213,7 +14213,7 @@ type CreateDataConnectorRequest struct {
 	// EnforceAuth Whether authentication is enforced. On workspaces where this is supported, it takes precedence over `customer_authentication` and `bypass_authentication` when sent together, and setting it to false disables OTP.
 	EnforceAuth *bool `json:"enforce_auth,omitempty"`
 
-	// Headers HTTP headers to include in the request.
+	// Headers HTTP headers to include in the request. Don't put credentials such as API keys here: header values are recorded unmasked in the connector's execution logs, except `Authorization`, which is always masked. Attach an authentication token with `token_ids` instead; its value is masked in execution logs.
 	Headers *[]struct {
 		// Name The header name.
 		//

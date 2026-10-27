@@ -2,6 +2,10 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.4.1, 2026-10-27
+
+- Documentation only. The doc comment on `CreateDataConnectorRequest.Headers` and `UpdateDataConnectorRequest.Headers` now warns against putting credentials in header values, because they appear unmasked in execution logs except `Authorization`, and points to `token_ids` instead.
+
 ## v0.4.0, 2026-10-24
 
 - Breaking: `DeleteCustomObjectInstancesByExternalId` and `DeleteCustomObjectInstancesById` change arguments on `Client`, `ClientWithResponses` and both interfaces. `DeleteCustomObjectInstancesByExternalId` drops one string argument, `DeleteCustomObjectInstancesById` gains one, and `NewDeleteCustomObjectInstancesByExternalIdRequest` and `NewDeleteCustomObjectInstancesByIdRequest` change the same way. `DeleteCustomObjectInstancesByIdParams.ExternalId` moves to `DeleteCustomObjectInstancesByExternalIdParams.ExternalId`.
