@@ -17,6 +17,285 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Tags A list of tags objects associated with a conversation, article or internal article
+type Tags struct {
+	// Tags A list of tags objects associated with the object.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// Type The type of the object
+	//
+	// Example: tag.list
+	Type *TagsType `json:"type,omitempty"`
+}
+
+// TagsType The type of the object
+//
+// Example: tag.list
+type TagsType string
+
+// Team Teams are groups of admins in Intercom.
+type Team struct {
+	// AdminIds The list of admin IDs that are a part of the team.
+	//
+	// Example: [493881]
+	AdminIds *[]int `json:"admin_ids,omitempty"`
+
+	// AdminPriorityLevel Admin priority levels for the team
+	AdminPriorityLevel *AdminPriorityLevel `json:"admin_priority_level,omitempty"`
+
+	// AssignmentLimit The assignment limit for the team. This field is only present when the team's distribution type is load balanced.
+	//
+	// Example: 10
+	AssignmentLimit *int `json:"assignment_limit,omitempty"`
+
+	// DistributionMethod Describes how assignments are distributed among the team members
+	//
+	// Example: round_robin
+	DistributionMethod *string `json:"distribution_method,omitempty"`
+
+	// Id The id of the team
+	//
+	// Example: 814865
+	Id *string `json:"id,omitempty"`
+
+	// Name The name of the team
+	//
+	// Example: Example Team
+	Name *string `json:"name,omitempty"`
+
+	// Type Value is always "team"
+	//
+	// Example: team
+	Type *string `json:"type,omitempty"`
+}
+
+// TeamList This will return a list of team objects for the App.
+type TeamList struct {
+	// Teams A list of team objects
+	Teams *[]Team `json:"teams,omitempty"`
+
+	// Type The type of the object
+	//
+	// Example: team.list
+	Type *TeamListType `json:"type,omitempty"`
+}
+
+// TeamListType The type of the object
+//
+// Example: team.list
+type TeamListType string
+
+// TeamMetric Per-admin activity metrics within a team.
+type TeamMetric struct {
+	// AdminId The unique identifier for the admin.
+	//
+	// Example: 123
+	AdminId *string `json:"admin_id,omitempty"`
+
+	// Idle The number of idle conversations assigned to the admin. A conversation is idle when it has been open and waiting for an admin reply longer than the idle_threshold.
+	//
+	// Example: 2
+	Idle *int `json:"idle,omitempty"`
+
+	// Open The number of open conversations assigned to the admin.
+	//
+	// Example: 5
+	Open *int `json:"open,omitempty"`
+
+	// Snoozed The number of snoozed conversations assigned to the admin.
+	//
+	// Example: 1
+	Snoozed *int `json:"snoozed,omitempty"`
+
+	// Type Example: team_metric
+	Type *string `json:"type,omitempty"`
+}
+
+// TeamMetricList A list of team metrics.
+type TeamMetricList struct {
+	Data *[]TeamMetric `json:"data,omitempty"`
+
+	// Type Example: team_metric.list
+	Type *string `json:"type,omitempty"`
+}
+
+// TeamPriorityLevel Admin priority levels for teams
+type TeamPriorityLevel struct {
+	// PrimaryTeamIds The primary team ids for the team
+	//
+	// Example: [814865]
+	PrimaryTeamIds *[]int `json:"primary_team_ids,omitempty"`
+
+	// SecondaryTeamIds The secondary team ids for the team
+	//
+	// Example: [493881]
+	SecondaryTeamIds *[]int `json:"secondary_team_ids,omitempty"`
+}
+
+// TeammateReference A reference to a teammate
+type TeammateReference struct {
+	// Email The email address of the teammate (optional for teams/bots)
+	//
+	// Example: jane@example.com
+	Email *openapi_types.Email `json:"email,omitempty"`
+
+	// Id The unique identifier of the teammate
+	//
+	// Example: 123
+	Id int `json:"id"`
+
+	// Name The display name of the teammate
+	//
+	// Example: Jane Example
+	Name string `json:"name"`
+
+	// Type The type of teammate
+	//
+	// Example: admin
+	Type TeammateReferenceType `json:"type"`
+}
+
+// TeammateReferenceType The type of teammate
+//
+// Example: admin
+type TeammateReferenceType string
+
+// Ticket Tickets are how you track requests from your users.
+type Ticket struct {
+	// AdminAssigneeId The id representing the admin assigned to the ticket. If it's not assigned to an admin it will return 0.
+	//
+	// Example: 1295
+	AdminAssigneeId *int `json:"admin_assignee_id,omitempty"`
+
+	// Category Category of the Ticket.
+	//
+	// Example: Customer
+	Category *TicketCategory `json:"category,omitempty"`
+
+	// Channel The channel the ticket was created through. Defaults to messenger when no channel is specified at creation.
+	//
+	// Example: messenger
+	Channel *string `json:"channel,omitempty"`
+
+	// Contacts The list of contacts affected by a ticket.
+	Contacts *TicketContacts `json:"contacts,omitempty"`
+
+	// CreatedAt The time the ticket was created as a UTC Unix timestamp.
+	//
+	// Example: 1663597223
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// Id The unique identifier for the ticket which is given by Intercom.
+	//
+	// Example: 1295
+	Id *string `json:"id,omitempty"`
+
+	// IsShared Whether or not the ticket is shared with the customer.
+	//
+	// Example: true
+	IsShared *bool `json:"is_shared,omitempty"`
+
+	// LinkedObjects An object containing metadata about linked conversations and linked tickets. Up to 1000 can be returned.
+	LinkedObjects *LinkedObjectList `json:"linked_objects,omitempty"`
+
+	// Open Whether or not the ticket is open. If false, the ticket is closed.
+	//
+	// Example: true
+	Open *bool `json:"open,omitempty"`
+
+	// PreviousTicketStateId The ID of the previous ticket state from the most recent state change. Returns null if no state change history exists. Useful for tracking state transitions for reporting and compliance.
+	//
+	// Example: 7493
+	PreviousTicketStateId *string `json:"previous_ticket_state_id,omitempty"`
+
+	// SnoozedUntil The time the ticket will be snoozed until as a UTC Unix timestamp. If null, the ticket is not currently snoozed.
+	//
+	// Example: 1663597260
+	SnoozedUntil *int `json:"snoozed_until,omitempty"`
+
+	// TeamAssigneeId The id representing the team assigned to the ticket. If it's not assigned to a team it will return 0.
+	//
+	// Example: 1295
+	TeamAssigneeId *int `json:"team_assignee_id,omitempty"`
+
+	// TicketAttributes An object containing the different attributes associated to the ticket as key-value pairs. For the default title and description attributes, the keys are `_default_title_` and `_default_description_`.
+	//
+	// Example: {"_default_description_":"The button's not working","_default_title_":"Found a bug"}
+	TicketAttributes *TicketCustomAttributes `json:"ticket_attributes,omitempty"`
+
+	// TicketId The ID of the Ticket used in the Intercom Inbox and Messenger. Do not use ticket_id for API queries.
+	//
+	// Example: 1390
+	TicketId *string `json:"ticket_id,omitempty"`
+
+	// TicketParts A list of Ticket Part objects for each note and event in the ticket. There is a limit of 500 parts.
+	TicketParts *TicketParts `json:"ticket_parts,omitempty"`
+
+	// TicketState A ticket state, used to define the state of a ticket.
+	TicketState *TicketState `json:"ticket_state,omitempty"`
+
+	// TicketType A ticket type, used to define the data fields to be captured in a ticket.
+	TicketType *TicketType `json:"ticket_type,omitempty"`
+
+	// Type Always ticket
+	//
+	// Example: ticket
+	Type *TicketObjectType `json:"type,omitempty"`
+
+	// UpdatedAt The last time the ticket was updated as a UTC Unix timestamp.
+	//
+	// Example: 1663597260
+	UpdatedAt *int `json:"updated_at,omitempty"`
+}
+
+// TicketCategory Category of the Ticket.
+//
+// Example: Customer
+type TicketCategory string
+
+// TicketObjectType Always ticket
+//
+// Example: ticket
+type TicketObjectType string
+
+// TicketContacts The list of contacts affected by a ticket.
+type TicketContacts struct {
+	// Contacts The list of contacts affected by this ticket.
+	Contacts *[]ContactReference `json:"contacts,omitempty"`
+
+	// Type always contact.list
+	//
+	// Example: contact.list
+	Type *TicketContactsType `json:"type,omitempty"`
+}
+
+// TicketContactsType always contact.list
+//
+// Example: contact.list
+type TicketContactsType string
+
+// TicketCustomAttributes An object containing the different attributes associated to the ticket as key-value pairs. For the default title and description attributes, the keys are `_default_title_` and `_default_description_`.
+//
+// Example: {"_default_description_":"The button's not working","_default_title_":"Found a bug"}
+type TicketCustomAttributes map[string]TicketCustomAttributes_AdditionalProperties
+
+// TicketCustomAttributes0 defines model for TicketCustomAttributes.0.
+type TicketCustomAttributes0 = string
+
+// TicketCustomAttributes1 defines model for TicketCustomAttributes.1.
+type TicketCustomAttributes1 = float64
+
+// TicketCustomAttributes2 defines model for TicketCustomAttributes.2.
+type TicketCustomAttributes2 = bool
+
+// TicketCustomAttributes3 defines model for TicketCustomAttributes.3.
+type TicketCustomAttributes3 = []interface{}
+
+// TicketCustomAttributes_AdditionalProperties defines model for ticket_custom_attributes.AdditionalProperties.
+type TicketCustomAttributes_AdditionalProperties struct {
+	union json.RawMessage
+}
+
 // TicketDeleted deleted ticket object
 type TicketDeleted struct {
 	// Deleted Whether the ticket is deleted or not.
@@ -662,7 +941,7 @@ type Translation struct {
 
 // UntagCompanyRequest You can tag a single company or a list of companies.
 type UntagCompanyRequest struct {
-	// Companies The id or company_id of the company can be passed as input parameters.
+	// Companies The id, company_id or name of the company can be passed as input parameters. Companies that cannot be found are skipped.
 	Companies []struct {
 		// CompanyId The company id you have defined for the company.
 		//
@@ -674,13 +953,18 @@ type UntagCompanyRequest struct {
 		// Example: 531ee472cce572a6ec000006
 		Id *string `json:"id,omitempty"`
 
+		// Name The name of the company, used to look it up when neither `id` nor `company_id` is given.
+		//
+		// Example: Intercom
+		Name *string `json:"name,omitempty"`
+
 		// Untag Always set to true
 		//
 		// Example: true
-		Untag *bool `json:"untag,omitempty"`
+		Untag bool `json:"untag"`
 	} `json:"companies"`
 
-	// Name The name of the tag which will be untagged from the company
+	// Name The name of the tag which will be untagged from the company. Names can be at most 191 characters long.
 	//
 	// Example: Independent
 	Name string `json:"name"`
@@ -1598,26 +1882,116 @@ type UpdateTicketTypeRequestCategory string
 
 // UpdateVisitorRequest Update an existing visitor.
 type UpdateVisitorRequest struct {
+	// Avatar An image URL for the visitor's avatar.
+	//
+	// Example: https://example.org/128Wu8Q.jpg
+	Avatar *string `json:"avatar,omitempty"`
+
+	// Companies The companies to associate the visitor with. Only applied when the same request sends `email`, which promotes the visitor to a lead.
+	Companies *[]map[string]interface{} `json:"companies,omitempty"`
+
 	// CustomAttributes The custom attributes which are set for the visitor.
 	//
 	// Example: {"monthly_spend":155.5,"paid_subscriber":true,"team_mates":9}
-	CustomAttributes *map[string]string `json:"custom_attributes,omitempty"`
+	CustomAttributes *map[string]UpdateVisitorRequest_CustomAttributes_AdditionalProperties `json:"custom_attributes,omitempty"`
 
-	// Id A unique identified for the visitor which is given by Intercom.
+	// Email The visitor's email address. Sending this promotes the visitor to a lead and the response becomes a contact object.
+	//
+	// Example: winstonsmith@truth.org
+	Email *string `json:"email,omitempty"`
+
+	// Id A unique identified for the visitor which is given by Intercom. Used to look the visitor up; it is not changed by this request.
 	//
 	// Example: 8a88a590-e
 	Id *string `json:"id,omitempty"`
+
+	// LanguageOverride The language to send the visitor messages in, overriding the language we detect.
+	//
+	// Example: fr
+	LanguageOverride *string `json:"language_override,omitempty"`
+
+	// LastRequestAt The time the visitor was last seen, as a Unix timestamp.
+	//
+	// Example: 1663597223
+	LastRequestAt *int `json:"last_request_at,omitempty"`
+
+	// LastSeenIp The IP address the visitor was last seen from.
+	//
+	// Example: 1.2.3.4
+	LastSeenIp *string `json:"last_seen_ip,omitempty"`
+
+	// LastSeenUserAgent The user agent the visitor was last seen with.
+	//
+	// Example: Mozilla/5.0
+	LastSeenUserAgent *string `json:"last_seen_user_agent,omitempty"`
 
 	// Name The visitor's name.
 	//
 	// Example: Christian Bale
 	Name *string `json:"name,omitempty"`
 
-	// UserId A unique identified for the visitor which is given by you.
+	// OwnerId The id of the teammate who owns the visitor.
+	//
+	// Example: 991267734
+	OwnerId *int `json:"owner_id,omitempty"`
+
+	// Phone The visitor's phone number.
+	//
+	// Example: +353871234567
+	Phone *string `json:"phone,omitempty"`
+
+	// UnsubscribedFromEmails Whether the visitor is unsubscribed from emails.
+	//
+	// Example: false
+	UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
+
+	// UserId A unique identified for the visitor which is given by you. Used to look the visitor up; it is not changed by this request.
 	//
 	// Example: 123
 	UserId *string `json:"user_id,omitempty"`
-	union  json.RawMessage
+
+	// UtmCampaign The campaign the visitor arrived from.
+	//
+	// Example: intercom-link
+	UtmCampaign *string `json:"utm_campaign,omitempty"`
+
+	// UtmContent The content the visitor arrived from.
+	//
+	// Example: banner
+	UtmContent *string `json:"utm_content,omitempty"`
+
+	// UtmMedium The medium the visitor arrived from.
+	//
+	// Example: email
+	UtmMedium *string `json:"utm_medium,omitempty"`
+
+	// UtmSource The source the visitor arrived from.
+	//
+	// Example: Intercom
+	UtmSource *string `json:"utm_source,omitempty"`
+
+	// UtmTerm The search term the visitor arrived from.
+	//
+	// Example: messenger
+	UtmTerm *string `json:"utm_term,omitempty"`
+	union   json.RawMessage
+}
+
+// UpdateVisitorRequestCustomAttributes0 defines model for UpdateVisitorRequest.CustomAttributes.0.
+type UpdateVisitorRequestCustomAttributes0 = string
+
+// UpdateVisitorRequestCustomAttributes1 defines model for UpdateVisitorRequest.CustomAttributes.1.
+type UpdateVisitorRequestCustomAttributes1 = int
+
+// UpdateVisitorRequestCustomAttributes2 defines model for UpdateVisitorRequest.CustomAttributes.2.
+type UpdateVisitorRequestCustomAttributes2 = float64
+
+// UpdateVisitorRequestCustomAttributes3 defines model for UpdateVisitorRequest.CustomAttributes.3.
+type UpdateVisitorRequestCustomAttributes3 = bool
+
+// UpdateVisitorRequest_CustomAttributes_AdditionalProperties defines model for update_visitor_request.custom_attributes.AdditionalProperties.
+type UpdateVisitorRequest_CustomAttributes_AdditionalProperties struct {
+	union json.RawMessage
 }
 
 // UpdateVisitorRequest0 defines model for UpdateVisitorRequest.0.
@@ -1647,7 +2021,28 @@ type Visitor struct {
 		Type *string `json:"type,omitempty"`
 	} `json:"avatar,omitempty"`
 	Companies *struct {
-		Companies *[]Company `json:"companies,omitempty"`
+		// Companies Companies are returned in a reduced form here, with only these four keys.
+		Companies *[]struct {
+			// CompanyId The company id you have defined for the company.
+			//
+			// Example: 625
+			CompanyId *string `json:"company_id,omitempty"`
+
+			// Id The Intercom defined id representing the company.
+			//
+			// Example: 531ee472cce572a6ec000006
+			Id *string `json:"id,omitempty"`
+
+			// Name The name of the company.
+			//
+			// Example: Blue Sun
+			Name *string `json:"name,omitempty"`
+
+			// Type The type of the object
+			//
+			// Example: company
+			Type *VisitorCompaniesCompaniesType `json:"type,omitempty"`
+		} `json:"companies,omitempty"`
 
 		// Type The type of the object
 		//
@@ -1661,7 +2056,7 @@ type Visitor struct {
 	CreatedAt *int `json:"created_at,omitempty"`
 
 	// CustomAttributes The custom attributes you have set on the Visitor.
-	CustomAttributes *map[string]string `json:"custom_attributes,omitempty"`
+	CustomAttributes *map[string]Visitor_CustomAttributes_AdditionalProperties `json:"custom_attributes,omitempty"`
 
 	// DoNotTrack Identifies if this visitor has do not track enabled.
 	//
@@ -1762,7 +2157,17 @@ type Visitor struct {
 	// Example: 1663597223
 	RemoteCreatedAt *int `json:"remote_created_at,omitempty"`
 	Segments        *struct {
-		Segments *[]string `json:"segments,omitempty"`
+		Segments *[]struct {
+			// Id The Intercom defined id representing the segment.
+			//
+			// Example: 56203d455f71e8285f000020
+			Id *string `json:"id,omitempty"`
+
+			// Type The type of the object
+			//
+			// Example: segment
+			Type *VisitorSegmentsSegmentsType `json:"type,omitempty"`
+		} `json:"segments,omitempty"`
 
 		// Type The type of the object
 		//
@@ -1857,10 +2262,37 @@ type Visitor struct {
 	UtmTerm *string `json:"utm_term,omitempty"`
 }
 
+// VisitorCompaniesCompaniesType The type of the object
+//
+// Example: company
+type VisitorCompaniesCompaniesType string
+
 // VisitorCompaniesType The type of the object
 //
 // Example: company.list
 type VisitorCompaniesType string
+
+// VisitorCustomAttributes0 defines model for Visitor.CustomAttributes.0.
+type VisitorCustomAttributes0 = string
+
+// VisitorCustomAttributes1 defines model for Visitor.CustomAttributes.1.
+type VisitorCustomAttributes1 = int
+
+// VisitorCustomAttributes2 defines model for Visitor.CustomAttributes.2.
+type VisitorCustomAttributes2 = float64
+
+// VisitorCustomAttributes3 defines model for Visitor.CustomAttributes.3.
+type VisitorCustomAttributes3 = bool
+
+// Visitor_CustomAttributes_AdditionalProperties defines model for visitor.custom_attributes.AdditionalProperties.
+type Visitor_CustomAttributes_AdditionalProperties struct {
+	union json.RawMessage
+}
+
+// VisitorSegmentsSegmentsType The type of the object
+//
+// Example: segment
+type VisitorSegmentsSegmentsType string
 
 // VisitorSegmentsType The type of the object
 //
@@ -2540,8 +2972,19 @@ type ListAttachedContactsParams struct {
 
 // ListCompanyNotesParams defines parameters for ListCompanyNotes.
 type ListCompanyNotesParams struct {
-	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+	// Page The page of results to return. Defaults to `1`.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of notes to return per page. Defaults to `50`, maximum `60`.
+	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+
+	// Order The order the notes are returned in, by id. Defaults to `desc`.
+	Order           *ListCompanyNotesParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+	IntercomVersion *IntercomVersion             `json:"Intercom-Version,omitempty"`
 }
+
+// ListCompanyNotesParamsOrder defines parameters for ListCompanyNotes.
+type ListCompanyNotesParamsOrder string
 
 // CreateCompanyNoteJSONBody defines parameters for CreateCompanyNote.
 type CreateCompanyNoteJSONBody struct {
@@ -2730,8 +3173,19 @@ type DetachContactFromACompanyParams struct {
 
 // ListNotesParams defines parameters for ListNotes.
 type ListNotesParams struct {
-	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+	// Page The page of results to return. Defaults to `1`.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of notes to return per page. Defaults to `50`, maximum `60`.
+	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+
+	// Order The order the notes are returned in, by id. Defaults to `desc`.
+	Order           *ListNotesParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+	IntercomVersion *IntercomVersion      `json:"Intercom-Version,omitempty"`
 }
+
+// ListNotesParamsOrder defines parameters for ListNotes.
+type ListNotesParamsOrder string
 
 // CreateNoteJSONBody defines parameters for CreateNote.
 type CreateNoteJSONBody struct {
@@ -3362,8 +3816,6 @@ type DownloadDataExportParams struct {
 
 // GetDownloadReportingDataJobIdentifierParams defines parameters for GetDownloadReportingDataJobIdentifier.
 type GetDownloadReportingDataJobIdentifierParams struct {
-	AppId           string           `form:"app_id" json:"app_id"`
-	JobIdentifier   string           `form:"job_identifier" json:"job_identifier"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 
 	// Accept Required header for downloading the export file
@@ -3419,8 +3871,17 @@ type LisDataEventsParams struct {
 		union json.RawMessage
 	} `form:"filter" json:"filter"`
 
-	// Type The value must be user
-	Type string `form:"type" json:"type"`
+	// Type The value must be `user` or `lead`.
+	Type LisDataEventsParamsType `form:"type" json:"type"`
+
+	// PerPage The number of events to return per page.
+	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+
+	// Since Only return events created after this time, as a Unix timestamp in milliseconds. Take the value from the `since` link in the `pages` object of a previous response.
+	Since *int64 `form:"since,omitempty" json:"since,omitempty"`
+
+	// Before Only return events created before this time, as a Unix timestamp in milliseconds. Take the value from the `next` link in the `pages` object of a previous response.
+	Before *int64 `form:"before,omitempty" json:"before,omitempty"`
 
 	// Summary Set to `true` (or `1`) to return an event summary (`event.summary`) instead of the list of events. Omit for the paginated event list (`event.list`).
 	Summary         *bool            `form:"summary,omitempty" json:"summary,omitempty"`
@@ -3441,6 +3902,14 @@ type LisDataEventsParamsFilter1 struct {
 type LisDataEventsParamsFilter2 struct {
 	Email string `json:"email"`
 }
+
+// LisDataEventsParamsFilter3 defines parameters for LisDataEvents.
+type LisDataEventsParamsFilter3 struct {
+	AnonymousId string `json:"anonymous_id"`
+}
+
+// LisDataEventsParamsType defines parameters for LisDataEvents.
+type LisDataEventsParamsType string
 
 // LisDataEvents200JSONResponseBody defines parameters for LisDataEvents.
 type LisDataEvents200JSONResponseBody struct {
@@ -3474,16 +3943,22 @@ type GetDataExportParams struct {
 
 // PostExportReportingDataEnqueueJSONBody defines parameters for PostExportReportingDataEnqueue.
 type PostExportReportingDataEnqueueJSONBody struct {
-	// AttributeIds Example: ["conversation_id","conversation_started_at"]
+	// AttributeIds List of attribute identifiers to include in the export. Requires qualified_id format (e.g., "people.Brand", "standard.conversation_id"). Use the qualified_id returned from the get_datasets response.
+	//
+	// Example: ["standard.conversation_id","timestamp.conversation_started_at"]
 	AttributeIds []string `json:"attribute_ids"`
 
 	// DatasetId Example: conversation
 	DatasetId string `json:"dataset_id"`
 
-	// EndTime Example: 1717510000
+	// EndTime End of the export period, as a Unix timestamp in seconds. Must not be earlier than start_time and must also be within the retention period.
+	//
+	// Example: 1788307200
 	EndTime int64 `json:"end_time"`
 
-	// StartTime Example: 1717490000
+	// StartTime Start of the export period, as a Unix timestamp in seconds. Must be within your workspace's reporting data retention period, which is 2 years by default (3 years for workspaces with extended retention).
+	//
+	// Example: 1788220800
 	StartTime int64 `json:"start_time"`
 }
 
@@ -3499,14 +3974,22 @@ type GetExportReportingDataGetDatasetsParams struct {
 
 // GetExportReportingDataJobIdentifierParams defines parameters for GetExportReportingDataJobIdentifier.
 type GetExportReportingDataJobIdentifierParams struct {
-	// AppId The Intercom defined code of the workspace the company is associated to.
-	AppId    string `form:"app_id" json:"app_id"`
-	ClientId string `form:"client_id" json:"client_id"`
-
-	// JobIdentifier Unique identifier of the job.
-	JobIdentifier   string           `form:"job_identifier" json:"job_identifier"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
+
+// GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0 defines parameters for GetExportReportingDataJobIdentifier.
+type GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0 = int64
+
+// GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1 defines parameters for GetExportReportingDataJobIdentifier.
+type GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1 = string
+
+// GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt defines parameters for GetExportReportingDataJobIdentifier.
+type GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt struct {
+	union json.RawMessage
+}
+
+// GetExportReportingDataJobIdentifier200JSONResponseBodyStatus defines parameters for GetExportReportingDataJobIdentifier.
+type GetExportReportingDataJobIdentifier200JSONResponseBodyStatus string
 
 // ExportWorkflowParams defines parameters for ExportWorkflow.
 type ExportWorkflowParams struct {
@@ -4155,13 +4638,18 @@ type CreatePhoneSwitchParams struct {
 
 // ListSegmentsParams defines parameters for ListSegments.
 type ListSegmentsParams struct {
-	// IncludeCount It includes the count of contacts that belong to each segment.
-	IncludeCount    *bool            `form:"include_count,omitempty" json:"include_count,omitempty"`
+	// IncludeCount Includes the count of contacts that belong to each segment. The counts are added whenever this parameter has a value in the query string, even `false` or an empty one, so omit it entirely to leave them out. A bare `include_count` with no `=` adds no counts. With `type=company`, a company segment gets no count unless a contact segment has the same name, and then it shows that contact segment's count.
+	IncludeCount *bool `form:"include_count,omitempty" json:"include_count,omitempty"`
+
+	// Type Pass `company` to list company segments. Any other value, or no value, lists contact segments.
+	Type            *string          `form:"type,omitempty" json:"type,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
 // RetrieveSegmentParams defines parameters for RetrieveSegment.
 type RetrieveSegmentParams struct {
+	// IncludeCount Includes the count of contacts that belong to the segment. The count is added whenever this parameter has a value in the query string, even `false` or an empty one, so omit it entirely to leave it out. A bare `include_count` with no `=` adds no count.
+	IncludeCount    *bool            `form:"include_count,omitempty" json:"include_count,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -4177,7 +4665,35 @@ type GetSubscriptionTypeParams struct {
 
 // ListTagsParams defines parameters for ListTags.
 type ListTagsParams struct {
+	// Id The unique identifier of a tag. When set, a single tag object is returned instead of a list.
+	Id *string `form:"id,omitempty" json:"id,omitempty"`
+
+	// TaggableType Set to `user` or `company` to list the tags applied to one contact or company instead of the whole workspace. Identify it with `taggable_id`, `user_id`, `email`, `company_id` or `name`.
+	TaggableType *ListTagsParamsTaggableType `form:"taggable_type,omitempty" json:"taggable_type,omitempty"`
+
+	// TaggableId The Intercom id of the contact or company whose tags you want, used with `taggable_type`.
+	TaggableId *string `form:"taggable_id,omitempty" json:"taggable_id,omitempty"`
+
+	// UserId The external id of the contact whose tags you want, used with `taggable_type=user`.
+	UserId *string `form:"user_id,omitempty" json:"user_id,omitempty"`
+
+	// Email The email address of the contact whose tags you want, used with `taggable_type=user`.
+	Email *string `form:"email,omitempty" json:"email,omitempty"`
+
+	// CompanyId The external id of the company whose tags you want, used with `taggable_type=company`.
+	CompanyId *string `form:"company_id,omitempty" json:"company_id,omitempty"`
+
+	// Name The name of the company whose tags you want, used with `taggable_type=company`.
+	Name            *string          `form:"name,omitempty" json:"name,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// ListTagsParamsTaggableType defines parameters for ListTags.
+type ListTagsParamsTaggableType string
+
+// ListTags200JSONResponseBody defines parameters for ListTags.
+type ListTags200JSONResponseBody struct {
+	union json.RawMessage
 }
 
 // CreateTagParams defines parameters for CreateTag.
@@ -6695,6 +7211,32 @@ func (t *ConvertVisitorRequest_User) MergeConvertVisitorRequestUser1(v ConvertVi
 	return err
 }
 
+// AsConvertVisitorRequestUser2 returns the union data inside the ConvertVisitorRequest_User as a ConvertVisitorRequestUser2
+func (t ConvertVisitorRequest_User) AsConvertVisitorRequestUser2() (ConvertVisitorRequestUser2, error) {
+	var body ConvertVisitorRequestUser2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromConvertVisitorRequestUser2 overwrites any union data inside the ConvertVisitorRequest_User as the provided ConvertVisitorRequestUser2
+func (t *ConvertVisitorRequest_User) FromConvertVisitorRequestUser2(v ConvertVisitorRequestUser2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeConvertVisitorRequestUser2 performs a merge with any union data inside the ConvertVisitorRequest_User, using the provided ConvertVisitorRequestUser2
+func (t *ConvertVisitorRequest_User) MergeConvertVisitorRequestUser2(v ConvertVisitorRequestUser2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t ConvertVisitorRequest_User) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	if err != nil {
@@ -6809,32 +7351,6 @@ func (t *ConvertVisitorRequest_Visitor) FromConvertVisitorRequestVisitor1(v Conv
 
 // MergeConvertVisitorRequestVisitor1 performs a merge with any union data inside the ConvertVisitorRequest_Visitor, using the provided ConvertVisitorRequestVisitor1
 func (t *ConvertVisitorRequest_Visitor) MergeConvertVisitorRequestVisitor1(v ConvertVisitorRequestVisitor1) error {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsConvertVisitorRequestVisitor2 returns the union data inside the ConvertVisitorRequest_Visitor as a ConvertVisitorRequestVisitor2
-func (t ConvertVisitorRequest_Visitor) AsConvertVisitorRequestVisitor2() (ConvertVisitorRequestVisitor2, error) {
-	var body ConvertVisitorRequestVisitor2
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromConvertVisitorRequestVisitor2 overwrites any union data inside the ConvertVisitorRequest_Visitor as the provided ConvertVisitorRequestVisitor2
-func (t *ConvertVisitorRequest_Visitor) FromConvertVisitorRequestVisitor2(v ConvertVisitorRequestVisitor2) error {
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeConvertVisitorRequestVisitor2 performs a merge with any union data inside the ConvertVisitorRequest_Visitor, using the provided ConvertVisitorRequestVisitor2
-func (t *ConvertVisitorRequest_Visitor) MergeConvertVisitorRequestVisitor2(v ConvertVisitorRequestVisitor2) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -7928,6 +8444,310 @@ func (t *CreateDataEventRequest) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Metadata)
 		if err != nil {
 			return fmt.Errorf("error reading 'metadata': %w", err)
+		}
+	}
+
+	if raw, found := object["user_id"]; found {
+		err = json.Unmarshal(raw, &t.UserId)
+		if err != nil {
+			return fmt.Errorf("error reading 'user_id': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsCreateDataEventRequestMetadata0 returns the union data inside the CreateDataEventRequest_Metadata_AdditionalProperties as a CreateDataEventRequestMetadata0
+func (t CreateDataEventRequest_Metadata_AdditionalProperties) AsCreateDataEventRequestMetadata0() (CreateDataEventRequestMetadata0, error) {
+	var body CreateDataEventRequestMetadata0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateDataEventRequestMetadata0 overwrites any union data inside the CreateDataEventRequest_Metadata_AdditionalProperties as the provided CreateDataEventRequestMetadata0
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) FromCreateDataEventRequestMetadata0(v CreateDataEventRequestMetadata0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateDataEventRequestMetadata0 performs a merge with any union data inside the CreateDataEventRequest_Metadata_AdditionalProperties, using the provided CreateDataEventRequestMetadata0
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) MergeCreateDataEventRequestMetadata0(v CreateDataEventRequestMetadata0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateDataEventRequestMetadata1 returns the union data inside the CreateDataEventRequest_Metadata_AdditionalProperties as a CreateDataEventRequestMetadata1
+func (t CreateDataEventRequest_Metadata_AdditionalProperties) AsCreateDataEventRequestMetadata1() (CreateDataEventRequestMetadata1, error) {
+	var body CreateDataEventRequestMetadata1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateDataEventRequestMetadata1 overwrites any union data inside the CreateDataEventRequest_Metadata_AdditionalProperties as the provided CreateDataEventRequestMetadata1
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) FromCreateDataEventRequestMetadata1(v CreateDataEventRequestMetadata1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateDataEventRequestMetadata1 performs a merge with any union data inside the CreateDataEventRequest_Metadata_AdditionalProperties, using the provided CreateDataEventRequestMetadata1
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) MergeCreateDataEventRequestMetadata1(v CreateDataEventRequestMetadata1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateDataEventRequestMetadata2 returns the union data inside the CreateDataEventRequest_Metadata_AdditionalProperties as a CreateDataEventRequestMetadata2
+func (t CreateDataEventRequest_Metadata_AdditionalProperties) AsCreateDataEventRequestMetadata2() (CreateDataEventRequestMetadata2, error) {
+	var body CreateDataEventRequestMetadata2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateDataEventRequestMetadata2 overwrites any union data inside the CreateDataEventRequest_Metadata_AdditionalProperties as the provided CreateDataEventRequestMetadata2
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) FromCreateDataEventRequestMetadata2(v CreateDataEventRequestMetadata2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateDataEventRequestMetadata2 performs a merge with any union data inside the CreateDataEventRequest_Metadata_AdditionalProperties, using the provided CreateDataEventRequestMetadata2
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) MergeCreateDataEventRequestMetadata2(v CreateDataEventRequestMetadata2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateDataEventRequestMetadata3 returns the union data inside the CreateDataEventRequest_Metadata_AdditionalProperties as a CreateDataEventRequestMetadata3
+func (t CreateDataEventRequest_Metadata_AdditionalProperties) AsCreateDataEventRequestMetadata3() (CreateDataEventRequestMetadata3, error) {
+	var body CreateDataEventRequestMetadata3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateDataEventRequestMetadata3 overwrites any union data inside the CreateDataEventRequest_Metadata_AdditionalProperties as the provided CreateDataEventRequestMetadata3
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) FromCreateDataEventRequestMetadata3(v CreateDataEventRequestMetadata3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateDataEventRequestMetadata3 performs a merge with any union data inside the CreateDataEventRequest_Metadata_AdditionalProperties, using the provided CreateDataEventRequestMetadata3
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) MergeCreateDataEventRequestMetadata3(v CreateDataEventRequestMetadata3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateDataEventRequestMetadata4 returns the union data inside the CreateDataEventRequest_Metadata_AdditionalProperties as a CreateDataEventRequestMetadata4
+func (t CreateDataEventRequest_Metadata_AdditionalProperties) AsCreateDataEventRequestMetadata4() (CreateDataEventRequestMetadata4, error) {
+	var body CreateDataEventRequestMetadata4
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateDataEventRequestMetadata4 overwrites any union data inside the CreateDataEventRequest_Metadata_AdditionalProperties as the provided CreateDataEventRequestMetadata4
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) FromCreateDataEventRequestMetadata4(v CreateDataEventRequestMetadata4) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateDataEventRequestMetadata4 performs a merge with any union data inside the CreateDataEventRequest_Metadata_AdditionalProperties, using the provided CreateDataEventRequestMetadata4
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) MergeCreateDataEventRequestMetadata4(v CreateDataEventRequestMetadata4) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t CreateDataEventRequest_Metadata_AdditionalProperties) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *CreateDataEventRequest_Metadata_AdditionalProperties) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsCreateDataEventSummariesRequest0 returns the union data inside the CreateDataEventSummariesRequest as a CreateDataEventSummariesRequest0
+func (t CreateDataEventSummariesRequest) AsCreateDataEventSummariesRequest0() (CreateDataEventSummariesRequest0, error) {
+	var body CreateDataEventSummariesRequest0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateDataEventSummariesRequest0 overwrites any union data inside the CreateDataEventSummariesRequest as the provided CreateDataEventSummariesRequest0
+func (t *CreateDataEventSummariesRequest) FromCreateDataEventSummariesRequest0(v CreateDataEventSummariesRequest0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateDataEventSummariesRequest0 performs a merge with any union data inside the CreateDataEventSummariesRequest, using the provided CreateDataEventSummariesRequest0
+func (t *CreateDataEventSummariesRequest) MergeCreateDataEventSummariesRequest0(v CreateDataEventSummariesRequest0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateDataEventSummariesRequest1 returns the union data inside the CreateDataEventSummariesRequest as a CreateDataEventSummariesRequest1
+func (t CreateDataEventSummariesRequest) AsCreateDataEventSummariesRequest1() (CreateDataEventSummariesRequest1, error) {
+	var body CreateDataEventSummariesRequest1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateDataEventSummariesRequest1 overwrites any union data inside the CreateDataEventSummariesRequest as the provided CreateDataEventSummariesRequest1
+func (t *CreateDataEventSummariesRequest) FromCreateDataEventSummariesRequest1(v CreateDataEventSummariesRequest1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateDataEventSummariesRequest1 performs a merge with any union data inside the CreateDataEventSummariesRequest, using the provided CreateDataEventSummariesRequest1
+func (t *CreateDataEventSummariesRequest) MergeCreateDataEventSummariesRequest1(v CreateDataEventSummariesRequest1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateDataEventSummariesRequest2 returns the union data inside the CreateDataEventSummariesRequest as a CreateDataEventSummariesRequest2
+func (t CreateDataEventSummariesRequest) AsCreateDataEventSummariesRequest2() (CreateDataEventSummariesRequest2, error) {
+	var body CreateDataEventSummariesRequest2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateDataEventSummariesRequest2 overwrites any union data inside the CreateDataEventSummariesRequest as the provided CreateDataEventSummariesRequest2
+func (t *CreateDataEventSummariesRequest) FromCreateDataEventSummariesRequest2(v CreateDataEventSummariesRequest2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateDataEventSummariesRequest2 performs a merge with any union data inside the CreateDataEventSummariesRequest, using the provided CreateDataEventSummariesRequest2
+func (t *CreateDataEventSummariesRequest) MergeCreateDataEventSummariesRequest2(v CreateDataEventSummariesRequest2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t CreateDataEventSummariesRequest) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Email != nil {
+		object["email"], err = json.Marshal(t.Email)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'email': %w", err)
+		}
+	}
+
+	if t.EventSummaries != nil {
+		object["event_summaries"], err = json.Marshal(t.EventSummaries)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'event_summaries': %w", err)
+		}
+	}
+
+	if t.Id != nil {
+		object["id"], err = json.Marshal(t.Id)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'id': %w", err)
+		}
+	}
+
+	if t.UserId != nil {
+		object["user_id"], err = json.Marshal(t.UserId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'user_id': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *CreateDataEventSummariesRequest) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["email"]; found {
+		err = json.Unmarshal(raw, &t.Email)
+		if err != nil {
+			return fmt.Errorf("error reading 'email': %w", err)
+		}
+	}
+
+	if raw, found := object["event_summaries"]; found {
+		err = json.Unmarshal(raw, &t.EventSummaries)
+		if err != nil {
+			return fmt.Errorf("error reading 'event_summaries': %w", err)
+		}
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &t.Id)
+		if err != nil {
+			return fmt.Errorf("error reading 'id': %w", err)
 		}
 	}
 
@@ -9049,6 +9869,146 @@ func (t *CustomAttributesRequest_AdditionalProperties) UnmarshalJSON(b []byte) e
 	return err
 }
 
+// AsCustomObjectInstanceCustomAttributes0 returns the union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties as a CustomObjectInstanceCustomAttributes0
+func (t CustomObjectInstance_CustomAttributes_AdditionalProperties) AsCustomObjectInstanceCustomAttributes0() (CustomObjectInstanceCustomAttributes0, error) {
+	var body CustomObjectInstanceCustomAttributes0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCustomObjectInstanceCustomAttributes0 overwrites any union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties as the provided CustomObjectInstanceCustomAttributes0
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) FromCustomObjectInstanceCustomAttributes0(v CustomObjectInstanceCustomAttributes0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCustomObjectInstanceCustomAttributes0 performs a merge with any union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties, using the provided CustomObjectInstanceCustomAttributes0
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) MergeCustomObjectInstanceCustomAttributes0(v CustomObjectInstanceCustomAttributes0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCustomObjectInstanceCustomAttributes1 returns the union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties as a CustomObjectInstanceCustomAttributes1
+func (t CustomObjectInstance_CustomAttributes_AdditionalProperties) AsCustomObjectInstanceCustomAttributes1() (CustomObjectInstanceCustomAttributes1, error) {
+	var body CustomObjectInstanceCustomAttributes1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCustomObjectInstanceCustomAttributes1 overwrites any union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties as the provided CustomObjectInstanceCustomAttributes1
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) FromCustomObjectInstanceCustomAttributes1(v CustomObjectInstanceCustomAttributes1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCustomObjectInstanceCustomAttributes1 performs a merge with any union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties, using the provided CustomObjectInstanceCustomAttributes1
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) MergeCustomObjectInstanceCustomAttributes1(v CustomObjectInstanceCustomAttributes1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCustomObjectInstanceCustomAttributes2 returns the union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties as a CustomObjectInstanceCustomAttributes2
+func (t CustomObjectInstance_CustomAttributes_AdditionalProperties) AsCustomObjectInstanceCustomAttributes2() (CustomObjectInstanceCustomAttributes2, error) {
+	var body CustomObjectInstanceCustomAttributes2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCustomObjectInstanceCustomAttributes2 overwrites any union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties as the provided CustomObjectInstanceCustomAttributes2
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) FromCustomObjectInstanceCustomAttributes2(v CustomObjectInstanceCustomAttributes2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCustomObjectInstanceCustomAttributes2 performs a merge with any union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties, using the provided CustomObjectInstanceCustomAttributes2
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) MergeCustomObjectInstanceCustomAttributes2(v CustomObjectInstanceCustomAttributes2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCustomObjectInstanceCustomAttributes3 returns the union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties as a CustomObjectInstanceCustomAttributes3
+func (t CustomObjectInstance_CustomAttributes_AdditionalProperties) AsCustomObjectInstanceCustomAttributes3() (CustomObjectInstanceCustomAttributes3, error) {
+	var body CustomObjectInstanceCustomAttributes3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCustomObjectInstanceCustomAttributes3 overwrites any union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties as the provided CustomObjectInstanceCustomAttributes3
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) FromCustomObjectInstanceCustomAttributes3(v CustomObjectInstanceCustomAttributes3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCustomObjectInstanceCustomAttributes3 performs a merge with any union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties, using the provided CustomObjectInstanceCustomAttributes3
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) MergeCustomObjectInstanceCustomAttributes3(v CustomObjectInstanceCustomAttributes3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCustomObjectInstanceCustomAttributes4 returns the union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties as a CustomObjectInstanceCustomAttributes4
+func (t CustomObjectInstance_CustomAttributes_AdditionalProperties) AsCustomObjectInstanceCustomAttributes4() (CustomObjectInstanceCustomAttributes4, error) {
+	var body CustomObjectInstanceCustomAttributes4
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCustomObjectInstanceCustomAttributes4 overwrites any union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties as the provided CustomObjectInstanceCustomAttributes4
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) FromCustomObjectInstanceCustomAttributes4(v CustomObjectInstanceCustomAttributes4) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCustomObjectInstanceCustomAttributes4 performs a merge with any union data inside the CustomObjectInstance_CustomAttributes_AdditionalProperties, using the provided CustomObjectInstanceCustomAttributes4
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) MergeCustomObjectInstanceCustomAttributes4(v CustomObjectInstanceCustomAttributes4) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t CustomObjectInstance_CustomAttributes_AdditionalProperties) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *CustomObjectInstance_CustomAttributes_AdditionalProperties) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsCustomerRequest0 returns the union data inside the CustomerRequest as a CustomerRequest0
 func (t CustomerRequest) AsCustomerRequest0() (CustomerRequest0, error) {
 	var body CustomerRequest0
@@ -9137,6 +10097,146 @@ func (t *CustomerRequest) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsDataEventMetadata0 returns the union data inside the DataEvent_Metadata_AdditionalProperties as a DataEventMetadata0
+func (t DataEvent_Metadata_AdditionalProperties) AsDataEventMetadata0() (DataEventMetadata0, error) {
+	var body DataEventMetadata0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromDataEventMetadata0 overwrites any union data inside the DataEvent_Metadata_AdditionalProperties as the provided DataEventMetadata0
+func (t *DataEvent_Metadata_AdditionalProperties) FromDataEventMetadata0(v DataEventMetadata0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeDataEventMetadata0 performs a merge with any union data inside the DataEvent_Metadata_AdditionalProperties, using the provided DataEventMetadata0
+func (t *DataEvent_Metadata_AdditionalProperties) MergeDataEventMetadata0(v DataEventMetadata0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsDataEventMetadata1 returns the union data inside the DataEvent_Metadata_AdditionalProperties as a DataEventMetadata1
+func (t DataEvent_Metadata_AdditionalProperties) AsDataEventMetadata1() (DataEventMetadata1, error) {
+	var body DataEventMetadata1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromDataEventMetadata1 overwrites any union data inside the DataEvent_Metadata_AdditionalProperties as the provided DataEventMetadata1
+func (t *DataEvent_Metadata_AdditionalProperties) FromDataEventMetadata1(v DataEventMetadata1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeDataEventMetadata1 performs a merge with any union data inside the DataEvent_Metadata_AdditionalProperties, using the provided DataEventMetadata1
+func (t *DataEvent_Metadata_AdditionalProperties) MergeDataEventMetadata1(v DataEventMetadata1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsDataEventMetadata2 returns the union data inside the DataEvent_Metadata_AdditionalProperties as a DataEventMetadata2
+func (t DataEvent_Metadata_AdditionalProperties) AsDataEventMetadata2() (DataEventMetadata2, error) {
+	var body DataEventMetadata2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromDataEventMetadata2 overwrites any union data inside the DataEvent_Metadata_AdditionalProperties as the provided DataEventMetadata2
+func (t *DataEvent_Metadata_AdditionalProperties) FromDataEventMetadata2(v DataEventMetadata2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeDataEventMetadata2 performs a merge with any union data inside the DataEvent_Metadata_AdditionalProperties, using the provided DataEventMetadata2
+func (t *DataEvent_Metadata_AdditionalProperties) MergeDataEventMetadata2(v DataEventMetadata2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsDataEventMetadata3 returns the union data inside the DataEvent_Metadata_AdditionalProperties as a DataEventMetadata3
+func (t DataEvent_Metadata_AdditionalProperties) AsDataEventMetadata3() (DataEventMetadata3, error) {
+	var body DataEventMetadata3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromDataEventMetadata3 overwrites any union data inside the DataEvent_Metadata_AdditionalProperties as the provided DataEventMetadata3
+func (t *DataEvent_Metadata_AdditionalProperties) FromDataEventMetadata3(v DataEventMetadata3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeDataEventMetadata3 performs a merge with any union data inside the DataEvent_Metadata_AdditionalProperties, using the provided DataEventMetadata3
+func (t *DataEvent_Metadata_AdditionalProperties) MergeDataEventMetadata3(v DataEventMetadata3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsDataEventMetadata4 returns the union data inside the DataEvent_Metadata_AdditionalProperties as a DataEventMetadata4
+func (t DataEvent_Metadata_AdditionalProperties) AsDataEventMetadata4() (DataEventMetadata4, error) {
+	var body DataEventMetadata4
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromDataEventMetadata4 overwrites any union data inside the DataEvent_Metadata_AdditionalProperties as the provided DataEventMetadata4
+func (t *DataEvent_Metadata_AdditionalProperties) FromDataEventMetadata4(v DataEventMetadata4) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeDataEventMetadata4 performs a merge with any union data inside the DataEvent_Metadata_AdditionalProperties, using the provided DataEventMetadata4
+func (t *DataEvent_Metadata_AdditionalProperties) MergeDataEventMetadata4(v DataEventMetadata4) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t DataEvent_Metadata_AdditionalProperties) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *DataEvent_Metadata_AdditionalProperties) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsDatetime0 returns the union data inside the Datetime as a Datetime0
 func (t Datetime) AsDatetime0() (Datetime0, error) {
 	var body Datetime0
@@ -9195,6 +10295,68 @@ func (t Datetime) MarshalJSON() ([]byte, error) {
 }
 
 func (t *Datetime) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsErrorErrorsCode0 returns the union data inside the Error_Errors_Code as a ErrorErrorsCode0
+func (t Error_Errors_Code) AsErrorErrorsCode0() (ErrorErrorsCode0, error) {
+	var body ErrorErrorsCode0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromErrorErrorsCode0 overwrites any union data inside the Error_Errors_Code as the provided ErrorErrorsCode0
+func (t *Error_Errors_Code) FromErrorErrorsCode0(v ErrorErrorsCode0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeErrorErrorsCode0 performs a merge with any union data inside the Error_Errors_Code, using the provided ErrorErrorsCode0
+func (t *Error_Errors_Code) MergeErrorErrorsCode0(v ErrorErrorsCode0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsErrorErrorsCode1 returns the union data inside the Error_Errors_Code as a ErrorErrorsCode1
+func (t Error_Errors_Code) AsErrorErrorsCode1() (ErrorErrorsCode1, error) {
+	var body ErrorErrorsCode1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromErrorErrorsCode1 overwrites any union data inside the Error_Errors_Code as the provided ErrorErrorsCode1
+func (t *Error_Errors_Code) FromErrorErrorsCode1(v ErrorErrorsCode1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeErrorErrorsCode1 performs a merge with any union data inside the Error_Errors_Code, using the provided ErrorErrorsCode1
+func (t *Error_Errors_Code) MergeErrorErrorsCode1(v ErrorErrorsCode1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t Error_Errors_Code) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *Error_Errors_Code) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -10708,10 +11870,31 @@ func (t UpdateVisitorRequest) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.Avatar != nil {
+		object["avatar"], err = json.Marshal(t.Avatar)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'avatar': %w", err)
+		}
+	}
+
+	if t.Companies != nil {
+		object["companies"], err = json.Marshal(t.Companies)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'companies': %w", err)
+		}
+	}
+
 	if t.CustomAttributes != nil {
 		object["custom_attributes"], err = json.Marshal(t.CustomAttributes)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'custom_attributes': %w", err)
+		}
+	}
+
+	if t.Email != nil {
+		object["email"], err = json.Marshal(t.Email)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'email': %w", err)
 		}
 	}
 
@@ -10722,6 +11905,34 @@ func (t UpdateVisitorRequest) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.LanguageOverride != nil {
+		object["language_override"], err = json.Marshal(t.LanguageOverride)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'language_override': %w", err)
+		}
+	}
+
+	if t.LastRequestAt != nil {
+		object["last_request_at"], err = json.Marshal(t.LastRequestAt)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'last_request_at': %w", err)
+		}
+	}
+
+	if t.LastSeenIp != nil {
+		object["last_seen_ip"], err = json.Marshal(t.LastSeenIp)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'last_seen_ip': %w", err)
+		}
+	}
+
+	if t.LastSeenUserAgent != nil {
+		object["last_seen_user_agent"], err = json.Marshal(t.LastSeenUserAgent)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'last_seen_user_agent': %w", err)
+		}
+	}
+
 	if t.Name != nil {
 		object["name"], err = json.Marshal(t.Name)
 		if err != nil {
@@ -10729,10 +11940,66 @@ func (t UpdateVisitorRequest) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if t.OwnerId != nil {
+		object["owner_id"], err = json.Marshal(t.OwnerId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'owner_id': %w", err)
+		}
+	}
+
+	if t.Phone != nil {
+		object["phone"], err = json.Marshal(t.Phone)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'phone': %w", err)
+		}
+	}
+
+	if t.UnsubscribedFromEmails != nil {
+		object["unsubscribed_from_emails"], err = json.Marshal(t.UnsubscribedFromEmails)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'unsubscribed_from_emails': %w", err)
+		}
+	}
+
 	if t.UserId != nil {
 		object["user_id"], err = json.Marshal(t.UserId)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'user_id': %w", err)
+		}
+	}
+
+	if t.UtmCampaign != nil {
+		object["utm_campaign"], err = json.Marshal(t.UtmCampaign)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'utm_campaign': %w", err)
+		}
+	}
+
+	if t.UtmContent != nil {
+		object["utm_content"], err = json.Marshal(t.UtmContent)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'utm_content': %w", err)
+		}
+	}
+
+	if t.UtmMedium != nil {
+		object["utm_medium"], err = json.Marshal(t.UtmMedium)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'utm_medium': %w", err)
+		}
+	}
+
+	if t.UtmSource != nil {
+		object["utm_source"], err = json.Marshal(t.UtmSource)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'utm_source': %w", err)
+		}
+	}
+
+	if t.UtmTerm != nil {
+		object["utm_term"], err = json.Marshal(t.UtmTerm)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'utm_term': %w", err)
 		}
 	}
 	b, err = json.Marshal(object)
@@ -10750,10 +12017,31 @@ func (t *UpdateVisitorRequest) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
+	if raw, found := object["avatar"]; found {
+		err = json.Unmarshal(raw, &t.Avatar)
+		if err != nil {
+			return fmt.Errorf("error reading 'avatar': %w", err)
+		}
+	}
+
+	if raw, found := object["companies"]; found {
+		err = json.Unmarshal(raw, &t.Companies)
+		if err != nil {
+			return fmt.Errorf("error reading 'companies': %w", err)
+		}
+	}
+
 	if raw, found := object["custom_attributes"]; found {
 		err = json.Unmarshal(raw, &t.CustomAttributes)
 		if err != nil {
 			return fmt.Errorf("error reading 'custom_attributes': %w", err)
+		}
+	}
+
+	if raw, found := object["email"]; found {
+		err = json.Unmarshal(raw, &t.Email)
+		if err != nil {
+			return fmt.Errorf("error reading 'email': %w", err)
 		}
 	}
 
@@ -10764,10 +12052,59 @@ func (t *UpdateVisitorRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if raw, found := object["language_override"]; found {
+		err = json.Unmarshal(raw, &t.LanguageOverride)
+		if err != nil {
+			return fmt.Errorf("error reading 'language_override': %w", err)
+		}
+	}
+
+	if raw, found := object["last_request_at"]; found {
+		err = json.Unmarshal(raw, &t.LastRequestAt)
+		if err != nil {
+			return fmt.Errorf("error reading 'last_request_at': %w", err)
+		}
+	}
+
+	if raw, found := object["last_seen_ip"]; found {
+		err = json.Unmarshal(raw, &t.LastSeenIp)
+		if err != nil {
+			return fmt.Errorf("error reading 'last_seen_ip': %w", err)
+		}
+	}
+
+	if raw, found := object["last_seen_user_agent"]; found {
+		err = json.Unmarshal(raw, &t.LastSeenUserAgent)
+		if err != nil {
+			return fmt.Errorf("error reading 'last_seen_user_agent': %w", err)
+		}
+	}
+
 	if raw, found := object["name"]; found {
 		err = json.Unmarshal(raw, &t.Name)
 		if err != nil {
 			return fmt.Errorf("error reading 'name': %w", err)
+		}
+	}
+
+	if raw, found := object["owner_id"]; found {
+		err = json.Unmarshal(raw, &t.OwnerId)
+		if err != nil {
+			return fmt.Errorf("error reading 'owner_id': %w", err)
+		}
+	}
+
+	if raw, found := object["phone"]; found {
+		err = json.Unmarshal(raw, &t.Phone)
+		if err != nil {
+			return fmt.Errorf("error reading 'phone': %w", err)
+		}
+	}
+
+	if raw, found := object["unsubscribed_from_emails"]; found {
+		err = json.Unmarshal(raw, &t.UnsubscribedFromEmails)
+		if err != nil {
+			return fmt.Errorf("error reading 'unsubscribed_from_emails': %w", err)
 		}
 	}
 
@@ -10778,6 +12115,269 @@ func (t *UpdateVisitorRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if raw, found := object["utm_campaign"]; found {
+		err = json.Unmarshal(raw, &t.UtmCampaign)
+		if err != nil {
+			return fmt.Errorf("error reading 'utm_campaign': %w", err)
+		}
+	}
+
+	if raw, found := object["utm_content"]; found {
+		err = json.Unmarshal(raw, &t.UtmContent)
+		if err != nil {
+			return fmt.Errorf("error reading 'utm_content': %w", err)
+		}
+	}
+
+	if raw, found := object["utm_medium"]; found {
+		err = json.Unmarshal(raw, &t.UtmMedium)
+		if err != nil {
+			return fmt.Errorf("error reading 'utm_medium': %w", err)
+		}
+	}
+
+	if raw, found := object["utm_source"]; found {
+		err = json.Unmarshal(raw, &t.UtmSource)
+		if err != nil {
+			return fmt.Errorf("error reading 'utm_source': %w", err)
+		}
+	}
+
+	if raw, found := object["utm_term"]; found {
+		err = json.Unmarshal(raw, &t.UtmTerm)
+		if err != nil {
+			return fmt.Errorf("error reading 'utm_term': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsUpdateVisitorRequestCustomAttributes0 returns the union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties as a UpdateVisitorRequestCustomAttributes0
+func (t UpdateVisitorRequest_CustomAttributes_AdditionalProperties) AsUpdateVisitorRequestCustomAttributes0() (UpdateVisitorRequestCustomAttributes0, error) {
+	var body UpdateVisitorRequestCustomAttributes0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromUpdateVisitorRequestCustomAttributes0 overwrites any union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties as the provided UpdateVisitorRequestCustomAttributes0
+func (t *UpdateVisitorRequest_CustomAttributes_AdditionalProperties) FromUpdateVisitorRequestCustomAttributes0(v UpdateVisitorRequestCustomAttributes0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeUpdateVisitorRequestCustomAttributes0 performs a merge with any union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties, using the provided UpdateVisitorRequestCustomAttributes0
+func (t *UpdateVisitorRequest_CustomAttributes_AdditionalProperties) MergeUpdateVisitorRequestCustomAttributes0(v UpdateVisitorRequestCustomAttributes0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsUpdateVisitorRequestCustomAttributes1 returns the union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties as a UpdateVisitorRequestCustomAttributes1
+func (t UpdateVisitorRequest_CustomAttributes_AdditionalProperties) AsUpdateVisitorRequestCustomAttributes1() (UpdateVisitorRequestCustomAttributes1, error) {
+	var body UpdateVisitorRequestCustomAttributes1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromUpdateVisitorRequestCustomAttributes1 overwrites any union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties as the provided UpdateVisitorRequestCustomAttributes1
+func (t *UpdateVisitorRequest_CustomAttributes_AdditionalProperties) FromUpdateVisitorRequestCustomAttributes1(v UpdateVisitorRequestCustomAttributes1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeUpdateVisitorRequestCustomAttributes1 performs a merge with any union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties, using the provided UpdateVisitorRequestCustomAttributes1
+func (t *UpdateVisitorRequest_CustomAttributes_AdditionalProperties) MergeUpdateVisitorRequestCustomAttributes1(v UpdateVisitorRequestCustomAttributes1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsUpdateVisitorRequestCustomAttributes2 returns the union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties as a UpdateVisitorRequestCustomAttributes2
+func (t UpdateVisitorRequest_CustomAttributes_AdditionalProperties) AsUpdateVisitorRequestCustomAttributes2() (UpdateVisitorRequestCustomAttributes2, error) {
+	var body UpdateVisitorRequestCustomAttributes2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromUpdateVisitorRequestCustomAttributes2 overwrites any union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties as the provided UpdateVisitorRequestCustomAttributes2
+func (t *UpdateVisitorRequest_CustomAttributes_AdditionalProperties) FromUpdateVisitorRequestCustomAttributes2(v UpdateVisitorRequestCustomAttributes2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeUpdateVisitorRequestCustomAttributes2 performs a merge with any union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties, using the provided UpdateVisitorRequestCustomAttributes2
+func (t *UpdateVisitorRequest_CustomAttributes_AdditionalProperties) MergeUpdateVisitorRequestCustomAttributes2(v UpdateVisitorRequestCustomAttributes2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsUpdateVisitorRequestCustomAttributes3 returns the union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties as a UpdateVisitorRequestCustomAttributes3
+func (t UpdateVisitorRequest_CustomAttributes_AdditionalProperties) AsUpdateVisitorRequestCustomAttributes3() (UpdateVisitorRequestCustomAttributes3, error) {
+	var body UpdateVisitorRequestCustomAttributes3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromUpdateVisitorRequestCustomAttributes3 overwrites any union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties as the provided UpdateVisitorRequestCustomAttributes3
+func (t *UpdateVisitorRequest_CustomAttributes_AdditionalProperties) FromUpdateVisitorRequestCustomAttributes3(v UpdateVisitorRequestCustomAttributes3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeUpdateVisitorRequestCustomAttributes3 performs a merge with any union data inside the UpdateVisitorRequest_CustomAttributes_AdditionalProperties, using the provided UpdateVisitorRequestCustomAttributes3
+func (t *UpdateVisitorRequest_CustomAttributes_AdditionalProperties) MergeUpdateVisitorRequestCustomAttributes3(v UpdateVisitorRequestCustomAttributes3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t UpdateVisitorRequest_CustomAttributes_AdditionalProperties) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *UpdateVisitorRequest_CustomAttributes_AdditionalProperties) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsVisitorCustomAttributes0 returns the union data inside the Visitor_CustomAttributes_AdditionalProperties as a VisitorCustomAttributes0
+func (t Visitor_CustomAttributes_AdditionalProperties) AsVisitorCustomAttributes0() (VisitorCustomAttributes0, error) {
+	var body VisitorCustomAttributes0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVisitorCustomAttributes0 overwrites any union data inside the Visitor_CustomAttributes_AdditionalProperties as the provided VisitorCustomAttributes0
+func (t *Visitor_CustomAttributes_AdditionalProperties) FromVisitorCustomAttributes0(v VisitorCustomAttributes0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVisitorCustomAttributes0 performs a merge with any union data inside the Visitor_CustomAttributes_AdditionalProperties, using the provided VisitorCustomAttributes0
+func (t *Visitor_CustomAttributes_AdditionalProperties) MergeVisitorCustomAttributes0(v VisitorCustomAttributes0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVisitorCustomAttributes1 returns the union data inside the Visitor_CustomAttributes_AdditionalProperties as a VisitorCustomAttributes1
+func (t Visitor_CustomAttributes_AdditionalProperties) AsVisitorCustomAttributes1() (VisitorCustomAttributes1, error) {
+	var body VisitorCustomAttributes1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVisitorCustomAttributes1 overwrites any union data inside the Visitor_CustomAttributes_AdditionalProperties as the provided VisitorCustomAttributes1
+func (t *Visitor_CustomAttributes_AdditionalProperties) FromVisitorCustomAttributes1(v VisitorCustomAttributes1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVisitorCustomAttributes1 performs a merge with any union data inside the Visitor_CustomAttributes_AdditionalProperties, using the provided VisitorCustomAttributes1
+func (t *Visitor_CustomAttributes_AdditionalProperties) MergeVisitorCustomAttributes1(v VisitorCustomAttributes1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVisitorCustomAttributes2 returns the union data inside the Visitor_CustomAttributes_AdditionalProperties as a VisitorCustomAttributes2
+func (t Visitor_CustomAttributes_AdditionalProperties) AsVisitorCustomAttributes2() (VisitorCustomAttributes2, error) {
+	var body VisitorCustomAttributes2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVisitorCustomAttributes2 overwrites any union data inside the Visitor_CustomAttributes_AdditionalProperties as the provided VisitorCustomAttributes2
+func (t *Visitor_CustomAttributes_AdditionalProperties) FromVisitorCustomAttributes2(v VisitorCustomAttributes2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVisitorCustomAttributes2 performs a merge with any union data inside the Visitor_CustomAttributes_AdditionalProperties, using the provided VisitorCustomAttributes2
+func (t *Visitor_CustomAttributes_AdditionalProperties) MergeVisitorCustomAttributes2(v VisitorCustomAttributes2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVisitorCustomAttributes3 returns the union data inside the Visitor_CustomAttributes_AdditionalProperties as a VisitorCustomAttributes3
+func (t Visitor_CustomAttributes_AdditionalProperties) AsVisitorCustomAttributes3() (VisitorCustomAttributes3, error) {
+	var body VisitorCustomAttributes3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVisitorCustomAttributes3 overwrites any union data inside the Visitor_CustomAttributes_AdditionalProperties as the provided VisitorCustomAttributes3
+func (t *Visitor_CustomAttributes_AdditionalProperties) FromVisitorCustomAttributes3(v VisitorCustomAttributes3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVisitorCustomAttributes3 performs a merge with any union data inside the Visitor_CustomAttributes_AdditionalProperties, using the provided VisitorCustomAttributes3
+func (t *Visitor_CustomAttributes_AdditionalProperties) MergeVisitorCustomAttributes3(v VisitorCustomAttributes3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t Visitor_CustomAttributes_AdditionalProperties) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *Visitor_CustomAttributes_AdditionalProperties) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
 	return err
 }
 
@@ -11139,6 +12739,130 @@ func (t LisDataEvents200JSONResponseBody) MarshalJSON() ([]byte, error) {
 }
 
 func (t *LisDataEvents200JSONResponseBody) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0 returns the union data inside the GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt as a GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0
+func (t GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt) AsGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0() (GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0, error) {
+	var body GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0 overwrites any union data inside the GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt as the provided GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0
+func (t *GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt) FromGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0(v GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0 performs a merge with any union data inside the GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt, using the provided GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0
+func (t *GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt) MergeGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0(v GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1 returns the union data inside the GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt as a GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1
+func (t GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt) AsGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1() (GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1, error) {
+	var body GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1 overwrites any union data inside the GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt as the provided GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1
+func (t *GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt) FromGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1(v GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1 performs a merge with any union data inside the GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt, using the provided GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1
+func (t *GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt) MergeGetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1(v GetExportReportingDataJobIdentifier200JSONResponseBodyDownloadExpiresAt1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *GetExportReportingDataJobIdentifier200JSONResponseBody_DownloadExpiresAt) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsTagList returns the union data inside the ListTags200JSONResponseBody as a TagList
+func (t ListTags200JSONResponseBody) AsTagList() (TagList, error) {
+	var body TagList
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTagList overwrites any union data inside the ListTags200JSONResponseBody as the provided TagList
+func (t *ListTags200JSONResponseBody) FromTagList(v TagList) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTagList performs a merge with any union data inside the ListTags200JSONResponseBody, using the provided TagList
+func (t *ListTags200JSONResponseBody) MergeTagList(v TagList) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsTagBasic returns the union data inside the ListTags200JSONResponseBody as a TagBasic
+func (t ListTags200JSONResponseBody) AsTagBasic() (TagBasic, error) {
+	var body TagBasic
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromTagBasic overwrites any union data inside the ListTags200JSONResponseBody as the provided TagBasic
+func (t *ListTags200JSONResponseBody) FromTagBasic(v TagBasic) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeTagBasic performs a merge with any union data inside the ListTags200JSONResponseBody, using the provided TagBasic
+func (t *ListTags200JSONResponseBody) MergeTagBasic(v TagBasic) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t ListTags200JSONResponseBody) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *ListTags200JSONResponseBody) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -12348,12 +14072,16 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of notes that are associated to a company.
 	//
+	// Requires the `read_users_companies` OAuth scope.
+	//
 	// Corresponds with GET /companies/{company_id}/notes (the `ListCompanyNotes` operationId).
 	ListCompanyNotes(ctx context.Context, companyId string, params *ListCompanyNotesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateCompanyNoteWithBody Create a company note
 	//
 	// You can add a note to a single company.
+	//
+	// Requires the `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -12363,6 +14091,8 @@ type ClientInterface interface {
 	// CreateCompanyNote Create a company note
 	//
 	// You can add a note to a single company.
+	//
+	// Requires the `write_users_companies` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -13113,6 +14843,8 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of notes that are associated to a contact.
 	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Corresponds with GET /contacts/{contact_id}/notes (the `ListNotes` operationId).
 	ListNotes(ctx context.Context, contactId string, params *ListNotesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -13120,19 +14852,23 @@ type ClientInterface interface {
 	//
 	// You can add a note to a single contact.
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with POST /contacts/{contact_id}/notes (the `CreateNote` operationId).
-	CreateNoteWithBody(ctx context.Context, contactId int, params *CreateNoteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNoteWithBody(ctx context.Context, contactId string, params *CreateNoteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateNote Create a note
 	//
 	// You can add a note to a single contact.
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /contacts/{contact_id}/notes (the `CreateNote` operationId).
-	CreateNote(ctx context.Context, contactId int, params *CreateNoteParams, body CreateNoteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateNote(ctx context.Context, contactId string, params *CreateNoteParams, body CreateNoteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListSegmentsForAContact List attached segments for contact
 	//
@@ -13491,7 +15227,7 @@ type ClientInterface interface {
 	// The conversation can be an in-app message only.
 	//
 	// {% admonition type="info" name="Sending for visitors" %}
-	// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
+	// You can also send a message from a visitor by specifying their `id` value in the `from` field, along with a `type` field value of `lead`.
 	// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
 	// {% /admonition %}
 	//
@@ -13508,7 +15244,7 @@ type ClientInterface interface {
 	// The conversation can be an in-app message only.
 	//
 	// {% admonition type="info" name="Sending for visitors" %}
-	// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
+	// You can also send a message from a visitor by specifying their `id` value in the `from` field, along with a `type` field value of `lead`.
 	// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
 	// {% /admonition %}
 	//
@@ -14282,12 +16018,16 @@ type ClientInterface interface {
 	// Conversation attributes are no longer returned by this endpoint. Calling without a `model` parameter no longer includes them, and `model=conversation` returns a `422` error. Use `GET /conversations/attributes` instead.
 	// {% /admonition %}
 	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Corresponds with GET /data_attributes (the `LisDataAttributes` operationId).
 	LisDataAttributes(ctx context.Context, params *LisDataAttributesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateDataAttributeWithBody Create a data attribute
 	//
 	// You can create a data attributes for a `contact` or a `company`.
+	//
+	// Requires the `write_attributes` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -14297,6 +16037,8 @@ type ClientInterface interface {
 	// CreateDataAttribute Create a data attribute
 	//
 	// You can create a data attributes for a `contact` or a `company`.
+	//
+	// Requires the `write_attributes` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -14312,6 +16054,10 @@ type ClientInterface interface {
 	// >
 	// > It is currently a dangerous action to execute changing a data attribute's type via the API. You will need to update the type via the UI instead.
 	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
+	// Requires the `write_attributes` OAuth scope.
+	//
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with PUT /data_attributes/{data_attribute_id} (the `UpdateDataAttribute` operationId).
@@ -14325,6 +16071,10 @@ type ClientInterface interface {
 	// > 🚧 Updating the data type is not possible
 	// >
 	// > It is currently a dangerous action to execute changing a data attribute's type via the API. You will need to update the type via the UI instead.
+	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
+	// Requires the `write_attributes` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -14476,11 +16226,13 @@ type ClientInterface interface {
 	//
 	// When a job has a status of complete, and thus a filled download_url, you can download your data by hitting that provided URL, formatted like so: https://api.intercom.io/download/content/data/xyz1234.
 	//
-	// Your exported message data will be streamed continuously back down to you in a gzipped CSV format.
+	// Your exported message data is returned as a ZIP archive containing one CSV file per data group. The response is sent with the header `Content-Encoding: zip`.
 	//
 	// > 📘 Octet header required
 	// >
 	// > You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+	//
+	// Requires the `export_content_data` OAuth scope.
 	//
 	// Corresponds with GET /download/content/data/{job_identifier} (the `DownloadDataExport` operationId).
 	DownloadDataExport(ctx context.Context, jobIdentifier string, params *DownloadDataExportParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -14492,6 +16244,8 @@ type ClientInterface interface {
 	// > Octet header required
 	// >
 	// > You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+	//
+	// Requires the `export_reporting_data` OAuth scope.
 	//
 	// Corresponds with GET /download/reporting_data/{job_identifier} (the `GetDownloadReportingDataJobIdentifier` operationId).
 	GetDownloadReportingDataJobIdentifier(ctx context.Context, jobIdentifier string, params *GetDownloadReportingDataJobIdentifierParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -14592,15 +16346,19 @@ type ClientInterface interface {
 	// >
 	// > Please note that you can only 'list' events that are less than 90 days old. Event counts and summaries will still include your events older than 90 days but you cannot 'list' these events individually if they are older than 90 days
 	//
-	// The events belonging to a customer can be listed by sending a GET request to `https://api.intercom.io/events` with a user or lead identifier along with a `type` parameter. The identifier parameter can be one of `user_id`, `email` or `intercom_user_id`. The `type` parameter value must be `user`.
+	// The events belonging to a customer can be listed by sending a GET request to `https://api.intercom.io/events` with a user or lead identifier along with a `type` parameter. The identifier parameter can be one of `user_id`, `email`, `intercom_user_id` or `anonymous_id`. The `type` parameter value must be `user` or `lead`.
 	//
 	// - `https://api.intercom.io/events?type=user&user_id={user_id}`
 	// - `https://api.intercom.io/events?type=user&email={email}`
 	// - `https://api.intercom.io/events?type=user&intercom_user_id={id}` (this call can be used to list leads)
 	//
+	// When `type` is `lead`, a `user_id` you send is matched against the lead's anonymous id instead.
+	//
 	// The `email` parameter value should be [url encoded](http://en.wikipedia.org/wiki/Percent-encoding) when sending.
 	//
 	// You can optionally define the result page size as well with the `per_page` parameter.
+	//
+	// Requires the `read_events` or `write_events` OAuth scope.
 	//
 	// Corresponds with GET /events (the `LisDataEvents` operationId).
 	LisDataEvents(ctx context.Context, params *LisDataEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -14630,7 +16388,7 @@ type ClientInterface interface {
 	//
 	// **Metadata behaviour**
 	//
-	// - We currently limit the number of tracked metadata keys to 10 per event. Once the quota is reached, we ignore any further keys we receive. The first 10 metadata keys are determined by the order in which they are sent in with the event.
+	// - We currently limit the number of tracked metadata keys to 20 per event name. The limit counts every key ever recorded for that event name, not the keys in a single request, so it is reached cumulatively as you send more events with the same name. Once the quota is reached, we ignore any further keys we receive. The keys that count towards the quota are determined by the order in which they are sent in with the event.
 	// - It is not possible to change the metadata keys once the event has been sent. A new event will need to be created with the new keys and you can archive the old one.
 	// - There might be up to 24 hrs delay when you send a new metadata for an existing event.
 	//
@@ -14647,6 +16405,8 @@ type ClientInterface interface {
 	// - Events sent about users that cannot be found will return a `404 Not Found`.
 	// - Event lists containing duplicate events will have those duplicates ignored.
 	// - Server errors will return a `500` response code and may contain an error message in the body.
+	//
+	// Requires the `write_events` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -14678,7 +16438,7 @@ type ClientInterface interface {
 	//
 	// **Metadata behaviour**
 	//
-	// - We currently limit the number of tracked metadata keys to 10 per event. Once the quota is reached, we ignore any further keys we receive. The first 10 metadata keys are determined by the order in which they are sent in with the event.
+	// - We currently limit the number of tracked metadata keys to 20 per event name. The limit counts every key ever recorded for that event name, not the keys in a single request, so it is reached cumulatively as you send more events with the same name. Once the quota is reached, we ignore any further keys we receive. The keys that count towards the quota are determined by the order in which they are sent in with the event.
 	// - It is not possible to change the metadata keys once the event has been sent. A new event will need to be created with the new keys and you can archive the old one.
 	// - There might be up to 24 hrs delay when you send a new metadata for an existing event.
 	//
@@ -14696,6 +16456,8 @@ type ClientInterface interface {
 	// - Event lists containing duplicate events will have those duplicates ignored.
 	// - Server errors will return a `500` response code and may contain an error message in the body.
 	//
+	// Requires the `write_events` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /events (the `CreateDataEvent` operationId).
@@ -14704,6 +16466,10 @@ type ClientInterface interface {
 	// DataEventSummariesWithBody Create event summaries
 	//
 	// Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
+	//
+	// Identify the user with one of `id`, `user_id` or `email`. If more than one is sent, `id` is used first, then `user_id`, then `email`.
+	//
+	// Requires the `write_events` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -14714,6 +16480,10 @@ type ClientInterface interface {
 	//
 	// Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
 	//
+	// Identify the user with one of `id`, `user_id` or `email`. If more than one is sent, `id` is used first, then `user_id`, then `email`.
+	//
+	// Requires the `write_events` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /events/summaries (the `DataEventSummaries` operationId).
@@ -14721,7 +16491,9 @@ type ClientInterface interface {
 
 	// CancelDataExport Cancel content data export
 	//
-	// You can cancel your job.
+	// You can cancel your job. A job that has already reached a terminal state is returned unchanged.
+	//
+	// Requires the `export_content_data` OAuth scope.
 	//
 	// Corresponds with POST /export/cancel/{job_identifier} (the `CancelDataExport` operationId).
 	CancelDataExport(ctx context.Context, jobIdentifier string, params *CancelDataExportParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -14732,11 +16504,11 @@ type ClientInterface interface {
 	//
 	// This endpoint exports **message delivery and engagement data** for outbound content (Emails, Posts, Custom Bots, Surveys, Tours, Series, and more). The exported data includes who received each message, when they received it, and how they engaged with it (opens, clicks, replies, completions, dismissals, unsubscribes, and bounces). It does not export raw message or conversation content.
 	//
-	// The only parameters you need to provide are the range of dates that you want exported.
+	// The only parameters you need to provide are the range of dates that you want exported. The range cannot be longer than 90 days.
 	//
-	// >🚧 Limit of one active job
+	// >🚧 Limit of two active jobs
 	// >
-	// > You can only have one active job per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 1 pending message data export jobs if you attempt to create a second concurrent job.
+	// > You can only have two active jobs per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 2 pending content data export jobs if you attempt to create a third concurrent job.
 	//
 	// >❗️ Updated_at not included
 	// >
@@ -14745,6 +16517,8 @@ type ClientInterface interface {
 	// >📘 Date ranges are inclusive
 	// >
 	// > Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
+	//
+	// Requires the `export_content_data` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -14757,11 +16531,11 @@ type ClientInterface interface {
 	//
 	// This endpoint exports **message delivery and engagement data** for outbound content (Emails, Posts, Custom Bots, Surveys, Tours, Series, and more). The exported data includes who received each message, when they received it, and how they engaged with it (opens, clicks, replies, completions, dismissals, unsubscribes, and bounces). It does not export raw message or conversation content.
 	//
-	// The only parameters you need to provide are the range of dates that you want exported.
+	// The only parameters you need to provide are the range of dates that you want exported. The range cannot be longer than 90 days.
 	//
-	// >🚧 Limit of one active job
+	// >🚧 Limit of two active jobs
 	// >
-	// > You can only have one active job per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 1 pending message data export jobs if you attempt to create a second concurrent job.
+	// > You can only have two active jobs per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 2 pending content data export jobs if you attempt to create a third concurrent job.
 	//
 	// >❗️ Updated_at not included
 	// >
@@ -14770,6 +16544,8 @@ type ClientInterface interface {
 	// >📘 Date ranges are inclusive
 	// >
 	// > Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
+	//
+	// Requires the `export_content_data` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -14781,15 +16557,21 @@ type ClientInterface interface {
 	// You can view the status of your job by sending a `GET` request to the URL
 	// `https://api.intercom.io/export/content/data/{job_identifier}` - the `{job_identifier}` is the value returned in the response when you first created the export job. More on it can be seen in the Export Job Model.
 	//
-	// > 🚧 Jobs expire after two days
-	// > All jobs that have completed processing (and are thus available to download from the provided URL) will have an expiry limit of two days from when the export ob completed. After this, the data will no longer be available.
+	// > 🚧 Jobs expire after one week
+	// > All jobs that have completed processing (and are thus available to download from the provided URL) will have an expiry limit of one week from when the export job was created. After this, the data will no longer be available.
+	//
+	// A job that failed is returned with a `504` status code and a `status` of `failed`. A job left in progress for more than a day is marked failed when you poll it.
+	//
+	// Requires the `export_content_data` OAuth scope.
 	//
 	// Corresponds with GET /export/content/data/{job_identifier} (the `GetDataExport` operationId).
 	GetDataExport(ctx context.Context, jobIdentifier string, params *GetDataExportParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// PostExportReportingDataEnqueueWithBody Enqueue a new reporting data export job
 	//
-	// For the conversation dataset, from this version onward this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+	// For the conversation dataset, from API version 2.16 this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+	//
+	// Requires the `export_reporting_data` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -14798,7 +16580,9 @@ type ClientInterface interface {
 
 	// PostExportReportingDataEnqueue Enqueue a new reporting data export job
 	//
-	// For the conversation dataset, from this version onward this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+	// For the conversation dataset, from API version 2.16 this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+	//
+	// Requires the `export_reporting_data` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -14807,10 +16591,14 @@ type ClientInterface interface {
 
 	// GetExportReportingDataGetDatasets List available datasets and attributes
 	//
+	// Requires the `export_reporting_data` or `read_reporting_datasets` OAuth scope.
+	//
 	// Corresponds with GET /export/reporting_data/get_datasets (the `GetExportReportingDataGetDatasets` operationId).
 	GetExportReportingDataGetDatasets(ctx context.Context, params *GetExportReportingDataGetDatasetsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetExportReportingDataJobIdentifier Get export job status
+	//
+	// Requires the `export_reporting_data` OAuth scope.
 	//
 	// Corresponds with GET /export/reporting_data/{job_identifier} (the `GetExportReportingDataJobIdentifier` operationId).
 	GetExportReportingDataJobIdentifier(ctx context.Context, jobIdentifier string, params *GetExportReportingDataJobIdentifierParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -15609,6 +17397,10 @@ type ClientInterface interface {
 	//
 	// Retrieve the status of job execution.
 	//
+	// `resource_id` and `resource_url` are returned only once `status` is `success`. While the job is `pending` or `failed` both keys are left out of the response rather than returned as `null`.
+	//
+	// Requires the `read_jobs` OAuth scope.
+	//
 	// Corresponds with GET /jobs/status/{job_id} (the `JobsStatus` operationId).
 	JobsStatus(ctx context.Context, jobId string, params *JobsStatusParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -15849,15 +17641,17 @@ type ClientInterface interface {
 	//
 	// You can delete a single contact or company note. Notes of other kinds cannot be deleted through the API.
 	//
+	// Requires the `write_users_companies` OAuth scope.
+	//
 	// Corresponds with DELETE /notes/{note_id} (the `DeleteNote` operationId).
-	DeleteNote(ctx context.Context, noteId int, params *DeleteNoteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteNote(ctx context.Context, noteId string, params *DeleteNoteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RetrieveNote Retrieve a note
 	//
 	// You can fetch the details of a single note.
 	//
 	// Corresponds with GET /notes/{note_id} (the `RetrieveNote` operationId).
-	RetrieveNote(ctx context.Context, noteId int, params *RetrieveNoteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RetrieveNote(ctx context.Context, noteId string, params *RetrieveNoteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListOfficeHoursSchedules List all office hours schedules
 	//
@@ -16001,12 +17795,20 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of all segments.
 	//
+	// Segment names are returned HTML-escaped, for example `&` as `&amp;`.
+	//
+	// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
+	//
 	// Corresponds with GET /segments (the `ListSegments` operationId).
 	ListSegments(ctx context.Context, params *ListSegmentsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RetrieveSegment Retrieve a segment
 	//
 	// You can fetch the details of a single segment.
+	//
+	// The segment name is returned HTML-escaped, for example `&` as `&amp;`.
+	//
+	// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
 	//
 	// Corresponds with GET /segments/{segment_id} (the `RetrieveSegment` operationId).
 	RetrieveSegment(ctx context.Context, segmentId string, params *RetrieveSegmentParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16015,6 +17817,8 @@ type ClientInterface interface {
 	//
 	// You can list all subscription types. A list of subscription type objects will be returned.
 	//
+	// Requires the `read_users_companies` OAuth scope.
+	//
 	// Corresponds with GET /subscription_types (the `ListSubscriptionTypes` operationId).
 	ListSubscriptionTypes(ctx context.Context, params *ListSubscriptionTypesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -16022,12 +17826,18 @@ type ClientInterface interface {
 	//
 	// You can fetch the details of a single subscription type by making a GET request to `https://api.intercom.io/subscription_types/<id>`.
 	//
+	// Requires the `read_users_companies` OAuth scope.
+	//
 	// Corresponds with GET /subscription_types/{id} (the `GetSubscriptionType` operationId).
 	GetSubscriptionType(ctx context.Context, id string, params *GetSubscriptionTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListTags List all tags
 	//
 	// You can fetch a list of all tags for a given workspace.
+	//
+	// Passing `id` returns that one tag object instead of a list. Passing `taggable_type` returns a list of the tags applied to a single contact or company.
+	//
+	// Requires the `read_tags` or `read_users_companies` OAuth scope.
 	//
 	// Corresponds with GET /tags (the `ListTags` operationId).
 	ListTags(ctx context.Context, params *ListTagsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16047,6 +17857,10 @@ type ClientInterface interface {
 	//   **5. Tag Multiple Users:** You can tag a list of users. You can tag the users by passing in the tag name and the user details as specified in "Tag Users Request Payload" described below.
 	//
 	// Each operation will return a tag object.
+	//
+	// Contacts and companies listed in `users` or `companies` that do not exist are skipped: they are left out of the `users` and `companies` arrays in the response and the request still succeeds. With `ids_to_add` it depends on `taggable_type`: a contact id that does not exist returns a 404, while a company id that does not exist is skipped. With `ids_to_add`, the `users` and `companies` arrays in the response are always empty, and a 404 still leaves the tag created or renamed.
+	//
+	// Requires the `write_tags` or `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -16069,6 +17883,10 @@ type ClientInterface interface {
 	//
 	// Each operation will return a tag object.
 	//
+	// Contacts and companies listed in `users` or `companies` that do not exist are skipped: they are left out of the `users` and `companies` arrays in the response and the request still succeeds. With `ids_to_add` it depends on `taggable_type`: a contact id that does not exist returns a 404, while a company id that does not exist is skipped. With `ids_to_add`, the `users` and `companies` arrays in the response are always empty, and a 404 still leaves the tag created or renamed.
+	//
+	// Requires the `write_tags` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /tags (the `CreateTag` operationId).
@@ -16078,6 +17896,8 @@ type ClientInterface interface {
 	//
 	// You can delete the details of tags that are on the workspace by passing in the id.
 	//
+	// Requires the `write_tags` or `write_users_companies` OAuth scope.
+	//
 	// Corresponds with DELETE /tags/{tag_id} (the `DeleteTag` operationId).
 	DeleteTag(ctx context.Context, tagId string, params *DeleteTagParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -16085,6 +17905,8 @@ type ClientInterface interface {
 	//
 	// You can fetch the details of tags that are on the workspace by their id.
 	// This will return a tag object.
+	//
+	// Requires the `read_tags` or `read_users_companies` OAuth scope.
 	//
 	// Corresponds with GET /tags/{tag_id} (the `FindTag` operationId).
 	FindTag(ctx context.Context, tagId string, params *FindTagParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16582,6 +18404,8 @@ type ClientInterface interface {
 	//
 	// You can fetch the details of a single visitor.
 	//
+	// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Corresponds with GET /visitors (the `RetrieveVisitorWithUserId` operationId).
 	RetrieveVisitorWithUserId(ctx context.Context, params *RetrieveVisitorWithUserIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -16592,6 +18416,10 @@ type ClientInterface interface {
 	// **Option 1.** You can update a visitor by passing in the `user_id` of the visitor in the Request body.
 	//
 	// **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
+	//
+	// Sending an `email` promotes the visitor to a lead. When that happens the response is a contact object with a `role` of `lead`, not a visitor object.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -16606,6 +18434,10 @@ type ClientInterface interface {
 	//
 	// **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
 	//
+	// Sending an `email` promotes the visitor to a lead. When that happens the response is a contact object with a `role` of `lead`, not a visitor object.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with PUT /visitors (the `UpdateVisitor` operationId).
@@ -16619,6 +18451,10 @@ type ClientInterface interface {
 	// >
 	// > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
 	//
+	// Identify the visitor with `visitor.id` or `visitor.user_id`. The `user` object is required when `type` is `user`, and is not read when `type` is `lead`.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with POST /visitors/convert (the `ConvertVisitor` operationId).
@@ -16631,6 +18467,10 @@ type ClientInterface interface {
 	// > 📘 What happens upon a visitor being converted?
 	// >
 	// > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
+	//
+	// Identify the visitor with `visitor.id` or `visitor.user_id`. The `user` object is required when `type` is `user`, and is not read when `type` is `lead`.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -18179,1850 +20019,6 @@ func (c *Client) SearchCompanies(ctx context.Context, params *SearchCompaniesPar
 // Corresponds with DELETE /companies/{company_id} (the `DeleteCompany` operationId).
 func (c *Client) DeleteCompany(ctx context.Context, companyId string, params *DeleteCompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteCompanyRequest(c.Server, companyId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RetrieveACompanyById Retrieve a company by ID
-//
-// You can fetch a single company.
-//
-// Corresponds with GET /companies/{company_id} (the `RetrieveACompanyById` operationId).
-func (c *Client) RetrieveACompanyById(ctx context.Context, companyId string, params *RetrieveACompanyByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveACompanyByIdRequest(c.Server, companyId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateCompanyWithBody Update a company
-//
-// You can update a single company using the Intercom provisioned `id`.
-//
-// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
-//
-// You can also send this request with `PATCH`; it behaves the same as `PUT`.
-//
-// {% admonition type="warning" name="Using `company_id`" %}
-//
-//	When updating a company it is not possible to update `company_id`. This can only be set once upon creation of the company.
-//
-// {% /admonition %}
-//
-// Requires the `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /companies/{company_id} (the `UpdateCompany` operationId).
-func (c *Client) UpdateCompanyWithBody(ctx context.Context, companyId string, params *UpdateCompanyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateCompanyRequestWithBody(c.Server, companyId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateCompany Update a company
-//
-// You can update a single company using the Intercom provisioned `id`.
-//
-// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
-//
-// You can also send this request with `PATCH`; it behaves the same as `PUT`.
-//
-// {% admonition type="warning" name="Using `company_id`" %}
-//
-//	When updating a company it is not possible to update `company_id`. This can only be set once upon creation of the company.
-//
-// {% /admonition %}
-//
-// Requires the `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /companies/{company_id} (the `UpdateCompany` operationId).
-func (c *Client) UpdateCompany(ctx context.Context, companyId string, params *UpdateCompanyParams, body UpdateCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateCompanyRequest(c.Server, companyId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListAttachedContacts List attached contacts
-//
-// You can fetch a list of all contacts that belong to a company.
-//
-// Requires the `read_users_companies` OAuth scope.
-//
-// Corresponds with GET /companies/{company_id}/contacts (the `ListAttachedContacts` operationId).
-func (c *Client) ListAttachedContacts(ctx context.Context, companyId string, params *ListAttachedContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListAttachedContactsRequest(c.Server, companyId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListCompanyNotes List all company notes
-//
-// You can fetch a list of notes that are associated to a company.
-//
-// Corresponds with GET /companies/{company_id}/notes (the `ListCompanyNotes` operationId).
-func (c *Client) ListCompanyNotes(ctx context.Context, companyId string, params *ListCompanyNotesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListCompanyNotesRequest(c.Server, companyId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateCompanyNoteWithBody Create a company note
-//
-// You can add a note to a single company.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /companies/{company_id}/notes (the `CreateCompanyNote` operationId).
-func (c *Client) CreateCompanyNoteWithBody(ctx context.Context, companyId string, params *CreateCompanyNoteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateCompanyNoteRequestWithBody(c.Server, companyId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateCompanyNote Create a company note
-//
-// You can add a note to a single company.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /companies/{company_id}/notes (the `CreateCompanyNote` operationId).
-func (c *Client) CreateCompanyNote(ctx context.Context, companyId string, params *CreateCompanyNoteParams, body CreateCompanyNoteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateCompanyNoteRequest(c.Server, companyId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListAttachedSegmentsForCompanies List attached segments for companies
-//
-// You can fetch a list of all segments that belong to a company.
-//
-// Requires the `read_users_companies` OAuth scope.
-//
-// Corresponds with GET /companies/{company_id}/segments (the `ListAttachedSegmentsForCompanies` operationId).
-func (c *Client) ListAttachedSegmentsForCompanies(ctx context.Context, companyId string, params *ListAttachedSegmentsForCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListAttachedSegmentsForCompaniesRequest(c.Server, companyId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListContacts List all contacts
-//
-// You can fetch a list of all contacts (ie. users or leads) in your workspace.
-// {% admonition type="info" name="Merged contacts" %}
-//
-//	Contacts that have been merged (via POST /contacts/merge) will not appear in list results. Only the target contact from the merge remains accessible.
-//
-// {% /admonition %}
-// {% admonition type="warning" name="Pagination" %}
-//
-//	You can use pagination to limit the number of results returned. The default is `10` results per page, with a maximum of `150`.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-//
-// Requires the `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Corresponds with GET /contacts (the `ListContacts` operationId).
-func (c *Client) ListContacts(ctx context.Context, params *ListContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListContactsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateContactWithBody Create contact
-//
-// You can create a new contact (ie. user or lead).
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /contacts (the `CreateContact` operationId).
-func (c *Client) CreateContactWithBody(ctx context.Context, params *CreateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateContactRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateContact Create contact
-//
-// You can create a new contact (ie. user or lead).
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /contacts (the `CreateContact` operationId).
-func (c *Client) CreateContact(ctx context.Context, params *CreateContactParams, body CreateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateContactRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListContactActivities List all contact activities
-//
-// You can fetch a list of contact activity events for your workspace, such as when contacts are created, role updated, merged, or deleted. Events are returned oldest first.
-//
-// If the activity store can't be read, this endpoint returns `200` with an empty `data` array and no `pages.next`, the same response as when there are no new events.
-//
-// {% admonition type="warning" name="Pagination" %}
-//
-//	You can use pagination to limit the number of results returned. The default is `50` results per page, with a maximum of `150`.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-//
-// Requires the `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Corresponds with GET /contacts/activities (the `ListContactActivities` operationId).
-func (c *Client) ListContactActivities(ctx context.Context, params *ListContactActivitiesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListContactActivitiesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// BulkCreateContactsWithBody Bulk create contacts
-//
-// You can bulk create contacts by submitting an array of contact objects. This is a **strict create** and never updates an existing contact.
-//
-// The endpoint creates an async job that processes the items in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
-//
-// Only the fields listed in the request schema below can be set. Any other fields in a contact object are ignored.
-//
-// {% admonition type="info" name="Handling existing contacts" %}
-//
-//	If a contact already exists with the given `external_id` or `email` (including an archived contact), that item is rejected and the job's `state` ends as `completed_with_errors`. New contacts in the same request are still created. The job `state` from `GET /contacts/bulk/{id}` is the signal that one or more items were rejected.
-//
-//	Created contacts aren't returned with IDs in the response. Look them up afterwards with [Get a contact by External ID](/docs/references/rest-api/api.intercom.io/contacts/showcontactbyexternalid) or [Search contacts](/docs/references/rest-api/api.intercom.io/contacts/searchcontacts).
-//
-// {% /admonition %}
-//
-// {% admonition type="info" name="Limits" %}
-//   - Maximum of 100 contacts per request.
-//   - You can append tasks to an existing job by including `job.id` in the request body.
-//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
-//
-// {% /admonition %}
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /contacts/bulk (the `BulkCreateContacts` operationId).
-func (c *Client) BulkCreateContactsWithBody(ctx context.Context, params *BulkCreateContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBulkCreateContactsRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// BulkCreateContacts Bulk create contacts
-//
-// You can bulk create contacts by submitting an array of contact objects. This is a **strict create** and never updates an existing contact.
-//
-// The endpoint creates an async job that processes the items in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
-//
-// Only the fields listed in the request schema below can be set. Any other fields in a contact object are ignored.
-//
-// {% admonition type="info" name="Handling existing contacts" %}
-//
-//	If a contact already exists with the given `external_id` or `email` (including an archived contact), that item is rejected and the job's `state` ends as `completed_with_errors`. New contacts in the same request are still created. The job `state` from `GET /contacts/bulk/{id}` is the signal that one or more items were rejected.
-//
-//	Created contacts aren't returned with IDs in the response. Look them up afterwards with [Get a contact by External ID](/docs/references/rest-api/api.intercom.io/contacts/showcontactbyexternalid) or [Search contacts](/docs/references/rest-api/api.intercom.io/contacts/searchcontacts).
-//
-// {% /admonition %}
-//
-// {% admonition type="info" name="Limits" %}
-//   - Maximum of 100 contacts per request.
-//   - You can append tasks to an existing job by including `job.id` in the request body.
-//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
-//
-// {% /admonition %}
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /contacts/bulk (the `BulkCreateContacts` operationId).
-func (c *Client) BulkCreateContacts(ctx context.Context, params *BulkCreateContactsParams, body BulkCreateContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBulkCreateContactsRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// BulkUpdateContactsWithBody Bulk update contacts
-//
-// You can bulk update contacts by submitting an array of contact objects with the fields to update. Each contact must include an `id` field identifying the contact to update. You can also add or remove tags on each contact by including a `tags` object.
-//
-// Only the fields listed in the request schema below can be set. Any other fields in a contact object are ignored.
-//
-// The endpoint creates an async job that processes the updates in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
-//
-// {% admonition type="info" name="Limits" %}
-//   - Maximum of 100 contacts per request.
-//   - You can append tasks to an existing job by including `job.id` in the request body.
-//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
-//
-// {% /admonition %}
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /contacts/bulk (the `BulkUpdateContacts` operationId).
-func (c *Client) BulkUpdateContactsWithBody(ctx context.Context, params *BulkUpdateContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBulkUpdateContactsRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// BulkUpdateContacts Bulk update contacts
-//
-// You can bulk update contacts by submitting an array of contact objects with the fields to update. Each contact must include an `id` field identifying the contact to update. You can also add or remove tags on each contact by including a `tags` object.
-//
-// Only the fields listed in the request schema below can be set. Any other fields in a contact object are ignored.
-//
-// The endpoint creates an async job that processes the updates in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
-//
-// {% admonition type="info" name="Limits" %}
-//   - Maximum of 100 contacts per request.
-//   - You can append tasks to an existing job by including `job.id` in the request body.
-//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
-//
-// {% /admonition %}
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /contacts/bulk (the `BulkUpdateContacts` operationId).
-func (c *Client) BulkUpdateContacts(ctx context.Context, params *BulkUpdateContactsParams, body BulkUpdateContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBulkUpdateContactsRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// BulkDeleteContactsWithBody Bulk delete contacts
-//
-// You can delete contacts in bulk by submitting an array of contact `id`s.
-//
-// The endpoint creates an async job that processes the deletes in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
-//
-// {% admonition type="warning" name="Permanent deletion" %}
-//
-//	A contact that doesn't exist, or can't be deleted, fails that item and the job's `state` ends as `completed_with_errors` (visible via `GET /contacts/bulk/{id}`) without failing the rest of the batch.
-//
-// {% /admonition %}
-//
-// {% admonition type="info" name="Limits" %}
-//   - Maximum of 100 contacts per request.
-//   - You can append tasks to an existing job by including `job.id` in the request body.
-//
-// {% /admonition %}
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /contacts/bulk/delete (the `BulkDeleteContacts` operationId).
-func (c *Client) BulkDeleteContactsWithBody(ctx context.Context, params *BulkDeleteContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBulkDeleteContactsRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// BulkDeleteContacts Bulk delete contacts
-//
-// You can delete contacts in bulk by submitting an array of contact `id`s.
-//
-// The endpoint creates an async job that processes the deletes in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
-//
-// {% admonition type="warning" name="Permanent deletion" %}
-//
-//	A contact that doesn't exist, or can't be deleted, fails that item and the job's `state` ends as `completed_with_errors` (visible via `GET /contacts/bulk/{id}`) without failing the rest of the batch.
-//
-// {% /admonition %}
-//
-// {% admonition type="info" name="Limits" %}
-//   - Maximum of 100 contacts per request.
-//   - You can append tasks to an existing job by including `job.id` in the request body.
-//
-// {% /admonition %}
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /contacts/bulk/delete (the `BulkDeleteContacts` operationId).
-func (c *Client) BulkDeleteContacts(ctx context.Context, params *BulkDeleteContactsParams, body BulkDeleteContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBulkDeleteContactsRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShowBulkUpdateContactsJob Get a bulk update job
-//
-// You can check the status of a bulk contact update job. The `state` field indicates the overall job progress: `running`, `completed`, or `completed_with_errors`.
-//
-// Requires the `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Corresponds with GET /contacts/bulk/{id} (the `ShowBulkUpdateContactsJob` operationId).
-func (c *Client) ShowBulkUpdateContactsJob(ctx context.Context, id string, params *ShowBulkUpdateContactsJobParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShowBulkUpdateContactsJobRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListDeletedContacts List deleted contacts
-//
-// Fetch a paginated list of the contacts in your workspace that are no longer active,
-// so you can recover ones whose `id`, `email`, or `external_id` you no longer have and
-// then permanently delete them. Each entry carries a `status` describing why the contact
-// is inactive: `archived`, `blocked`, `merged`, `pending_deletion`, or `permanently_deleted`.
-// `merged_into_id` is present only when `status` is `merged`, and `external_id` and `email`
-// are `null` for `permanently_deleted` contacts.
-//
-// Requires the `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Corresponds with GET /contacts/deleted (the `ListDeletedContacts` operationId).
-func (c *Client) ListDeletedContacts(ctx context.Context, params *ListDeletedContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListDeletedContactsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShowContactByExternalId Get a contact by External ID
-//
-// You can fetch the details of a single contact by external ID. Note that this endpoint only supports users and not leads.
-//
-// {% admonition type="info" name="Merged contacts return 410 Gone" %}
-//
-//	If the contact with this external ID has been merged into another contact, the API returns **HTTP 410 Gone** with a `Link` header pointing to the canonical (merged-into) contact. See `GET /contacts/{id}` for details on the response format.
-//
-// {% /admonition %}
-//
-// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Corresponds with GET /contacts/find_by_external_id/{external_id} (the `ShowContactByExternalId` operationId).
-func (c *Client) ShowContactByExternalId(ctx context.Context, externalId string, params *ShowContactByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShowContactByExternalIdRequest(c.Server, externalId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// MergeContactWithBody Merge a lead and a user
-//
-// You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
-//
-// {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
-//
-//	Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
-//	- **GET /contacts/{id}** — Requesting the source contact by its original ID returns `410 Gone` with a `Link` header pointing to the contact it was merged into. See [Get a contact](/docs/references/rest-api/api.intercom.io/contacts/showcontact).
-//	- **POST /contacts/search** — The source contact will not appear in search results, including queries filtered by `updated_at`.
-//	- **GET /contacts** — The source contact will not appear in list results.
-//
-//	Only the target contact (`into`) remains accessible. If your application stores contact IDs, update them to use the target contact's ID after a merge.
-//
-// {% /admonition %}
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /contacts/merge (the `MergeContact` operationId).
-func (c *Client) MergeContactWithBody(ctx context.Context, params *MergeContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewMergeContactRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// MergeContact Merge a lead and a user
-//
-// You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
-//
-// {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
-//
-//	Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
-//	- **GET /contacts/{id}** — Requesting the source contact by its original ID returns `410 Gone` with a `Link` header pointing to the contact it was merged into. See [Get a contact](/docs/references/rest-api/api.intercom.io/contacts/showcontact).
-//	- **POST /contacts/search** — The source contact will not appear in search results, including queries filtered by `updated_at`.
-//	- **GET /contacts** — The source contact will not appear in list results.
-//
-//	Only the target contact (`into`) remains accessible. If your application stores contact IDs, update them to use the target contact's ID after a merge.
-//
-// {% /admonition %}
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /contacts/merge (the `MergeContact` operationId).
-func (c *Client) MergeContact(ctx context.Context, params *MergeContactParams, body MergeContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewMergeContactRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// PreviewMergeContactWithBody Preview a contact merge
-//
-// Preview the result of merging one contact into another without applying the merge. This is a read-only dry run: it reports whether the merge is allowed and, if so, exactly what would change, **without modifying any data**.
-//
-// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
-//
-// - When `allowed` is `true`, the response contains a `summary`: every attribute change (with the resulting value on the surviving contact) and, for each object type, two counts — `from`, how many are on the source contact and would move to the destination, and `into`, how many the destination already has. Counts are reported for conversations, tickets, phone calls, notes, and tags. `conversations` counts non-ticket conversations only; tickets are reported separately under `tickets`, and `phone_calls` is present only for phone-channel merges.
-// - When `allowed` is `false`, the response contains `reasons`. Each reason has a stable `code` you can branch on and a human-readable `message` you can display.
-//
-// {% admonition type="warning" name="Previewing non-duplicate contacts" %}
-// By default a merge requires the two contacts to share an identifier (email or phone). Set `skip_duplicate_validation` to `true` to preview a merge of contacts that don't, the same rule the merge endpoint enforces.
-// {% /admonition %}
-//
-// When `allowed` is `false`, `reasons[].code` is one of:
-//
-// | code | meaning |
-// | --- | --- |
-// | `source_same_as_target` | The source contact (`from`) and the destination contact (`into`) are the same contact. A contact can't be merged into itself. |
-// | `invalid_merge_role_pair` | The `from`/`into` roles aren't mergeable. `into` must be a user. |
-// | `no_shared_identifier` | The contacts share no email or phone. The source's phone also counts as shared when it matches the destination's WhatsApp number. Set `skip_duplicate_validation` to preview anyway. |
-// | `facebook_user` | Facebook contacts can't be merged. |
-// | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
-// | `mailing_list` | Contacts created from a mailing list can't be merged. |
-// | `whatsapp_data_cannot_be_merged` | The WhatsApp number on the source contact can't be reassigned to the destination. |
-// | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
-// | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
-// | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
-//
-// Requires the `read_write_users` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /contacts/merge/preview (the `PreviewMergeContact` operationId).
-func (c *Client) PreviewMergeContactWithBody(ctx context.Context, params *PreviewMergeContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewPreviewMergeContactRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// PreviewMergeContact Preview a contact merge
-//
-// Preview the result of merging one contact into another without applying the merge. This is a read-only dry run: it reports whether the merge is allowed and, if so, exactly what would change, **without modifying any data**.
-//
-// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
-//
-// - When `allowed` is `true`, the response contains a `summary`: every attribute change (with the resulting value on the surviving contact) and, for each object type, two counts — `from`, how many are on the source contact and would move to the destination, and `into`, how many the destination already has. Counts are reported for conversations, tickets, phone calls, notes, and tags. `conversations` counts non-ticket conversations only; tickets are reported separately under `tickets`, and `phone_calls` is present only for phone-channel merges.
-// - When `allowed` is `false`, the response contains `reasons`. Each reason has a stable `code` you can branch on and a human-readable `message` you can display.
-//
-// {% admonition type="warning" name="Previewing non-duplicate contacts" %}
-// By default a merge requires the two contacts to share an identifier (email or phone). Set `skip_duplicate_validation` to `true` to preview a merge of contacts that don't, the same rule the merge endpoint enforces.
-// {% /admonition %}
-//
-// When `allowed` is `false`, `reasons[].code` is one of:
-//
-// | code | meaning |
-// | --- | --- |
-// | `source_same_as_target` | The source contact (`from`) and the destination contact (`into`) are the same contact. A contact can't be merged into itself. |
-// | `invalid_merge_role_pair` | The `from`/`into` roles aren't mergeable. `into` must be a user. |
-// | `no_shared_identifier` | The contacts share no email or phone. The source's phone also counts as shared when it matches the destination's WhatsApp number. Set `skip_duplicate_validation` to preview anyway. |
-// | `facebook_user` | Facebook contacts can't be merged. |
-// | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
-// | `mailing_list` | Contacts created from a mailing list can't be merged. |
-// | `whatsapp_data_cannot_be_merged` | The WhatsApp number on the source contact can't be reassigned to the destination. |
-// | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
-// | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
-// | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
-//
-// Requires the `read_write_users` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /contacts/merge/preview (the `PreviewMergeContact` operationId).
-func (c *Client) PreviewMergeContact(ctx context.Context, params *PreviewMergeContactParams, body PreviewMergeContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewPreviewMergeContactRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// SearchContactsWithBody Search contacts
-//
-// You can search for multiple contacts by the value of their attributes in order to fetch exactly who you want.
-//
-// To search for contacts, you need to send a `POST` request to `https://api.intercom.io/contacts/search`.
-//
-// This will accept a query object in the body which will define your filters in order to search for contacts.
-//
-// {% admonition type="warning" name="Optimizing search queries" %}
-//
-//	Search queries can be complex, so optimizing them can help the performance of your search.
-//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `50` results per page.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-// ### Merged Contacts
-//
-// Contacts that have been merged (via POST /contacts/merge) are excluded from search results. If a contact was recently merged into another, it will no longer appear in queries filtered by `updated_at` or any other field. Only the target contact from the merge remains searchable.
-//
-// ### Contact Creation Delay
-//
-// If a contact has recently been created, there is a possibility that it will not yet be available when searching. This means that it may not appear in the response. This delay can take a few minutes. If you need to be instantly notified it is recommended to use webhooks and iterate to see if they match your search filters.
-//
-// ### Nesting & Limitations
-//
-// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
-// There are some limitations to the amount of multiple's there can be:
-// * There's a limit of max 2 nested filters
-// * There's a limit of max 15 filters for each AND or OR group
-// * There's a limit of max 15 values in an `IN` or `NIN` array
-// * `pagination.per_page` must be between 1 and 150
-//
-// ### Searching for Timestamp Fields
-//
-// Standard timestamp fields and Date custom attributes behave differently.
-//
-// **Standard timestamp fields** (`created_at`, `updated_at`, `last_seen_at` etc.) are filtered on the exact second, in UTC. `=` matches only Contacts whose value is that exact second, and `>`, `<`, `>=` and `<=` compare against the exact instant you pass - the value is not rounded or truncated. These fields report a type of `datetime` on the Data Attributes endpoint. Note that `!=` also matches Contacts with no value set for the field.
-//
-// **Date custom attributes** are matched by calendar day, and the day boundary is always UTC regardless of your workspace's timezone. `=` matches the whole UTC day, `>` matches from the start of the *next* UTC day, and `<` matches everything before the start of that day. The `!=`, `>=`, `<=`, `IN` and `NIN` operators are not supported on these fields and return an error.
-//
-// **Example.** Searching for `created_at` greater than `1577869200` (January 1st, 2020 9:00 AM UTC) returns Contacts created after that exact instant. Passing the same value for a Date custom attribute truncates it to `1577836800` (January 1st, 2020 12:00 AM UTC), so those results begin from January 2nd, 2020 12:00 AM UTC.
-//
-// Only search queries behave this way. Responses always carry the full UNIX timestamp, and sorting uses the full value.
-//
-// ### Accepted Fields
-//
-// Most key listed as part of the Contacts Model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
-//
-// | Field                              | Type                           |
-// | ---------------------------------- | ------------------------------ |
-// | id                                 | String                         |
-// | role                               | String<br>Accepts user or lead; contact is treated as lead |
-// | name                               | String                         |
-// | avatar                             | String                         |
-// | owner_id                           | Integer                        |
-// | email                              | String                         |
-// | email_domain                       | String                         |
-// | phone                              | String                         |
-// | external_id                        | String                         |
-// | created_at                         | Datetime (Unix timestamp in seconds) |
-// | signed_up_at                       | Datetime (Unix timestamp in seconds) |
-// | updated_at                         | Datetime (Unix timestamp in seconds) |
-// | last_seen_at                       | Datetime (Unix timestamp in seconds) |
-// | last_contacted_at                  | Datetime (Unix timestamp in seconds) |
-// | last_replied_at                    | Datetime (Unix timestamp in seconds) |
-// | last_email_opened_at               | Datetime (Unix timestamp in seconds) |
-// | last_email_clicked_at              | Datetime (Unix timestamp in seconds) |
-// | language_override                  | String                         |
-// | browser                            | String                         |
-// | browser_version                    | String                         |
-// | browser_language                   | String                         |
-// | os                                 | String                         |
-// | location.country                   | String                         |
-// | location.region                    | String                         |
-// | location.city                      | String                         |
-// | unsubscribed_from_emails           | Boolean                        |
-// | marked_email_as_spam               | Boolean                        |
-// | has_hard_bounced                   | Boolean                        |
-// | phone_country                      | String                         |
-// | slack_email                        | String                         |
-// | fin_qualification_status           | String                         |
-// | whatsapp_number                    | String<br>Only on workspaces with the WhatsApp integration |
-// | ios_last_seen_at                   | Datetime (Unix timestamp in seconds) |
-// | ios_app_version                    | String                         |
-// | ios_device                         | String                         |
-// | ios_os_version                     | String                         |
-// | ios_app_name                       | String                         |
-// | ios_sdk_version                    | String                         |
-// | android_last_seen_at               | Datetime (Unix timestamp in seconds) |
-// | android_app_version                | String                         |
-// | android_device                     | String                         |
-// | android_os_version                 | String                         |
-// | android_app_name                   | String                         |
-// | android_sdk_version                | String                         |
-// | enabled_push_messaging             | Boolean                        |
-// | segment_id                         | String                         |
-// | tag_id                             | String                         |
-// | custom_attributes.{attribute_name} | Matches the attribute's own type<br>(String, Integer, Float, Boolean or Date) |
-//
-// The `ios_*` fields other than `ios_app_name` are searchable only once your workspace has been set up for the Intercom iOS SDK or has received a request from it, and the `android_*` fields other than `android_app_name` only once the same is true for the Android SDK. `enabled_push_messaging` needs either. Until then, they return an `invalid_field` error.
-//
-// ### Accepted Operators
-//
-// {% admonition type="warning" name="Operators not supported on Date custom attributes" %}
-//
-//	Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns a `422` error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
-//
-// {% /admonition %}
-//
-// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` or `segment_id` supports only the `=` and `!=` operators, with a single ID string as the value.
-//
-// A `null` value is accepted only with `=` (matches Contacts with no value set) and `!=` (matches Contacts with any value set). An array value is accepted only with `IN` and `NIN`. String values must be shorter than 256 characters.
-//
-// | Operator | Valid Types                        | Description                                                            |
-// | :------- | :---------------------------------- | :----------------------------------------------------------------------|
-// | =        | All                                  | Equals                                                                  |
-// | !=       | All except Date                      | Doesn't Equal<br>Also matches Contacts with no value set                |
-// | IN       | All except Date, Datetime, tag_id and segment_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
-// | NIN      | All except Date, Datetime, tag_id and segment_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
-// | >        | Integer<br>Float<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
-// | <        | Integer<br>Float<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
-// | >=       | Integer<br>Float<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
-// | <=       | Integer<br>Float<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
-// | ~        | String                               | Contains                                                                |
-// | !~       | String                               | Doesn't Contain                                                         |
-// | ^        | String                               | Starts With                                                             |
-// | $        | String                               | Ends With                                                               |
-//
-// Requires the `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /contacts/search (the `SearchContacts` operationId).
-func (c *Client) SearchContactsWithBody(ctx context.Context, params *SearchContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchContactsRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// SearchContacts Search contacts
-//
-// You can search for multiple contacts by the value of their attributes in order to fetch exactly who you want.
-//
-// To search for contacts, you need to send a `POST` request to `https://api.intercom.io/contacts/search`.
-//
-// This will accept a query object in the body which will define your filters in order to search for contacts.
-//
-// {% admonition type="warning" name="Optimizing search queries" %}
-//
-//	Search queries can be complex, so optimizing them can help the performance of your search.
-//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `50` results per page.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-// ### Merged Contacts
-//
-// Contacts that have been merged (via POST /contacts/merge) are excluded from search results. If a contact was recently merged into another, it will no longer appear in queries filtered by `updated_at` or any other field. Only the target contact from the merge remains searchable.
-//
-// ### Contact Creation Delay
-//
-// If a contact has recently been created, there is a possibility that it will not yet be available when searching. This means that it may not appear in the response. This delay can take a few minutes. If you need to be instantly notified it is recommended to use webhooks and iterate to see if they match your search filters.
-//
-// ### Nesting & Limitations
-//
-// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
-// There are some limitations to the amount of multiple's there can be:
-// * There's a limit of max 2 nested filters
-// * There's a limit of max 15 filters for each AND or OR group
-// * There's a limit of max 15 values in an `IN` or `NIN` array
-// * `pagination.per_page` must be between 1 and 150
-//
-// ### Searching for Timestamp Fields
-//
-// Standard timestamp fields and Date custom attributes behave differently.
-//
-// **Standard timestamp fields** (`created_at`, `updated_at`, `last_seen_at` etc.) are filtered on the exact second, in UTC. `=` matches only Contacts whose value is that exact second, and `>`, `<`, `>=` and `<=` compare against the exact instant you pass - the value is not rounded or truncated. These fields report a type of `datetime` on the Data Attributes endpoint. Note that `!=` also matches Contacts with no value set for the field.
-//
-// **Date custom attributes** are matched by calendar day, and the day boundary is always UTC regardless of your workspace's timezone. `=` matches the whole UTC day, `>` matches from the start of the *next* UTC day, and `<` matches everything before the start of that day. The `!=`, `>=`, `<=`, `IN` and `NIN` operators are not supported on these fields and return an error.
-//
-// **Example.** Searching for `created_at` greater than `1577869200` (January 1st, 2020 9:00 AM UTC) returns Contacts created after that exact instant. Passing the same value for a Date custom attribute truncates it to `1577836800` (January 1st, 2020 12:00 AM UTC), so those results begin from January 2nd, 2020 12:00 AM UTC.
-//
-// Only search queries behave this way. Responses always carry the full UNIX timestamp, and sorting uses the full value.
-//
-// ### Accepted Fields
-//
-// Most key listed as part of the Contacts Model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
-//
-// | Field                              | Type                           |
-// | ---------------------------------- | ------------------------------ |
-// | id                                 | String                         |
-// | role                               | String<br>Accepts user or lead; contact is treated as lead |
-// | name                               | String                         |
-// | avatar                             | String                         |
-// | owner_id                           | Integer                        |
-// | email                              | String                         |
-// | email_domain                       | String                         |
-// | phone                              | String                         |
-// | external_id                        | String                         |
-// | created_at                         | Datetime (Unix timestamp in seconds) |
-// | signed_up_at                       | Datetime (Unix timestamp in seconds) |
-// | updated_at                         | Datetime (Unix timestamp in seconds) |
-// | last_seen_at                       | Datetime (Unix timestamp in seconds) |
-// | last_contacted_at                  | Datetime (Unix timestamp in seconds) |
-// | last_replied_at                    | Datetime (Unix timestamp in seconds) |
-// | last_email_opened_at               | Datetime (Unix timestamp in seconds) |
-// | last_email_clicked_at              | Datetime (Unix timestamp in seconds) |
-// | language_override                  | String                         |
-// | browser                            | String                         |
-// | browser_version                    | String                         |
-// | browser_language                   | String                         |
-// | os                                 | String                         |
-// | location.country                   | String                         |
-// | location.region                    | String                         |
-// | location.city                      | String                         |
-// | unsubscribed_from_emails           | Boolean                        |
-// | marked_email_as_spam               | Boolean                        |
-// | has_hard_bounced                   | Boolean                        |
-// | phone_country                      | String                         |
-// | slack_email                        | String                         |
-// | fin_qualification_status           | String                         |
-// | whatsapp_number                    | String<br>Only on workspaces with the WhatsApp integration |
-// | ios_last_seen_at                   | Datetime (Unix timestamp in seconds) |
-// | ios_app_version                    | String                         |
-// | ios_device                         | String                         |
-// | ios_os_version                     | String                         |
-// | ios_app_name                       | String                         |
-// | ios_sdk_version                    | String                         |
-// | android_last_seen_at               | Datetime (Unix timestamp in seconds) |
-// | android_app_version                | String                         |
-// | android_device                     | String                         |
-// | android_os_version                 | String                         |
-// | android_app_name                   | String                         |
-// | android_sdk_version                | String                         |
-// | enabled_push_messaging             | Boolean                        |
-// | segment_id                         | String                         |
-// | tag_id                             | String                         |
-// | custom_attributes.{attribute_name} | Matches the attribute's own type<br>(String, Integer, Float, Boolean or Date) |
-//
-// The `ios_*` fields other than `ios_app_name` are searchable only once your workspace has been set up for the Intercom iOS SDK or has received a request from it, and the `android_*` fields other than `android_app_name` only once the same is true for the Android SDK. `enabled_push_messaging` needs either. Until then, they return an `invalid_field` error.
-//
-// ### Accepted Operators
-//
-// {% admonition type="warning" name="Operators not supported on Date custom attributes" %}
-//
-//	Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns a `422` error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
-//
-// {% /admonition %}
-//
-// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` or `segment_id` supports only the `=` and `!=` operators, with a single ID string as the value.
-//
-// A `null` value is accepted only with `=` (matches Contacts with no value set) and `!=` (matches Contacts with any value set). An array value is accepted only with `IN` and `NIN`. String values must be shorter than 256 characters.
-//
-// | Operator | Valid Types                        | Description                                                            |
-// | :------- | :---------------------------------- | :----------------------------------------------------------------------|
-// | =        | All                                  | Equals                                                                  |
-// | !=       | All except Date                      | Doesn't Equal<br>Also matches Contacts with no value set                |
-// | IN       | All except Date, Datetime, tag_id and segment_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
-// | NIN      | All except Date, Datetime, tag_id and segment_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
-// | >        | Integer<br>Float<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
-// | <        | Integer<br>Float<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
-// | >=       | Integer<br>Float<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
-// | <=       | Integer<br>Float<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
-// | ~        | String                               | Contains                                                                |
-// | !~       | String                               | Doesn't Contain                                                         |
-// | ^        | String                               | Starts With                                                             |
-// | $        | String                               | Ends With                                                               |
-//
-// Requires the `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /contacts/search (the `SearchContacts` operationId).
-func (c *Client) SearchContacts(ctx context.Context, params *SearchContactsParams, body SearchContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchContactsRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteContact Delete a contact
-//
-// You can delete a single contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Corresponds with DELETE /contacts/{contact_id} (the `DeleteContact` operationId).
-func (c *Client) DeleteContact(ctx context.Context, contactId string, params *DeleteContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteContactRequest(c.Server, contactId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShowContact Get a contact
-//
-// You can fetch the details of a single contact.
-//
-// {% admonition type="info" name="Merged contacts return 410 Gone" %}
-//
-//	If a contact has been merged into another contact via the Merge endpoint (`POST /contacts/merge`), requesting it by its original ID will return **HTTP 410 Gone** with a `Link` header pointing to the canonical (merged-into) contact.
-//
-//	**Response headers:**
-//	```
-//	Link: </contacts/{canonical_id}>; rel="canonical"
-//	```
-//
-//	**Response body:**
-//	```json
-//	{
-//	  "type": "error.list",
-//	  "errors": [{ "code": "contact_merged", "message": "This contact has been merged. See the 'Link' header for the canonical contact." }]
-//	}
-//	```
-//
-//	The `Link` header contains the path to the final merge target, resolving multi-hop merge chains (up to 3 hops).
-//
-// {% /admonition %}
-//
-// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Corresponds with GET /contacts/{contact_id} (the `ShowContact` operationId).
-func (c *Client) ShowContact(ctx context.Context, contactId string, params *ShowContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShowContactRequest(c.Server, contactId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateContactWithBody Update a contact
-//
-// You can update an existing contact (ie. user or lead).
-//
-// {% admonition type="info" %}
-//
-//	This endpoint handles both **contact updates** and **custom object associations**.
-//
-//	See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
-//
-// {% /admonition %}
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /contacts/{contact_id} (the `UpdateContact` operationId).
-func (c *Client) UpdateContactWithBody(ctx context.Context, contactId string, params *UpdateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateContactRequestWithBody(c.Server, contactId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateContact Update a contact
-//
-// You can update an existing contact (ie. user or lead).
-//
-// {% admonition type="info" %}
-//
-//	This endpoint handles both **contact updates** and **custom object associations**.
-//
-//	See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
-//
-// {% /admonition %}
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /contacts/{contact_id} (the `UpdateContact` operationId).
-func (c *Client) UpdateContact(ctx context.Context, contactId string, params *UpdateContactParams, body UpdateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateContactRequest(c.Server, contactId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ArchiveContact Archive contact
-//
-// You can archive a single contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Corresponds with POST /contacts/{contact_id}/archive (the `ArchiveContact` operationId).
-func (c *Client) ArchiveContact(ctx context.Context, contactId string, params *ArchiveContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewArchiveContactRequest(c.Server, contactId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// BlockContact Block contact
-//
-// Block a single contact.<br>**Note:** conversations of the contact will also be archived during the process.<br>More details in [FAQ How do I block Inbox spam?](https://www.intercom.com/help/en/articles/8838656-inbox-faqs)
-//
-// Requires the `read_write_users` OAuth scope.
-//
-// Corresponds with POST /contacts/{contact_id}/block (the `BlockContact` operationId).
-func (c *Client) BlockContact(ctx context.Context, contactId string, params *BlockContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBlockContactRequest(c.Server, contactId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListCompaniesForAContact List attached companies for contact
-//
-// You can fetch a list of companies that are associated to a contact.
-//
-// Corresponds with GET /contacts/{contact_id}/companies (the `ListCompaniesForAContact` operationId).
-func (c *Client) ListCompaniesForAContact(ctx context.Context, contactId string, params *ListCompaniesForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListCompaniesForAContactRequest(c.Server, contactId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachContactToACompanyWithBody Attach a Contact to a Company
-//
-// You can attach a company to a single contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /contacts/{contact_id}/companies (the `AttachContactToACompany` operationId).
-func (c *Client) AttachContactToACompanyWithBody(ctx context.Context, contactId string, params *AttachContactToACompanyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachContactToACompanyRequestWithBody(c.Server, contactId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachContactToACompany Attach a Contact to a Company
-//
-// You can attach a company to a single contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /contacts/{contact_id}/companies (the `AttachContactToACompany` operationId).
-func (c *Client) AttachContactToACompany(ctx context.Context, contactId string, params *AttachContactToACompanyParams, body AttachContactToACompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachContactToACompanyRequest(c.Server, contactId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DetachContactFromACompany Detach a contact from a company
-//
-// You can detach a company from a single contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Corresponds with DELETE /contacts/{contact_id}/companies/{company_id} (the `DetachContactFromACompany` operationId).
-func (c *Client) DetachContactFromACompany(ctx context.Context, contactId string, companyId string, params *DetachContactFromACompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDetachContactFromACompanyRequest(c.Server, contactId, companyId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListNotes List all notes
-//
-// You can fetch a list of notes that are associated to a contact.
-//
-// Corresponds with GET /contacts/{contact_id}/notes (the `ListNotes` operationId).
-func (c *Client) ListNotes(ctx context.Context, contactId string, params *ListNotesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListNotesRequest(c.Server, contactId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateNoteWithBody Create a note
-//
-// You can add a note to a single contact.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /contacts/{contact_id}/notes (the `CreateNote` operationId).
-func (c *Client) CreateNoteWithBody(ctx context.Context, contactId int, params *CreateNoteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateNoteRequestWithBody(c.Server, contactId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateNote Create a note
-//
-// You can add a note to a single contact.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /contacts/{contact_id}/notes (the `CreateNote` operationId).
-func (c *Client) CreateNote(ctx context.Context, contactId int, params *CreateNoteParams, body CreateNoteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateNoteRequest(c.Server, contactId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListSegmentsForAContact List attached segments for contact
-//
-// You can fetch a list of segments that are associated to a contact.
-//
-// Requires the `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Corresponds with GET /contacts/{contact_id}/segments (the `ListSegmentsForAContact` operationId).
-func (c *Client) ListSegmentsForAContact(ctx context.Context, contactId string, params *ListSegmentsForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListSegmentsForAContactRequest(c.Server, contactId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListSubscriptionsForAContact List subscriptions for a contact
-//
-// You can fetch a list of subscription types that are attached to a contact. These can be subscriptions that a user has 'opted-in' to or has 'opted-out' from, depending on the subscription type.
-// This will return a list of Subscription Type objects that the contact is associated with.
-//
-// The data property will show a combined list of:
-//
-//	1.Opt-out subscription types that the user has opted-out from.
-//	2.Opt-in subscription types that the user has opted-in to receiving.
-//
-// **Note:** This endpoint only returns subscriptions where the contact has explicitly configured their preference. Subscriptions that are in the default state — where the contact has not made an explicit opt-in or opt-out choice — are not included in the response.
-//
-// Corresponds with GET /contacts/{contact_id}/subscriptions (the `ListSubscriptionsForAContact` operationId).
-func (c *Client) ListSubscriptionsForAContact(ctx context.Context, contactId string, params *ListSubscriptionsForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListSubscriptionsForAContactRequest(c.Server, contactId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachSubscriptionTypeToContactWithBody Add subscription to a contact
-//
-// You can add a specific subscription to a contact. In Intercom, we have two different subscription types based on user consent - opt-out and opt-in:
-//
-//	1.Attaching a contact to an opt-out subscription type will opt that user out from receiving messages related to that subscription type.
-//
-//	2.Attaching a contact to an opt-in subscription type will opt that user in to receiving messages related to that subscription type.
-//
-// This will return a subscription type model for the subscription type that was added to the contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /contacts/{contact_id}/subscriptions (the `AttachSubscriptionTypeToContact` operationId).
-func (c *Client) AttachSubscriptionTypeToContactWithBody(ctx context.Context, contactId string, params *AttachSubscriptionTypeToContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachSubscriptionTypeToContactRequestWithBody(c.Server, contactId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachSubscriptionTypeToContact Add subscription to a contact
-//
-// You can add a specific subscription to a contact. In Intercom, we have two different subscription types based on user consent - opt-out and opt-in:
-//
-//	1.Attaching a contact to an opt-out subscription type will opt that user out from receiving messages related to that subscription type.
-//
-//	2.Attaching a contact to an opt-in subscription type will opt that user in to receiving messages related to that subscription type.
-//
-// This will return a subscription type model for the subscription type that was added to the contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /contacts/{contact_id}/subscriptions (the `AttachSubscriptionTypeToContact` operationId).
-func (c *Client) AttachSubscriptionTypeToContact(ctx context.Context, contactId string, params *AttachSubscriptionTypeToContactParams, body AttachSubscriptionTypeToContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachSubscriptionTypeToContactRequest(c.Server, contactId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DetachSubscriptionTypeToContact Remove subscription from a contact
-//
-// You can remove a specific subscription from a contact. This will
-// return a subscription type model for the subscription type that was removed
-// from the contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Corresponds with DELETE /contacts/{contact_id}/subscriptions/{subscription_id} (the `DetachSubscriptionTypeToContact` operationId).
-func (c *Client) DetachSubscriptionTypeToContact(ctx context.Context, contactId string, subscriptionId string, params *DetachSubscriptionTypeToContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDetachSubscriptionTypeToContactRequest(c.Server, contactId, subscriptionId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListTagsForAContact List tags attached to a contact
-//
-// You can fetch a list of all tags that are attached to a specific contact.
-//
-// Corresponds with GET /contacts/{contact_id}/tags (the `ListTagsForAContact` operationId).
-func (c *Client) ListTagsForAContact(ctx context.Context, contactId string, params *ListTagsForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListTagsForAContactRequest(c.Server, contactId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachTagToContactWithBody Add tag to a contact
-//
-// You can tag a specific contact. This will return a tag object for
-// the tag that was added to the contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /contacts/{contact_id}/tags (the `AttachTagToContact` operationId).
-func (c *Client) AttachTagToContactWithBody(ctx context.Context, contactId string, params *AttachTagToContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachTagToContactRequestWithBody(c.Server, contactId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachTagToContact Add tag to a contact
-//
-// You can tag a specific contact. This will return a tag object for
-// the tag that was added to the contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /contacts/{contact_id}/tags (the `AttachTagToContact` operationId).
-func (c *Client) AttachTagToContact(ctx context.Context, contactId string, params *AttachTagToContactParams, body AttachTagToContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachTagToContactRequest(c.Server, contactId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DetachTagFromContact Remove tag from a contact
-//
-// You can remove tag from a specific contact. This will return a
-// tag object for the tag that was removed from the contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Corresponds with DELETE /contacts/{contact_id}/tags/{tag_id} (the `DetachTagFromContact` operationId).
-func (c *Client) DetachTagFromContact(ctx context.Context, contactId string, tagId string, params *DetachTagFromContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDetachTagFromContactRequest(c.Server, contactId, tagId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UnarchiveContact Unarchive contact
-//
-// You can unarchive a single contact.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Corresponds with POST /contacts/{contact_id}/unarchive (the `UnarchiveContact` operationId).
-func (c *Client) UnarchiveContact(ctx context.Context, contactId string, params *UnarchiveContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUnarchiveContactRequest(c.Server, contactId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListContactBanners List banners for a contact
-//
-// Returns the banners a contact currently matches, so you can display them on
-// surfaces outside the Messenger (native mobile apps, kiosks, embedded tools).
-//
-// Each banner in the response includes a `view_id`. Use it to record a dismissal
-// with the dismiss endpoint. A returned banner is treated as shown: requesting
-// this endpoint records an impression for each banner returned, so call it at the
-// point you are about to display the banners, not speculatively.
-//
-// Requires the `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Corresponds with GET /contacts/{id}/banners (the `ListContactBanners` operationId).
-func (c *Client) ListContactBanners(ctx context.Context, id string, params *ListContactBannersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListContactBannersRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DismissContactBanner Dismiss a banner for a contact
-//
-// Records that a contact has dismissed a banner. Dismissals are shared across
-// surfaces, so a banner dismissed through this endpoint will also stop appearing
-// in the web Messenger for that contact, and vice versa.
-//
-// The request is idempotent: dismissing an already-dismissed banner succeeds and
-// returns the same response.
-//
-// Requires the `read_write_users` OAuth scope.
-//
-// Corresponds with POST /contacts/{id}/banners/{view_id}/dismiss (the `DismissContactBanner` operationId).
-func (c *Client) DismissContactBanner(ctx context.Context, id string, viewId string, params *DismissContactBannerParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDismissContactBannerRequest(c.Server, id, viewId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListContactMergeHistory Get contact merge history
-//
-// Retrieve the paginated list of contacts that have been merged into a given contact.
-//
-// Only available for contacts with a `user` role. Returns a `404` if the contact is not found or has a `lead` role.
-//
-// Requires the `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Corresponds with GET /contacts/{id}/merge_histories (the `ListContactMergeHistory` operationId).
-func (c *Client) ListContactMergeHistory(ctx context.Context, id string, params *ListContactMergeHistoryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListContactMergeHistoryRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// BulkContentActionsWithBody Run a bulk action on Knowledge Hub content
-//
-// Asynchronously run a bulk action over up to 1,000 Knowledge Hub content items.
-//
-// Six actions are supported:
-//   - `publish` and `unpublish` — apply to `article_content` only.
-//   - `delete` — permanently delete content (excludes synced sources and `external_content`).
-//   - `set_availability` — toggle Fin AI Agent, Copilot, and Sales Agent availability flags.
-//   - `set_audience` — manage segment membership on content.
-//   - `update_tags` — apply and/or remove existing tags on content. Unlike the other
-//     actions, `update_tags` addresses articles by the parent `article` id, not
-//     `article_content`. Tags must already exist and not be archived; supply at least one of
-//     `add_tag_ids` / `remove_tag_ids`.
-//
-// The endpoint validates the request, enqueues background work, and returns 202 with a
-// placeholder envelope. Items whose `type` is not in the action's allowlist are silently
-// dropped before processing. Articles imported from synced sources (Confluence, Notion,
-// Zendesk, Salesforce Knowledge, etc.) are silently skipped on `delete` — they can only be
-// removed by disconnecting the underlying import source.
-//
-// Requires the `write_content` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /content/bulk_actions (the `BulkContentActions` operationId).
-func (c *Client) BulkContentActionsWithBody(ctx context.Context, params *BulkContentActionsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBulkContentActionsRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// BulkContentActions Run a bulk action on Knowledge Hub content
-//
-// Asynchronously run a bulk action over up to 1,000 Knowledge Hub content items.
-//
-// Six actions are supported:
-//   - `publish` and `unpublish` — apply to `article_content` only.
-//   - `delete` — permanently delete content (excludes synced sources and `external_content`).
-//   - `set_availability` — toggle Fin AI Agent, Copilot, and Sales Agent availability flags.
-//   - `set_audience` — manage segment membership on content.
-//   - `update_tags` — apply and/or remove existing tags on content. Unlike the other
-//     actions, `update_tags` addresses articles by the parent `article` id, not
-//     `article_content`. Tags must already exist and not be archived; supply at least one of
-//     `add_tag_ids` / `remove_tag_ids`.
-//
-// The endpoint validates the request, enqueues background work, and returns 202 with a
-// placeholder envelope. Items whose `type` is not in the action's allowlist are silently
-// dropped before processing. Articles imported from synced sources (Confluence, Notion,
-// Zendesk, Salesforce Knowledge, etc.) are silently skipped on `delete` — they can only be
-// removed by disconnecting the underlying import source.
-//
-// Requires the `write_content` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /content/bulk_actions (the `BulkContentActions` operationId).
-func (c *Client) BulkContentActions(ctx context.Context, params *BulkContentActionsParams, body BulkContentActionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBulkContentActionsRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// SearchContent Search knowledge base contents
-//
-// Search the knowledge base contents — articles, snippets, external pages, uploaded files, and internal articles — using a keyword query.
-//
-// Each result row has a `type` discriminator. Most types (`content_snippet`, `external_content`, `file_source_content`, `internal_article`) return a flat `{ type, id, title }` shape. Help center articles return a nested shape with a `contents[]` array, one entry per locale.
-//
-// Requires the `read_content` OAuth scope.
-//
-// Corresponds with GET /content/search (the `SearchContent` operationId).
-func (c *Client) SearchContent(ctx context.Context, params *SearchContentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchContentRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListContentSnippets List all content snippets
-//
-// You can fetch a list of all content snippets for a workspace.
-//
-// Requires the `read_content_snippets` or `read_write_content_snippets` OAuth scope.
-//
-// Corresponds with GET /content_snippets (the `ListContentSnippets` operationId).
-func (c *Client) ListContentSnippets(ctx context.Context, params *ListContentSnippetsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListContentSnippetsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateContentSnippetWithBody Create a content snippet
-//
-// You can create a new content snippet.
-//
-// Requires the `read_write_content_snippets` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /content_snippets (the `CreateContentSnippet` operationId).
-func (c *Client) CreateContentSnippetWithBody(ctx context.Context, params *CreateContentSnippetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateContentSnippetRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateContentSnippet Create a content snippet
-//
-// You can create a new content snippet.
-//
-// Requires the `read_write_content_snippets` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /content_snippets (the `CreateContentSnippet` operationId).
-func (c *Client) CreateContentSnippet(ctx context.Context, params *CreateContentSnippetParams, body CreateContentSnippetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateContentSnippetRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachTagToContentSnippetWithBody Add a tag to a content snippet
-//
-// Apply an existing tag to a content snippet. Returns the tag that was applied.
-//
-// The tag must already exist in the workspace (create tags with the Tags API),
-// and the authenticating teammate must have the `manage_knowledge_base_content`
-// permission.
-//
-// Requires the `read_write_content_snippets` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /content_snippets/{content_snippet_id}/tags (the `AttachTagToContentSnippet` operationId).
-func (c *Client) AttachTagToContentSnippetWithBody(ctx context.Context, contentSnippetId string, params *AttachTagToContentSnippetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachTagToContentSnippetRequestWithBody(c.Server, contentSnippetId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachTagToContentSnippet Add a tag to a content snippet
-//
-// Apply an existing tag to a content snippet. Returns the tag that was applied.
-//
-// The tag must already exist in the workspace (create tags with the Tags API),
-// and the authenticating teammate must have the `manage_knowledge_base_content`
-// permission.
-//
-// Requires the `read_write_content_snippets` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /content_snippets/{content_snippet_id}/tags (the `AttachTagToContentSnippet` operationId).
-func (c *Client) AttachTagToContentSnippet(ctx context.Context, contentSnippetId string, params *AttachTagToContentSnippetParams, body AttachTagToContentSnippetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachTagToContentSnippetRequest(c.Server, contentSnippetId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DetachTagFromContentSnippet Remove a tag from a content snippet
-//
-// Remove a tag from a content snippet. Returns the tag that was removed, with
-// null `applied_at` and `applied_by`.
-//
-// The authenticating teammate must have the `manage_knowledge_base_content`
-// permission.
-//
-// Requires the `read_write_content_snippets` OAuth scope.
-//
-// Corresponds with DELETE /content_snippets/{content_snippet_id}/tags/{id} (the `DetachTagFromContentSnippet` operationId).
-func (c *Client) DetachTagFromContentSnippet(ctx context.Context, contentSnippetId string, id string, params *DetachTagFromContentSnippetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDetachTagFromContentSnippetRequest(c.Server, contentSnippetId, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteContentSnippet Delete a content snippet
-//
-// You can delete a single content snippet by its id.
-//
-// Requires the `read_write_content_snippets` OAuth scope.
-//
-// Corresponds with DELETE /content_snippets/{id} (the `DeleteContentSnippet` operationId).
-func (c *Client) DeleteContentSnippet(ctx context.Context, id string, params *DeleteContentSnippetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteContentSnippetRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// GetContentSnippet Retrieve a content snippet
-//
-// You can fetch a single content snippet by its id.
-//
-// Requires the `read_content_snippets` or `read_write_content_snippets` OAuth scope.
-//
-// Corresponds with GET /content_snippets/{id} (the `GetContentSnippet` operationId).
-func (c *Client) GetContentSnippet(ctx context.Context, id string, params *GetContentSnippetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetContentSnippetRequest(c.Server, id, params)
 	if err != nil {
 		return nil, err
 	}

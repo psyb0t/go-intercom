@@ -2,6 +2,17 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.5.0, 2026-10-28
+
+- Breaking: the note methods take a string ID instead of an int. This changes `(*Client).CreateNote`, `CreateNoteWithBody`, `DeleteNote` and `RetrieveNote`, the matching `ClientWithResponses` methods, `ClientInterface`, `ClientWithResponsesInterface`, and `NewCreateNoteRequest`, `NewCreateNoteRequestWithBody`, `NewDeleteNoteRequest` and `NewRetrieveNoteRequest`.
+- Breaking: the reporting export and download endpoints no longer send `app_id`, `client_id` or `job_identifier` query parameters. `GetExportReportingDataJobIdentifierParams` loses `AppId`, `ClientId` and `JobIdentifier`, and `GetDownloadReportingDataJobIdentifierParams` loses `AppId` and `JobIdentifier`.
+- Breaking: `SegmentList.Pages` is removed, `NoteList.Pages` is now `*PagesLink`, `ConvertVisitorRequest.User` is now a pointer, and `ConvertVisitorRequestVisitor2` and its union methods are removed.
+- Breaking: `ListTagsResponse.JSON200` is now `*ListTags200JSONResponseBody`, and `LisDataEventsParams.Type` is now `LisDataEventsParamsType`.
+- Breaking: `Metadata` on `DataEvent` and `CreateDataEventRequest`, and `CustomAttributes` on `Visitor`, `UpdateVisitorRequest` and `CustomObjectInstance`, are now maps of union types instead of `map[string]string`. `Error.Errors[].Code` is a string-or-integer union, read with `AsErrorErrorsCode0()`.
+- Breaking: the inline structs on `Admin.Avatar`, `Visitor.Companies`, `Visitor.Segments`, `TagCompanyRequest.Companies`, `UntagCompanyRequest.Companies`, `TagMultipleUsersRequest.Users` and `CreateConversationRequest.From` changed shape, and `CreateConversationRequestFromTypeContact` is removed.
+- Added `CreateOrUpdateTagRequest.IdsToAdd` and `TaggableType`, `CreateDataEventSummariesRequest` union methods, `ConvertVisitorRequestUser2`, and `JSON400`, `JSON401`, `JSON404`, `JSON422`, `JSON429` and `JSON500` fields on many response types.
+- Fixed the spec patch tool: Intercom changed the `/tags` create body from `oneOf` to `anyOf`, which left `CreateTagJSONRequestBody` without JSON marshaling so it sent `{}`. The patch now hoists `anyOf` bodies too, and `CreateTagJSONRequestBody` is an alias of the new `ClientBodyCreateTag` union.
+
 ## v0.4.3, 2026-10-28
 
 - Updated Semgrep in the development image to 1.182.1 and refreshed its locked dependencies. certifi 2026.10.23 drops the emSign root CAs whose intermediate keys were compromised (GHSA-6q48-6c7w-9gw2).

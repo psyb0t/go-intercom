@@ -16,6 +16,1862 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// RetrieveACompanyById Retrieve a company by ID
+//
+// You can fetch a single company.
+//
+// Corresponds with GET /companies/{company_id} (the `RetrieveACompanyById` operationId).
+func (c *Client) RetrieveACompanyById(ctx context.Context, companyId string, params *RetrieveACompanyByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetrieveACompanyByIdRequest(c.Server, companyId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateCompanyWithBody Update a company
+//
+// You can update a single company using the Intercom provisioned `id`.
+//
+// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// {% admonition type="warning" name="Using `company_id`" %}
+//
+//	When updating a company it is not possible to update `company_id`. This can only be set once upon creation of the company.
+//
+// {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /companies/{company_id} (the `UpdateCompany` operationId).
+func (c *Client) UpdateCompanyWithBody(ctx context.Context, companyId string, params *UpdateCompanyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateCompanyRequestWithBody(c.Server, companyId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateCompany Update a company
+//
+// You can update a single company using the Intercom provisioned `id`.
+//
+// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// {% admonition type="warning" name="Using `company_id`" %}
+//
+//	When updating a company it is not possible to update `company_id`. This can only be set once upon creation of the company.
+//
+// {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /companies/{company_id} (the `UpdateCompany` operationId).
+func (c *Client) UpdateCompany(ctx context.Context, companyId string, params *UpdateCompanyParams, body UpdateCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateCompanyRequest(c.Server, companyId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListAttachedContacts List attached contacts
+//
+// You can fetch a list of all contacts that belong to a company.
+//
+// Requires the `read_users_companies` OAuth scope.
+//
+// Corresponds with GET /companies/{company_id}/contacts (the `ListAttachedContacts` operationId).
+func (c *Client) ListAttachedContacts(ctx context.Context, companyId string, params *ListAttachedContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAttachedContactsRequest(c.Server, companyId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListCompanyNotes List all company notes
+//
+// You can fetch a list of notes that are associated to a company.
+//
+// Requires the `read_users_companies` OAuth scope.
+//
+// Corresponds with GET /companies/{company_id}/notes (the `ListCompanyNotes` operationId).
+func (c *Client) ListCompanyNotes(ctx context.Context, companyId string, params *ListCompanyNotesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListCompanyNotesRequest(c.Server, companyId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateCompanyNoteWithBody Create a company note
+//
+// You can add a note to a single company.
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /companies/{company_id}/notes (the `CreateCompanyNote` operationId).
+func (c *Client) CreateCompanyNoteWithBody(ctx context.Context, companyId string, params *CreateCompanyNoteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateCompanyNoteRequestWithBody(c.Server, companyId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateCompanyNote Create a company note
+//
+// You can add a note to a single company.
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /companies/{company_id}/notes (the `CreateCompanyNote` operationId).
+func (c *Client) CreateCompanyNote(ctx context.Context, companyId string, params *CreateCompanyNoteParams, body CreateCompanyNoteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateCompanyNoteRequest(c.Server, companyId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListAttachedSegmentsForCompanies List attached segments for companies
+//
+// You can fetch a list of all segments that belong to a company.
+//
+// Requires the `read_users_companies` OAuth scope.
+//
+// Corresponds with GET /companies/{company_id}/segments (the `ListAttachedSegmentsForCompanies` operationId).
+func (c *Client) ListAttachedSegmentsForCompanies(ctx context.Context, companyId string, params *ListAttachedSegmentsForCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAttachedSegmentsForCompaniesRequest(c.Server, companyId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListContacts List all contacts
+//
+// You can fetch a list of all contacts (ie. users or leads) in your workspace.
+// {% admonition type="info" name="Merged contacts" %}
+//
+//	Contacts that have been merged (via POST /contacts/merge) will not appear in list results. Only the target contact from the merge remains accessible.
+//
+// {% /admonition %}
+// {% admonition type="warning" name="Pagination" %}
+//
+//	You can use pagination to limit the number of results returned. The default is `10` results per page, with a maximum of `150`.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
+//
+// {% /admonition %}
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Corresponds with GET /contacts (the `ListContacts` operationId).
+func (c *Client) ListContacts(ctx context.Context, params *ListContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListContactsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateContactWithBody Create contact
+//
+// You can create a new contact (ie. user or lead).
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /contacts (the `CreateContact` operationId).
+func (c *Client) CreateContactWithBody(ctx context.Context, params *CreateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContactRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateContact Create contact
+//
+// You can create a new contact (ie. user or lead).
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /contacts (the `CreateContact` operationId).
+func (c *Client) CreateContact(ctx context.Context, params *CreateContactParams, body CreateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContactRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListContactActivities List all contact activities
+//
+// You can fetch a list of contact activity events for your workspace, such as when contacts are created, role updated, merged, or deleted. Events are returned oldest first.
+//
+// If the activity store can't be read, this endpoint returns `200` with an empty `data` array and no `pages.next`, the same response as when there are no new events.
+//
+// {% admonition type="warning" name="Pagination" %}
+//
+//	You can use pagination to limit the number of results returned. The default is `50` results per page, with a maximum of `150`.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
+//
+// {% /admonition %}
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Corresponds with GET /contacts/activities (the `ListContactActivities` operationId).
+func (c *Client) ListContactActivities(ctx context.Context, params *ListContactActivitiesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListContactActivitiesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BulkCreateContactsWithBody Bulk create contacts
+//
+// You can bulk create contacts by submitting an array of contact objects. This is a **strict create** and never updates an existing contact.
+//
+// The endpoint creates an async job that processes the items in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
+//
+// Only the fields listed in the request schema below can be set. Any other fields in a contact object are ignored.
+//
+// {% admonition type="info" name="Handling existing contacts" %}
+//
+//	If a contact already exists with the given `external_id` or `email` (including an archived contact), that item is rejected and the job's `state` ends as `completed_with_errors`. New contacts in the same request are still created. The job `state` from `GET /contacts/bulk/{id}` is the signal that one or more items were rejected.
+//
+//	Created contacts aren't returned with IDs in the response. Look them up afterwards with [Get a contact by External ID](/docs/references/rest-api/api.intercom.io/contacts/showcontactbyexternalid) or [Search contacts](/docs/references/rest-api/api.intercom.io/contacts/searchcontacts).
+//
+// {% /admonition %}
+//
+// {% admonition type="info" name="Limits" %}
+//   - Maximum of 100 contacts per request.
+//   - You can append tasks to an existing job by including `job.id` in the request body.
+//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
+//
+// {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /contacts/bulk (the `BulkCreateContacts` operationId).
+func (c *Client) BulkCreateContactsWithBody(ctx context.Context, params *BulkCreateContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBulkCreateContactsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BulkCreateContacts Bulk create contacts
+//
+// You can bulk create contacts by submitting an array of contact objects. This is a **strict create** and never updates an existing contact.
+//
+// The endpoint creates an async job that processes the items in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
+//
+// Only the fields listed in the request schema below can be set. Any other fields in a contact object are ignored.
+//
+// {% admonition type="info" name="Handling existing contacts" %}
+//
+//	If a contact already exists with the given `external_id` or `email` (including an archived contact), that item is rejected and the job's `state` ends as `completed_with_errors`. New contacts in the same request are still created. The job `state` from `GET /contacts/bulk/{id}` is the signal that one or more items were rejected.
+//
+//	Created contacts aren't returned with IDs in the response. Look them up afterwards with [Get a contact by External ID](/docs/references/rest-api/api.intercom.io/contacts/showcontactbyexternalid) or [Search contacts](/docs/references/rest-api/api.intercom.io/contacts/searchcontacts).
+//
+// {% /admonition %}
+//
+// {% admonition type="info" name="Limits" %}
+//   - Maximum of 100 contacts per request.
+//   - You can append tasks to an existing job by including `job.id` in the request body.
+//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
+//
+// {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /contacts/bulk (the `BulkCreateContacts` operationId).
+func (c *Client) BulkCreateContacts(ctx context.Context, params *BulkCreateContactsParams, body BulkCreateContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBulkCreateContactsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BulkUpdateContactsWithBody Bulk update contacts
+//
+// You can bulk update contacts by submitting an array of contact objects with the fields to update. Each contact must include an `id` field identifying the contact to update. You can also add or remove tags on each contact by including a `tags` object.
+//
+// Only the fields listed in the request schema below can be set. Any other fields in a contact object are ignored.
+//
+// The endpoint creates an async job that processes the updates in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
+//
+// {% admonition type="info" name="Limits" %}
+//   - Maximum of 100 contacts per request.
+//   - You can append tasks to an existing job by including `job.id` in the request body.
+//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
+//
+// {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /contacts/bulk (the `BulkUpdateContacts` operationId).
+func (c *Client) BulkUpdateContactsWithBody(ctx context.Context, params *BulkUpdateContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBulkUpdateContactsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BulkUpdateContacts Bulk update contacts
+//
+// You can bulk update contacts by submitting an array of contact objects with the fields to update. Each contact must include an `id` field identifying the contact to update. You can also add or remove tags on each contact by including a `tags` object.
+//
+// Only the fields listed in the request schema below can be set. Any other fields in a contact object are ignored.
+//
+// The endpoint creates an async job that processes the updates in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
+//
+// {% admonition type="info" name="Limits" %}
+//   - Maximum of 100 contacts per request.
+//   - You can append tasks to an existing job by including `job.id` in the request body.
+//   - Tag application is best-effort and processed asynchronously: unknown tag IDs are skipped, and per-tag results are not returned in the job status.
+//
+// {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /contacts/bulk (the `BulkUpdateContacts` operationId).
+func (c *Client) BulkUpdateContacts(ctx context.Context, params *BulkUpdateContactsParams, body BulkUpdateContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBulkUpdateContactsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BulkDeleteContactsWithBody Bulk delete contacts
+//
+// You can delete contacts in bulk by submitting an array of contact `id`s.
+//
+// The endpoint creates an async job that processes the deletes in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
+//
+// {% admonition type="warning" name="Permanent deletion" %}
+//
+//	A contact that doesn't exist, or can't be deleted, fails that item and the job's `state` ends as `completed_with_errors` (visible via `GET /contacts/bulk/{id}`) without failing the rest of the batch.
+//
+// {% /admonition %}
+//
+// {% admonition type="info" name="Limits" %}
+//   - Maximum of 100 contacts per request.
+//   - You can append tasks to an existing job by including `job.id` in the request body.
+//
+// {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /contacts/bulk/delete (the `BulkDeleteContacts` operationId).
+func (c *Client) BulkDeleteContactsWithBody(ctx context.Context, params *BulkDeleteContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBulkDeleteContactsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BulkDeleteContacts Bulk delete contacts
+//
+// You can delete contacts in bulk by submitting an array of contact `id`s.
+//
+// The endpoint creates an async job that processes the deletes in the background. Use the returned job ID with `GET /contacts/bulk/{id}` to check the job status.
+//
+// {% admonition type="warning" name="Permanent deletion" %}
+//
+//	A contact that doesn't exist, or can't be deleted, fails that item and the job's `state` ends as `completed_with_errors` (visible via `GET /contacts/bulk/{id}`) without failing the rest of the batch.
+//
+// {% /admonition %}
+//
+// {% admonition type="info" name="Limits" %}
+//   - Maximum of 100 contacts per request.
+//   - You can append tasks to an existing job by including `job.id` in the request body.
+//
+// {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /contacts/bulk/delete (the `BulkDeleteContacts` operationId).
+func (c *Client) BulkDeleteContacts(ctx context.Context, params *BulkDeleteContactsParams, body BulkDeleteContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBulkDeleteContactsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ShowBulkUpdateContactsJob Get a bulk update job
+//
+// You can check the status of a bulk contact update job. The `state` field indicates the overall job progress: `running`, `completed`, or `completed_with_errors`.
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Corresponds with GET /contacts/bulk/{id} (the `ShowBulkUpdateContactsJob` operationId).
+func (c *Client) ShowBulkUpdateContactsJob(ctx context.Context, id string, params *ShowBulkUpdateContactsJobParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewShowBulkUpdateContactsJobRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListDeletedContacts List deleted contacts
+//
+// Fetch a paginated list of the contacts in your workspace that are no longer active,
+// so you can recover ones whose `id`, `email`, or `external_id` you no longer have and
+// then permanently delete them. Each entry carries a `status` describing why the contact
+// is inactive: `archived`, `blocked`, `merged`, `pending_deletion`, or `permanently_deleted`.
+// `merged_into_id` is present only when `status` is `merged`, and `external_id` and `email`
+// are `null` for `permanently_deleted` contacts.
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Corresponds with GET /contacts/deleted (the `ListDeletedContacts` operationId).
+func (c *Client) ListDeletedContacts(ctx context.Context, params *ListDeletedContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListDeletedContactsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ShowContactByExternalId Get a contact by External ID
+//
+// You can fetch the details of a single contact by external ID. Note that this endpoint only supports users and not leads.
+//
+// {% admonition type="info" name="Merged contacts return 410 Gone" %}
+//
+//	If the contact with this external ID has been merged into another contact, the API returns **HTTP 410 Gone** with a `Link` header pointing to the canonical (merged-into) contact. See `GET /contacts/{id}` for details on the response format.
+//
+// {% /admonition %}
+//
+// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Corresponds with GET /contacts/find_by_external_id/{external_id} (the `ShowContactByExternalId` operationId).
+func (c *Client) ShowContactByExternalId(ctx context.Context, externalId string, params *ShowContactByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewShowContactByExternalIdRequest(c.Server, externalId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// MergeContactWithBody Merge a lead and a user
+//
+// You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
+//
+// {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
+//
+//	Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
+//	- **GET /contacts/{id}** — Requesting the source contact by its original ID returns `410 Gone` with a `Link` header pointing to the contact it was merged into. See [Get a contact](/docs/references/rest-api/api.intercom.io/contacts/showcontact).
+//	- **POST /contacts/search** — The source contact will not appear in search results, including queries filtered by `updated_at`.
+//	- **GET /contacts** — The source contact will not appear in list results.
+//
+//	Only the target contact (`into`) remains accessible. If your application stores contact IDs, update them to use the target contact's ID after a merge.
+//
+// {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /contacts/merge (the `MergeContact` operationId).
+func (c *Client) MergeContactWithBody(ctx context.Context, params *MergeContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewMergeContactRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// MergeContact Merge a lead and a user
+//
+// You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
+//
+// {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
+//
+//	Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
+//	- **GET /contacts/{id}** — Requesting the source contact by its original ID returns `410 Gone` with a `Link` header pointing to the contact it was merged into. See [Get a contact](/docs/references/rest-api/api.intercom.io/contacts/showcontact).
+//	- **POST /contacts/search** — The source contact will not appear in search results, including queries filtered by `updated_at`.
+//	- **GET /contacts** — The source contact will not appear in list results.
+//
+//	Only the target contact (`into`) remains accessible. If your application stores contact IDs, update them to use the target contact's ID after a merge.
+//
+// {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /contacts/merge (the `MergeContact` operationId).
+func (c *Client) MergeContact(ctx context.Context, params *MergeContactParams, body MergeContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewMergeContactRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// PreviewMergeContactWithBody Preview a contact merge
+//
+// Preview the result of merging one contact into another without applying the merge. This is a read-only dry run: it reports whether the merge is allowed and, if so, exactly what would change, **without modifying any data**.
+//
+// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
+//
+// - When `allowed` is `true`, the response contains a `summary`: every attribute change (with the resulting value on the surviving contact) and, for each object type, two counts — `from`, how many are on the source contact and would move to the destination, and `into`, how many the destination already has. Counts are reported for conversations, tickets, phone calls, notes, and tags. `conversations` counts non-ticket conversations only; tickets are reported separately under `tickets`, and `phone_calls` is present only for phone-channel merges.
+// - When `allowed` is `false`, the response contains `reasons`. Each reason has a stable `code` you can branch on and a human-readable `message` you can display.
+//
+// {% admonition type="warning" name="Previewing non-duplicate contacts" %}
+// By default a merge requires the two contacts to share an identifier (email or phone). Set `skip_duplicate_validation` to `true` to preview a merge of contacts that don't, the same rule the merge endpoint enforces.
+// {% /admonition %}
+//
+// When `allowed` is `false`, `reasons[].code` is one of:
+//
+// | code | meaning |
+// | --- | --- |
+// | `source_same_as_target` | The source contact (`from`) and the destination contact (`into`) are the same contact. A contact can't be merged into itself. |
+// | `invalid_merge_role_pair` | The `from`/`into` roles aren't mergeable. `into` must be a user. |
+// | `no_shared_identifier` | The contacts share no email or phone. The source's phone also counts as shared when it matches the destination's WhatsApp number. Set `skip_duplicate_validation` to preview anyway. |
+// | `facebook_user` | Facebook contacts can't be merged. |
+// | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
+// | `mailing_list` | Contacts created from a mailing list can't be merged. |
+// | `whatsapp_data_cannot_be_merged` | The WhatsApp number on the source contact can't be reassigned to the destination. |
+// | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
+// | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
+// | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
+//
+// Requires the `read_write_users` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /contacts/merge/preview (the `PreviewMergeContact` operationId).
+func (c *Client) PreviewMergeContactWithBody(ctx context.Context, params *PreviewMergeContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPreviewMergeContactRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// PreviewMergeContact Preview a contact merge
+//
+// Preview the result of merging one contact into another without applying the merge. This is a read-only dry run: it reports whether the merge is allowed and, if so, exactly what would change, **without modifying any data**.
+//
+// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
+//
+// - When `allowed` is `true`, the response contains a `summary`: every attribute change (with the resulting value on the surviving contact) and, for each object type, two counts — `from`, how many are on the source contact and would move to the destination, and `into`, how many the destination already has. Counts are reported for conversations, tickets, phone calls, notes, and tags. `conversations` counts non-ticket conversations only; tickets are reported separately under `tickets`, and `phone_calls` is present only for phone-channel merges.
+// - When `allowed` is `false`, the response contains `reasons`. Each reason has a stable `code` you can branch on and a human-readable `message` you can display.
+//
+// {% admonition type="warning" name="Previewing non-duplicate contacts" %}
+// By default a merge requires the two contacts to share an identifier (email or phone). Set `skip_duplicate_validation` to `true` to preview a merge of contacts that don't, the same rule the merge endpoint enforces.
+// {% /admonition %}
+//
+// When `allowed` is `false`, `reasons[].code` is one of:
+//
+// | code | meaning |
+// | --- | --- |
+// | `source_same_as_target` | The source contact (`from`) and the destination contact (`into`) are the same contact. A contact can't be merged into itself. |
+// | `invalid_merge_role_pair` | The `from`/`into` roles aren't mergeable. `into` must be a user. |
+// | `no_shared_identifier` | The contacts share no email or phone. The source's phone also counts as shared when it matches the destination's WhatsApp number. Set `skip_duplicate_validation` to preview anyway. |
+// | `facebook_user` | Facebook contacts can't be merged. |
+// | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
+// | `mailing_list` | Contacts created from a mailing list can't be merged. |
+// | `whatsapp_data_cannot_be_merged` | The WhatsApp number on the source contact can't be reassigned to the destination. |
+// | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
+// | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
+// | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
+//
+// Requires the `read_write_users` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /contacts/merge/preview (the `PreviewMergeContact` operationId).
+func (c *Client) PreviewMergeContact(ctx context.Context, params *PreviewMergeContactParams, body PreviewMergeContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPreviewMergeContactRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SearchContactsWithBody Search contacts
+//
+// You can search for multiple contacts by the value of their attributes in order to fetch exactly who you want.
+//
+// To search for contacts, you need to send a `POST` request to `https://api.intercom.io/contacts/search`.
+//
+// This will accept a query object in the body which will define your filters in order to search for contacts.
+//
+// {% admonition type="warning" name="Optimizing search queries" %}
+//
+//	Search queries can be complex, so optimizing them can help the performance of your search.
+//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
+//	pagination to limit the number of results returned. The default is `50` results per page.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
+//
+// {% /admonition %}
+// ### Merged Contacts
+//
+// Contacts that have been merged (via POST /contacts/merge) are excluded from search results. If a contact was recently merged into another, it will no longer appear in queries filtered by `updated_at` or any other field. Only the target contact from the merge remains searchable.
+//
+// ### Contact Creation Delay
+//
+// If a contact has recently been created, there is a possibility that it will not yet be available when searching. This means that it may not appear in the response. This delay can take a few minutes. If you need to be instantly notified it is recommended to use webhooks and iterate to see if they match your search filters.
+//
+// ### Nesting & Limitations
+//
+// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
+// There are some limitations to the amount of multiple's there can be:
+// * There's a limit of max 2 nested filters
+// * There's a limit of max 15 filters for each AND or OR group
+// * There's a limit of max 15 values in an `IN` or `NIN` array
+// * `pagination.per_page` must be between 1 and 150
+//
+// ### Searching for Timestamp Fields
+//
+// Standard timestamp fields and Date custom attributes behave differently.
+//
+// **Standard timestamp fields** (`created_at`, `updated_at`, `last_seen_at` etc.) are filtered on the exact second, in UTC. `=` matches only Contacts whose value is that exact second, and `>`, `<`, `>=` and `<=` compare against the exact instant you pass - the value is not rounded or truncated. These fields report a type of `datetime` on the Data Attributes endpoint. Note that `!=` also matches Contacts with no value set for the field.
+//
+// **Date custom attributes** are matched by calendar day, and the day boundary is always UTC regardless of your workspace's timezone. `=` matches the whole UTC day, `>` matches from the start of the *next* UTC day, and `<` matches everything before the start of that day. The `!=`, `>=`, `<=`, `IN` and `NIN` operators are not supported on these fields and return an error.
+//
+// **Example.** Searching for `created_at` greater than `1577869200` (January 1st, 2020 9:00 AM UTC) returns Contacts created after that exact instant. Passing the same value for a Date custom attribute truncates it to `1577836800` (January 1st, 2020 12:00 AM UTC), so those results begin from January 2nd, 2020 12:00 AM UTC.
+//
+// Only search queries behave this way. Responses always carry the full UNIX timestamp, and sorting uses the full value.
+//
+// ### Accepted Fields
+//
+// Most key listed as part of the Contacts Model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
+//
+// | Field                              | Type                           |
+// | ---------------------------------- | ------------------------------ |
+// | id                                 | String                         |
+// | role                               | String<br>Accepts user or lead; contact is treated as lead |
+// | name                               | String                         |
+// | avatar                             | String                         |
+// | owner_id                           | Integer                        |
+// | email                              | String                         |
+// | email_domain                       | String                         |
+// | phone                              | String                         |
+// | external_id                        | String                         |
+// | created_at                         | Datetime (Unix timestamp in seconds) |
+// | signed_up_at                       | Datetime (Unix timestamp in seconds) |
+// | updated_at                         | Datetime (Unix timestamp in seconds) |
+// | last_seen_at                       | Datetime (Unix timestamp in seconds) |
+// | last_contacted_at                  | Datetime (Unix timestamp in seconds) |
+// | last_replied_at                    | Datetime (Unix timestamp in seconds) |
+// | last_email_opened_at               | Datetime (Unix timestamp in seconds) |
+// | last_email_clicked_at              | Datetime (Unix timestamp in seconds) |
+// | language_override                  | String                         |
+// | browser                            | String                         |
+// | browser_version                    | String                         |
+// | browser_language                   | String                         |
+// | os                                 | String                         |
+// | location.country                   | String                         |
+// | location.region                    | String                         |
+// | location.city                      | String                         |
+// | unsubscribed_from_emails           | Boolean                        |
+// | marked_email_as_spam               | Boolean                        |
+// | has_hard_bounced                   | Boolean                        |
+// | phone_country                      | String                         |
+// | slack_email                        | String                         |
+// | fin_qualification_status           | String                         |
+// | whatsapp_number                    | String<br>Only on workspaces with the WhatsApp integration |
+// | ios_last_seen_at                   | Datetime (Unix timestamp in seconds) |
+// | ios_app_version                    | String                         |
+// | ios_device                         | String                         |
+// | ios_os_version                     | String                         |
+// | ios_app_name                       | String                         |
+// | ios_sdk_version                    | String                         |
+// | android_last_seen_at               | Datetime (Unix timestamp in seconds) |
+// | android_app_version                | String                         |
+// | android_device                     | String                         |
+// | android_os_version                 | String                         |
+// | android_app_name                   | String                         |
+// | android_sdk_version                | String                         |
+// | enabled_push_messaging             | Boolean                        |
+// | segment_id                         | String                         |
+// | tag_id                             | String                         |
+// | custom_attributes.{attribute_name} | Matches the attribute's own type<br>(String, Integer, Float, Boolean or Date) |
+//
+// The `ios_*` fields other than `ios_app_name` are searchable only once your workspace has been set up for the Intercom iOS SDK or has received a request from it, and the `android_*` fields other than `android_app_name` only once the same is true for the Android SDK. `enabled_push_messaging` needs either. Until then, they return an `invalid_field` error.
+//
+// ### Accepted Operators
+//
+// {% admonition type="warning" name="Operators not supported on Date custom attributes" %}
+//
+//	Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns a `422` error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
+//
+// {% /admonition %}
+//
+// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` or `segment_id` supports only the `=` and `!=` operators, with a single ID string as the value.
+//
+// A `null` value is accepted only with `=` (matches Contacts with no value set) and `!=` (matches Contacts with any value set). An array value is accepted only with `IN` and `NIN`. String values must be shorter than 256 characters.
+//
+// | Operator | Valid Types                        | Description                                                            |
+// | :------- | :---------------------------------- | :----------------------------------------------------------------------|
+// | =        | All                                  | Equals                                                                  |
+// | !=       | All except Date                      | Doesn't Equal<br>Also matches Contacts with no value set                |
+// | IN       | All except Date, Datetime, tag_id and segment_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
+// | NIN      | All except Date, Datetime, tag_id and segment_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
+// | >        | Integer<br>Float<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
+// | <        | Integer<br>Float<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
+// | >=       | Integer<br>Float<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
+// | <=       | Integer<br>Float<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
+// | ~        | String                               | Contains                                                                |
+// | !~       | String                               | Doesn't Contain                                                         |
+// | ^        | String                               | Starts With                                                             |
+// | $        | String                               | Ends With                                                               |
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /contacts/search (the `SearchContacts` operationId).
+func (c *Client) SearchContactsWithBody(ctx context.Context, params *SearchContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchContactsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SearchContacts Search contacts
+//
+// You can search for multiple contacts by the value of their attributes in order to fetch exactly who you want.
+//
+// To search for contacts, you need to send a `POST` request to `https://api.intercom.io/contacts/search`.
+//
+// This will accept a query object in the body which will define your filters in order to search for contacts.
+//
+// {% admonition type="warning" name="Optimizing search queries" %}
+//
+//	Search queries can be complex, so optimizing them can help the performance of your search.
+//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
+//	pagination to limit the number of results returned. The default is `50` results per page.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
+//
+// {% /admonition %}
+// ### Merged Contacts
+//
+// Contacts that have been merged (via POST /contacts/merge) are excluded from search results. If a contact was recently merged into another, it will no longer appear in queries filtered by `updated_at` or any other field. Only the target contact from the merge remains searchable.
+//
+// ### Contact Creation Delay
+//
+// If a contact has recently been created, there is a possibility that it will not yet be available when searching. This means that it may not appear in the response. This delay can take a few minutes. If you need to be instantly notified it is recommended to use webhooks and iterate to see if they match your search filters.
+//
+// ### Nesting & Limitations
+//
+// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
+// There are some limitations to the amount of multiple's there can be:
+// * There's a limit of max 2 nested filters
+// * There's a limit of max 15 filters for each AND or OR group
+// * There's a limit of max 15 values in an `IN` or `NIN` array
+// * `pagination.per_page` must be between 1 and 150
+//
+// ### Searching for Timestamp Fields
+//
+// Standard timestamp fields and Date custom attributes behave differently.
+//
+// **Standard timestamp fields** (`created_at`, `updated_at`, `last_seen_at` etc.) are filtered on the exact second, in UTC. `=` matches only Contacts whose value is that exact second, and `>`, `<`, `>=` and `<=` compare against the exact instant you pass - the value is not rounded or truncated. These fields report a type of `datetime` on the Data Attributes endpoint. Note that `!=` also matches Contacts with no value set for the field.
+//
+// **Date custom attributes** are matched by calendar day, and the day boundary is always UTC regardless of your workspace's timezone. `=` matches the whole UTC day, `>` matches from the start of the *next* UTC day, and `<` matches everything before the start of that day. The `!=`, `>=`, `<=`, `IN` and `NIN` operators are not supported on these fields and return an error.
+//
+// **Example.** Searching for `created_at` greater than `1577869200` (January 1st, 2020 9:00 AM UTC) returns Contacts created after that exact instant. Passing the same value for a Date custom attribute truncates it to `1577836800` (January 1st, 2020 12:00 AM UTC), so those results begin from January 2nd, 2020 12:00 AM UTC.
+//
+// Only search queries behave this way. Responses always carry the full UNIX timestamp, and sorting uses the full value.
+//
+// ### Accepted Fields
+//
+// Most key listed as part of the Contacts Model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
+//
+// | Field                              | Type                           |
+// | ---------------------------------- | ------------------------------ |
+// | id                                 | String                         |
+// | role                               | String<br>Accepts user or lead; contact is treated as lead |
+// | name                               | String                         |
+// | avatar                             | String                         |
+// | owner_id                           | Integer                        |
+// | email                              | String                         |
+// | email_domain                       | String                         |
+// | phone                              | String                         |
+// | external_id                        | String                         |
+// | created_at                         | Datetime (Unix timestamp in seconds) |
+// | signed_up_at                       | Datetime (Unix timestamp in seconds) |
+// | updated_at                         | Datetime (Unix timestamp in seconds) |
+// | last_seen_at                       | Datetime (Unix timestamp in seconds) |
+// | last_contacted_at                  | Datetime (Unix timestamp in seconds) |
+// | last_replied_at                    | Datetime (Unix timestamp in seconds) |
+// | last_email_opened_at               | Datetime (Unix timestamp in seconds) |
+// | last_email_clicked_at              | Datetime (Unix timestamp in seconds) |
+// | language_override                  | String                         |
+// | browser                            | String                         |
+// | browser_version                    | String                         |
+// | browser_language                   | String                         |
+// | os                                 | String                         |
+// | location.country                   | String                         |
+// | location.region                    | String                         |
+// | location.city                      | String                         |
+// | unsubscribed_from_emails           | Boolean                        |
+// | marked_email_as_spam               | Boolean                        |
+// | has_hard_bounced                   | Boolean                        |
+// | phone_country                      | String                         |
+// | slack_email                        | String                         |
+// | fin_qualification_status           | String                         |
+// | whatsapp_number                    | String<br>Only on workspaces with the WhatsApp integration |
+// | ios_last_seen_at                   | Datetime (Unix timestamp in seconds) |
+// | ios_app_version                    | String                         |
+// | ios_device                         | String                         |
+// | ios_os_version                     | String                         |
+// | ios_app_name                       | String                         |
+// | ios_sdk_version                    | String                         |
+// | android_last_seen_at               | Datetime (Unix timestamp in seconds) |
+// | android_app_version                | String                         |
+// | android_device                     | String                         |
+// | android_os_version                 | String                         |
+// | android_app_name                   | String                         |
+// | android_sdk_version                | String                         |
+// | enabled_push_messaging             | Boolean                        |
+// | segment_id                         | String                         |
+// | tag_id                             | String                         |
+// | custom_attributes.{attribute_name} | Matches the attribute's own type<br>(String, Integer, Float, Boolean or Date) |
+//
+// The `ios_*` fields other than `ios_app_name` are searchable only once your workspace has been set up for the Intercom iOS SDK or has received a request from it, and the `android_*` fields other than `android_app_name` only once the same is true for the Android SDK. `enabled_push_messaging` needs either. Until then, they return an `invalid_field` error.
+//
+// ### Accepted Operators
+//
+// {% admonition type="warning" name="Operators not supported on Date custom attributes" %}
+//
+//	Date custom attributes do not support the `!=`, `>=`, or `<=` operators. Using them returns a `422` error. Standard timestamp fields (`created_at`, `updated_at` etc.) do support these operators, and are filtered on the exact second.
+//
+// {% /admonition %}
+//
+// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). Which operators are valid depends on the field's type - see the "Valid Types" column below. Searching by `tag_id` or `segment_id` supports only the `=` and `!=` operators, with a single ID string as the value.
+//
+// A `null` value is accepted only with `=` (matches Contacts with no value set) and `!=` (matches Contacts with any value set). An array value is accepted only with `IN` and `NIN`. String values must be shorter than 256 characters.
+//
+// | Operator | Valid Types                        | Description                                                            |
+// | :------- | :---------------------------------- | :----------------------------------------------------------------------|
+// | =        | All                                  | Equals                                                                  |
+// | !=       | All except Date                      | Doesn't Equal<br>Also matches Contacts with no value set                |
+// | IN       | All except Date, Datetime, tag_id and segment_id | In<br>Shortcut for `OR` queries<br>Values must be in Array              |
+// | NIN      | All except Date, Datetime, tag_id and segment_id | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array        |
+// | >        | Integer<br>Float<br>Datetime<br>Date | Greater than<br>On Date custom attributes, matches from the start of the next day |
+// | <        | Integer<br>Float<br>Datetime<br>Date | Lower than<br>On Date custom attributes, matches before the start of the day |
+// | >=       | Integer<br>Float<br>Datetime         | Greater than or equal to<br>Not supported on Date custom attributes    |
+// | <=       | Integer<br>Float<br>Datetime         | Lower than or equal to<br>Not supported on Date custom attributes      |
+// | ~        | String                               | Contains                                                                |
+// | !~       | String                               | Doesn't Contain                                                         |
+// | ^        | String                               | Starts With                                                             |
+// | $        | String                               | Ends With                                                               |
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /contacts/search (the `SearchContacts` operationId).
+func (c *Client) SearchContacts(ctx context.Context, params *SearchContactsParams, body SearchContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchContactsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DeleteContact Delete a contact
+//
+// You can delete a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Corresponds with DELETE /contacts/{contact_id} (the `DeleteContact` operationId).
+func (c *Client) DeleteContact(ctx context.Context, contactId string, params *DeleteContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ShowContact Get a contact
+//
+// You can fetch the details of a single contact.
+//
+// {% admonition type="info" name="Merged contacts return 410 Gone" %}
+//
+//	If a contact has been merged into another contact via the Merge endpoint (`POST /contacts/merge`), requesting it by its original ID will return **HTTP 410 Gone** with a `Link` header pointing to the canonical (merged-into) contact.
+//
+//	**Response headers:**
+//	```
+//	Link: </contacts/{canonical_id}>; rel="canonical"
+//	```
+//
+//	**Response body:**
+//	```json
+//	{
+//	  "type": "error.list",
+//	  "errors": [{ "code": "contact_merged", "message": "This contact has been merged. See the 'Link' header for the canonical contact." }]
+//	}
+//	```
+//
+//	The `Link` header contains the path to the final merge target, resolving multi-hop merge chains (up to 3 hops).
+//
+// {% /admonition %}
+//
+// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Corresponds with GET /contacts/{contact_id} (the `ShowContact` operationId).
+func (c *Client) ShowContact(ctx context.Context, contactId string, params *ShowContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewShowContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateContactWithBody Update a contact
+//
+// You can update an existing contact (ie. user or lead).
+//
+// {% admonition type="info" %}
+//
+//	This endpoint handles both **contact updates** and **custom object associations**.
+//
+//	See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
+//
+// {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /contacts/{contact_id} (the `UpdateContact` operationId).
+func (c *Client) UpdateContactWithBody(ctx context.Context, contactId string, params *UpdateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateContactRequestWithBody(c.Server, contactId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateContact Update a contact
+//
+// You can update an existing contact (ie. user or lead).
+//
+// {% admonition type="info" %}
+//
+//	This endpoint handles both **contact updates** and **custom object associations**.
+//
+//	See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
+//
+// {% /admonition %}
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /contacts/{contact_id} (the `UpdateContact` operationId).
+func (c *Client) UpdateContact(ctx context.Context, contactId string, params *UpdateContactParams, body UpdateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateContactRequest(c.Server, contactId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ArchiveContact Archive contact
+//
+// You can archive a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Corresponds with POST /contacts/{contact_id}/archive (the `ArchiveContact` operationId).
+func (c *Client) ArchiveContact(ctx context.Context, contactId string, params *ArchiveContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewArchiveContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BlockContact Block contact
+//
+// Block a single contact.<br>**Note:** conversations of the contact will also be archived during the process.<br>More details in [FAQ How do I block Inbox spam?](https://www.intercom.com/help/en/articles/8838656-inbox-faqs)
+//
+// Requires the `read_write_users` OAuth scope.
+//
+// Corresponds with POST /contacts/{contact_id}/block (the `BlockContact` operationId).
+func (c *Client) BlockContact(ctx context.Context, contactId string, params *BlockContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBlockContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListCompaniesForAContact List attached companies for contact
+//
+// You can fetch a list of companies that are associated to a contact.
+//
+// Corresponds with GET /contacts/{contact_id}/companies (the `ListCompaniesForAContact` operationId).
+func (c *Client) ListCompaniesForAContact(ctx context.Context, contactId string, params *ListCompaniesForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListCompaniesForAContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AttachContactToACompanyWithBody Attach a Contact to a Company
+//
+// You can attach a company to a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /contacts/{contact_id}/companies (the `AttachContactToACompany` operationId).
+func (c *Client) AttachContactToACompanyWithBody(ctx context.Context, contactId string, params *AttachContactToACompanyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAttachContactToACompanyRequestWithBody(c.Server, contactId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AttachContactToACompany Attach a Contact to a Company
+//
+// You can attach a company to a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /contacts/{contact_id}/companies (the `AttachContactToACompany` operationId).
+func (c *Client) AttachContactToACompany(ctx context.Context, contactId string, params *AttachContactToACompanyParams, body AttachContactToACompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAttachContactToACompanyRequest(c.Server, contactId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DetachContactFromACompany Detach a contact from a company
+//
+// You can detach a company from a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Corresponds with DELETE /contacts/{contact_id}/companies/{company_id} (the `DetachContactFromACompany` operationId).
+func (c *Client) DetachContactFromACompany(ctx context.Context, contactId string, companyId string, params *DetachContactFromACompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDetachContactFromACompanyRequest(c.Server, contactId, companyId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListNotes List all notes
+//
+// You can fetch a list of notes that are associated to a contact.
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Corresponds with GET /contacts/{contact_id}/notes (the `ListNotes` operationId).
+func (c *Client) ListNotes(ctx context.Context, contactId string, params *ListNotesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListNotesRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateNoteWithBody Create a note
+//
+// You can add a note to a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /contacts/{contact_id}/notes (the `CreateNote` operationId).
+func (c *Client) CreateNoteWithBody(ctx context.Context, contactId string, params *CreateNoteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateNoteRequestWithBody(c.Server, contactId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateNote Create a note
+//
+// You can add a note to a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /contacts/{contact_id}/notes (the `CreateNote` operationId).
+func (c *Client) CreateNote(ctx context.Context, contactId string, params *CreateNoteParams, body CreateNoteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateNoteRequest(c.Server, contactId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListSegmentsForAContact List attached segments for contact
+//
+// You can fetch a list of segments that are associated to a contact.
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Corresponds with GET /contacts/{contact_id}/segments (the `ListSegmentsForAContact` operationId).
+func (c *Client) ListSegmentsForAContact(ctx context.Context, contactId string, params *ListSegmentsForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSegmentsForAContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListSubscriptionsForAContact List subscriptions for a contact
+//
+// You can fetch a list of subscription types that are attached to a contact. These can be subscriptions that a user has 'opted-in' to or has 'opted-out' from, depending on the subscription type.
+// This will return a list of Subscription Type objects that the contact is associated with.
+//
+// The data property will show a combined list of:
+//
+//	1.Opt-out subscription types that the user has opted-out from.
+//	2.Opt-in subscription types that the user has opted-in to receiving.
+//
+// **Note:** This endpoint only returns subscriptions where the contact has explicitly configured their preference. Subscriptions that are in the default state — where the contact has not made an explicit opt-in or opt-out choice — are not included in the response.
+//
+// Corresponds with GET /contacts/{contact_id}/subscriptions (the `ListSubscriptionsForAContact` operationId).
+func (c *Client) ListSubscriptionsForAContact(ctx context.Context, contactId string, params *ListSubscriptionsForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSubscriptionsForAContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AttachSubscriptionTypeToContactWithBody Add subscription to a contact
+//
+// You can add a specific subscription to a contact. In Intercom, we have two different subscription types based on user consent - opt-out and opt-in:
+//
+//	1.Attaching a contact to an opt-out subscription type will opt that user out from receiving messages related to that subscription type.
+//
+//	2.Attaching a contact to an opt-in subscription type will opt that user in to receiving messages related to that subscription type.
+//
+// This will return a subscription type model for the subscription type that was added to the contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /contacts/{contact_id}/subscriptions (the `AttachSubscriptionTypeToContact` operationId).
+func (c *Client) AttachSubscriptionTypeToContactWithBody(ctx context.Context, contactId string, params *AttachSubscriptionTypeToContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAttachSubscriptionTypeToContactRequestWithBody(c.Server, contactId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AttachSubscriptionTypeToContact Add subscription to a contact
+//
+// You can add a specific subscription to a contact. In Intercom, we have two different subscription types based on user consent - opt-out and opt-in:
+//
+//	1.Attaching a contact to an opt-out subscription type will opt that user out from receiving messages related to that subscription type.
+//
+//	2.Attaching a contact to an opt-in subscription type will opt that user in to receiving messages related to that subscription type.
+//
+// This will return a subscription type model for the subscription type that was added to the contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /contacts/{contact_id}/subscriptions (the `AttachSubscriptionTypeToContact` operationId).
+func (c *Client) AttachSubscriptionTypeToContact(ctx context.Context, contactId string, params *AttachSubscriptionTypeToContactParams, body AttachSubscriptionTypeToContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAttachSubscriptionTypeToContactRequest(c.Server, contactId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DetachSubscriptionTypeToContact Remove subscription from a contact
+//
+// You can remove a specific subscription from a contact. This will
+// return a subscription type model for the subscription type that was removed
+// from the contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Corresponds with DELETE /contacts/{contact_id}/subscriptions/{subscription_id} (the `DetachSubscriptionTypeToContact` operationId).
+func (c *Client) DetachSubscriptionTypeToContact(ctx context.Context, contactId string, subscriptionId string, params *DetachSubscriptionTypeToContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDetachSubscriptionTypeToContactRequest(c.Server, contactId, subscriptionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListTagsForAContact List tags attached to a contact
+//
+// You can fetch a list of all tags that are attached to a specific contact.
+//
+// Corresponds with GET /contacts/{contact_id}/tags (the `ListTagsForAContact` operationId).
+func (c *Client) ListTagsForAContact(ctx context.Context, contactId string, params *ListTagsForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListTagsForAContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AttachTagToContactWithBody Add tag to a contact
+//
+// You can tag a specific contact. This will return a tag object for
+// the tag that was added to the contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /contacts/{contact_id}/tags (the `AttachTagToContact` operationId).
+func (c *Client) AttachTagToContactWithBody(ctx context.Context, contactId string, params *AttachTagToContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAttachTagToContactRequestWithBody(c.Server, contactId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AttachTagToContact Add tag to a contact
+//
+// You can tag a specific contact. This will return a tag object for
+// the tag that was added to the contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /contacts/{contact_id}/tags (the `AttachTagToContact` operationId).
+func (c *Client) AttachTagToContact(ctx context.Context, contactId string, params *AttachTagToContactParams, body AttachTagToContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAttachTagToContactRequest(c.Server, contactId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DetachTagFromContact Remove tag from a contact
+//
+// You can remove tag from a specific contact. This will return a
+// tag object for the tag that was removed from the contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Corresponds with DELETE /contacts/{contact_id}/tags/{tag_id} (the `DetachTagFromContact` operationId).
+func (c *Client) DetachTagFromContact(ctx context.Context, contactId string, tagId string, params *DetachTagFromContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDetachTagFromContactRequest(c.Server, contactId, tagId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UnarchiveContact Unarchive contact
+//
+// You can unarchive a single contact.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Corresponds with POST /contacts/{contact_id}/unarchive (the `UnarchiveContact` operationId).
+func (c *Client) UnarchiveContact(ctx context.Context, contactId string, params *UnarchiveContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUnarchiveContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListContactBanners List banners for a contact
+//
+// Returns the banners a contact currently matches, so you can display them on
+// surfaces outside the Messenger (native mobile apps, kiosks, embedded tools).
+//
+// Each banner in the response includes a `view_id`. Use it to record a dismissal
+// with the dismiss endpoint. A returned banner is treated as shown: requesting
+// this endpoint records an impression for each banner returned, so call it at the
+// point you are about to display the banners, not speculatively.
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Corresponds with GET /contacts/{id}/banners (the `ListContactBanners` operationId).
+func (c *Client) ListContactBanners(ctx context.Context, id string, params *ListContactBannersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListContactBannersRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DismissContactBanner Dismiss a banner for a contact
+//
+// Records that a contact has dismissed a banner. Dismissals are shared across
+// surfaces, so a banner dismissed through this endpoint will also stop appearing
+// in the web Messenger for that contact, and vice versa.
+//
+// The request is idempotent: dismissing an already-dismissed banner succeeds and
+// returns the same response.
+//
+// Requires the `read_write_users` OAuth scope.
+//
+// Corresponds with POST /contacts/{id}/banners/{view_id}/dismiss (the `DismissContactBanner` operationId).
+func (c *Client) DismissContactBanner(ctx context.Context, id string, viewId string, params *DismissContactBannerParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDismissContactBannerRequest(c.Server, id, viewId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListContactMergeHistory Get contact merge history
+//
+// Retrieve the paginated list of contacts that have been merged into a given contact.
+//
+// Only available for contacts with a `user` role. Returns a `404` if the contact is not found or has a `lead` role.
+//
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Corresponds with GET /contacts/{id}/merge_histories (the `ListContactMergeHistory` operationId).
+func (c *Client) ListContactMergeHistory(ctx context.Context, id string, params *ListContactMergeHistoryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListContactMergeHistoryRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BulkContentActionsWithBody Run a bulk action on Knowledge Hub content
+//
+// Asynchronously run a bulk action over up to 1,000 Knowledge Hub content items.
+//
+// Six actions are supported:
+//   - `publish` and `unpublish` — apply to `article_content` only.
+//   - `delete` — permanently delete content (excludes synced sources and `external_content`).
+//   - `set_availability` — toggle Fin AI Agent, Copilot, and Sales Agent availability flags.
+//   - `set_audience` — manage segment membership on content.
+//   - `update_tags` — apply and/or remove existing tags on content. Unlike the other
+//     actions, `update_tags` addresses articles by the parent `article` id, not
+//     `article_content`. Tags must already exist and not be archived; supply at least one of
+//     `add_tag_ids` / `remove_tag_ids`.
+//
+// The endpoint validates the request, enqueues background work, and returns 202 with a
+// placeholder envelope. Items whose `type` is not in the action's allowlist are silently
+// dropped before processing. Articles imported from synced sources (Confluence, Notion,
+// Zendesk, Salesforce Knowledge, etc.) are silently skipped on `delete` — they can only be
+// removed by disconnecting the underlying import source.
+//
+// Requires the `write_content` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /content/bulk_actions (the `BulkContentActions` operationId).
+func (c *Client) BulkContentActionsWithBody(ctx context.Context, params *BulkContentActionsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBulkContentActionsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BulkContentActions Run a bulk action on Knowledge Hub content
+//
+// Asynchronously run a bulk action over up to 1,000 Knowledge Hub content items.
+//
+// Six actions are supported:
+//   - `publish` and `unpublish` — apply to `article_content` only.
+//   - `delete` — permanently delete content (excludes synced sources and `external_content`).
+//   - `set_availability` — toggle Fin AI Agent, Copilot, and Sales Agent availability flags.
+//   - `set_audience` — manage segment membership on content.
+//   - `update_tags` — apply and/or remove existing tags on content. Unlike the other
+//     actions, `update_tags` addresses articles by the parent `article` id, not
+//     `article_content`. Tags must already exist and not be archived; supply at least one of
+//     `add_tag_ids` / `remove_tag_ids`.
+//
+// The endpoint validates the request, enqueues background work, and returns 202 with a
+// placeholder envelope. Items whose `type` is not in the action's allowlist are silently
+// dropped before processing. Articles imported from synced sources (Confluence, Notion,
+// Zendesk, Salesforce Knowledge, etc.) are silently skipped on `delete` — they can only be
+// removed by disconnecting the underlying import source.
+//
+// Requires the `write_content` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /content/bulk_actions (the `BulkContentActions` operationId).
+func (c *Client) BulkContentActions(ctx context.Context, params *BulkContentActionsParams, body BulkContentActionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBulkContentActionsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SearchContent Search knowledge base contents
+//
+// Search the knowledge base contents — articles, snippets, external pages, uploaded files, and internal articles — using a keyword query.
+//
+// Each result row has a `type` discriminator. Most types (`content_snippet`, `external_content`, `file_source_content`, `internal_article`) return a flat `{ type, id, title }` shape. Help center articles return a nested shape with a `contents[]` array, one entry per locale.
+//
+// Requires the `read_content` OAuth scope.
+//
+// Corresponds with GET /content/search (the `SearchContent` operationId).
+func (c *Client) SearchContent(ctx context.Context, params *SearchContentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchContentRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListContentSnippets List all content snippets
+//
+// You can fetch a list of all content snippets for a workspace.
+//
+// Requires the `read_content_snippets` or `read_write_content_snippets` OAuth scope.
+//
+// Corresponds with GET /content_snippets (the `ListContentSnippets` operationId).
+func (c *Client) ListContentSnippets(ctx context.Context, params *ListContentSnippetsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListContentSnippetsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateContentSnippetWithBody Create a content snippet
+//
+// You can create a new content snippet.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /content_snippets (the `CreateContentSnippet` operationId).
+func (c *Client) CreateContentSnippetWithBody(ctx context.Context, params *CreateContentSnippetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContentSnippetRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateContentSnippet Create a content snippet
+//
+// You can create a new content snippet.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /content_snippets (the `CreateContentSnippet` operationId).
+func (c *Client) CreateContentSnippet(ctx context.Context, params *CreateContentSnippetParams, body CreateContentSnippetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContentSnippetRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AttachTagToContentSnippetWithBody Add a tag to a content snippet
+//
+// Apply an existing tag to a content snippet. Returns the tag that was applied.
+//
+// The tag must already exist in the workspace (create tags with the Tags API),
+// and the authenticating teammate must have the `manage_knowledge_base_content`
+// permission.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /content_snippets/{content_snippet_id}/tags (the `AttachTagToContentSnippet` operationId).
+func (c *Client) AttachTagToContentSnippetWithBody(ctx context.Context, contentSnippetId string, params *AttachTagToContentSnippetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAttachTagToContentSnippetRequestWithBody(c.Server, contentSnippetId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AttachTagToContentSnippet Add a tag to a content snippet
+//
+// Apply an existing tag to a content snippet. Returns the tag that was applied.
+//
+// The tag must already exist in the workspace (create tags with the Tags API),
+// and the authenticating teammate must have the `manage_knowledge_base_content`
+// permission.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /content_snippets/{content_snippet_id}/tags (the `AttachTagToContentSnippet` operationId).
+func (c *Client) AttachTagToContentSnippet(ctx context.Context, contentSnippetId string, params *AttachTagToContentSnippetParams, body AttachTagToContentSnippetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAttachTagToContentSnippetRequest(c.Server, contentSnippetId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DetachTagFromContentSnippet Remove a tag from a content snippet
+//
+// Remove a tag from a content snippet. Returns the tag that was removed, with
+// null `applied_at` and `applied_by`.
+//
+// The authenticating teammate must have the `manage_knowledge_base_content`
+// permission.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
+//
+// Corresponds with DELETE /content_snippets/{content_snippet_id}/tags/{id} (the `DetachTagFromContentSnippet` operationId).
+func (c *Client) DetachTagFromContentSnippet(ctx context.Context, contentSnippetId string, id string, params *DetachTagFromContentSnippetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDetachTagFromContentSnippetRequest(c.Server, contentSnippetId, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DeleteContentSnippet Delete a content snippet
+//
+// You can delete a single content snippet by its id.
+//
+// Requires the `read_write_content_snippets` OAuth scope.
+//
+// Corresponds with DELETE /content_snippets/{id} (the `DeleteContentSnippet` operationId).
+func (c *Client) DeleteContentSnippet(ctx context.Context, id string, params *DeleteContentSnippetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteContentSnippetRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetContentSnippet Retrieve a content snippet
+//
+// You can fetch a single content snippet by its id.
+//
+// Requires the `read_content_snippets` or `read_write_content_snippets` OAuth scope.
+//
+// Corresponds with GET /content_snippets/{id} (the `GetContentSnippet` operationId).
+func (c *Client) GetContentSnippet(ctx context.Context, id string, params *GetContentSnippetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetContentSnippetRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // UpdateContentSnippetWithBody Update a content snippet
 //
 // You can update an existing content snippet.
@@ -89,7 +1945,7 @@ func (c *Client) ListConversations(ctx context.Context, params *ListConversation
 // The conversation can be an in-app message only.
 //
 // {% admonition type="info" name="Sending for visitors" %}
-// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
+// You can also send a message from a visitor by specifying their `id` value in the `from` field, along with a `type` field value of `lead`.
 // This visitor will be automatically converted to a contact with a lead role once the conversation is created.
 // {% /admonition %}
 //
@@ -116,7 +1972,7 @@ func (c *Client) CreateConversationWithBody(ctx context.Context, params *CreateC
 // The conversation can be an in-app message only.
 //
 // {% admonition type="info" name="Sending for visitors" %}
-// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
+// You can also send a message from a visitor by specifying their `id` value in the `from` field, along with a `type` field value of `lead`.
 // This visitor will be automatically converted to a contact with a lead role once the conversation is created.
 // {% /admonition %}
 //
@@ -1370,6 +3226,8 @@ func (c *Client) GetCustomObjectInstancesById(ctx context.Context, customObjectT
 // Conversation attributes are no longer returned by this endpoint. Calling without a `model` parameter no longer includes them, and `model=conversation` returns a `422` error. Use `GET /conversations/attributes` instead.
 // {% /admonition %}
 //
+// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+//
 // Corresponds with GET /data_attributes (the `LisDataAttributes` operationId).
 func (c *Client) LisDataAttributes(ctx context.Context, params *LisDataAttributesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewLisDataAttributesRequest(c.Server, params)
@@ -1386,6 +3244,8 @@ func (c *Client) LisDataAttributes(ctx context.Context, params *LisDataAttribute
 // CreateDataAttributeWithBody Create a data attribute
 //
 // You can create a data attributes for a `contact` or a `company`.
+//
+// Requires the `write_attributes` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -1405,6 +3265,8 @@ func (c *Client) CreateDataAttributeWithBody(ctx context.Context, params *Create
 // CreateDataAttribute Create a data attribute
 //
 // You can create a data attributes for a `contact` or a `company`.
+//
+// Requires the `write_attributes` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -1429,6 +3291,10 @@ func (c *Client) CreateDataAttribute(ctx context.Context, params *CreateDataAttr
 // >
 // > It is currently a dangerous action to execute changing a data attribute's type via the API. You will need to update the type via the UI instead.
 //
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// Requires the `write_attributes` OAuth scope.
+//
 // Takes any type of body and a specified content type.
 //
 // Corresponds with PUT /data_attributes/{data_attribute_id} (the `UpdateDataAttribute` operationId).
@@ -1451,6 +3317,10 @@ func (c *Client) UpdateDataAttributeWithBody(ctx context.Context, dataAttributeI
 // > 🚧 Updating the data type is not possible
 // >
 // > It is currently a dangerous action to execute changing a data attribute's type via the API. You will need to update the type via the UI instead.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// Requires the `write_attributes` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -1742,11 +3612,13 @@ func (c *Client) UpdateDataConnectorVersion(ctx context.Context, id string, vers
 //
 // When a job has a status of complete, and thus a filled download_url, you can download your data by hitting that provided URL, formatted like so: https://api.intercom.io/download/content/data/xyz1234.
 //
-// Your exported message data will be streamed continuously back down to you in a gzipped CSV format.
+// Your exported message data is returned as a ZIP archive containing one CSV file per data group. The response is sent with the header `Content-Encoding: zip`.
 //
 // > 📘 Octet header required
 // >
 // > You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+//
+// Requires the `export_content_data` OAuth scope.
 //
 // Corresponds with GET /download/content/data/{job_identifier} (the `DownloadDataExport` operationId).
 func (c *Client) DownloadDataExport(ctx context.Context, jobIdentifier string, params *DownloadDataExportParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1768,6 +3640,8 @@ func (c *Client) DownloadDataExport(ctx context.Context, jobIdentifier string, p
 // > Octet header required
 // >
 // > You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+//
+// Requires the `export_reporting_data` OAuth scope.
 //
 // Corresponds with GET /download/reporting_data/{job_identifier} (the `GetDownloadReportingDataJobIdentifier` operationId).
 func (c *Client) GetDownloadReportingDataJobIdentifier(ctx context.Context, jobIdentifier string, params *GetDownloadReportingDataJobIdentifierParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1967,15 +3841,19 @@ func (c *Client) RetrieveEmail(ctx context.Context, id string, params *RetrieveE
 // >
 // > Please note that you can only 'list' events that are less than 90 days old. Event counts and summaries will still include your events older than 90 days but you cannot 'list' these events individually if they are older than 90 days
 //
-// The events belonging to a customer can be listed by sending a GET request to `https://api.intercom.io/events` with a user or lead identifier along with a `type` parameter. The identifier parameter can be one of `user_id`, `email` or `intercom_user_id`. The `type` parameter value must be `user`.
+// The events belonging to a customer can be listed by sending a GET request to `https://api.intercom.io/events` with a user or lead identifier along with a `type` parameter. The identifier parameter can be one of `user_id`, `email`, `intercom_user_id` or `anonymous_id`. The `type` parameter value must be `user` or `lead`.
 //
 // - `https://api.intercom.io/events?type=user&user_id={user_id}`
 // - `https://api.intercom.io/events?type=user&email={email}`
 // - `https://api.intercom.io/events?type=user&intercom_user_id={id}` (this call can be used to list leads)
 //
+// When `type` is `lead`, a `user_id` you send is matched against the lead's anonymous id instead.
+//
 // The `email` parameter value should be [url encoded](http://en.wikipedia.org/wiki/Percent-encoding) when sending.
 //
 // You can optionally define the result page size as well with the `per_page` parameter.
+//
+// Requires the `read_events` or `write_events` OAuth scope.
 //
 // Corresponds with GET /events (the `LisDataEvents` operationId).
 func (c *Client) LisDataEvents(ctx context.Context, params *LisDataEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -2015,7 +3893,7 @@ func (c *Client) LisDataEvents(ctx context.Context, params *LisDataEventsParams,
 //
 // **Metadata behaviour**
 //
-// - We currently limit the number of tracked metadata keys to 10 per event. Once the quota is reached, we ignore any further keys we receive. The first 10 metadata keys are determined by the order in which they are sent in with the event.
+// - We currently limit the number of tracked metadata keys to 20 per event name. The limit counts every key ever recorded for that event name, not the keys in a single request, so it is reached cumulatively as you send more events with the same name. Once the quota is reached, we ignore any further keys we receive. The keys that count towards the quota are determined by the order in which they are sent in with the event.
 // - It is not possible to change the metadata keys once the event has been sent. A new event will need to be created with the new keys and you can archive the old one.
 // - There might be up to 24 hrs delay when you send a new metadata for an existing event.
 //
@@ -2032,6 +3910,8 @@ func (c *Client) LisDataEvents(ctx context.Context, params *LisDataEventsParams,
 // - Events sent about users that cannot be found will return a `404 Not Found`.
 // - Event lists containing duplicate events will have those duplicates ignored.
 // - Server errors will return a `500` response code and may contain an error message in the body.
+//
+// Requires the `write_events` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -2073,7 +3953,7 @@ func (c *Client) CreateDataEventWithBody(ctx context.Context, params *CreateData
 //
 // **Metadata behaviour**
 //
-// - We currently limit the number of tracked metadata keys to 10 per event. Once the quota is reached, we ignore any further keys we receive. The first 10 metadata keys are determined by the order in which they are sent in with the event.
+// - We currently limit the number of tracked metadata keys to 20 per event name. The limit counts every key ever recorded for that event name, not the keys in a single request, so it is reached cumulatively as you send more events with the same name. Once the quota is reached, we ignore any further keys we receive. The keys that count towards the quota are determined by the order in which they are sent in with the event.
 // - It is not possible to change the metadata keys once the event has been sent. A new event will need to be created with the new keys and you can archive the old one.
 // - There might be up to 24 hrs delay when you send a new metadata for an existing event.
 //
@@ -2090,6 +3970,8 @@ func (c *Client) CreateDataEventWithBody(ctx context.Context, params *CreateData
 // - Events sent about users that cannot be found will return a `404 Not Found`.
 // - Event lists containing duplicate events will have those duplicates ignored.
 // - Server errors will return a `500` response code and may contain an error message in the body.
+//
+// Requires the `write_events` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -2110,6 +3992,10 @@ func (c *Client) CreateDataEvent(ctx context.Context, params *CreateDataEventPar
 //
 // Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
 //
+// Identify the user with one of `id`, `user_id` or `email`. If more than one is sent, `id` is used first, then `user_id`, then `email`.
+//
+// Requires the `write_events` OAuth scope.
+//
 // Takes any type of body and a specified content type.
 //
 // Corresponds with POST /events/summaries (the `DataEventSummaries` operationId).
@@ -2129,6 +4015,10 @@ func (c *Client) DataEventSummariesWithBody(ctx context.Context, params *DataEve
 //
 // Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
 //
+// Identify the user with one of `id`, `user_id` or `email`. If more than one is sent, `id` is used first, then `user_id`, then `email`.
+//
+// Requires the `write_events` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /events/summaries (the `DataEventSummaries` operationId).
@@ -2146,7 +4036,9 @@ func (c *Client) DataEventSummaries(ctx context.Context, params *DataEventSummar
 
 // CancelDataExport Cancel content data export
 //
-// You can cancel your job.
+// You can cancel your job. A job that has already reached a terminal state is returned unchanged.
+//
+// Requires the `export_content_data` OAuth scope.
 //
 // Corresponds with POST /export/cancel/{job_identifier} (the `CancelDataExport` operationId).
 func (c *Client) CancelDataExport(ctx context.Context, jobIdentifier string, params *CancelDataExportParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -2167,11 +4059,11 @@ func (c *Client) CancelDataExport(ctx context.Context, jobIdentifier string, par
 //
 // This endpoint exports **message delivery and engagement data** for outbound content (Emails, Posts, Custom Bots, Surveys, Tours, Series, and more). The exported data includes who received each message, when they received it, and how they engaged with it (opens, clicks, replies, completions, dismissals, unsubscribes, and bounces). It does not export raw message or conversation content.
 //
-// The only parameters you need to provide are the range of dates that you want exported.
+// The only parameters you need to provide are the range of dates that you want exported. The range cannot be longer than 90 days.
 //
-// >🚧 Limit of one active job
+// >🚧 Limit of two active jobs
 // >
-// > You can only have one active job per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 1 pending message data export jobs if you attempt to create a second concurrent job.
+// > You can only have two active jobs per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 2 pending content data export jobs if you attempt to create a third concurrent job.
 //
 // >❗️ Updated_at not included
 // >
@@ -2180,6 +4072,8 @@ func (c *Client) CancelDataExport(ctx context.Context, jobIdentifier string, par
 // >📘 Date ranges are inclusive
 // >
 // > Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
+//
+// Requires the `export_content_data` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -2202,11 +4096,11 @@ func (c *Client) CreateDataExportWithBody(ctx context.Context, params *CreateDat
 //
 // This endpoint exports **message delivery and engagement data** for outbound content (Emails, Posts, Custom Bots, Surveys, Tours, Series, and more). The exported data includes who received each message, when they received it, and how they engaged with it (opens, clicks, replies, completions, dismissals, unsubscribes, and bounces). It does not export raw message or conversation content.
 //
-// The only parameters you need to provide are the range of dates that you want exported.
+// The only parameters you need to provide are the range of dates that you want exported. The range cannot be longer than 90 days.
 //
-// >🚧 Limit of one active job
+// >🚧 Limit of two active jobs
 // >
-// > You can only have one active job per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 1 pending message data export jobs if you attempt to create a second concurrent job.
+// > You can only have two active jobs per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 2 pending content data export jobs if you attempt to create a third concurrent job.
 //
 // >❗️ Updated_at not included
 // >
@@ -2215,6 +4109,8 @@ func (c *Client) CreateDataExportWithBody(ctx context.Context, params *CreateDat
 // >📘 Date ranges are inclusive
 // >
 // > Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
+//
+// Requires the `export_content_data` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -2236,8 +4132,12 @@ func (c *Client) CreateDataExport(ctx context.Context, params *CreateDataExportP
 // You can view the status of your job by sending a `GET` request to the URL
 // `https://api.intercom.io/export/content/data/{job_identifier}` - the `{job_identifier}` is the value returned in the response when you first created the export job. More on it can be seen in the Export Job Model.
 //
-// > 🚧 Jobs expire after two days
-// > All jobs that have completed processing (and are thus available to download from the provided URL) will have an expiry limit of two days from when the export ob completed. After this, the data will no longer be available.
+// > 🚧 Jobs expire after one week
+// > All jobs that have completed processing (and are thus available to download from the provided URL) will have an expiry limit of one week from when the export job was created. After this, the data will no longer be available.
+//
+// A job that failed is returned with a `504` status code and a `status` of `failed`. A job left in progress for more than a day is marked failed when you poll it.
+//
+// Requires the `export_content_data` OAuth scope.
 //
 // Corresponds with GET /export/content/data/{job_identifier} (the `GetDataExport` operationId).
 func (c *Client) GetDataExport(ctx context.Context, jobIdentifier string, params *GetDataExportParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -2254,7 +4154,9 @@ func (c *Client) GetDataExport(ctx context.Context, jobIdentifier string, params
 
 // PostExportReportingDataEnqueueWithBody Enqueue a new reporting data export job
 //
-// For the conversation dataset, from this version onward this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+// For the conversation dataset, from API version 2.16 this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+//
+// Requires the `export_reporting_data` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -2273,7 +4175,9 @@ func (c *Client) PostExportReportingDataEnqueueWithBody(ctx context.Context, par
 
 // PostExportReportingDataEnqueue Enqueue a new reporting data export job
 //
-// For the conversation dataset, from this version onward this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+// For the conversation dataset, from API version 2.16 this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+//
+// Requires the `export_reporting_data` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -2292,6 +4196,8 @@ func (c *Client) PostExportReportingDataEnqueue(ctx context.Context, params *Pos
 
 // GetExportReportingDataGetDatasets List available datasets and attributes
 //
+// Requires the `export_reporting_data` or `read_reporting_datasets` OAuth scope.
+//
 // Corresponds with GET /export/reporting_data/get_datasets (the `GetExportReportingDataGetDatasets` operationId).
 func (c *Client) GetExportReportingDataGetDatasets(ctx context.Context, params *GetExportReportingDataGetDatasetsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetExportReportingDataGetDatasetsRequest(c.Server, params)
@@ -2306,6 +4212,8 @@ func (c *Client) GetExportReportingDataGetDatasets(ctx context.Context, params *
 }
 
 // GetExportReportingDataJobIdentifier Get export job status
+//
+// Requires the `export_reporting_data` OAuth scope.
 //
 // Corresponds with GET /export/reporting_data/{job_identifier} (the `GetExportReportingDataJobIdentifier` operationId).
 func (c *Client) GetExportReportingDataJobIdentifier(ctx context.Context, jobIdentifier string, params *GetExportReportingDataJobIdentifierParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -3678,6 +5586,10 @@ func (c *Client) UpdateIpAllowlist(ctx context.Context, params *UpdateIpAllowlis
 //
 // Retrieve the status of job execution.
 //
+// `resource_id` and `resource_url` are returned only once `status` is `success`. While the job is `pending` or `failed` both keys are left out of the response rather than returned as `null`.
+//
+// Requires the `read_jobs` OAuth scope.
+//
 // Corresponds with GET /jobs/status/{job_id} (the `JobsStatus` operationId).
 func (c *Client) JobsStatus(ctx context.Context, jobId string, params *JobsStatusParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewJobsStatusRequest(c.Server, jobId, params)
@@ -4095,8 +6007,10 @@ func (c *Client) ListLiveNewsfeedItems(ctx context.Context, newsfeedId string, p
 //
 // You can delete a single contact or company note. Notes of other kinds cannot be deleted through the API.
 //
+// Requires the `write_users_companies` OAuth scope.
+//
 // Corresponds with DELETE /notes/{note_id} (the `DeleteNote` operationId).
-func (c *Client) DeleteNote(ctx context.Context, noteId int, params *DeleteNoteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) DeleteNote(ctx context.Context, noteId string, params *DeleteNoteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteNoteRequest(c.Server, noteId, params)
 	if err != nil {
 		return nil, err
@@ -4113,7 +6027,7 @@ func (c *Client) DeleteNote(ctx context.Context, noteId int, params *DeleteNoteP
 // You can fetch the details of a single note.
 //
 // Corresponds with GET /notes/{note_id} (the `RetrieveNote` operationId).
-func (c *Client) RetrieveNote(ctx context.Context, noteId int, params *RetrieveNoteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) RetrieveNote(ctx context.Context, noteId string, params *RetrieveNoteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRetrieveNoteRequest(c.Server, noteId, params)
 	if err != nil {
 		return nil, err
@@ -4427,6 +6341,10 @@ func (c *Client) CreatePhoneSwitch(ctx context.Context, params *CreatePhoneSwitc
 //
 // You can fetch a list of all segments.
 //
+// Segment names are returned HTML-escaped, for example `&` as `&amp;`.
+//
+// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
+//
 // Corresponds with GET /segments (the `ListSegments` operationId).
 func (c *Client) ListSegments(ctx context.Context, params *ListSegmentsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListSegmentsRequest(c.Server, params)
@@ -4443,6 +6361,10 @@ func (c *Client) ListSegments(ctx context.Context, params *ListSegmentsParams, r
 // RetrieveSegment Retrieve a segment
 //
 // You can fetch the details of a single segment.
+//
+// The segment name is returned HTML-escaped, for example `&` as `&amp;`.
+//
+// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
 //
 // Corresponds with GET /segments/{segment_id} (the `RetrieveSegment` operationId).
 func (c *Client) RetrieveSegment(ctx context.Context, segmentId string, params *RetrieveSegmentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -4461,6 +6383,8 @@ func (c *Client) RetrieveSegment(ctx context.Context, segmentId string, params *
 //
 // You can list all subscription types. A list of subscription type objects will be returned.
 //
+// Requires the `read_users_companies` OAuth scope.
+//
 // Corresponds with GET /subscription_types (the `ListSubscriptionTypes` operationId).
 func (c *Client) ListSubscriptionTypes(ctx context.Context, params *ListSubscriptionTypesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListSubscriptionTypesRequest(c.Server, params)
@@ -4478,6 +6402,8 @@ func (c *Client) ListSubscriptionTypes(ctx context.Context, params *ListSubscrip
 //
 // You can fetch the details of a single subscription type by making a GET request to `https://api.intercom.io/subscription_types/<id>`.
 //
+// Requires the `read_users_companies` OAuth scope.
+//
 // Corresponds with GET /subscription_types/{id} (the `GetSubscriptionType` operationId).
 func (c *Client) GetSubscriptionType(ctx context.Context, id string, params *GetSubscriptionTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetSubscriptionTypeRequest(c.Server, id, params)
@@ -4494,6 +6420,10 @@ func (c *Client) GetSubscriptionType(ctx context.Context, id string, params *Get
 // ListTags List all tags
 //
 // You can fetch a list of all tags for a given workspace.
+//
+// Passing `id` returns that one tag object instead of a list. Passing `taggable_type` returns a list of the tags applied to a single contact or company.
+//
+// Requires the `read_tags` or `read_users_companies` OAuth scope.
 //
 // Corresponds with GET /tags (the `ListTags` operationId).
 func (c *Client) ListTags(ctx context.Context, params *ListTagsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -4523,6 +6453,10 @@ func (c *Client) ListTags(ctx context.Context, params *ListTagsParams, reqEditor
 //	**5. Tag Multiple Users:** You can tag a list of users. You can tag the users by passing in the tag name and the user details as specified in "Tag Users Request Payload" described below.
 //
 // Each operation will return a tag object.
+//
+// Contacts and companies listed in `users` or `companies` that do not exist are skipped: they are left out of the `users` and `companies` arrays in the response and the request still succeeds. With `ids_to_add` it depends on `taggable_type`: a contact id that does not exist returns a 404, while a company id that does not exist is skipped. With `ids_to_add`, the `users` and `companies` arrays in the response are always empty, and a 404 still leaves the tag created or renamed.
+//
+// Requires the `write_tags` or `write_users_companies` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -4555,6 +6489,10 @@ func (c *Client) CreateTagWithBody(ctx context.Context, params *CreateTagParams,
 //
 // Each operation will return a tag object.
 //
+// Contacts and companies listed in `users` or `companies` that do not exist are skipped: they are left out of the `users` and `companies` arrays in the response and the request still succeeds. With `ids_to_add` it depends on `taggable_type`: a contact id that does not exist returns a 404, while a company id that does not exist is skipped. With `ids_to_add`, the `users` and `companies` arrays in the response are always empty, and a 404 still leaves the tag created or renamed.
+//
+// Requires the `write_tags` or `write_users_companies` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /tags (the `CreateTag` operationId).
@@ -4574,6 +6512,8 @@ func (c *Client) CreateTag(ctx context.Context, params *CreateTagParams, body Cr
 //
 // You can delete the details of tags that are on the workspace by passing in the id.
 //
+// Requires the `write_tags` or `write_users_companies` OAuth scope.
+//
 // Corresponds with DELETE /tags/{tag_id} (the `DeleteTag` operationId).
 func (c *Client) DeleteTag(ctx context.Context, tagId string, params *DeleteTagParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteTagRequest(c.Server, tagId, params)
@@ -4591,6 +6531,8 @@ func (c *Client) DeleteTag(ctx context.Context, tagId string, params *DeleteTagP
 //
 // You can fetch the details of tags that are on the workspace by their id.
 // This will return a tag object.
+//
+// Requires the `read_tags` or `read_users_companies` OAuth scope.
 //
 // Corresponds with GET /tags/{tag_id} (the `FindTag` operationId).
 func (c *Client) FindTag(ctx context.Context, tagId string, params *FindTagParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -5454,6 +7396,8 @@ func (c *Client) DetachTagFromTicket(ctx context.Context, ticketId string, tagId
 //
 // You can fetch the details of a single visitor.
 //
+// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
+//
 // Corresponds with GET /visitors (the `RetrieveVisitorWithUserId` operationId).
 func (c *Client) RetrieveVisitorWithUserId(ctx context.Context, params *RetrieveVisitorWithUserIdParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRetrieveVisitorWithUserIdRequest(c.Server, params)
@@ -5474,6 +7418,10 @@ func (c *Client) RetrieveVisitorWithUserId(ctx context.Context, params *Retrieve
 // **Option 1.** You can update a visitor by passing in the `user_id` of the visitor in the Request body.
 //
 // **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
+//
+// Sending an `email` promotes the visitor to a lead. When that happens the response is a contact object with a `role` of `lead`, not a visitor object.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -5498,6 +7446,10 @@ func (c *Client) UpdateVisitorWithBody(ctx context.Context, params *UpdateVisito
 //
 // **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
 //
+// Sending an `email` promotes the visitor to a lead. When that happens the response is a contact object with a `role` of `lead`, not a visitor object.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with PUT /visitors (the `UpdateVisitor` operationId).
@@ -5521,6 +7473,10 @@ func (c *Client) UpdateVisitor(ctx context.Context, params *UpdateVisitorParams,
 // >
 // > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
 //
+// Identify the visitor with `visitor.id` or `visitor.user_id`. The `user` object is required when `type` is `user`, and is not read when `type` is `lead`.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
 // Takes any type of body and a specified content type.
 //
 // Corresponds with POST /visitors/convert (the `ConvertVisitor` operationId).
@@ -5543,6 +7499,10 @@ func (c *Client) ConvertVisitorWithBody(ctx context.Context, params *ConvertVisi
 // > 📘 What happens upon a visitor being converted?
 // >
 // > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
+//
+// Identify the visitor with `visitor.id` or `visitor.user_id`. The `user` object is required when `type` is `user`, and is not read when `type` is `lead`.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -8866,6 +10826,57 @@ func NewListCompanyNotesRequest(server string, companyId string, params *ListCom
 		return nil, err
 	}
 
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -10435,6 +12446,57 @@ func NewListNotesRequest(server string, contactId string, params *ListNotesParam
 		return nil, err
 	}
 
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -10459,7 +12521,7 @@ func NewListNotesRequest(server string, contactId string, params *ListNotesParam
 }
 
 // NewCreateNoteRequest calls the generic CreateNote builder with application/json body
-func NewCreateNoteRequest(server string, contactId int, params *CreateNoteParams, body CreateNoteJSONRequestBody) (*http.Request, error) {
+func NewCreateNoteRequest(server string, contactId string, params *CreateNoteParams, body CreateNoteJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
@@ -10470,12 +12532,12 @@ func NewCreateNoteRequest(server string, contactId int, params *CreateNoteParams
 }
 
 // NewCreateNoteRequestWithBody constructs an http.Request for the CreateNote method, with any body, and a specified content type
-func NewCreateNoteRequestWithBody(server string, contactId int, params *CreateNoteParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewCreateNoteRequestWithBody(server string, contactId string, params *CreateNoteParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "contact_id", contactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "contact_id", contactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
 	if err != nil {
 		return nil, err
 	}
@@ -15179,37 +17241,6 @@ func NewGetDownloadReportingDataJobIdentifierRequest(server string, jobIdentifie
 		return nil, err
 	}
 
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "app_id", params.AppId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
-			}
-		}
-
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "job_identifier", params.JobIdentifier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
-			}
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -15673,6 +17704,42 @@ func NewLisDataEventsRequest(server string, params *LisDataEventsParams) (*http.
 			}
 		}
 
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "since", *params.Since, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int64"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Before != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "before", *params.Before, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int64"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.Summary != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "summary", *params.Summary, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
@@ -16098,45 +18165,6 @@ func NewGetExportReportingDataJobIdentifierRequest(server string, jobIdentifier 
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "app_id", params.AppId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
-			}
-		}
-
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "client_id", params.ClientId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
-			}
-		}
-
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "job_identifier", params.JobIdentifier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
-			}
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
@@ -18007,2017 +20035,6 @@ func NewDeleteInternalArticleRequest(server string, internalArticleId int, param
 	if err != nil {
 		return nil, err
 	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRetrieveInternalArticleRequest constructs an http.Request for the RetrieveInternalArticle method
-func NewRetrieveInternalArticleRequest(server string, internalArticleId int, params *RetrieveInternalArticleParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "internal_article_id", internalArticleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/internal_articles/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewUpdateInternalArticleRequest calls the generic UpdateInternalArticle builder with application/json body
-func NewUpdateInternalArticleRequest(server string, internalArticleId int, params *UpdateInternalArticleParams, body UpdateInternalArticleJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateInternalArticleRequestWithBody(server, internalArticleId, params, "application/json", bodyReader)
-}
-
-// NewUpdateInternalArticleRequestWithBody constructs an http.Request for the UpdateInternalArticle method, with any body, and a specified content type
-func NewUpdateInternalArticleRequestWithBody(server string, internalArticleId int, params *UpdateInternalArticleParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "internal_article_id", internalArticleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/internal_articles/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewAttachTagToInternalArticleRequest calls the generic AttachTagToInternalArticle builder with application/json body
-func NewAttachTagToInternalArticleRequest(server string, internalArticleId int, params *AttachTagToInternalArticleParams, body AttachTagToInternalArticleJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewAttachTagToInternalArticleRequestWithBody(server, internalArticleId, params, "application/json", bodyReader)
-}
-
-// NewAttachTagToInternalArticleRequestWithBody constructs an http.Request for the AttachTagToInternalArticle method, with any body, and a specified content type
-func NewAttachTagToInternalArticleRequestWithBody(server string, internalArticleId int, params *AttachTagToInternalArticleParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "internal_article_id", internalArticleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/internal_articles/%s/tags", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewDetachTagFromInternalArticleRequest constructs an http.Request for the DetachTagFromInternalArticle method
-func NewDetachTagFromInternalArticleRequest(server string, internalArticleId int, id string, params *DetachTagFromInternalArticleParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "internal_article_id", internalArticleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/internal_articles/%s/tags/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.AdminId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "admin_id", *params.AdminId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetIpAllowlistRequest constructs an http.Request for the GetIpAllowlist method
-func NewGetIpAllowlistRequest(server string, params *GetIpAllowlistParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/ip_allowlist")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewUpdateIpAllowlistRequest calls the generic UpdateIpAllowlist builder with application/json body
-func NewUpdateIpAllowlistRequest(server string, params *UpdateIpAllowlistParams, body UpdateIpAllowlistJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateIpAllowlistRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewUpdateIpAllowlistRequestWithBody constructs an http.Request for the UpdateIpAllowlist method, with any body, and a specified content type
-func NewUpdateIpAllowlistRequestWithBody(server string, params *UpdateIpAllowlistParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/ip_allowlist")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewJobsStatusRequest constructs an http.Request for the JobsStatus method
-func NewJobsStatusRequest(server string, jobId string, params *JobsStatusParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "job_id", jobId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/jobs/status/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListMacrosRequest constructs an http.Request for the ListMacros method
-func NewListMacrosRequest(server string, params *ListMacrosParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/macros")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.PerPage != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.StartingAfter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.UpdatedSince != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "updated_since", *params.UpdatedSince, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int64"}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetMacroRequest constructs an http.Request for the GetMacro method
-func NewGetMacroRequest(server string, id string, params *GetMacroParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/macros/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewIdentifyAdminRequest constructs an http.Request for the IdentifyAdmin method
-func NewIdentifyAdminRequest(server string, params *IdentifyAdminParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/me")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreateMessageRequest calls the generic CreateMessage builder with application/json body
-func NewCreateMessageRequest(server string, params *CreateMessageParams, body CreateMessageJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreateMessageRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewCreateMessageRequestWithBody constructs an http.Request for the CreateMessage method, with any body, and a specified content type
-func NewCreateMessageRequestWithBody(server string, params *CreateMessageParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/messages")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetWhatsAppMessageStatusRequest constructs an http.Request for the GetWhatsAppMessageStatus method
-func NewGetWhatsAppMessageStatusRequest(server string, params *GetWhatsAppMessageStatusParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/messages/status")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ruleset_id", params.RulesetId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
-			}
-		}
-
-		if params.PerPage != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.StartingAfter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRetrieveWhatsAppMessageStatusRequest constructs an http.Request for the RetrieveWhatsAppMessageStatus method
-func NewRetrieveWhatsAppMessageStatusRequest(server string, params *RetrieveWhatsAppMessageStatusParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/messages/whatsapp/status")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "message_id", params.MessageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
-			}
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListNewsItemsRequest constructs an http.Request for the ListNewsItems method
-func NewListNewsItemsRequest(server string, params *ListNewsItemsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/news/news_items")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.Page != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.PerPage != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreateNewsItemRequest calls the generic CreateNewsItem builder with application/json body
-func NewCreateNewsItemRequest(server string, params *CreateNewsItemParams, body CreateNewsItemJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreateNewsItemRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewCreateNewsItemRequestWithBody constructs an http.Request for the CreateNewsItem method, with any body, and a specified content type
-func NewCreateNewsItemRequestWithBody(server string, params *CreateNewsItemParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/news/news_items")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewDeleteNewsItemRequest constructs an http.Request for the DeleteNewsItem method
-func NewDeleteNewsItemRequest(server string, newsItemId int, params *DeleteNewsItemParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "news_item_id", newsItemId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/news/news_items/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRetrieveNewsItemRequest constructs an http.Request for the RetrieveNewsItem method
-func NewRetrieveNewsItemRequest(server string, newsItemId int, params *RetrieveNewsItemParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "news_item_id", newsItemId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/news/news_items/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewUpdateNewsItemRequest calls the generic UpdateNewsItem builder with application/json body
-func NewUpdateNewsItemRequest(server string, newsItemId int, params *UpdateNewsItemParams, body UpdateNewsItemJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateNewsItemRequestWithBody(server, newsItemId, params, "application/json", bodyReader)
-}
-
-// NewUpdateNewsItemRequestWithBody constructs an http.Request for the UpdateNewsItem method, with any body, and a specified content type
-func NewUpdateNewsItemRequestWithBody(server string, newsItemId int, params *UpdateNewsItemParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "news_item_id", newsItemId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/news/news_items/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListNewsfeedsRequest constructs an http.Request for the ListNewsfeeds method
-func NewListNewsfeedsRequest(server string, params *ListNewsfeedsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/news/newsfeeds")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.Page != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.PerPage != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRetrieveNewsfeedRequest constructs an http.Request for the RetrieveNewsfeed method
-func NewRetrieveNewsfeedRequest(server string, newsfeedId string, params *RetrieveNewsfeedParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "newsfeed_id", newsfeedId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/news/newsfeeds/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListLiveNewsfeedItemsRequest constructs an http.Request for the ListLiveNewsfeedItems method
-func NewListLiveNewsfeedItemsRequest(server string, newsfeedId string, params *ListLiveNewsfeedItemsParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "newsfeed_id", newsfeedId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/news/newsfeeds/%s/items", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.Page != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.PerPage != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewDeleteNoteRequest constructs an http.Request for the DeleteNote method
-func NewDeleteNoteRequest(server string, noteId int, params *DeleteNoteParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "note_id", noteId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/notes/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRetrieveNoteRequest constructs an http.Request for the RetrieveNote method
-func NewRetrieveNoteRequest(server string, noteId int, params *RetrieveNoteParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "note_id", noteId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/notes/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListOfficeHoursSchedulesRequest constructs an http.Request for the ListOfficeHoursSchedules method
-func NewListOfficeHoursSchedulesRequest(server string, params *ListOfficeHoursSchedulesParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/office_hours_schedules")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreateOfficeHoursScheduleRequest calls the generic CreateOfficeHoursSchedule builder with application/json body
-func NewCreateOfficeHoursScheduleRequest(server string, params *CreateOfficeHoursScheduleParams, body CreateOfficeHoursScheduleJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreateOfficeHoursScheduleRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewCreateOfficeHoursScheduleRequestWithBody constructs an http.Request for the CreateOfficeHoursSchedule method, with any body, and a specified content type
-func NewCreateOfficeHoursScheduleRequestWithBody(server string, params *CreateOfficeHoursScheduleParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/office_hours_schedules")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewDeleteOfficeHoursScheduleRequest constructs an http.Request for the DeleteOfficeHoursSchedule method
-func NewDeleteOfficeHoursScheduleRequest(server string, id string, params *DeleteOfficeHoursScheduleParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/office_hours_schedules/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetOfficeHoursScheduleRequest constructs an http.Request for the GetOfficeHoursSchedule method
-func NewGetOfficeHoursScheduleRequest(server string, id string, params *GetOfficeHoursScheduleParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/office_hours_schedules/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewUpdateOfficeHoursScheduleRequest calls the generic UpdateOfficeHoursSchedule builder with application/json body
-func NewUpdateOfficeHoursScheduleRequest(server string, id string, params *UpdateOfficeHoursScheduleParams, body UpdateOfficeHoursScheduleJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateOfficeHoursScheduleRequestWithBody(server, id, params, "application/json", bodyReader)
-}
-
-// NewUpdateOfficeHoursScheduleRequestWithBody constructs an http.Request for the UpdateOfficeHoursSchedule method, with any body, and a specified content type
-func NewUpdateOfficeHoursScheduleRequestWithBody(server string, id string, params *UpdateOfficeHoursScheduleParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/office_hours_schedules/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListOfficeHoursExceptionsRequest constructs an http.Request for the ListOfficeHoursExceptions method
-func NewListOfficeHoursExceptionsRequest(server string, officeHoursScheduleId string, params *ListOfficeHoursExceptionsParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "office_hours_schedule_id", officeHoursScheduleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/office_hours_schedules/%s/office_hours_exceptions", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreateOfficeHoursExceptionRequest calls the generic CreateOfficeHoursException builder with application/json body
-func NewCreateOfficeHoursExceptionRequest(server string, officeHoursScheduleId string, params *CreateOfficeHoursExceptionParams, body CreateOfficeHoursExceptionJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreateOfficeHoursExceptionRequestWithBody(server, officeHoursScheduleId, params, "application/json", bodyReader)
-}
-
-// NewCreateOfficeHoursExceptionRequestWithBody constructs an http.Request for the CreateOfficeHoursException method, with any body, and a specified content type
-func NewCreateOfficeHoursExceptionRequestWithBody(server string, officeHoursScheduleId string, params *CreateOfficeHoursExceptionParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "office_hours_schedule_id", officeHoursScheduleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/office_hours_schedules/%s/office_hours_exceptions", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewDeleteOfficeHoursExceptionRequest constructs an http.Request for the DeleteOfficeHoursException method
-func NewDeleteOfficeHoursExceptionRequest(server string, officeHoursScheduleId string, id string, params *DeleteOfficeHoursExceptionParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "office_hours_schedule_id", officeHoursScheduleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/office_hours_schedules/%s/office_hours_exceptions/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetOfficeHoursExceptionRequest constructs an http.Request for the GetOfficeHoursException method
-func NewGetOfficeHoursExceptionRequest(server string, officeHoursScheduleId string, id string, params *GetOfficeHoursExceptionParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "office_hours_schedule_id", officeHoursScheduleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/office_hours_schedules/%s/office_hours_exceptions/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewUpdateOfficeHoursExceptionRequest calls the generic UpdateOfficeHoursException builder with application/json body
-func NewUpdateOfficeHoursExceptionRequest(server string, officeHoursScheduleId string, id string, params *UpdateOfficeHoursExceptionParams, body UpdateOfficeHoursExceptionJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateOfficeHoursExceptionRequestWithBody(server, officeHoursScheduleId, id, params, "application/json", bodyReader)
-}
-
-// NewUpdateOfficeHoursExceptionRequestWithBody constructs an http.Request for the UpdateOfficeHoursException method, with any body, and a specified content type
-func NewUpdateOfficeHoursExceptionRequestWithBody(server string, officeHoursScheduleId string, id string, params *UpdateOfficeHoursExceptionParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "office_hours_schedule_id", officeHoursScheduleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/office_hours_schedules/%s/office_hours_exceptions/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreatePhoneSwitchRequest calls the generic CreatePhoneSwitch builder with application/json body
-func NewCreatePhoneSwitchRequest(server string, params *CreatePhoneSwitchParams, body CreatePhoneSwitchJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreatePhoneSwitchRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewCreatePhoneSwitchRequestWithBody constructs an http.Request for the CreatePhoneSwitch method, with any body, and a specified content type
-func NewCreatePhoneSwitchRequestWithBody(server string, params *CreatePhoneSwitchParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/phone_call_redirects")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	if params != nil {
 

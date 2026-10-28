@@ -2847,16 +2847,13 @@ func (e CreateConversationAttributeStringRequestDataType) Valid() bool {
 
 // Defines values for CreateConversationRequestFromType.
 const (
-	CreateConversationRequestFromTypeContact CreateConversationRequestFromType = "contact"
-	CreateConversationRequestFromTypeLead    CreateConversationRequestFromType = "lead"
-	CreateConversationRequestFromTypeUser    CreateConversationRequestFromType = "user"
+	CreateConversationRequestFromTypeLead CreateConversationRequestFromType = "lead"
+	CreateConversationRequestFromTypeUser CreateConversationRequestFromType = "user"
 )
 
 // Valid indicates whether the value is a known member of the CreateConversationRequestFromType enum.
 func (e CreateConversationRequestFromType) Valid() bool {
 	switch e {
-	case CreateConversationRequestFromTypeContact:
-		return true
 	case CreateConversationRequestFromTypeLead:
 		return true
 	case CreateConversationRequestFromTypeUser:
@@ -3028,6 +3025,24 @@ func (e CreateOfficeHoursExceptionRequestExceptionType) Valid() bool {
 	}
 }
 
+// Defines values for CreateOrUpdateTagRequestTaggableType.
+const (
+	CreateOrUpdateTagRequestTaggableTypeCompany CreateOrUpdateTagRequestTaggableType = "company"
+	CreateOrUpdateTagRequestTaggableTypeUser    CreateOrUpdateTagRequestTaggableType = "user"
+)
+
+// Valid indicates whether the value is a known member of the CreateOrUpdateTagRequestTaggableType enum.
+func (e CreateOrUpdateTagRequestTaggableType) Valid() bool {
+	switch e {
+	case CreateOrUpdateTagRequestTaggableTypeCompany:
+		return true
+	case CreateOrUpdateTagRequestTaggableTypeUser:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for CreateTicketRequestChannel.
 const (
 	CreateTicketRequestChannelEmail CreateTicketRequestChannel = "email"
@@ -3147,12 +3162,13 @@ func (e CustomObjectInstancesPaginatedListType) Valid() bool {
 
 // Defines values for DataAttributeDataType.
 const (
-	DataAttributeDataTypeBoolean  DataAttributeDataType = "boolean"
-	DataAttributeDataTypeDate     DataAttributeDataType = "date"
-	DataAttributeDataTypeDatetime DataAttributeDataType = "datetime"
-	DataAttributeDataTypeFloat    DataAttributeDataType = "float"
-	DataAttributeDataTypeInteger  DataAttributeDataType = "integer"
-	DataAttributeDataTypeString   DataAttributeDataType = "string"
+	DataAttributeDataTypeBoolean      DataAttributeDataType = "boolean"
+	DataAttributeDataTypeDate         DataAttributeDataType = "date"
+	DataAttributeDataTypeDatetime     DataAttributeDataType = "datetime"
+	DataAttributeDataTypeFloat        DataAttributeDataType = "float"
+	DataAttributeDataTypeInteger      DataAttributeDataType = "integer"
+	DataAttributeDataTypeRelationship DataAttributeDataType = "relationship"
+	DataAttributeDataTypeString       DataAttributeDataType = "string"
 )
 
 // Valid indicates whether the value is a known member of the DataAttributeDataType enum.
@@ -3167,6 +3183,8 @@ func (e DataAttributeDataType) Valid() bool {
 	case DataAttributeDataTypeFloat:
 		return true
 	case DataAttributeDataTypeInteger:
+		return true
+	case DataAttributeDataTypeRelationship:
 		return true
 	case DataAttributeDataTypeString:
 		return true
@@ -5962,6 +5980,21 @@ func (e UpdateTicketTypeRequestCategory) Valid() bool {
 	}
 }
 
+// Defines values for VisitorCompaniesCompaniesType.
+const (
+	VisitorCompaniesCompaniesTypeCompany VisitorCompaniesCompaniesType = "company"
+)
+
+// Valid indicates whether the value is a known member of the VisitorCompaniesCompaniesType enum.
+func (e VisitorCompaniesCompaniesType) Valid() bool {
+	switch e {
+	case VisitorCompaniesCompaniesTypeCompany:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VisitorCompaniesType.
 const (
 	VisitorCompaniesTypeCompanyList VisitorCompaniesType = "company.list"
@@ -5971,6 +6004,21 @@ const (
 func (e VisitorCompaniesType) Valid() bool {
 	switch e {
 	case VisitorCompaniesTypeCompanyList:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VisitorSegmentsSegmentsType.
+const (
+	VisitorSegmentsSegmentsTypeSegment VisitorSegmentsSegmentsType = "segment"
+)
+
+// Valid indicates whether the value is a known member of the VisitorSegmentsSegmentsType enum.
+func (e VisitorSegmentsSegmentsType) Valid() bool {
+	switch e {
+	case VisitorSegmentsSegmentsTypeSegment:
 		return true
 	default:
 		return false
@@ -6226,6 +6274,24 @@ func (e RetrieveACompanyByIdParamsType) Valid() bool {
 	}
 }
 
+// Defines values for ListCompanyNotesParamsOrder.
+const (
+	ListCompanyNotesParamsOrderAsc  ListCompanyNotesParamsOrder = "asc"
+	ListCompanyNotesParamsOrderDesc ListCompanyNotesParamsOrder = "desc"
+)
+
+// Valid indicates whether the value is a known member of the ListCompanyNotesParamsOrder enum.
+func (e ListCompanyNotesParamsOrder) Valid() bool {
+	switch e {
+	case ListCompanyNotesParamsOrderAsc:
+		return true
+	case ListCompanyNotesParamsOrderDesc:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListCompaniesForAContactParamsOrder.
 const (
 	ListCompaniesForAContactParamsOrderAsc  ListCompaniesForAContactParamsOrder = "asc"
@@ -6238,6 +6304,24 @@ func (e ListCompaniesForAContactParamsOrder) Valid() bool {
 	case ListCompaniesForAContactParamsOrderAsc:
 		return true
 	case ListCompaniesForAContactParamsOrderDesc:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListNotesParamsOrder.
+const (
+	ListNotesParamsOrderAsc  ListNotesParamsOrder = "asc"
+	ListNotesParamsOrderDesc ListNotesParamsOrder = "desc"
+)
+
+// Valid indicates whether the value is a known member of the ListNotesParamsOrder enum.
+func (e ListNotesParamsOrder) Valid() bool {
+	switch e {
+	case ListNotesParamsOrderAsc:
+		return true
+	case ListNotesParamsOrderDesc:
 		return true
 	default:
 		return false
@@ -6556,6 +6640,45 @@ func (e GetDownloadReportingDataJobIdentifierParamsAccept) Valid() bool {
 	}
 }
 
+// Defines values for LisDataEventsParamsType.
+const (
+	LisDataEventsParamsTypeLead LisDataEventsParamsType = "lead"
+	LisDataEventsParamsTypeUser LisDataEventsParamsType = "user"
+)
+
+// Valid indicates whether the value is a known member of the LisDataEventsParamsType enum.
+func (e LisDataEventsParamsType) Valid() bool {
+	switch e {
+	case LisDataEventsParamsTypeLead:
+		return true
+	case LisDataEventsParamsTypeUser:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetExportReportingDataJobIdentifier200JSONResponseBodyStatus.
+const (
+	GetExportReportingDataJobIdentifier200JSONResponseBodyStatusComplete GetExportReportingDataJobIdentifier200JSONResponseBodyStatus = "complete"
+	GetExportReportingDataJobIdentifier200JSONResponseBodyStatusFailed   GetExportReportingDataJobIdentifier200JSONResponseBodyStatus = "failed"
+	GetExportReportingDataJobIdentifier200JSONResponseBodyStatusPending  GetExportReportingDataJobIdentifier200JSONResponseBodyStatus = "pending"
+)
+
+// Valid indicates whether the value is a known member of the GetExportReportingDataJobIdentifier200JSONResponseBodyStatus enum.
+func (e GetExportReportingDataJobIdentifier200JSONResponseBodyStatus) Valid() bool {
+	switch e {
+	case GetExportReportingDataJobIdentifier200JSONResponseBodyStatusComplete:
+		return true
+	case GetExportReportingDataJobIdentifier200JSONResponseBodyStatusFailed:
+		return true
+	case GetExportReportingDataJobIdentifier200JSONResponseBodyStatusPending:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AskFinJSONBodyResponseFormat.
 const (
 	AskFinJSONBodyResponseFormatHtml     AskFinJSONBodyResponseFormat = "html"
@@ -6844,6 +6967,24 @@ func (e ListFolders200JSONResponseBodyType) Valid() bool {
 	}
 }
 
+// Defines values for ListTagsParamsTaggableType.
+const (
+	ListTagsParamsTaggableTypeCompany ListTagsParamsTaggableType = "company"
+	ListTagsParamsTaggableTypeUser    ListTagsParamsTaggableType = "user"
+)
+
+// Valid indicates whether the value is a known member of the ListTagsParamsTaggableType enum.
+func (e ListTagsParamsTaggableType) Valid() bool {
+	switch e {
+	case ListTagsParamsTaggableTypeCompany:
+		return true
+	case ListTagsParamsTaggableTypeUser:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for CreateTicketJSONBodyChannel.
 const (
 	CreateTicketJSONBodyChannelEmail CreateTicketJSONBodyChannel = "email"
@@ -7115,10 +7256,18 @@ type AddressableList struct {
 
 // Admin Admins are teammate accounts that have access to a workspace.
 type Admin struct {
-	// Avatar Image for the associated team or teammate
-	//
-	// Example: https://picsum.photos/200/300
-	Avatar *string `json:"avatar,omitempty"`
+	// Avatar The teammate's avatar image. On List all admins it is only included when `display_avatar` is `true`. Elsewhere it is left out when the teammate has neither an uploaded avatar nor a gravatar.
+	Avatar *struct {
+		// ImageUrl The URL of the avatar image.
+		//
+		// Example: https://picsum.photos/200/300
+		ImageUrl *string `json:"image_url,omitempty"`
+
+		// Type Value is `avatar`. Returned by List all admins only.
+		//
+		// Example: avatar
+		Type *string `json:"type,omitempty"`
+	} `json:"avatar,omitempty"`
 
 	// AwayModeEnabled Identifies if this admin is currently set in away mode.
 	//
@@ -13438,10 +13587,10 @@ type ConvertVisitorRequest struct {
 	// Example: user
 	Type string `json:"type"`
 
-	// User The unique identifiers retained after converting or merging.
-	User ConvertVisitorRequest_User `json:"user"`
+	// User The unique identifiers retained after converting or merging. Required when `type` is `user`; not read when `type` is `lead`.
+	User *ConvertVisitorRequest_User `json:"user,omitempty"`
 
-	// Visitor The unique identifiers to convert a single Visitor.
+	// Visitor The unique identifiers to convert a single Visitor. One of `id` or `user_id` is required; an `email` on its own does not identify a visitor.
 	Visitor ConvertVisitorRequest_Visitor `json:"visitor"`
 }
 
@@ -13451,7 +13600,10 @@ type ConvertVisitorRequestUser0 = interface{}
 // ConvertVisitorRequestUser1 defines model for ConvertVisitorRequest.User.1.
 type ConvertVisitorRequestUser1 = interface{}
 
-// ConvertVisitorRequest_User The unique identifiers retained after converting or merging.
+// ConvertVisitorRequestUser2 defines model for ConvertVisitorRequest.User.2.
+type ConvertVisitorRequestUser2 = interface{}
+
+// ConvertVisitorRequest_User The unique identifiers retained after converting or merging. Required when `type` is `user`; not read when `type` is `lead`.
 type ConvertVisitorRequest_User struct {
 	// Email The contact's email, retained by default if one is present.
 	//
@@ -13476,10 +13628,7 @@ type ConvertVisitorRequestVisitor0 = interface{}
 // ConvertVisitorRequestVisitor1 defines model for ConvertVisitorRequest.Visitor.1.
 type ConvertVisitorRequestVisitor1 = interface{}
 
-// ConvertVisitorRequestVisitor2 defines model for ConvertVisitorRequest.Visitor.2.
-type ConvertVisitorRequestVisitor2 = interface{}
-
-// ConvertVisitorRequest_Visitor The unique identifiers to convert a single Visitor.
+// ConvertVisitorRequest_Visitor The unique identifiers to convert a single Visitor. One of `id` or `user_id` is required; an `email` on its own does not identify a visitor.
 type ConvertVisitorRequest_Visitor struct {
 	// Email The visitor's email.
 	//
@@ -14086,15 +14235,25 @@ type CreateConversationRequest struct {
 	// Example: 1671028894
 	CreatedAt *int `json:"created_at,omitempty"`
 	From      struct {
-		// Id The identifier for the contact which is given by Intercom.
+		// Email The contact's email. Matches a user or a lead, depending on `type`. Used only when `user_id` isn't sent. If several leads share the email and it's the only identifier sent, the request fails with `multiple_users`; use `id` instead.
+		//
+		// Example: joe@example.com
+		Email *string `json:"email,omitempty"`
+
+		// Id The identifier for the contact which is given by Intercom. Provide one of `id`, `user_id` or `email`. If you send more than one, `id` is used first, then `user_id`.
 		//
 		// Example: 536e564f316c83104c000020
-		Id openapi_types.UUID `json:"id"`
+		Id *string `json:"id,omitempty"`
 
 		// Type The role associated to the contact - user or lead.
 		//
 		// Example: user
 		Type CreateConversationRequestFromType `json:"type"`
+
+		// UserId The external identifier you gave the user. Matches users only; for a lead, use `id` or `email`.
+		//
+		// Example: 25
+		UserId *string `json:"user_id,omitempty"`
 	} `json:"from"`
 
 	// Subject The title of the email. Only applicable if the message type is email.
@@ -14295,16 +14454,36 @@ type CreateDataEventRequest struct {
 	// Example: 8a88a590-e1c3-41e2-a502-e0649dbf721c
 	Id *string `json:"id,omitempty"`
 
-	// Metadata Optional metadata about the event.
+	// Metadata Optional metadata about the event. Values can be a string, a number, a boolean, or an object holding a rich link (`url` and `value`) or a monetary amount (`amount` and `currency`).
 	//
 	// Example: {"invite_code":"ADDAFRIEND"}
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	Metadata *map[string]CreateDataEventRequest_Metadata_AdditionalProperties `json:"metadata,omitempty"`
 
 	// UserId Your identifier for the user.
 	//
 	// Example: 314159
 	UserId *string `json:"user_id,omitempty"`
 	union  json.RawMessage
+}
+
+// CreateDataEventRequestMetadata0 defines model for CreateDataEventRequest.Metadata.0.
+type CreateDataEventRequestMetadata0 = string
+
+// CreateDataEventRequestMetadata1 defines model for CreateDataEventRequest.Metadata.1.
+type CreateDataEventRequestMetadata1 = int
+
+// CreateDataEventRequestMetadata2 defines model for CreateDataEventRequest.Metadata.2.
+type CreateDataEventRequestMetadata2 = float64
+
+// CreateDataEventRequestMetadata3 defines model for CreateDataEventRequest.Metadata.3.
+type CreateDataEventRequestMetadata3 = bool
+
+// CreateDataEventRequestMetadata4 defines model for CreateDataEventRequest.Metadata.4.
+type CreateDataEventRequestMetadata4 = map[string]interface{}
+
+// CreateDataEventRequest_Metadata_AdditionalProperties defines model for create_data_event_request.metadata.AdditionalProperties.
+type CreateDataEventRequest_Metadata_AdditionalProperties struct {
+	union json.RawMessage
 }
 
 // CreateDataEventRequest0 defines model for CreateDataEventRequest.0.
@@ -14355,7 +14534,17 @@ type CreateDataEventSummariesRequest struct {
 	//
 	// Example: 314159
 	UserId *string `json:"user_id,omitempty"`
+	union  json.RawMessage
 }
+
+// CreateDataEventSummariesRequest0 defines model for CreateDataEventSummariesRequest.0.
+type CreateDataEventSummariesRequest0 = interface{}
+
+// CreateDataEventSummariesRequest1 defines model for CreateDataEventSummariesRequest.1.
+type CreateDataEventSummariesRequest1 = interface{}
+
+// CreateDataEventSummariesRequest2 defines model for CreateDataEventSummariesRequest.2.
+type CreateDataEventSummariesRequest2 = interface{}
 
 // CreateDataExportsRequest Request for creating a data export
 type CreateDataExportsRequest struct {
@@ -14779,18 +14968,33 @@ type CreateOrUpdateCustomObjectInstanceRequest_CustomAttributes_AdditionalProper
 	union json.RawMessage
 }
 
-// CreateOrUpdateTagRequest You can create or update an existing tag.
+// CreateOrUpdateTagRequest You can create or update an existing tag, and optionally apply it to a list of contact or company ids.
 type CreateOrUpdateTagRequest struct {
 	// Id The id of tag to updates.
 	//
 	// Example: 656452352
 	Id *string `json:"id,omitempty"`
 
-	// Name The name of the tag, which will be created if not found, or the new name for the tag if this is an update request. Names are case insensitive.
+	// IdsToAdd The Intercom ids of the contacts or companies to apply the tag to. A contact id that does not exist returns a 404; a company id that does not exist is skipped. A 404 still leaves the tag created or renamed. The `users` and `companies` arrays in the response are always empty when this field is used.
+	//
+	// Example: ["536e564f316c83104c000020"]
+	IdsToAdd *[]string `json:"ids_to_add,omitempty"`
+
+	// Name The name of the tag, which will be created if not found, or the new name for the tag if this is an update request. Names are case insensitive and can be at most 191 characters long. Creating a tag with a longer name returns a 400. When updating by `id`, a longer name or one that another tag already has returns 200 with the new name, but the tag keeps its old name.
 	//
 	// Example: Independent
 	Name string `json:"name"`
+
+	// TaggableType Whether the ids in `ids_to_add` are contacts or companies. Defaults to `user`.
+	//
+	// Example: user
+	TaggableType *CreateOrUpdateTagRequestTaggableType `json:"taggable_type,omitempty"`
 }
+
+// CreateOrUpdateTagRequestTaggableType Whether the ids in `ids_to_add` are contacts or companies. Defaults to `user`.
+//
+// Example: user
+type CreateOrUpdateTagRequestTaggableType string
 
 // CreatePhoneSwitchRequest You can create an phone switch
 type CreatePhoneSwitchRequest struct {
@@ -15115,7 +15319,11 @@ type CustomObjectInstance struct {
 	CreatedAt *int `json:"created_at,omitempty"`
 
 	// CustomAttributes The custom attributes you have set on the custom object instance.
-	CustomAttributes *map[string]string `json:"custom_attributes,omitempty"`
+	//
+	// Each value is returned with the type of the attribute it is set on: a string, integer, number or boolean, or `null` when the attribute is unset. A list attribute returns the label of the selected option. A reference attribute returns an object holding the referenced records, under `contacts` for a contact reference, `conversations` for a conversation reference, or `instances` for a reference to another custom object type.
+	//
+	// Example: {"order_number":"ORDER-12345","total_amount":99.99}
+	CustomAttributes *map[string]CustomObjectInstance_CustomAttributes_AdditionalProperties `json:"custom_attributes,omitempty"`
 
 	// ExternalCreatedAt The time when the Custom Object instance was created in the external system it originated from.
 	//
@@ -15146,6 +15354,26 @@ type CustomObjectInstance struct {
 	//
 	// Example: 1671028894
 	UpdatedAt *int `json:"updated_at,omitempty"`
+}
+
+// CustomObjectInstanceCustomAttributes0 defines model for CustomObjectInstance.CustomAttributes.0.
+type CustomObjectInstanceCustomAttributes0 = string
+
+// CustomObjectInstanceCustomAttributes1 defines model for CustomObjectInstance.CustomAttributes.1.
+type CustomObjectInstanceCustomAttributes1 = int
+
+// CustomObjectInstanceCustomAttributes2 defines model for CustomObjectInstance.CustomAttributes.2.
+type CustomObjectInstanceCustomAttributes2 = float64
+
+// CustomObjectInstanceCustomAttributes3 defines model for CustomObjectInstance.CustomAttributes.3.
+type CustomObjectInstanceCustomAttributes3 = bool
+
+// CustomObjectInstanceCustomAttributes4 defines model for CustomObjectInstance.CustomAttributes.4.
+type CustomObjectInstanceCustomAttributes4 = map[string]interface{}
+
+// CustomObjectInstance_CustomAttributes_AdditionalProperties defines model for custom_object_instance.custom_attributes.AdditionalProperties.
+type CustomObjectInstance_CustomAttributes_AdditionalProperties struct {
+	union json.RawMessage
 }
 
 // CustomObjectInstanceDeleted deleted custom object instance object
@@ -15297,7 +15525,7 @@ type DataAttribute struct {
 	// Example: true
 	Custom *bool `json:"custom,omitempty"`
 
-	// DataType The data type of the attribute.
+	// DataType The data type of the attribute. A list attribute created with the `options` data type is returned as `string`, with its choices in `options`. `relationship` is a reference to a custom object.
 	//
 	// Example: boolean
 	DataType *DataAttributeDataType `json:"data_type,omitempty"`
@@ -15358,7 +15586,7 @@ type DataAttribute struct {
 	UpdatedAt *int `json:"updated_at,omitempty"`
 }
 
-// DataAttributeDataType The data type of the attribute.
+// DataAttributeDataType The data type of the attribute. A list attribute created with the `options` data type is returned as `string`, with its choices in `options`. `relationship` is a reference to a custom object.
 //
 // Example: boolean
 type DataAttributeDataType string
@@ -16155,10 +16383,10 @@ type DataEvent struct {
 	// Example: 63a0979a5eeebeaf28dd56ba
 	IntercomUserId *string `json:"intercom_user_id,omitempty"`
 
-	// Metadata Optional metadata about the event.
+	// Metadata Optional metadata about the event. Values keep the type they were sent with.
 	//
 	// Example: {"invite_code":"ADDAFRIEND"}
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	Metadata *map[string]DataEvent_Metadata_AdditionalProperties `json:"metadata,omitempty"`
 
 	// Type The type of the object
 	//
@@ -16169,6 +16397,26 @@ type DataEvent struct {
 	//
 	// Example: 314159
 	UserId *string `json:"user_id,omitempty"`
+}
+
+// DataEventMetadata0 defines model for DataEvent.Metadata.0.
+type DataEventMetadata0 = string
+
+// DataEventMetadata1 defines model for DataEvent.Metadata.1.
+type DataEventMetadata1 = int
+
+// DataEventMetadata2 defines model for DataEvent.Metadata.2.
+type DataEventMetadata2 = float64
+
+// DataEventMetadata3 defines model for DataEvent.Metadata.3.
+type DataEventMetadata3 = bool
+
+// DataEventMetadata4 defines model for DataEvent.Metadata.4.
+type DataEventMetadata4 = map[string]interface{}
+
+// DataEvent_Metadata_AdditionalProperties defines model for data_event.metadata.AdditionalProperties.
+type DataEvent_Metadata_AdditionalProperties struct {
+	union json.RawMessage
 }
 
 // DataEventType The type of the object
@@ -16262,14 +16510,14 @@ type DataEventSummaryItem struct {
 
 // DataExport The data export API is used to export message delivery and engagement statistics for outbound content (Emails, Posts, Custom Bots, Surveys, Tours, Series, and more) sent in a given timeframe. The exported data includes who received each message, when they received it, and how they engaged with it (opens, clicks, replies, completions, dismissals, unsubscribes, and bounces).
 type DataExport struct {
-	// DownloadExpiresAt The time after which you will not be able to access the data.
+	// DownloadExpiresAt The time after which you will not be able to access the data, as a Unix timestamp. It is one week from the time the job was created. Empty until the job completes.
 	//
 	// Example: 1674917488
 	DownloadExpiresAt *string `json:"download_expires_at,omitempty"`
 
-	// DownloadUrl The location where you can download your data.
+	// DownloadUrl The location where you can download your data. Empty until the job completes.
 	//
-	// Example: https://api.intercom.test/download/messages/data/example
+	// Example: https://api.intercom.io/download/content/data/orzzsbd7hk67xyu
 	DownloadUrl *string `json:"download_url,omitempty"`
 
 	// JobIdentifier The identifier for your job.
@@ -16961,10 +17209,10 @@ type EmailSetting struct {
 type Error struct {
 	// Errors An array of one or more error objects
 	Errors []struct {
-		// Code A string indicating the kind of error, used to further qualify the HTTP response code
+		// Code A string indicating the kind of error, used to further qualify the HTTP response code. A few request validation errors send an HTTP status code as an integer here instead, for example `422`.
 		//
 		// Example: unauthorized
-		Code string `json:"code"`
+		Code Error_Errors_Code `json:"code"`
 
 		// Data Optional. Extra detail about the error, for example `required_permissions` on a 403 `action_forbidden` error.
 		//
@@ -16984,6 +17232,19 @@ type Error struct {
 	//
 	// Example: error.list
 	Type string `json:"type"`
+}
+
+// ErrorErrorsCode0 defines model for Error.Errors.Code.0.
+type ErrorErrorsCode0 = string
+
+// ErrorErrorsCode1 defines model for Error.Errors.Code.1.
+type ErrorErrorsCode1 = int
+
+// Error_Errors_Code A string indicating the kind of error, used to further qualify the HTTP response code. A few request validation errors send an HTTP status code as an integer here instead, for example `422`.
+//
+// Example: unauthorized
+type Error_Errors_Code struct {
+	union json.RawMessage
 }
 
 // EventDetails defines model for event_details.
@@ -17995,7 +18256,7 @@ type Jobs struct {
 	// Example: 20
 	Id string `json:"id"`
 
-	// ResourceId The id of the resource created during job execution (e.g. ticket id)
+	// ResourceId The id of the resource created during job execution (e.g. ticket id). Only set once the job has succeeded.
 	//
 	// Example: 123
 	ResourceId *string `json:"resource_id,omitempty"`
@@ -18005,9 +18266,9 @@ type Jobs struct {
 	// Example: ticket
 	ResourceType *string `json:"resource_type,omitempty"`
 
-	// ResourceUrl The url of the resource created during job exeuction. Use this url to fetch the resource.
+	// ResourceUrl The url of the resource created during job execution. Use this url to fetch the resource. Only set once the job has succeeded.
 	//
-	// Example: http://api.intercom.io/tickets/123
+	// Example: https://api.intercom.io/tickets/123
 	ResourceUrl *string `json:"resource_url,omitempty"`
 
 	// Status The status of the job execution.
@@ -18692,7 +18953,7 @@ type NewsfeedAssignment struct {
 
 // Note Notes allow you to annotate and comment on your contacts and companies. A note is attached to either a contact or a company, never both.
 type Note struct {
-	// Author Admins are teammate accounts that have access to a workspace.
+	// Author Represents the Admin that created the note. When the note has no recorded admin, this is `null` on a single note and left out of each note in a list.
 	Author *Admin `json:"author,omitempty"`
 
 	// Body The body text of the note.
@@ -18738,14 +18999,15 @@ type Note struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// NoteList A paginated list of notes associated with a contact or a company.
+// NoteList A paginated list of notes associated with a contact or a company. On the last page, `pages.next` is `null`. These lists never send `pages.prev`.
 type NoteList struct {
 	// Data An array of notes.
 	Data *[]Note `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount A count of the total number of notes.
 	//
@@ -19238,7 +19500,7 @@ type SearchRequest_Query struct {
 
 // Segment A segment is a group of your contacts defined by the rules that you set.
 type Segment struct {
-	// Count The number of items in the user segment. It's returned when `include_count=true` is included in the request.
+	// Count The number of items in the user segment. It's returned when the request has `include_count` with a value. A company segment only gets a count when a contact segment has the same name, and it shows that segment's count.
 	//
 	// Example: 3
 	Count *int `json:"count,omitempty"`
@@ -19284,11 +19546,8 @@ type SegmentPersonType string
 // Example: segment
 type SegmentType string
 
-// SegmentList This will return a list of Segment Objects. The result may also have a pages object if the response is paginated.
+// SegmentList This will return a list of Segment Objects. The list is not paginated.
 type SegmentList struct {
-	// Pages A pagination object, which may be empty, indicating no further pages to fetch.
-	Pages *map[string]interface{} `json:"pages,omitempty"`
-
 	// Segments A list of Segment objects
 	Segments *[]Segment `json:"segments,omitempty"`
 
@@ -19637,7 +19896,7 @@ type TagBasic struct {
 
 // TagCompanyRequest You can tag a single company or a list of companies.
 type TagCompanyRequest struct {
-	// Companies The id or company_id of the company can be passed as input parameters.
+	// Companies The id, company_id or name of the company can be passed as input parameters. Companies that cannot be found are skipped.
 	Companies []struct {
 		// CompanyId The company id you have defined for the company.
 		//
@@ -19648,9 +19907,14 @@ type TagCompanyRequest struct {
 		//
 		// Example: 531ee472cce572a6ec000006
 		Id *string `json:"id,omitempty"`
+
+		// Name The name of the company, used to look it up when neither `id` nor `company_id` is given.
+		//
+		// Example: Intercom
+		Name *string `json:"name,omitempty"`
 	} `json:"companies"`
 
-	// Name The name of the tag, which will be created if not found.
+	// Name The name of the tag, which will be created if not found. Names can be at most 191 characters long.
 	//
 	// Example: Independent
 	Name string `json:"name"`
@@ -19720,295 +19984,33 @@ type TagList struct {
 // Example: list
 type TagListType string
 
-// TagMultipleUsersRequest You can tag a list of users.
+// TagMultipleUsersRequest You can tag or untag a list of users.
 type TagMultipleUsersRequest struct {
-	// Name The name of the tag, which will be created if not found.
+	// Name The name of the tag, which will be created if not found. Names can be at most 191 characters long.
 	//
 	// Example: Independent
-	Name  string `json:"name"`
+	Name string `json:"name"`
+
+	// Users The id, user_id or email of the user can be passed as input parameters. Users that cannot be found are skipped.
 	Users []struct {
+		// Email The email address of the user, used to look it up when neither `id` nor `user_id` is given.
+		//
+		// Example: jane@example.com
+		Email *string `json:"email,omitempty"`
+
 		// Id The Intercom defined id representing the user.
 		//
 		// Example: 5f7f0d217289f8d2f4262080
 		Id *string `json:"id,omitempty"`
+
+		// Untag Set to true to remove the tag from this user instead of applying it.
+		//
+		// Example: true
+		Untag *bool `json:"untag,omitempty"`
+
+		// UserId The user id you have defined for the user, used to look it up when `id` is not given.
+		//
+		// Example: 25
+		UserId *string `json:"user_id,omitempty"`
 	} `json:"users"`
-}
-
-// Tags A list of tags objects associated with a conversation, article or internal article
-type Tags struct {
-	// Tags A list of tags objects associated with the object.
-	Tags *[]Tag `json:"tags,omitempty"`
-
-	// Type The type of the object
-	//
-	// Example: tag.list
-	Type *TagsType `json:"type,omitempty"`
-}
-
-// TagsType The type of the object
-//
-// Example: tag.list
-type TagsType string
-
-// Team Teams are groups of admins in Intercom.
-type Team struct {
-	// AdminIds The list of admin IDs that are a part of the team.
-	//
-	// Example: [493881]
-	AdminIds *[]int `json:"admin_ids,omitempty"`
-
-	// AdminPriorityLevel Admin priority levels for the team
-	AdminPriorityLevel *AdminPriorityLevel `json:"admin_priority_level,omitempty"`
-
-	// AssignmentLimit The assignment limit for the team. This field is only present when the team's distribution type is load balanced.
-	//
-	// Example: 10
-	AssignmentLimit *int `json:"assignment_limit,omitempty"`
-
-	// DistributionMethod Describes how assignments are distributed among the team members
-	//
-	// Example: round_robin
-	DistributionMethod *string `json:"distribution_method,omitempty"`
-
-	// Id The id of the team
-	//
-	// Example: 814865
-	Id *string `json:"id,omitempty"`
-
-	// Name The name of the team
-	//
-	// Example: Example Team
-	Name *string `json:"name,omitempty"`
-
-	// Type Value is always "team"
-	//
-	// Example: team
-	Type *string `json:"type,omitempty"`
-}
-
-// TeamList This will return a list of team objects for the App.
-type TeamList struct {
-	// Teams A list of team objects
-	Teams *[]Team `json:"teams,omitempty"`
-
-	// Type The type of the object
-	//
-	// Example: team.list
-	Type *TeamListType `json:"type,omitempty"`
-}
-
-// TeamListType The type of the object
-//
-// Example: team.list
-type TeamListType string
-
-// TeamMetric Per-admin activity metrics within a team.
-type TeamMetric struct {
-	// AdminId The unique identifier for the admin.
-	//
-	// Example: 123
-	AdminId *string `json:"admin_id,omitempty"`
-
-	// Idle The number of idle conversations assigned to the admin. A conversation is idle when it has been open and waiting for an admin reply longer than the idle_threshold.
-	//
-	// Example: 2
-	Idle *int `json:"idle,omitempty"`
-
-	// Open The number of open conversations assigned to the admin.
-	//
-	// Example: 5
-	Open *int `json:"open,omitempty"`
-
-	// Snoozed The number of snoozed conversations assigned to the admin.
-	//
-	// Example: 1
-	Snoozed *int `json:"snoozed,omitempty"`
-
-	// Type Example: team_metric
-	Type *string `json:"type,omitempty"`
-}
-
-// TeamMetricList A list of team metrics.
-type TeamMetricList struct {
-	Data *[]TeamMetric `json:"data,omitempty"`
-
-	// Type Example: team_metric.list
-	Type *string `json:"type,omitempty"`
-}
-
-// TeamPriorityLevel Admin priority levels for teams
-type TeamPriorityLevel struct {
-	// PrimaryTeamIds The primary team ids for the team
-	//
-	// Example: [814865]
-	PrimaryTeamIds *[]int `json:"primary_team_ids,omitempty"`
-
-	// SecondaryTeamIds The secondary team ids for the team
-	//
-	// Example: [493881]
-	SecondaryTeamIds *[]int `json:"secondary_team_ids,omitempty"`
-}
-
-// TeammateReference A reference to a teammate
-type TeammateReference struct {
-	// Email The email address of the teammate (optional for teams/bots)
-	//
-	// Example: jane@example.com
-	Email *openapi_types.Email `json:"email,omitempty"`
-
-	// Id The unique identifier of the teammate
-	//
-	// Example: 123
-	Id int `json:"id"`
-
-	// Name The display name of the teammate
-	//
-	// Example: Jane Example
-	Name string `json:"name"`
-
-	// Type The type of teammate
-	//
-	// Example: admin
-	Type TeammateReferenceType `json:"type"`
-}
-
-// TeammateReferenceType The type of teammate
-//
-// Example: admin
-type TeammateReferenceType string
-
-// Ticket Tickets are how you track requests from your users.
-type Ticket struct {
-	// AdminAssigneeId The id representing the admin assigned to the ticket. If it's not assigned to an admin it will return 0.
-	//
-	// Example: 1295
-	AdminAssigneeId *int `json:"admin_assignee_id,omitempty"`
-
-	// Category Category of the Ticket.
-	//
-	// Example: Customer
-	Category *TicketCategory `json:"category,omitempty"`
-
-	// Channel The channel the ticket was created through. Defaults to messenger when no channel is specified at creation.
-	//
-	// Example: messenger
-	Channel *string `json:"channel,omitempty"`
-
-	// Contacts The list of contacts affected by a ticket.
-	Contacts *TicketContacts `json:"contacts,omitempty"`
-
-	// CreatedAt The time the ticket was created as a UTC Unix timestamp.
-	//
-	// Example: 1663597223
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// Id The unique identifier for the ticket which is given by Intercom.
-	//
-	// Example: 1295
-	Id *string `json:"id,omitempty"`
-
-	// IsShared Whether or not the ticket is shared with the customer.
-	//
-	// Example: true
-	IsShared *bool `json:"is_shared,omitempty"`
-
-	// LinkedObjects An object containing metadata about linked conversations and linked tickets. Up to 1000 can be returned.
-	LinkedObjects *LinkedObjectList `json:"linked_objects,omitempty"`
-
-	// Open Whether or not the ticket is open. If false, the ticket is closed.
-	//
-	// Example: true
-	Open *bool `json:"open,omitempty"`
-
-	// PreviousTicketStateId The ID of the previous ticket state from the most recent state change. Returns null if no state change history exists. Useful for tracking state transitions for reporting and compliance.
-	//
-	// Example: 7493
-	PreviousTicketStateId *string `json:"previous_ticket_state_id,omitempty"`
-
-	// SnoozedUntil The time the ticket will be snoozed until as a UTC Unix timestamp. If null, the ticket is not currently snoozed.
-	//
-	// Example: 1663597260
-	SnoozedUntil *int `json:"snoozed_until,omitempty"`
-
-	// TeamAssigneeId The id representing the team assigned to the ticket. If it's not assigned to a team it will return 0.
-	//
-	// Example: 1295
-	TeamAssigneeId *int `json:"team_assignee_id,omitempty"`
-
-	// TicketAttributes An object containing the different attributes associated to the ticket as key-value pairs. For the default title and description attributes, the keys are `_default_title_` and `_default_description_`.
-	//
-	// Example: {"_default_description_":"The button's not working","_default_title_":"Found a bug"}
-	TicketAttributes *TicketCustomAttributes `json:"ticket_attributes,omitempty"`
-
-	// TicketId The ID of the Ticket used in the Intercom Inbox and Messenger. Do not use ticket_id for API queries.
-	//
-	// Example: 1390
-	TicketId *string `json:"ticket_id,omitempty"`
-
-	// TicketParts A list of Ticket Part objects for each note and event in the ticket. There is a limit of 500 parts.
-	TicketParts *TicketParts `json:"ticket_parts,omitempty"`
-
-	// TicketState A ticket state, used to define the state of a ticket.
-	TicketState *TicketState `json:"ticket_state,omitempty"`
-
-	// TicketType A ticket type, used to define the data fields to be captured in a ticket.
-	TicketType *TicketType `json:"ticket_type,omitempty"`
-
-	// Type Always ticket
-	//
-	// Example: ticket
-	Type *TicketObjectType `json:"type,omitempty"`
-
-	// UpdatedAt The last time the ticket was updated as a UTC Unix timestamp.
-	//
-	// Example: 1663597260
-	UpdatedAt *int `json:"updated_at,omitempty"`
-}
-
-// TicketCategory Category of the Ticket.
-//
-// Example: Customer
-type TicketCategory string
-
-// TicketObjectType Always ticket
-//
-// Example: ticket
-type TicketObjectType string
-
-// TicketContacts The list of contacts affected by a ticket.
-type TicketContacts struct {
-	// Contacts The list of contacts affected by this ticket.
-	Contacts *[]ContactReference `json:"contacts,omitempty"`
-
-	// Type always contact.list
-	//
-	// Example: contact.list
-	Type *TicketContactsType `json:"type,omitempty"`
-}
-
-// TicketContactsType always contact.list
-//
-// Example: contact.list
-type TicketContactsType string
-
-// TicketCustomAttributes An object containing the different attributes associated to the ticket as key-value pairs. For the default title and description attributes, the keys are `_default_title_` and `_default_description_`.
-//
-// Example: {"_default_description_":"The button's not working","_default_title_":"Found a bug"}
-type TicketCustomAttributes map[string]TicketCustomAttributes_AdditionalProperties
-
-// TicketCustomAttributes0 defines model for TicketCustomAttributes.0.
-type TicketCustomAttributes0 = string
-
-// TicketCustomAttributes1 defines model for TicketCustomAttributes.1.
-type TicketCustomAttributes1 = float64
-
-// TicketCustomAttributes2 defines model for TicketCustomAttributes.2.
-type TicketCustomAttributes2 = bool
-
-// TicketCustomAttributes3 defines model for TicketCustomAttributes.3.
-type TicketCustomAttributes3 = []interface{}
-
-// TicketCustomAttributes_AdditionalProperties defines model for ticket_custom_attributes.AdditionalProperties.
-type TicketCustomAttributes_AdditionalProperties struct {
-	union json.RawMessage
 }

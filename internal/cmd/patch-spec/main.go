@@ -165,7 +165,10 @@ func hoistUnionBodies(spec map[string]any) {
 		)
 
 		schema := objectAt(media, "schema")
-		if _, exists := schema["oneOf"]; !exists {
+		_, isOneOf := schema["oneOf"]
+		_, isAnyOf := schema["anyOf"]
+
+		if !isOneOf && !isAnyOf {
 			continue
 		}
 

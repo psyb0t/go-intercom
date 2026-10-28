@@ -226,7 +226,10 @@ func TestShowContactUnauthorized(t *testing.T) {
 	require.NotNil(t, res.JSON401)
 	assert.Equal(t, "error.list", res.JSON401.Type)
 	require.Len(t, res.JSON401.Errors, 1)
-	assert.Equal(t, "unauthorized", res.JSON401.Errors[0].Code)
+
+	code, err := res.JSON401.Errors[0].Code.AsErrorErrorsCode0()
+	require.NoError(t, err)
+	assert.Equal(t, "unauthorized", code)
 }
 
 func TestIdentifyAdminMalformedResponse(t *testing.T) {
@@ -273,9 +276,6 @@ func TestReportingExportStatus(t *testing.T) {
 	client := newTestClient(t, func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, http.MethodGet, r.Method)
 		assert.Equal(t, "/export/reporting_data/"+jobID, r.URL.Path)
-		assert.Equal(t, jobID, r.URL.Query().Get("job_identifier"))
-		assert.Equal(t, "app-example", r.URL.Query().Get("app_id"))
-		assert.Equal(t, "client-example", r.URL.Query().Get("client_id"))
 		assertAuth(t, r)
 
 		writeJSON(t, w, `{
@@ -287,16 +287,12 @@ func TestReportingExportStatus(t *testing.T) {
 	res, err := client.GetExportReportingDataJobIdentifierWithResponse(
 		context.Background(),
 		jobID,
-		&intercom.GetExportReportingDataJobIdentifierParams{
-			AppId:         "app-example",
-			ClientId:      "client-example",
-			JobIdentifier: jobID,
-		},
+		&intercom.GetExportReportingDataJobIdentifierParams{},
 	)
 	require.NoError(t, err)
 	require.NotNil(t, res.JSON200)
 	assert.Equal(t, jobID, *res.JSON200.JobIdentifier)
-	assert.Equal(t, "complete", *res.JSON200.Status)
+	assert.EqualValues(t, "complete", *res.JSON200.Status)
 }
 
 func TestReportingDownload(t *testing.T) {
@@ -310,8 +306,6 @@ func TestReportingDownload(t *testing.T) {
 	client := newTestClient(t, func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, http.MethodGet, r.Method)
 		assert.Equal(t, "/download/reporting_data/"+jobID, r.URL.Path)
-		assert.Equal(t, jobID, r.URL.Query().Get("job_identifier"))
-		assert.Equal(t, "app-example", r.URL.Query().Get("app_id"))
 		assert.Equal(t, "application/octet-stream", r.Header.Get("Accept"))
 		assertAuth(t, r)
 
@@ -325,9 +319,7 @@ func TestReportingDownload(t *testing.T) {
 		GetDownloadReportingDataJobIdentifierParamsAcceptApplicationoctetStream
 
 	params := intercom.GetDownloadReportingDataJobIdentifierParams{
-		AppId:         "app-example",
-		JobIdentifier: jobID,
-		Accept:        accept,
+		Accept: accept,
 	}
 	res, err := client.GetDownloadReportingDataJobIdentifierWithResponse(
 		context.Background(),

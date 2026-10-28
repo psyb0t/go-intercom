@@ -12,10 +12,2020 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 
 	"github.com/oapi-codegen/runtime"
 )
+
+// NewRetrieveInternalArticleRequest constructs an http.Request for the RetrieveInternalArticle method
+func NewRetrieveInternalArticleRequest(server string, internalArticleId int, params *RetrieveInternalArticleParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "internal_article_id", internalArticleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/internal_articles/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateInternalArticleRequest calls the generic UpdateInternalArticle builder with application/json body
+func NewUpdateInternalArticleRequest(server string, internalArticleId int, params *UpdateInternalArticleParams, body UpdateInternalArticleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateInternalArticleRequestWithBody(server, internalArticleId, params, "application/json", bodyReader)
+}
+
+// NewUpdateInternalArticleRequestWithBody constructs an http.Request for the UpdateInternalArticle method, with any body, and a specified content type
+func NewUpdateInternalArticleRequestWithBody(server string, internalArticleId int, params *UpdateInternalArticleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "internal_article_id", internalArticleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/internal_articles/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewAttachTagToInternalArticleRequest calls the generic AttachTagToInternalArticle builder with application/json body
+func NewAttachTagToInternalArticleRequest(server string, internalArticleId int, params *AttachTagToInternalArticleParams, body AttachTagToInternalArticleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewAttachTagToInternalArticleRequestWithBody(server, internalArticleId, params, "application/json", bodyReader)
+}
+
+// NewAttachTagToInternalArticleRequestWithBody constructs an http.Request for the AttachTagToInternalArticle method, with any body, and a specified content type
+func NewAttachTagToInternalArticleRequestWithBody(server string, internalArticleId int, params *AttachTagToInternalArticleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "internal_article_id", internalArticleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/internal_articles/%s/tags", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDetachTagFromInternalArticleRequest constructs an http.Request for the DetachTagFromInternalArticle method
+func NewDetachTagFromInternalArticleRequest(server string, internalArticleId int, id string, params *DetachTagFromInternalArticleParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "internal_article_id", internalArticleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/internal_articles/%s/tags/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.AdminId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "admin_id", *params.AdminId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetIpAllowlistRequest constructs an http.Request for the GetIpAllowlist method
+func NewGetIpAllowlistRequest(server string, params *GetIpAllowlistParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/ip_allowlist")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateIpAllowlistRequest calls the generic UpdateIpAllowlist builder with application/json body
+func NewUpdateIpAllowlistRequest(server string, params *UpdateIpAllowlistParams, body UpdateIpAllowlistJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateIpAllowlistRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewUpdateIpAllowlistRequestWithBody constructs an http.Request for the UpdateIpAllowlist method, with any body, and a specified content type
+func NewUpdateIpAllowlistRequestWithBody(server string, params *UpdateIpAllowlistParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/ip_allowlist")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewJobsStatusRequest constructs an http.Request for the JobsStatus method
+func NewJobsStatusRequest(server string, jobId string, params *JobsStatusParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "job_id", jobId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/jobs/status/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListMacrosRequest constructs an http.Request for the ListMacros method
+func NewListMacrosRequest(server string, params *ListMacrosParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/macros")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.UpdatedSince != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "updated_since", *params.UpdatedSince, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int64"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetMacroRequest constructs an http.Request for the GetMacro method
+func NewGetMacroRequest(server string, id string, params *GetMacroParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/macros/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewIdentifyAdminRequest constructs an http.Request for the IdentifyAdmin method
+func NewIdentifyAdminRequest(server string, params *IdentifyAdminParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/me")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateMessageRequest calls the generic CreateMessage builder with application/json body
+func NewCreateMessageRequest(server string, params *CreateMessageParams, body CreateMessageJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateMessageRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateMessageRequestWithBody constructs an http.Request for the CreateMessage method, with any body, and a specified content type
+func NewCreateMessageRequestWithBody(server string, params *CreateMessageParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/messages")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppMessageStatusRequest constructs an http.Request for the GetWhatsAppMessageStatus method
+func NewGetWhatsAppMessageStatusRequest(server string, params *GetWhatsAppMessageStatusParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/messages/status")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ruleset_id", params.RulesetId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRetrieveWhatsAppMessageStatusRequest constructs an http.Request for the RetrieveWhatsAppMessageStatus method
+func NewRetrieveWhatsAppMessageStatusRequest(server string, params *RetrieveWhatsAppMessageStatusParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/messages/whatsapp/status")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "message_id", params.MessageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListNewsItemsRequest constructs an http.Request for the ListNewsItems method
+func NewListNewsItemsRequest(server string, params *ListNewsItemsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/news/news_items")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateNewsItemRequest calls the generic CreateNewsItem builder with application/json body
+func NewCreateNewsItemRequest(server string, params *CreateNewsItemParams, body CreateNewsItemJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateNewsItemRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateNewsItemRequestWithBody constructs an http.Request for the CreateNewsItem method, with any body, and a specified content type
+func NewCreateNewsItemRequestWithBody(server string, params *CreateNewsItemParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/news/news_items")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteNewsItemRequest constructs an http.Request for the DeleteNewsItem method
+func NewDeleteNewsItemRequest(server string, newsItemId int, params *DeleteNewsItemParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "news_item_id", newsItemId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/news/news_items/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRetrieveNewsItemRequest constructs an http.Request for the RetrieveNewsItem method
+func NewRetrieveNewsItemRequest(server string, newsItemId int, params *RetrieveNewsItemParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "news_item_id", newsItemId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/news/news_items/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateNewsItemRequest calls the generic UpdateNewsItem builder with application/json body
+func NewUpdateNewsItemRequest(server string, newsItemId int, params *UpdateNewsItemParams, body UpdateNewsItemJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateNewsItemRequestWithBody(server, newsItemId, params, "application/json", bodyReader)
+}
+
+// NewUpdateNewsItemRequestWithBody constructs an http.Request for the UpdateNewsItem method, with any body, and a specified content type
+func NewUpdateNewsItemRequestWithBody(server string, newsItemId int, params *UpdateNewsItemParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "news_item_id", newsItemId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/news/news_items/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListNewsfeedsRequest constructs an http.Request for the ListNewsfeeds method
+func NewListNewsfeedsRequest(server string, params *ListNewsfeedsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/news/newsfeeds")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRetrieveNewsfeedRequest constructs an http.Request for the RetrieveNewsfeed method
+func NewRetrieveNewsfeedRequest(server string, newsfeedId string, params *RetrieveNewsfeedParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "newsfeed_id", newsfeedId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/news/newsfeeds/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListLiveNewsfeedItemsRequest constructs an http.Request for the ListLiveNewsfeedItems method
+func NewListLiveNewsfeedItemsRequest(server string, newsfeedId string, params *ListLiveNewsfeedItemsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "newsfeed_id", newsfeedId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/news/newsfeeds/%s/items", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteNoteRequest constructs an http.Request for the DeleteNote method
+func NewDeleteNoteRequest(server string, noteId string, params *DeleteNoteParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "note_id", noteId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/notes/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRetrieveNoteRequest constructs an http.Request for the RetrieveNote method
+func NewRetrieveNoteRequest(server string, noteId string, params *RetrieveNoteParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "note_id", noteId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/notes/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListOfficeHoursSchedulesRequest constructs an http.Request for the ListOfficeHoursSchedules method
+func NewListOfficeHoursSchedulesRequest(server string, params *ListOfficeHoursSchedulesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/office_hours_schedules")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateOfficeHoursScheduleRequest calls the generic CreateOfficeHoursSchedule builder with application/json body
+func NewCreateOfficeHoursScheduleRequest(server string, params *CreateOfficeHoursScheduleParams, body CreateOfficeHoursScheduleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateOfficeHoursScheduleRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateOfficeHoursScheduleRequestWithBody constructs an http.Request for the CreateOfficeHoursSchedule method, with any body, and a specified content type
+func NewCreateOfficeHoursScheduleRequestWithBody(server string, params *CreateOfficeHoursScheduleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/office_hours_schedules")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteOfficeHoursScheduleRequest constructs an http.Request for the DeleteOfficeHoursSchedule method
+func NewDeleteOfficeHoursScheduleRequest(server string, id string, params *DeleteOfficeHoursScheduleParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/office_hours_schedules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetOfficeHoursScheduleRequest constructs an http.Request for the GetOfficeHoursSchedule method
+func NewGetOfficeHoursScheduleRequest(server string, id string, params *GetOfficeHoursScheduleParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/office_hours_schedules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateOfficeHoursScheduleRequest calls the generic UpdateOfficeHoursSchedule builder with application/json body
+func NewUpdateOfficeHoursScheduleRequest(server string, id string, params *UpdateOfficeHoursScheduleParams, body UpdateOfficeHoursScheduleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateOfficeHoursScheduleRequestWithBody(server, id, params, "application/json", bodyReader)
+}
+
+// NewUpdateOfficeHoursScheduleRequestWithBody constructs an http.Request for the UpdateOfficeHoursSchedule method, with any body, and a specified content type
+func NewUpdateOfficeHoursScheduleRequestWithBody(server string, id string, params *UpdateOfficeHoursScheduleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/office_hours_schedules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListOfficeHoursExceptionsRequest constructs an http.Request for the ListOfficeHoursExceptions method
+func NewListOfficeHoursExceptionsRequest(server string, officeHoursScheduleId string, params *ListOfficeHoursExceptionsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "office_hours_schedule_id", officeHoursScheduleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/office_hours_schedules/%s/office_hours_exceptions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateOfficeHoursExceptionRequest calls the generic CreateOfficeHoursException builder with application/json body
+func NewCreateOfficeHoursExceptionRequest(server string, officeHoursScheduleId string, params *CreateOfficeHoursExceptionParams, body CreateOfficeHoursExceptionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateOfficeHoursExceptionRequestWithBody(server, officeHoursScheduleId, params, "application/json", bodyReader)
+}
+
+// NewCreateOfficeHoursExceptionRequestWithBody constructs an http.Request for the CreateOfficeHoursException method, with any body, and a specified content type
+func NewCreateOfficeHoursExceptionRequestWithBody(server string, officeHoursScheduleId string, params *CreateOfficeHoursExceptionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "office_hours_schedule_id", officeHoursScheduleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/office_hours_schedules/%s/office_hours_exceptions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteOfficeHoursExceptionRequest constructs an http.Request for the DeleteOfficeHoursException method
+func NewDeleteOfficeHoursExceptionRequest(server string, officeHoursScheduleId string, id string, params *DeleteOfficeHoursExceptionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "office_hours_schedule_id", officeHoursScheduleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/office_hours_schedules/%s/office_hours_exceptions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetOfficeHoursExceptionRequest constructs an http.Request for the GetOfficeHoursException method
+func NewGetOfficeHoursExceptionRequest(server string, officeHoursScheduleId string, id string, params *GetOfficeHoursExceptionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "office_hours_schedule_id", officeHoursScheduleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/office_hours_schedules/%s/office_hours_exceptions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateOfficeHoursExceptionRequest calls the generic UpdateOfficeHoursException builder with application/json body
+func NewUpdateOfficeHoursExceptionRequest(server string, officeHoursScheduleId string, id string, params *UpdateOfficeHoursExceptionParams, body UpdateOfficeHoursExceptionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateOfficeHoursExceptionRequestWithBody(server, officeHoursScheduleId, id, params, "application/json", bodyReader)
+}
+
+// NewUpdateOfficeHoursExceptionRequestWithBody constructs an http.Request for the UpdateOfficeHoursException method, with any body, and a specified content type
+func NewUpdateOfficeHoursExceptionRequestWithBody(server string, officeHoursScheduleId string, id string, params *UpdateOfficeHoursExceptionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "office_hours_schedule_id", officeHoursScheduleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/office_hours_schedules/%s/office_hours_exceptions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreatePhoneSwitchRequest calls the generic CreatePhoneSwitch builder with application/json body
+func NewCreatePhoneSwitchRequest(server string, params *CreatePhoneSwitchParams, body CreatePhoneSwitchJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreatePhoneSwitchRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreatePhoneSwitchRequestWithBody constructs an http.Request for the CreatePhoneSwitch method, with any body, and a specified content type
+func NewCreatePhoneSwitchRequestWithBody(server string, params *CreatePhoneSwitchParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/phone_call_redirects")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
 
 // NewListSegmentsRequest constructs an http.Request for the ListSegments method
 func NewListSegmentsRequest(server string, params *ListSegmentsParams) (*http.Request, error) {
@@ -48,6 +2058,18 @@ func NewListSegmentsRequest(server string, params *ListSegmentsParams) (*http.Re
 		if params.IncludeCount != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_count", *params.IncludeCount, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Type != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "type", *params.Type, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -110,6 +2132,33 @@ func NewRetrieveSegmentRequest(server string, segmentId string, params *Retrieve
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.IncludeCount != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_count", *params.IncludeCount, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
@@ -243,6 +2292,105 @@ func NewListTagsRequest(server string, params *ListTagsParams) (*http.Request, e
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Id != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "id", *params.Id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TaggableType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "taggable_type", *params.TaggableType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TaggableId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "taggable_id", *params.TaggableId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.UserId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "user_id", *params.UserId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Email != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "email", *params.Email, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CompanyId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "company_id", *params.CompanyId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Name != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "name", *params.Name, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
@@ -2909,6 +5057,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch a list of notes that are associated to a company.
 	//
+	// Requires the `read_users_companies` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /companies/{company_id}/notes (the `ListCompanyNotes` operationId).
@@ -2918,6 +5068,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can add a note to a single company.
 	//
+	// Requires the `write_users_companies` OAuth scope.
+	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /companies/{company_id}/notes (the `CreateCompanyNote` operationId).
@@ -2926,6 +5078,8 @@ type ClientWithResponsesInterface interface {
 	// CreateCompanyNoteWithResponse Create a company note
 	//
 	// You can add a note to a single company.
+	//
+	// Requires the `write_users_companies` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -3700,6 +5854,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch a list of notes that are associated to a contact.
 	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /contacts/{contact_id}/notes (the `ListNotes` operationId).
@@ -3709,19 +5865,23 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can add a note to a single contact.
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /contacts/{contact_id}/notes (the `CreateNote` operationId).
-	CreateNoteWithBodyWithResponse(ctx context.Context, contactId int, params *CreateNoteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNoteResponse, error)
+	CreateNoteWithBodyWithResponse(ctx context.Context, contactId string, params *CreateNoteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNoteResponse, error)
 
 	// CreateNoteWithResponse Create a note
 	//
 	// You can add a note to a single contact.
 	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /contacts/{contact_id}/notes (the `CreateNote` operationId).
-	CreateNoteWithResponse(ctx context.Context, contactId int, params *CreateNoteParams, body CreateNoteJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNoteResponse, error)
+	CreateNoteWithResponse(ctx context.Context, contactId string, params *CreateNoteParams, body CreateNoteJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNoteResponse, error)
 
 	// ListSegmentsForAContactWithResponse List attached segments for contact
 	//
@@ -4110,7 +6270,7 @@ type ClientWithResponsesInterface interface {
 	// The conversation can be an in-app message only.
 	//
 	// {% admonition type="info" name="Sending for visitors" %}
-	// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
+	// You can also send a message from a visitor by specifying their `id` value in the `from` field, along with a `type` field value of `lead`.
 	// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
 	// {% /admonition %}
 	//
@@ -4127,7 +6287,7 @@ type ClientWithResponsesInterface interface {
 	// The conversation can be an in-app message only.
 	//
 	// {% admonition type="info" name="Sending for visitors" %}
-	// You can also send a message from a visitor by specifying their `user_id` or `id` value in the `from` field, along with a `type` field value of `contact`.
+	// You can also send a message from a visitor by specifying their `id` value in the `from` field, along with a `type` field value of `lead`.
 	// This visitor will be automatically converted to a contact with a lead role once the conversation is created.
 	// {% /admonition %}
 	//
@@ -4929,6 +7089,8 @@ type ClientWithResponsesInterface interface {
 	// Conversation attributes are no longer returned by this endpoint. Calling without a `model` parameter no longer includes them, and `model=conversation` returns a `422` error. Use `GET /conversations/attributes` instead.
 	// {% /admonition %}
 	//
+	// Requires the `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /data_attributes (the `LisDataAttributes` operationId).
@@ -4938,6 +7100,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can create a data attributes for a `contact` or a `company`.
 	//
+	// Requires the `write_attributes` OAuth scope.
+	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /data_attributes (the `CreateDataAttribute` operationId).
@@ -4946,6 +7110,8 @@ type ClientWithResponsesInterface interface {
 	// CreateDataAttributeWithResponse Create a data attribute
 	//
 	// You can create a data attributes for a `contact` or a `company`.
+	//
+	// Requires the `write_attributes` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -4961,6 +7127,10 @@ type ClientWithResponsesInterface interface {
 	// >
 	// > It is currently a dangerous action to execute changing a data attribute's type via the API. You will need to update the type via the UI instead.
 	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
+	// Requires the `write_attributes` OAuth scope.
+	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with PUT /data_attributes/{data_attribute_id} (the `UpdateDataAttribute` operationId).
@@ -4974,6 +7144,10 @@ type ClientWithResponsesInterface interface {
 	// > 🚧 Updating the data type is not possible
 	// >
 	// > It is currently a dangerous action to execute changing a data attribute's type via the API. You will need to update the type via the UI instead.
+	//
+	// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+	//
+	// Requires the `write_attributes` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -5139,11 +7313,13 @@ type ClientWithResponsesInterface interface {
 	//
 	// When a job has a status of complete, and thus a filled download_url, you can download your data by hitting that provided URL, formatted like so: https://api.intercom.io/download/content/data/xyz1234.
 	//
-	// Your exported message data will be streamed continuously back down to you in a gzipped CSV format.
+	// Your exported message data is returned as a ZIP archive containing one CSV file per data group. The response is sent with the header `Content-Encoding: zip`.
 	//
 	// > 📘 Octet header required
 	// >
 	// > You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+	//
+	// Requires the `export_content_data` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -5157,6 +7333,8 @@ type ClientWithResponsesInterface interface {
 	// > Octet header required
 	// >
 	// > You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+	//
+	// Requires the `export_reporting_data` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -5269,15 +7447,19 @@ type ClientWithResponsesInterface interface {
 	// >
 	// > Please note that you can only 'list' events that are less than 90 days old. Event counts and summaries will still include your events older than 90 days but you cannot 'list' these events individually if they are older than 90 days
 	//
-	// The events belonging to a customer can be listed by sending a GET request to `https://api.intercom.io/events` with a user or lead identifier along with a `type` parameter. The identifier parameter can be one of `user_id`, `email` or `intercom_user_id`. The `type` parameter value must be `user`.
+	// The events belonging to a customer can be listed by sending a GET request to `https://api.intercom.io/events` with a user or lead identifier along with a `type` parameter. The identifier parameter can be one of `user_id`, `email`, `intercom_user_id` or `anonymous_id`. The `type` parameter value must be `user` or `lead`.
 	//
 	// - `https://api.intercom.io/events?type=user&user_id={user_id}`
 	// - `https://api.intercom.io/events?type=user&email={email}`
 	// - `https://api.intercom.io/events?type=user&intercom_user_id={id}` (this call can be used to list leads)
 	//
+	// When `type` is `lead`, a `user_id` you send is matched against the lead's anonymous id instead.
+	//
 	// The `email` parameter value should be [url encoded](http://en.wikipedia.org/wiki/Percent-encoding) when sending.
 	//
 	// You can optionally define the result page size as well with the `per_page` parameter.
+	//
+	// Requires the `read_events` or `write_events` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -5309,7 +7491,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// **Metadata behaviour**
 	//
-	// - We currently limit the number of tracked metadata keys to 10 per event. Once the quota is reached, we ignore any further keys we receive. The first 10 metadata keys are determined by the order in which they are sent in with the event.
+	// - We currently limit the number of tracked metadata keys to 20 per event name. The limit counts every key ever recorded for that event name, not the keys in a single request, so it is reached cumulatively as you send more events with the same name. Once the quota is reached, we ignore any further keys we receive. The keys that count towards the quota are determined by the order in which they are sent in with the event.
 	// - It is not possible to change the metadata keys once the event has been sent. A new event will need to be created with the new keys and you can archive the old one.
 	// - There might be up to 24 hrs delay when you send a new metadata for an existing event.
 	//
@@ -5326,6 +7508,8 @@ type ClientWithResponsesInterface interface {
 	// - Events sent about users that cannot be found will return a `404 Not Found`.
 	// - Event lists containing duplicate events will have those duplicates ignored.
 	// - Server errors will return a `500` response code and may contain an error message in the body.
+	//
+	// Requires the `write_events` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -5357,7 +7541,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// **Metadata behaviour**
 	//
-	// - We currently limit the number of tracked metadata keys to 10 per event. Once the quota is reached, we ignore any further keys we receive. The first 10 metadata keys are determined by the order in which they are sent in with the event.
+	// - We currently limit the number of tracked metadata keys to 20 per event name. The limit counts every key ever recorded for that event name, not the keys in a single request, so it is reached cumulatively as you send more events with the same name. Once the quota is reached, we ignore any further keys we receive. The keys that count towards the quota are determined by the order in which they are sent in with the event.
 	// - It is not possible to change the metadata keys once the event has been sent. A new event will need to be created with the new keys and you can archive the old one.
 	// - There might be up to 24 hrs delay when you send a new metadata for an existing event.
 	//
@@ -5375,6 +7559,8 @@ type ClientWithResponsesInterface interface {
 	// - Event lists containing duplicate events will have those duplicates ignored.
 	// - Server errors will return a `500` response code and may contain an error message in the body.
 	//
+	// Requires the `write_events` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /events (the `CreateDataEvent` operationId).
@@ -5383,6 +7569,10 @@ type ClientWithResponsesInterface interface {
 	// DataEventSummariesWithBodyWithResponse Create event summaries
 	//
 	// Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
+	//
+	// Identify the user with one of `id`, `user_id` or `email`. If more than one is sent, `id` is used first, then `user_id`, then `email`.
+	//
+	// Requires the `write_events` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -5393,6 +7583,10 @@ type ClientWithResponsesInterface interface {
 	//
 	// Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
 	//
+	// Identify the user with one of `id`, `user_id` or `email`. If more than one is sent, `id` is used first, then `user_id`, then `email`.
+	//
+	// Requires the `write_events` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /events/summaries (the `DataEventSummaries` operationId).
@@ -5400,7 +7594,9 @@ type ClientWithResponsesInterface interface {
 
 	// CancelDataExportWithResponse Cancel content data export
 	//
-	// You can cancel your job.
+	// You can cancel your job. A job that has already reached a terminal state is returned unchanged.
+	//
+	// Requires the `export_content_data` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -5413,11 +7609,11 @@ type ClientWithResponsesInterface interface {
 	//
 	// This endpoint exports **message delivery and engagement data** for outbound content (Emails, Posts, Custom Bots, Surveys, Tours, Series, and more). The exported data includes who received each message, when they received it, and how they engaged with it (opens, clicks, replies, completions, dismissals, unsubscribes, and bounces). It does not export raw message or conversation content.
 	//
-	// The only parameters you need to provide are the range of dates that you want exported.
+	// The only parameters you need to provide are the range of dates that you want exported. The range cannot be longer than 90 days.
 	//
-	// >🚧 Limit of one active job
+	// >🚧 Limit of two active jobs
 	// >
-	// > You can only have one active job per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 1 pending message data export jobs if you attempt to create a second concurrent job.
+	// > You can only have two active jobs per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 2 pending content data export jobs if you attempt to create a third concurrent job.
 	//
 	// >❗️ Updated_at not included
 	// >
@@ -5426,6 +7622,8 @@ type ClientWithResponsesInterface interface {
 	// >📘 Date ranges are inclusive
 	// >
 	// > Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
+	//
+	// Requires the `export_content_data` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -5438,11 +7636,11 @@ type ClientWithResponsesInterface interface {
 	//
 	// This endpoint exports **message delivery and engagement data** for outbound content (Emails, Posts, Custom Bots, Surveys, Tours, Series, and more). The exported data includes who received each message, when they received it, and how they engaged with it (opens, clicks, replies, completions, dismissals, unsubscribes, and bounces). It does not export raw message or conversation content.
 	//
-	// The only parameters you need to provide are the range of dates that you want exported.
+	// The only parameters you need to provide are the range of dates that you want exported. The range cannot be longer than 90 days.
 	//
-	// >🚧 Limit of one active job
+	// >🚧 Limit of two active jobs
 	// >
-	// > You can only have one active job per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 1 pending message data export jobs if you attempt to create a second concurrent job.
+	// > You can only have two active jobs per workspace. You will receive a HTTP status code of 429 with the message Exceeded rate limit of 2 pending content data export jobs if you attempt to create a third concurrent job.
 	//
 	// >❗️ Updated_at not included
 	// >
@@ -5451,6 +7649,8 @@ type ClientWithResponsesInterface interface {
 	// >📘 Date ranges are inclusive
 	// >
 	// > Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
+	//
+	// Requires the `export_content_data` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -5462,8 +7662,12 @@ type ClientWithResponsesInterface interface {
 	// You can view the status of your job by sending a `GET` request to the URL
 	// `https://api.intercom.io/export/content/data/{job_identifier}` - the `{job_identifier}` is the value returned in the response when you first created the export job. More on it can be seen in the Export Job Model.
 	//
-	// > 🚧 Jobs expire after two days
-	// > All jobs that have completed processing (and are thus available to download from the provided URL) will have an expiry limit of two days from when the export ob completed. After this, the data will no longer be available.
+	// > 🚧 Jobs expire after one week
+	// > All jobs that have completed processing (and are thus available to download from the provided URL) will have an expiry limit of one week from when the export job was created. After this, the data will no longer be available.
+	//
+	// A job that failed is returned with a `504` status code and a `status` of `failed`. A job left in progress for more than a day is marked failed when you poll it.
+	//
+	// Requires the `export_content_data` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -5472,7 +7676,9 @@ type ClientWithResponsesInterface interface {
 
 	// PostExportReportingDataEnqueueWithBodyWithResponse Enqueue a new reporting data export job
 	//
-	// For the conversation dataset, from this version onward this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+	// For the conversation dataset, from API version 2.16 this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+	//
+	// Requires the `export_reporting_data` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -5481,7 +7687,9 @@ type ClientWithResponsesInterface interface {
 
 	// PostExportReportingDataEnqueueWithResponse Enqueue a new reporting data export job
 	//
-	// For the conversation dataset, from this version onward this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+	// For the conversation dataset, from API version 2.16 this export returns all conversations, including those that never received a user reply. Earlier versions return only conversations that received at least one user reply. Other datasets are unaffected.
+	//
+	// Requires the `export_reporting_data` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -5490,12 +7698,16 @@ type ClientWithResponsesInterface interface {
 
 	// GetExportReportingDataGetDatasetsWithResponse List available datasets and attributes
 	//
+	// Requires the `export_reporting_data` or `read_reporting_datasets` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /export/reporting_data/get_datasets (the `GetExportReportingDataGetDatasets` operationId).
 	GetExportReportingDataGetDatasetsWithResponse(ctx context.Context, params *GetExportReportingDataGetDatasetsParams, reqEditors ...RequestEditorFn) (*GetExportReportingDataGetDatasetsResponse, error)
 
 	// GetExportReportingDataJobIdentifierWithResponse Get export job status
+	//
+	// Requires the `export_reporting_data` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -6340,6 +8552,10 @@ type ClientWithResponsesInterface interface {
 	//
 	// Retrieve the status of job execution.
 	//
+	// `resource_id` and `resource_url` are returned only once `status` is `success`. While the job is `pending` or `failed` both keys are left out of the response rather than returned as `null`.
+	//
+	// Requires the `read_jobs` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /jobs/status/{job_id} (the `JobsStatus` operationId).
@@ -6604,10 +8820,12 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can delete a single contact or company note. Notes of other kinds cannot be deleted through the API.
 	//
+	// Requires the `write_users_companies` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with DELETE /notes/{note_id} (the `DeleteNote` operationId).
-	DeleteNoteWithResponse(ctx context.Context, noteId int, params *DeleteNoteParams, reqEditors ...RequestEditorFn) (*DeleteNoteResponse, error)
+	DeleteNoteWithResponse(ctx context.Context, noteId string, params *DeleteNoteParams, reqEditors ...RequestEditorFn) (*DeleteNoteResponse, error)
 
 	// RetrieveNoteWithResponse Retrieve a note
 	//
@@ -6616,7 +8834,7 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /notes/{note_id} (the `RetrieveNote` operationId).
-	RetrieveNoteWithResponse(ctx context.Context, noteId int, params *RetrieveNoteParams, reqEditors ...RequestEditorFn) (*RetrieveNoteResponse, error)
+	RetrieveNoteWithResponse(ctx context.Context, noteId string, params *RetrieveNoteParams, reqEditors ...RequestEditorFn) (*RetrieveNoteResponse, error)
 
 	// ListOfficeHoursSchedulesWithResponse List all office hours schedules
 	//
@@ -6772,6 +8990,10 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch a list of all segments.
 	//
+	// Segment names are returned HTML-escaped, for example `&` as `&amp;`.
+	//
+	// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /segments (the `ListSegments` operationId).
@@ -6780,6 +9002,10 @@ type ClientWithResponsesInterface interface {
 	// RetrieveSegmentWithResponse Retrieve a segment
 	//
 	// You can fetch the details of a single segment.
+	//
+	// The segment name is returned HTML-escaped, for example `&` as `&amp;`.
+	//
+	// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -6790,6 +9016,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can list all subscription types. A list of subscription type objects will be returned.
 	//
+	// Requires the `read_users_companies` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /subscription_types (the `ListSubscriptionTypes` operationId).
@@ -6799,6 +9027,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch the details of a single subscription type by making a GET request to `https://api.intercom.io/subscription_types/<id>`.
 	//
+	// Requires the `read_users_companies` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /subscription_types/{id} (the `GetSubscriptionType` operationId).
@@ -6807,6 +9037,10 @@ type ClientWithResponsesInterface interface {
 	// ListTagsWithResponse List all tags
 	//
 	// You can fetch a list of all tags for a given workspace.
+	//
+	// Passing `id` returns that one tag object instead of a list. Passing `taggable_type` returns a list of the tags applied to a single contact or company.
+	//
+	// Requires the `read_tags` or `read_users_companies` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -6829,6 +9063,10 @@ type ClientWithResponsesInterface interface {
 	//
 	// Each operation will return a tag object.
 	//
+	// Contacts and companies listed in `users` or `companies` that do not exist are skipped: they are left out of the `users` and `companies` arrays in the response and the request still succeeds. With `ids_to_add` it depends on `taggable_type`: a contact id that does not exist returns a 404, while a company id that does not exist is skipped. With `ids_to_add`, the `users` and `companies` arrays in the response are always empty, and a 404 still leaves the tag created or renamed.
+	//
+	// Requires the `write_tags` or `write_users_companies` OAuth scope.
+	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /tags (the `CreateTag` operationId).
@@ -6850,6 +9088,10 @@ type ClientWithResponsesInterface interface {
 	//
 	// Each operation will return a tag object.
 	//
+	// Contacts and companies listed in `users` or `companies` that do not exist are skipped: they are left out of the `users` and `companies` arrays in the response and the request still succeeds. With `ids_to_add` it depends on `taggable_type`: a contact id that does not exist returns a 404, while a company id that does not exist is skipped. With `ids_to_add`, the `users` and `companies` arrays in the response are always empty, and a 404 still leaves the tag created or renamed.
+	//
+	// Requires the `write_tags` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /tags (the `CreateTag` operationId).
@@ -6858,6 +9100,8 @@ type ClientWithResponsesInterface interface {
 	// DeleteTagWithResponse Delete tag
 	//
 	// You can delete the details of tags that are on the workspace by passing in the id.
+	//
+	// Requires the `write_tags` or `write_users_companies` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -6868,6 +9112,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch the details of tags that are on the workspace by their id.
 	// This will return a tag object.
+	//
+	// Requires the `read_tags` or `read_users_companies` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -7385,6 +9631,8 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch the details of a single visitor.
 	//
+	// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
+	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /visitors (the `RetrieveVisitorWithUserId` operationId).
@@ -7397,6 +9645,10 @@ type ClientWithResponsesInterface interface {
 	// **Option 1.** You can update a visitor by passing in the `user_id` of the visitor in the Request body.
 	//
 	// **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
+	//
+	// Sending an `email` promotes the visitor to a lead. When that happens the response is a contact object with a `role` of `lead`, not a visitor object.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -7411,6 +9663,10 @@ type ClientWithResponsesInterface interface {
 	//
 	// **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
 	//
+	// Sending an `email` promotes the visitor to a lead. When that happens the response is a contact object with a `role` of `lead`, not a visitor object.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with PUT /visitors (the `UpdateVisitor` operationId).
@@ -7424,6 +9680,10 @@ type ClientWithResponsesInterface interface {
 	// >
 	// > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
 	//
+	// Identify the visitor with `visitor.id` or `visitor.user_id`. The `user` object is required when `type` is `user`, and is not read when `type` is `lead`.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /visitors/convert (the `ConvertVisitor` operationId).
@@ -7436,6 +9696,10 @@ type ClientWithResponsesInterface interface {
 	// > 📘 What happens upon a visitor being converted?
 	// >
 	// > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
+	//
+	// Identify the visitor with `visitor.id` or `visitor.user_id`. The `user` object is required when `type` is `user`, and is not read when `type` is `lead`.
+	//
+	// Requires the `read_write_users` or `write_users_companies` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -10522,6 +12786,10 @@ type ListCompanyNotesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *NoteList
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
 }
@@ -10529,6 +12797,16 @@ type ListCompanyNotesResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r ListCompanyNotesResponse) GetJSON200() *NoteList {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListCompanyNotesResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListCompanyNotesResponse) GetJSON401() *Error {
+	return r.JSON401
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
@@ -10570,6 +12848,8 @@ type CreateCompanyNoteResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Note
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
@@ -10579,6 +12859,11 @@ type CreateCompanyNoteResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r CreateCompanyNoteResponse) GetJSON200() *Note {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CreateCompanyNoteResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -14633,6 +16918,10 @@ type ListNotesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *NoteList
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
 }
@@ -14640,6 +16929,16 @@ type ListNotesResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r ListNotesResponse) GetJSON200() *NoteList {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListNotesResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListNotesResponse) GetJSON401() *Error {
+	return r.JSON401
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
@@ -14681,6 +16980,10 @@ type CreateNoteResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Note
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
 }
@@ -14688,6 +16991,16 @@ type CreateNoteResponse struct {
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r CreateNoteResponse) GetJSON200() *Note {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CreateNoteResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r CreateNoteResponse) GetJSON401() *Error {
+	return r.JSON401
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
@@ -17707,2312 +20020,4 @@ type DeleteCustomObjectInstancesByIdResponse struct {
 	JSON401 *Unauthorized
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r DeleteCustomObjectInstancesByIdResponse) GetJSON200() *CustomObjectInstanceDeleted {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r DeleteCustomObjectInstancesByIdResponse) GetJSON401() *Unauthorized {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r DeleteCustomObjectInstancesByIdResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r DeleteCustomObjectInstancesByIdResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r DeleteCustomObjectInstancesByIdResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r DeleteCustomObjectInstancesByIdResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r DeleteCustomObjectInstancesByIdResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type GetCustomObjectInstancesByIdResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *GetCustomObjectInstancesById200JSONResponseBody
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Unauthorized
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *TypeNotFound
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetCustomObjectInstancesByIdResponse) GetJSON200() *GetCustomObjectInstancesById200JSONResponseBody {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r GetCustomObjectInstancesByIdResponse) GetJSON401() *Unauthorized {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r GetCustomObjectInstancesByIdResponse) GetJSON404() *TypeNotFound {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r GetCustomObjectInstancesByIdResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r GetCustomObjectInstancesByIdResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetCustomObjectInstancesByIdResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r GetCustomObjectInstancesByIdResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type LisDataAttributesResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataAttributeList
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r LisDataAttributesResponse) GetJSON200() *DataAttributeList {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r LisDataAttributesResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r LisDataAttributesResponse) GetJSON422() *Error {
-	return r.JSON422
-}
-
-// GetBody returns the raw response body bytes
-func (r LisDataAttributesResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r LisDataAttributesResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r LisDataAttributesResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r LisDataAttributesResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type CreateDataAttributeResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataAttribute
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r CreateDataAttributeResponse) GetJSON200() *DataAttribute {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r CreateDataAttributeResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r CreateDataAttributeResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetBody returns the raw response body bytes
-func (r CreateDataAttributeResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r CreateDataAttributeResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CreateDataAttributeResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r CreateDataAttributeResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type UpdateDataAttributeResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataAttribute
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r UpdateDataAttributeResponse) GetJSON200() *DataAttribute {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r UpdateDataAttributeResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r UpdateDataAttributeResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r UpdateDataAttributeResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r UpdateDataAttributeResponse) GetJSON422() *Error {
-	return r.JSON422
-}
-
-// GetBody returns the raw response body bytes
-func (r UpdateDataAttributeResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r UpdateDataAttributeResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r UpdateDataAttributeResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r UpdateDataAttributeResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ListDataConnectorsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataConnectorList
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ListDataConnectorsResponse) GetJSON200() *DataConnectorList {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r ListDataConnectorsResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r ListDataConnectorsResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetBody returns the raw response body bytes
-func (r ListDataConnectorsResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ListDataConnectorsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListDataConnectorsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListDataConnectorsResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type CreateDataConnectorResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON201 the response for an HTTP 201 `application/json` response
-	JSON201 *DataConnectorDetail
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *Error
-}
-
-// GetJSON201 returns the response for an HTTP 201 `application/json` response
-func (r CreateDataConnectorResponse) GetJSON201() *DataConnectorDetail {
-	return r.JSON201
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r CreateDataConnectorResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r CreateDataConnectorResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r CreateDataConnectorResponse) GetJSON422() *Error {
-	return r.JSON422
-}
-
-// GetBody returns the raw response body bytes
-func (r CreateDataConnectorResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r CreateDataConnectorResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CreateDataConnectorResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r CreateDataConnectorResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ListDataConnectorExecutionResultsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataConnectorExecutionResultList
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ListDataConnectorExecutionResultsResponse) GetJSON200() *DataConnectorExecutionResultList {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r ListDataConnectorExecutionResultsResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r ListDataConnectorExecutionResultsResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r ListDataConnectorExecutionResultsResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r ListDataConnectorExecutionResultsResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ListDataConnectorExecutionResultsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListDataConnectorExecutionResultsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListDataConnectorExecutionResultsResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ShowDataConnectorExecutionResultResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataConnectorExecutionResult
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ShowDataConnectorExecutionResultResponse) GetJSON200() *DataConnectorExecutionResult {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r ShowDataConnectorExecutionResultResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r ShowDataConnectorExecutionResultResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r ShowDataConnectorExecutionResultResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ShowDataConnectorExecutionResultResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ShowDataConnectorExecutionResultResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ShowDataConnectorExecutionResultResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type DeleteDataConnectorResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DeletedDataConnectorObject
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-	// JSON409 the response for an HTTP 409 `application/json` response
-	JSON409 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r DeleteDataConnectorResponse) GetJSON200() *DeletedDataConnectorObject {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r DeleteDataConnectorResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r DeleteDataConnectorResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetJSON409 returns the response for an HTTP 409 `application/json` response
-func (r DeleteDataConnectorResponse) GetJSON409() *Error {
-	return r.JSON409
-}
-
-// GetBody returns the raw response body bytes
-func (r DeleteDataConnectorResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r DeleteDataConnectorResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r DeleteDataConnectorResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r DeleteDataConnectorResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type RetrieveDataConnectorResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataConnectorDetail
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r RetrieveDataConnectorResponse) GetJSON200() *DataConnectorDetail {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r RetrieveDataConnectorResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r RetrieveDataConnectorResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r RetrieveDataConnectorResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r RetrieveDataConnectorResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r RetrieveDataConnectorResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r RetrieveDataConnectorResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r RetrieveDataConnectorResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type UpdateDataConnectorResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataConnectorDetail
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-	// JSON409 the response for an HTTP 409 `application/json` response
-	JSON409 *Error
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r UpdateDataConnectorResponse) GetJSON200() *DataConnectorDetail {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r UpdateDataConnectorResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r UpdateDataConnectorResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r UpdateDataConnectorResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetJSON409 returns the response for an HTTP 409 `application/json` response
-func (r UpdateDataConnectorResponse) GetJSON409() *Error {
-	return r.JSON409
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r UpdateDataConnectorResponse) GetJSON422() *Error {
-	return r.JSON422
-}
-
-// GetBody returns the raw response body bytes
-func (r UpdateDataConnectorResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r UpdateDataConnectorResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r UpdateDataConnectorResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r UpdateDataConnectorResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ListDataConnectorVersionsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataConnectorVersionList
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ListDataConnectorVersionsResponse) GetJSON200() *DataConnectorVersionList {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r ListDataConnectorVersionsResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r ListDataConnectorVersionsResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r ListDataConnectorVersionsResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r ListDataConnectorVersionsResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ListDataConnectorVersionsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListDataConnectorVersionsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListDataConnectorVersionsResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type RetrieveDataConnectorVersionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataConnectorVersion
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r RetrieveDataConnectorVersionResponse) GetJSON200() *DataConnectorVersion {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r RetrieveDataConnectorVersionResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r RetrieveDataConnectorVersionResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r RetrieveDataConnectorVersionResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r RetrieveDataConnectorVersionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r RetrieveDataConnectorVersionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r RetrieveDataConnectorVersionResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type UpdateDataConnectorVersionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataConnectorVersion
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r UpdateDataConnectorVersionResponse) GetJSON200() *DataConnectorVersion {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r UpdateDataConnectorVersionResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r UpdateDataConnectorVersionResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r UpdateDataConnectorVersionResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r UpdateDataConnectorVersionResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r UpdateDataConnectorVersionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r UpdateDataConnectorVersionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r UpdateDataConnectorVersionResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type DownloadDataExportResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-}
-
-// GetBody returns the raw response body bytes
-func (r DownloadDataExportResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r DownloadDataExportResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r DownloadDataExportResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r DownloadDataExportResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type GetDownloadReportingDataJobIdentifierResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r GetDownloadReportingDataJobIdentifierResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r GetDownloadReportingDataJobIdentifierResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r GetDownloadReportingDataJobIdentifierResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetDownloadReportingDataJobIdentifierResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r GetDownloadReportingDataJobIdentifierResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ListDynamicContentsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DynamicContentList
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Unauthorized
-	// JSON403 the response for an HTTP 403 `application/json` response
-	JSON403 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ListDynamicContentsResponse) GetJSON200() *DynamicContentList {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r ListDynamicContentsResponse) GetJSON401() *Unauthorized {
-	return r.JSON401
-}
-
-// GetJSON403 returns the response for an HTTP 403 `application/json` response
-func (r ListDynamicContentsResponse) GetJSON403() *Error {
-	return r.JSON403
-}
-
-// GetBody returns the raw response body bytes
-func (r ListDynamicContentsResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ListDynamicContentsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListDynamicContentsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListDynamicContentsResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type CreateDynamicContentResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON201 the response for an HTTP 201 `application/json` response
-	JSON201 *DynamicContent
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Unauthorized
-	// JSON403 the response for an HTTP 403 `application/json` response
-	JSON403 *Error
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *Error
-}
-
-// GetJSON201 returns the response for an HTTP 201 `application/json` response
-func (r CreateDynamicContentResponse) GetJSON201() *DynamicContent {
-	return r.JSON201
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r CreateDynamicContentResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r CreateDynamicContentResponse) GetJSON401() *Unauthorized {
-	return r.JSON401
-}
-
-// GetJSON403 returns the response for an HTTP 403 `application/json` response
-func (r CreateDynamicContentResponse) GetJSON403() *Error {
-	return r.JSON403
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r CreateDynamicContentResponse) GetJSON422() *Error {
-	return r.JSON422
-}
-
-// GetBody returns the raw response body bytes
-func (r CreateDynamicContentResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r CreateDynamicContentResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CreateDynamicContentResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r CreateDynamicContentResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type DeleteDynamicContentResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Unauthorized
-	// JSON403 the response for an HTTP 403 `application/json` response
-	JSON403 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *Error
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r DeleteDynamicContentResponse) GetJSON401() *Unauthorized {
-	return r.JSON401
-}
-
-// GetJSON403 returns the response for an HTTP 403 `application/json` response
-func (r DeleteDynamicContentResponse) GetJSON403() *Error {
-	return r.JSON403
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r DeleteDynamicContentResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r DeleteDynamicContentResponse) GetJSON422() *Error {
-	return r.JSON422
-}
-
-// GetBody returns the raw response body bytes
-func (r DeleteDynamicContentResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r DeleteDynamicContentResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r DeleteDynamicContentResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r DeleteDynamicContentResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type GetDynamicContentResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DynamicContent
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Unauthorized
-	// JSON403 the response for an HTTP 403 `application/json` response
-	JSON403 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetDynamicContentResponse) GetJSON200() *DynamicContent {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r GetDynamicContentResponse) GetJSON401() *Unauthorized {
-	return r.JSON401
-}
-
-// GetJSON403 returns the response for an HTTP 403 `application/json` response
-func (r GetDynamicContentResponse) GetJSON403() *Error {
-	return r.JSON403
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r GetDynamicContentResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r GetDynamicContentResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r GetDynamicContentResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetDynamicContentResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r GetDynamicContentResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type UpdateDynamicContentResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DynamicContent
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Unauthorized
-	// JSON403 the response for an HTTP 403 `application/json` response
-	JSON403 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r UpdateDynamicContentResponse) GetJSON200() *DynamicContent {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r UpdateDynamicContentResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r UpdateDynamicContentResponse) GetJSON401() *Unauthorized {
-	return r.JSON401
-}
-
-// GetJSON403 returns the response for an HTTP 403 `application/json` response
-func (r UpdateDynamicContentResponse) GetJSON403() *Error {
-	return r.JSON403
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r UpdateDynamicContentResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r UpdateDynamicContentResponse) GetJSON422() *Error {
-	return r.JSON422
-}
-
-// GetBody returns the raw response body bytes
-func (r UpdateDynamicContentResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r UpdateDynamicContentResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r UpdateDynamicContentResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r UpdateDynamicContentResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ListEmailsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *EmailList
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ListEmailsResponse) GetJSON200() *EmailList {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r ListEmailsResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetBody returns the raw response body bytes
-func (r ListEmailsResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ListEmailsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListEmailsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListEmailsResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type RetrieveEmailResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *EmailSetting
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r RetrieveEmailResponse) GetJSON200() *EmailSetting {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r RetrieveEmailResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r RetrieveEmailResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r RetrieveEmailResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r RetrieveEmailResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r RetrieveEmailResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r RetrieveEmailResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type LisDataEventsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *LisDataEvents200JSONResponseBody
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r LisDataEventsResponse) GetJSON200() *LisDataEvents200JSONResponseBody {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r LisDataEventsResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetBody returns the raw response body bytes
-func (r LisDataEventsResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r LisDataEventsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r LisDataEventsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r LisDataEventsResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type CreateDataEventResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r CreateDataEventResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetBody returns the raw response body bytes
-func (r CreateDataEventResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r CreateDataEventResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CreateDataEventResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r CreateDataEventResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type DataEventSummariesResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r DataEventSummariesResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetBody returns the raw response body bytes
-func (r DataEventSummariesResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r DataEventSummariesResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r DataEventSummariesResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r DataEventSummariesResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type CancelDataExportResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataExport
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r CancelDataExportResponse) GetJSON200() *DataExport {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r CancelDataExportResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r CancelDataExportResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CancelDataExportResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r CancelDataExportResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type CreateDataExportResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataExport
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r CreateDataExportResponse) GetJSON200() *DataExport {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r CreateDataExportResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r CreateDataExportResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CreateDataExportResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r CreateDataExportResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type GetDataExportResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *DataExport
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetDataExportResponse) GetJSON200() *DataExport {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetDataExportResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r GetDataExportResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetDataExportResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r GetDataExportResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type PostExportReportingDataEnqueueResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *struct {
-		DownloadExpiresAt *string `json:"download_expires_at,omitempty"`
-		DownloadUrl       *string `json:"download_url,omitempty"`
-
-		// JobIdentifier Example: job1
-		JobIdentifier *string `json:"job_identifier,omitempty"`
-
-		// Status Example: pending
-		Status *string `json:"status,omitempty"`
-	}
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON429 the response for an HTTP 429 `application/json` response
-	JSON429 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r PostExportReportingDataEnqueueResponse) GetJSON200() *struct {
-	DownloadExpiresAt *string `json:"download_expires_at,omitempty"`
-	DownloadUrl       *string `json:"download_url,omitempty"`
-
-	// JobIdentifier Example: job1
-	JobIdentifier *string `json:"job_identifier,omitempty"`
-
-	// Status Example: pending
-	Status *string `json:"status,omitempty"`
-} {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r PostExportReportingDataEnqueueResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r PostExportReportingDataEnqueueResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON429 returns the response for an HTTP 429 `application/json` response
-func (r PostExportReportingDataEnqueueResponse) GetJSON429() *Error {
-	return r.JSON429
-}
-
-// GetBody returns the raw response body bytes
-func (r PostExportReportingDataEnqueueResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r PostExportReportingDataEnqueueResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r PostExportReportingDataEnqueueResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r PostExportReportingDataEnqueueResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type GetExportReportingDataGetDatasetsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *struct {
-		Data *[]struct {
-			Attributes *[]struct {
-				// Id The simple attribute identifier. Note that this may be ambiguous if the same name exists across different attribute types. Use qualified_id when calling the enqueue endpoint.
-				//
-				// Example: conversation_id
-				Id *string `json:"id,omitempty"`
-
-				// Name Example: Conversation ID
-				Name *string `json:"name,omitempty"`
-
-				// QualifiedId A namespaced identifier that uniquely identifies the attribute across all types. Format is "prefix.name" (e.g., "people.Brand", "conversation.Brand"). Required when calling the enqueue endpoint.
-				//
-				// Example: conversation.conversation_id
-				QualifiedId *string `json:"qualified_id,omitempty"`
-			} `json:"attributes,omitempty"`
-
-			// DefaultTimeAttributeId Example: conversation_started_at
-			DefaultTimeAttributeId *string `json:"default_time_attribute_id,omitempty"`
-
-			// Description Example: Conversation-level details: status, channel, assignee.
-			Description *string `json:"description,omitempty"`
-
-			// Id Example: conversation
-			Id *string `json:"id,omitempty"`
-
-			// Name Example: Conversation
-			Name *string `json:"name,omitempty"`
-		} `json:"data,omitempty"`
-
-		// Type Example: list
-		Type *string `json:"type,omitempty"`
-	}
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetExportReportingDataGetDatasetsResponse) GetJSON200() *struct {
-	Data *[]struct {
-		Attributes *[]struct {
-			// Id The simple attribute identifier. Note that this may be ambiguous if the same name exists across different attribute types. Use qualified_id when calling the enqueue endpoint.
-			//
-			// Example: conversation_id
-			Id *string `json:"id,omitempty"`
-
-			// Name Example: Conversation ID
-			Name *string `json:"name,omitempty"`
-
-			// QualifiedId A namespaced identifier that uniquely identifies the attribute across all types. Format is "prefix.name" (e.g., "people.Brand", "conversation.Brand"). Required when calling the enqueue endpoint.
-			//
-			// Example: conversation.conversation_id
-			QualifiedId *string `json:"qualified_id,omitempty"`
-		} `json:"attributes,omitempty"`
-
-		// DefaultTimeAttributeId Example: conversation_started_at
-		DefaultTimeAttributeId *string `json:"default_time_attribute_id,omitempty"`
-
-		// Description Example: Conversation-level details: status, channel, assignee.
-		Description *string `json:"description,omitempty"`
-
-		// Id Example: conversation
-		Id *string `json:"id,omitempty"`
-
-		// Name Example: Conversation
-		Name *string `json:"name,omitempty"`
-	} `json:"data,omitempty"`
-
-	// Type Example: list
-	Type *string `json:"type,omitempty"`
-} {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetExportReportingDataGetDatasetsResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r GetExportReportingDataGetDatasetsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetExportReportingDataGetDatasetsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r GetExportReportingDataGetDatasetsResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type GetExportReportingDataJobIdentifierResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *struct {
-		DownloadExpiresAt *string `json:"download_expires_at,omitempty"`
-		DownloadUrl       *string `json:"download_url,omitempty"`
-		JobIdentifier     *string `json:"job_identifier,omitempty"`
-		Status            *string `json:"status,omitempty"`
-	}
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetExportReportingDataJobIdentifierResponse) GetJSON200() *struct {
-	DownloadExpiresAt *string `json:"download_expires_at,omitempty"`
-	DownloadUrl       *string `json:"download_url,omitempty"`
-	JobIdentifier     *string `json:"job_identifier,omitempty"`
-	Status            *string `json:"status,omitempty"`
-} {
-	return r.JSON200
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r GetExportReportingDataJobIdentifierResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetBody returns the raw response body bytes
-func (r GetExportReportingDataJobIdentifierResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r GetExportReportingDataJobIdentifierResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetExportReportingDataJobIdentifierResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r GetExportReportingDataJobIdentifierResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ExportWorkflowResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *WorkflowExport
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *Error
-	// JSON503 the response for an HTTP 503 `application/json` response
-	JSON503 *Error
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ExportWorkflowResponse) GetJSON200() *WorkflowExport {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r ExportWorkflowResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r ExportWorkflowResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetJSON503 returns the response for an HTTP 503 `application/json` response
-func (r ExportWorkflowResponse) GetJSON503() *Error {
-	return r.JSON503
-}
-
-// GetBody returns the raw response body bytes
-func (r ExportWorkflowResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ExportWorkflowResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ExportWorkflowResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ExportWorkflowResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type AskFinResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *struct {
-		// ConversationId The external ID of the conversation.
-		//
-		// Example: ext-123
-		ConversationId *string `json:"conversation_id,omitempty"`
-
-		// CreatedAtMs The timestamp the response was created at, with millisecond precision.
-		//
-		// Example: 2025-01-24T10:00:00.123Z
-		CreatedAtMs *time.Time `json:"created_at_ms,omitempty"`
-
-		// Errors Contains error details if any user or conversation attribute updates failed.
-		Errors *FinAgentAttributeErrors `json:"errors,omitempty"`
-
-		// IntercomConversationId The internal Intercom conversation ID, useful for matching this Agent API session to the conversation in Intercom.
-		//
-		// Example: 192837465
-		IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
-
-		// Status Fin's status when the request was accepted. Always `thinking`; later statuses arrive as events.
-		//
-		//
-		// Example: thinking
-		Status *AskFin200JSONResponseBodyStatus `json:"status,omitempty"`
-
-		// UserId The ID of the user.
-		//
-		// Example: user-456
-		UserId *string `json:"user_id,omitempty"`
-	}
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON403 the response for an HTTP 403 `application/json` response
-	JSON403 *Error
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *struct {
-		// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
-		//
-		// Example: {"conversation_id":"Conversation ID is required"}
-		Errors *map[string]interface{} `json:"errors,omitempty"`
-	}
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r AskFinResponse) GetJSON200() *struct {
-	// ConversationId The external ID of the conversation.
-	//
-	// Example: ext-123
-	ConversationId *string `json:"conversation_id,omitempty"`
-
-	// CreatedAtMs The timestamp the response was created at, with millisecond precision.
-	//
-	// Example: 2025-01-24T10:00:00.123Z
-	CreatedAtMs *time.Time `json:"created_at_ms,omitempty"`
-
-	// Errors Contains error details if any user or conversation attribute updates failed.
-	Errors *FinAgentAttributeErrors `json:"errors,omitempty"`
-
-	// IntercomConversationId The internal Intercom conversation ID, useful for matching this Agent API session to the conversation in Intercom.
-	//
-	// Example: 192837465
-	IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
-
-	// Status Fin's status when the request was accepted. Always `thinking`; later statuses arrive as events.
-	//
-	//
-	// Example: thinking
-	Status *AskFin200JSONResponseBodyStatus `json:"status,omitempty"`
-
-	// UserId The ID of the user.
-	//
-	// Example: user-456
-	UserId *string `json:"user_id,omitempty"`
-} {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r AskFinResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r AskFinResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON403 returns the response for an HTTP 403 `application/json` response
-func (r AskFinResponse) GetJSON403() *Error {
-	return r.JSON403
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r AskFinResponse) GetJSON422() *struct {
-	// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
-	//
-	// Example: {"conversation_id":"Conversation ID is required"}
-	Errors *map[string]interface{} `json:"errors,omitempty"`
-} {
-	return r.JSON422
-}
-
-// GetBody returns the raw response body bytes
-func (r AskFinResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r AskFinResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r AskFinResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r AskFinResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ListFinCapabilitiesResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *struct {
-		// Capabilities The list of capabilities available to this user, as tool definitions.
-		Capabilities *[]struct {
-			// Description A description of the capability. For a procedure, the text is wrapped in `<untrusted-content>` tags, and is null when the procedure has no description.
-			//
-			// Example: Send a user reply into an existing Fin conversation and get Fin's next turn. Use this to continue any ongoing conversation — including one opened by a procedure run — whenever its status is `awaiting_user_reply`.
-			Description *string `json:"description,omitempty"`
-
-			// Endpoint The endpoint path to call to use this capability.
-			//
-			// Example: /fin/procedures/12345/run
-			Endpoint *string `json:"endpoint,omitempty"`
-
-			// InputSchema A JSON Schema describing the request body to send to the capability's endpoint.
-			InputSchema *map[string]interface{} `json:"inputSchema,omitempty"`
-
-			// Method The HTTP method to use.
-			//
-			// Example: POST
-			Method *string `json:"method,omitempty"`
-
-			// Name The capability name. Procedures are named `run_procedure_<title_slug>_<id>`, with the slug cut to 80 characters, or `run_procedure_<id>` when the title gives no usable slug (for example a blank or non-Latin title); the static actions are named `reply`, `ask`, and `escalate`.
-			//
-			// Example: run_procedure_reset_password_12345
-			Name *string `json:"name,omitempty"`
-		} `json:"capabilities,omitempty"`
-
-		// Errors Contains error details if any user or conversation attribute updates failed.
-		Errors *FinAgentAttributeErrors `json:"errors,omitempty"`
-
-		// Version The API version the capabilities document was generated for.
-		//
-		// Example: 2.17
-		Version *string `json:"version,omitempty"`
-	}
-	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *Error
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON403 the response for an HTTP 403 `application/json` response
-	JSON403 *Error
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *struct {
-		// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
-		//
-		// Example: {"user":"Cannot update more than 10 attributes at once. Received 11 attributes."}
-		Errors *map[string]interface{} `json:"errors,omitempty"`
-	}
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ListFinCapabilitiesResponse) GetJSON200() *struct {
-	// Capabilities The list of capabilities available to this user, as tool definitions.
-	Capabilities *[]struct {
-		// Description A description of the capability. For a procedure, the text is wrapped in `<untrusted-content>` tags, and is null when the procedure has no description.
-		//
-		// Example: Send a user reply into an existing Fin conversation and get Fin's next turn. Use this to continue any ongoing conversation — including one opened by a procedure run — whenever its status is `awaiting_user_reply`.
-		Description *string `json:"description,omitempty"`
-
-		// Endpoint The endpoint path to call to use this capability.
-		//
-		// Example: /fin/procedures/12345/run
-		Endpoint *string `json:"endpoint,omitempty"`
-
-		// InputSchema A JSON Schema describing the request body to send to the capability's endpoint.
-		InputSchema *map[string]interface{} `json:"inputSchema,omitempty"`
-
-		// Method The HTTP method to use.
-		//
-		// Example: POST
-		Method *string `json:"method,omitempty"`
-
-		// Name The capability name. Procedures are named `run_procedure_<title_slug>_<id>`, with the slug cut to 80 characters, or `run_procedure_<id>` when the title gives no usable slug (for example a blank or non-Latin title); the static actions are named `reply`, `ask`, and `escalate`.
-		//
-		// Example: run_procedure_reset_password_12345
-		Name *string `json:"name,omitempty"`
-	} `json:"capabilities,omitempty"`
-
-	// Errors Contains error details if any user or conversation attribute updates failed.
-	Errors *FinAgentAttributeErrors `json:"errors,omitempty"`
-
-	// Version The API version the capabilities document was generated for.
-	//
-	// Example: 2.17
-	Version *string `json:"version,omitempty"`
-} {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r ListFinCapabilitiesResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r ListFinCapabilitiesResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON403 returns the response for an HTTP 403 `application/json` response
-func (r ListFinCapabilitiesResponse) GetJSON403() *Error {
-	return r.JSON403
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r ListFinCapabilitiesResponse) GetJSON422() *struct {
-	// Errors Validation messages keyed by the field they apply to, or `base` for request-level failures.
-	//
-	// Example: {"user":"Cannot update more than 10 attributes at once. Received 11 attributes."}
-	Errors *map[string]interface{} `json:"errors,omitempty"`
-} {
-	return r.JSON422
-}
-
-// GetBody returns the raw response body bytes
-func (r ListFinCapabilitiesResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ListFinCapabilitiesResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListFinCapabilitiesResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListFinCapabilitiesResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type SubmitFinCsatResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *struct {
-		// ConversationId The external ID of the rated conversation.
-		//
-		// Example: ext-123
-		ConversationId *string `json:"conversation_id,omitempty"`
-
-		// Rating The rating now recorded on the conversation.
-		//
-		// Example: amazing
-		Rating *SubmitFinCsat200JSONResponseBodyRating `json:"rating,omitempty"`
-
-		// Status The result of the submission.
-		//
-		// Example: rated
-		Status *SubmitFinCsat200JSONResponseBodyStatus `json:"status,omitempty"`
-	}
-	// JSON401 the response for an HTTP 401 `application/json` response
-	JSON401 *Error
-	// JSON403 the response for an HTTP 403 `application/json` response
-	JSON403 *Error
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *struct {
-		// Errors Validation messages keyed by the field they apply to, or `base` for conversation-level failures.
-		//
-		// Example: {"base":"The rating window for this conversation has closed"}
-		Errors *map[string]string `json:"errors,omitempty"`
-	}
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r SubmitFinCsatResponse) GetJSON200() *struct {
-	// ConversationId The external ID of the rated conversation.
-	//
-	// Example: ext-123
-	ConversationId *string `json:"conversation_id,omitempty"`
-
-	// Rating The rating now recorded on the conversation.
-	//
-	// Example: amazing
-	Rating *SubmitFinCsat200JSONResponseBodyRating `json:"rating,omitempty"`
-
-	// Status The result of the submission.
-	//
-	// Example: rated
-	Status *SubmitFinCsat200JSONResponseBodyStatus `json:"status,omitempty"`
-} {
-	return r.JSON200
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r SubmitFinCsatResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON403 returns the response for an HTTP 403 `application/json` response
-func (r SubmitFinCsatResponse) GetJSON403() *Error {
-	return r.JSON403
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r SubmitFinCsatResponse) GetJSON422() *struct {
-	// Errors Validation messages keyed by the field they apply to, or `base` for conversation-level failures.
-	//
-	// Example: {"base":"The rating window for this conversation has closed"}
-	Errors *map[string]string `json:"errors,omitempty"`
-} {
-	return r.JSON422
 }
