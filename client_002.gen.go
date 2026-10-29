@@ -2463,7 +2463,7 @@ type WorkflowExport struct {
 		// EmbeddedRules Rules embedded within the workflow steps.
 		EmbeddedRules *[]map[string]interface{} `json:"embedded_rules,omitempty"`
 
-		// Id The unique identifier for the workflow.
+		// Id The unique identifier for the workflow. This is not the ruleset ID that the export endpoint's `id` path parameter expects.
 		//
 		// Example: 67890
 		Id *string `json:"id,omitempty"`
@@ -3299,10 +3299,10 @@ type BulkContentActionsParams struct {
 
 // SearchContentParams defines parameters for SearchContent.
 type SearchContentParams struct {
-	// Query A free-text search term matched against the title and body of each content item. When omitted, returns the most recent content items.
+	// Query A free-text search term matched against the title and body of each content item. When omitted, returns the most recent content items. Keep it to 500 characters or fewer. The API doesn't currently reject longer values.
 	Query *string `form:"query,omitempty" json:"query,omitempty"`
 
-	// Page The page number to fetch. Defaults to 1. Values below 1 are clamped to 1.
+	// Page The page number to fetch. Defaults to 1. Values below 1 are clamped to 1. Values above 5001 return a `400` `parameter_invalid` error.
 	Page *int `form:"page,omitempty" json:"page,omitempty"`
 
 	// PerPage Number of results per page. Defaults to 10. Maximum 50.
@@ -13185,6 +13185,8 @@ type ClientInterface interface {
 	//
 	// You can retrieve a list of all content import sources for a workspace.
 	//
+	// `total_count` and `pages.total_pages` are worked out from every content import source in the workspace, including deleted ones that the list leaves out, so both can be higher than the number of sources you get back across all pages. The last pages can be short or empty.
+	//
 	// OAuth tokens must have the `read_write_ai_content` scope.
 	//
 	// Corresponds with GET /ai/content_import_sources (the `ListContentImportSources` operationId).
@@ -13476,6 +13478,9 @@ type ClientInterface interface {
 	// `GET /articles/{article_id}/versions/{id}` to retrieve a single version
 	// with its full content.
 	//
+	// A `404` has an empty response body, whether the article or its content
+	// isn't found.
+	//
 	// Requires the `read_articles_scope` OAuth scope.
 	//
 	// Corresponds with GET /articles/{article_id}/versions (the `ListArticleVersions` operationId).
@@ -13487,6 +13492,9 @@ type ClientInterface interface {
 	// by making a GET request to
 	// `https://api.intercom.io/articles/<article_id>/versions/<id>`. Returns
 	// the version's full content; the live article remains untouched.
+	//
+	// A `404` has an empty response body, whether the article, its content or
+	// the version isn't found.
 	//
 	// Requires the `read_articles_scope` OAuth scope.
 	//
@@ -13500,7 +13508,9 @@ type ClientInterface interface {
 	// rendered with its draft content, leaving the live article untouched.
 	//
 	// A draft exists only when a published article has unpublished changes staged
-	// on top of it. Returns `404` when the article has no staged draft.
+	// on top of it. Returns `404` with an empty response body when the article
+	// has no staged draft. An article ID that doesn't exist returns a `404` with
+	// the standard error body.
 	//
 	// Requires the `read_articles_scope` OAuth scope.
 	//
@@ -13514,7 +13524,9 @@ type ClientInterface interface {
 	// unchanged until the draft is published.
 	//
 	// The article must already be published; staging a draft on an article that
-	// has never been published returns `422`.
+	// has never been published returns `422`. That `422` has the short body
+	// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+	// `request_id` or `code`. Other `422` errors use the standard error format.
 	//
 	// Only text content is staged: `title`, `description`, `body` or
 	// `body_markdown`, and `author_id`, including per-locale values in
@@ -13538,7 +13550,9 @@ type ClientInterface interface {
 	// unchanged until the draft is published.
 	//
 	// The article must already be published; staging a draft on an article that
-	// has never been published returns `422`.
+	// has never been published returns `422`. That `422` has the short body
+	// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+	// `request_id` or `code`. Other `422` errors use the standard error format.
 	//
 	// Only text content is staged: `title`, `description`, `body` or
 	// `body_markdown`, and `author_id`, including per-locale values in
@@ -13566,6 +13580,10 @@ type ClientInterface interface {
 	// omitting it returns `422`. Returns `422` when there is no staged draft to
 	// publish, or when a requested locale has no pending changes.
 	//
+	// The `422` for no staged draft has the short body
+	// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+	// `request_id` or `code`. The other `422` errors use the standard error format.
+	//
 	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
@@ -13583,6 +13601,10 @@ type ClientInterface interface {
 	// workspace you must list which locales to publish via the `locales` array;
 	// omitting it returns `422`. Returns `422` when there is no staged draft to
 	// publish, or when a requested locale has no pending changes.
+	//
+	// The `422` for no staged draft has the short body
+	// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+	// `request_id` or `code`. The other `422` errors use the standard error format.
 	//
 	// Requires the `read_write_articles_scope` OAuth scope.
 	//
@@ -14269,7 +14291,7 @@ type ClientInterface interface {
 	// {% /admonition %}
 	//
 	// {% admonition type="info" name="Limits" %}
-	//   - Maximum of 100 contacts per request.
+	//   - Maximum of 1,000 contacts per request.
 	//   - You can append tasks to an existing job by including `job.id` in the request body.
 	// {% /admonition %}
 	//
@@ -14291,7 +14313,7 @@ type ClientInterface interface {
 	// {% /admonition %}
 	//
 	// {% admonition type="info" name="Limits" %}
-	//   - Maximum of 100 contacts per request.
+	//   - Maximum of 1,000 contacts per request.
 	//   - You can append tasks to an existing job by including `job.id` in the request body.
 	// {% /admonition %}
 	//
@@ -15107,6 +15129,8 @@ type ClientInterface interface {
 	//
 	// You can create a new content snippet.
 	//
+	// `title` is listed as required, but a missing, `null` or empty `title` is accepted and the snippet is created with a blank title. When `json_blocks` is omitted or `null` and `body_markdown` is omitted or blank, the snippet is created with a single empty paragraph.
+	//
 	// Requires the `read_write_content_snippets` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
@@ -15117,6 +15141,8 @@ type ClientInterface interface {
 	// CreateContentSnippet Create a content snippet
 	//
 	// You can create a new content snippet.
+	//
+	// `title` is listed as required, but a missing, `null` or empty `title` is accepted and the snippet is created with a blank title. When `json_blocks` is omitted or `null` and `body_markdown` is omitted or blank, the snippet is created with a single empty paragraph.
 	//
 	// Requires the `read_write_content_snippets` OAuth scope.
 	//
@@ -16607,6 +16633,8 @@ type ClientInterface interface {
 	//
 	// Export a workflow configuration by its ID. This endpoint returns the complete workflow definition including its steps, targeting rules, and attributes.
 	//
+	// The `id` in the path is the workflow's ruleset ID, the number at the end of the workflow's URL in Intercom (`https://app.intercom.com/a/apps/<app_id>/automation/workflows/<id>`). The `workflow.id` in the response is a different ID, so don't pass it back as `id`.
+	//
 	// This endpoint is designed for EU Data Act compliance, allowing customers to export their workflow configurations.
 	//
 	// Corresponds with GET /export/workflows/{id} (the `ExportWorkflow` operationId).
@@ -16617,10 +16645,11 @@ type ClientInterface interface {
 	// Ask Fin a single, self-contained question and receive one informational answer.
 	//
 	// Unlike a conversation, `/fin/ask` is non-conversational: Fin will not ask follow-up
-	// questions, will not run procedures, and will not escalate to a human on its own. You can
-	// still escalate one yourself with `POST /fin/escalate`; the ask conversation is already
-	// closed after its one-shot answer, and escalation leaves it closed while routing the
-	// handoff separately.
+	// questions, will not run procedures, and will not decide to hand over to a human itself.
+	// Escalation rules can still match, and the conversation can still be routed to a team or
+	// finish without resolution. You can also escalate one yourself with `POST /fin/escalate`;
+	// the ask conversation is already closed after its one-shot answer, and escalation leaves
+	// it closed while routing the handoff separately.
 	//
 	// Fin's answer is delivered asynchronously via the `fin_replied` event. The conversation
 	// ends with a `complete` status — there is no `awaiting_user_reply` cycle.
@@ -16639,10 +16668,11 @@ type ClientInterface interface {
 	// Ask Fin a single, self-contained question and receive one informational answer.
 	//
 	// Unlike a conversation, `/fin/ask` is non-conversational: Fin will not ask follow-up
-	// questions, will not run procedures, and will not escalate to a human on its own. You can
-	// still escalate one yourself with `POST /fin/escalate`; the ask conversation is already
-	// closed after its one-shot answer, and escalation leaves it closed while routing the
-	// handoff separately.
+	// questions, will not run procedures, and will not decide to hand over to a human itself.
+	// Escalation rules can still match, and the conversation can still be routed to a team or
+	// finish without resolution. You can also escalate one yourself with `POST /fin/escalate`;
+	// the ask conversation is already closed after its one-shot answer, and escalation leaves
+	// it closed while routing the handoff separately.
 	//
 	// Fin's answer is delivered asynchronously via the `fin_replied` event. The conversation
 	// ends with a `complete` status — there is no `awaiting_user_reply` cycle.
@@ -17132,6 +17162,8 @@ type ClientInterface interface {
 	//
 	// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
 	//
+	// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
+	//
 	// Requires the `read_write_articles_scope` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
@@ -17142,6 +17174,8 @@ type ClientInterface interface {
 	// UpdateCollection Update a collection
 	//
 	// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+	//
+	// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
 	//
 	// Requires the `read_write_articles_scope` OAuth scope.
 	//
@@ -17363,6 +17397,8 @@ type ClientInterface interface {
 	//
 	// Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
 	//
+	// When the update leaves the allowlist enabled with at least one entry, the request must come from an IPv4 address that is on the list. A request from an IPv6 address can never match an IPv4 allowlist, so it returns the lockout 422 below.
+	//
 	// Requires the `manage_ip_allowlist` OAuth scope.
 	//
 	// {% admonition type="warning" name="Lockout Protection" %}
@@ -17381,6 +17417,8 @@ type ClientInterface interface {
 	// Both `enabled` and `ip_allowlist` are optional. A field you omit is left unchanged, and a request with neither returns the current settings without changing anything. Sending `null` for a field is the same as omitting it.
 	//
 	// Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
+	//
+	// When the update leaves the allowlist enabled with at least one entry, the request must come from an IPv4 address that is on the list. A request from an IPv6 address can never match an IPv4 allowlist, so it returns the lockout 422 below.
 	//
 	// Requires the `manage_ip_allowlist` OAuth scope.
 	//
@@ -18626,6 +18664,8 @@ func (c *Client) SetAwayAdmin(ctx context.Context, adminId int, params *SetAwayA
 //
 // You can retrieve a list of all content import sources for a workspace.
 //
+// `total_count` and `pages.total_pages` are worked out from every content import source in the workspace, including deleted ones that the list leaves out, so both can be higher than the number of sources you get back across all pages. The last pages can be short or empty.
+//
 // OAuth tokens must have the `read_write_ai_content` scope.
 //
 // Corresponds with GET /ai/content_import_sources (the `ListContentImportSources` operationId).
@@ -19167,6 +19207,9 @@ func (c *Client) DetachTagFromArticle(ctx context.Context, articleId int, id str
 // `GET /articles/{article_id}/versions/{id}` to retrieve a single version
 // with its full content.
 //
+// A `404` has an empty response body, whether the article or its content
+// isn't found.
+//
 // Requires the `read_articles_scope` OAuth scope.
 //
 // Corresponds with GET /articles/{article_id}/versions (the `ListArticleVersions` operationId).
@@ -19188,6 +19231,9 @@ func (c *Client) ListArticleVersions(ctx context.Context, articleId int, params 
 // by making a GET request to
 // `https://api.intercom.io/articles/<article_id>/versions/<id>`. Returns
 // the version's full content; the live article remains untouched.
+//
+// A `404` has an empty response body, whether the article, its content or
+// the version isn't found.
 //
 // Requires the `read_articles_scope` OAuth scope.
 //
@@ -19211,7 +19257,9 @@ func (c *Client) RetrieveArticleVersion(ctx context.Context, articleId int, id s
 // rendered with its draft content, leaving the live article untouched.
 //
 // A draft exists only when a published article has unpublished changes staged
-// on top of it. Returns `404` when the article has no staged draft.
+// on top of it. Returns `404` with an empty response body when the article
+// has no staged draft. An article ID that doesn't exist returns a `404` with
+// the standard error body.
 //
 // Requires the `read_articles_scope` OAuth scope.
 //
@@ -19235,7 +19283,9 @@ func (c *Client) RetrieveArticleDraft(ctx context.Context, id int, params *Retri
 // unchanged until the draft is published.
 //
 // The article must already be published; staging a draft on an article that
-// has never been published returns `422`.
+// has never been published returns `422`. That `422` has the short body
+// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+// `request_id` or `code`. Other `422` errors use the standard error format.
 //
 // Only text content is staged: `title`, `description`, `body` or
 // `body_markdown`, and `author_id`, including per-locale values in
@@ -19269,7 +19319,9 @@ func (c *Client) StageArticleDraftWithBody(ctx context.Context, id int, params *
 // unchanged until the draft is published.
 //
 // The article must already be published; staging a draft on an article that
-// has never been published returns `422`.
+// has never been published returns `422`. That `422` has the short body
+// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+// `request_id` or `code`. Other `422` errors use the standard error format.
 //
 // Only text content is staged: `title`, `description`, `body` or
 // `body_markdown`, and `author_id`, including per-locale values in
@@ -19307,6 +19359,10 @@ func (c *Client) StageArticleDraft(ctx context.Context, id int, params *StageArt
 // omitting it returns `422`. Returns `422` when there is no staged draft to
 // publish, or when a requested locale has no pending changes.
 //
+// The `422` for no staged draft has the short body
+// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+// `request_id` or `code`. The other `422` errors use the standard error format.
+//
 // Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type.
@@ -19334,6 +19390,10 @@ func (c *Client) PublishArticleDraftWithBody(ctx context.Context, id int, params
 // workspace you must list which locales to publish via the `locales` array;
 // omitting it returns `422`. Returns `422` when there is no staged draft to
 // publish, or when a requested locale has no pending changes.
+//
+// The `422` for no staged draft has the short body
+// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+// `request_id` or `code`. The other `422` errors use the standard error format.
 //
 // Requires the `read_write_articles_scope` OAuth scope.
 //
@@ -19992,33 +20052,6 @@ func (c *Client) SearchCompaniesWithBody(ctx context.Context, params *SearchComp
 // Corresponds with POST /companies/search (the `SearchCompanies` operationId).
 func (c *Client) SearchCompanies(ctx context.Context, params *SearchCompaniesParams, body SearchCompaniesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewSearchCompaniesRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteCompany Delete a company
-//
-// Delete a single company.
-//
-// The company record is kept in your workspace, but all contacts are detached. The contacts themselves are not deleted. Detaching contacts is permanent and can't be reversed. These changes may take some time to be reflected in your workspace.
-//
-// The response returns `"deleted": true` as soon as the request is accepted; the contacts are detached in the background. A `company.deleted` webhook is sent after that work finishes, so it arrives some time after the response. No webhook is sent for a company that has no contacts attached, because there is nothing to detach.
-//
-// {% admonition type="warning" %}
-// Third-party integrations that sync companies into Intercom (for example, Salesforce or Chargebee) will recreate any company deleted through this endpoint on their next sync. To prevent recreation, remove or filter the company at the source integration before deleting it via the API.
-// {% /admonition %}
-//
-// Requires the `write_users_companies` OAuth scope.
-//
-// Corresponds with DELETE /companies/{company_id} (the `DeleteCompany` operationId).
-func (c *Client) DeleteCompany(ctx context.Context, companyId string, params *DeleteCompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteCompanyRequest(c.Server, companyId, params)
 	if err != nil {
 		return nil, err
 	}

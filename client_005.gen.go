@@ -14,6 +14,95 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListCustomObjectInstancesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListCustomObjectInstancesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateCustomObjectInstancesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *CustomObjectInstance
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *TypeNotFound
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CreateCustomObjectInstancesResponse) GetJSON200() *CustomObjectInstance {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CreateCustomObjectInstancesResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r CreateCustomObjectInstancesResponse) GetJSON401() *Unauthorized {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r CreateCustomObjectInstancesResponse) GetJSON404() *TypeNotFound {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r CreateCustomObjectInstancesResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateCustomObjectInstancesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateCustomObjectInstancesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateCustomObjectInstancesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteCustomObjectInstancesByIdResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *CustomObjectInstanceDeleted
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r DeleteCustomObjectInstancesByIdResponse) GetJSON200() *CustomObjectInstanceDeleted {
 	return r.JSON200
@@ -8493,6 +8582,8 @@ func (c *ClientWithResponses) SetAwayAdminWithResponse(ctx context.Context, admi
 //
 // You can retrieve a list of all content import sources for a workspace.
 //
+// `total_count` and `pages.total_pages` are worked out from every content import source in the workspace, including deleted ones that the list leaves out, so both can be higher than the number of sources you get back across all pages. The last pages can be short or empty.
+//
 // OAuth tokens must have the `read_write_ai_content` scope.
 //
 // Returns a wrapper object for the known response body format(s).
@@ -8956,6 +9047,9 @@ func (c *ClientWithResponses) DetachTagFromArticleWithResponse(ctx context.Conte
 // `GET /articles/{article_id}/versions/{id}` to retrieve a single version
 // with its full content.
 //
+// A `404` has an empty response body, whether the article or its content
+// isn't found.
+//
 // Requires the `read_articles_scope` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
@@ -8975,6 +9069,9 @@ func (c *ClientWithResponses) ListArticleVersionsWithResponse(ctx context.Contex
 // by making a GET request to
 // `https://api.intercom.io/articles/<article_id>/versions/<id>`. Returns
 // the version's full content; the live article remains untouched.
+//
+// A `404` has an empty response body, whether the article, its content or
+// the version isn't found.
 //
 // Requires the `read_articles_scope` OAuth scope.
 //
@@ -8996,7 +9093,9 @@ func (c *ClientWithResponses) RetrieveArticleVersionWithResponse(ctx context.Con
 // rendered with its draft content, leaving the live article untouched.
 //
 // A draft exists only when a published article has unpublished changes staged
-// on top of it. Returns `404` when the article has no staged draft.
+// on top of it. Returns `404` with an empty response body when the article
+// has no staged draft. An article ID that doesn't exist returns a `404` with
+// the standard error body.
 //
 // Requires the `read_articles_scope` OAuth scope.
 //
@@ -9018,7 +9117,9 @@ func (c *ClientWithResponses) RetrieveArticleDraftWithResponse(ctx context.Conte
 // unchanged until the draft is published.
 //
 // The article must already be published; staging a draft on an article that
-// has never been published returns `422`.
+// has never been published returns `422`. That `422` has the short body
+// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+// `request_id` or `code`. Other `422` errors use the standard error format.
 //
 // Only text content is staged: `title`, `description`, `body` or
 // `body_markdown`, and `author_id`, including per-locale values in
@@ -9048,7 +9149,9 @@ func (c *ClientWithResponses) StageArticleDraftWithBodyWithResponse(ctx context.
 // unchanged until the draft is published.
 //
 // The article must already be published; staging a draft on an article that
-// has never been published returns `422`.
+// has never been published returns `422`. That `422` has the short body
+// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+// `request_id` or `code`. Other `422` errors use the standard error format.
 //
 // Only text content is staged: `title`, `description`, `body` or
 // `body_markdown`, and `author_id`, including per-locale values in
@@ -9082,6 +9185,10 @@ func (c *ClientWithResponses) StageArticleDraftWithResponse(ctx context.Context,
 // omitting it returns `422`. Returns `422` when there is no staged draft to
 // publish, or when a requested locale has no pending changes.
 //
+// The `422` for no staged draft has the short body
+// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+// `request_id` or `code`. The other `422` errors use the standard error format.
+//
 // Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
@@ -9105,6 +9212,10 @@ func (c *ClientWithResponses) PublishArticleDraftWithBodyWithResponse(ctx contex
 // workspace you must list which locales to publish via the `locales` array;
 // omitting it returns `422`. Returns `422` when there is no staged draft to
 // publish, or when a requested locale has no pending changes.
+//
+// The `422` for no staged draft has the short body
+// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
+// `request_id` or `code`. The other `422` errors use the standard error format.
 //
 // Requires the `read_write_articles_scope` OAuth scope.
 //
@@ -10111,7 +10222,7 @@ func (c *ClientWithResponses) BulkUpdateContactsWithResponse(ctx context.Context
 // {% /admonition %}
 //
 // {% admonition type="info" name="Limits" %}
-//   - Maximum of 100 contacts per request.
+//   - Maximum of 1,000 contacts per request.
 //   - You can append tasks to an existing job by including `job.id` in the request body.
 //
 // {% /admonition %}
@@ -10142,7 +10253,7 @@ func (c *ClientWithResponses) BulkDeleteContactsWithBodyWithResponse(ctx context
 // {% /admonition %}
 //
 // {% admonition type="info" name="Limits" %}
-//   - Maximum of 100 contacts per request.
+//   - Maximum of 1,000 contacts per request.
 //   - You can append tasks to an existing job by including `job.id` in the request body.
 //
 // {% /admonition %}
@@ -11261,6 +11372,8 @@ func (c *ClientWithResponses) ListContentSnippetsWithResponse(ctx context.Contex
 //
 // You can create a new content snippet.
 //
+// `title` is listed as required, but a missing, `null` or empty `title` is accepted and the snippet is created with a blank title. When `json_blocks` is omitted or `null` and `body_markdown` is omitted or blank, the snippet is created with a single empty paragraph.
+//
 // Requires the `read_write_content_snippets` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
@@ -11277,6 +11390,8 @@ func (c *ClientWithResponses) CreateContentSnippetWithBodyWithResponse(ctx conte
 // CreateContentSnippetWithResponse Create a content snippet
 //
 // You can create a new content snippet.
+//
+// `title` is listed as required, but a missing, `null` or empty `title` is accepted and the snippet is created with a blank title. When `json_blocks` is omitted or `null` and `body_markdown` is omitted or blank, the snippet is created with a single empty paragraph.
 //
 // Requires the `read_write_content_snippets` OAuth scope.
 //
@@ -13446,6 +13561,8 @@ func (c *ClientWithResponses) GetExportReportingDataJobIdentifierWithResponse(ct
 //
 // Export a workflow configuration by its ID. This endpoint returns the complete workflow definition including its steps, targeting rules, and attributes.
 //
+// The `id` in the path is the workflow's ruleset ID, the number at the end of the workflow's URL in Intercom (`https://app.intercom.com/a/apps/<app_id>/automation/workflows/<id>`). The `workflow.id` in the response is a different ID, so don't pass it back as `id`.
+//
 // This endpoint is designed for EU Data Act compliance, allowing customers to export their workflow configurations.
 //
 // Returns a wrapper object for the known response body format(s).
@@ -13464,10 +13581,11 @@ func (c *ClientWithResponses) ExportWorkflowWithResponse(ctx context.Context, id
 // Ask Fin a single, self-contained question and receive one informational answer.
 //
 // Unlike a conversation, `/fin/ask` is non-conversational: Fin will not ask follow-up
-// questions, will not run procedures, and will not escalate to a human on its own. You can
-// still escalate one yourself with `POST /fin/escalate`; the ask conversation is already
-// closed after its one-shot answer, and escalation leaves it closed while routing the
-// handoff separately.
+// questions, will not run procedures, and will not decide to hand over to a human itself.
+// Escalation rules can still match, and the conversation can still be routed to a team or
+// finish without resolution. You can also escalate one yourself with `POST /fin/escalate`;
+// the ask conversation is already closed after its one-shot answer, and escalation leaves
+// it closed while routing the handoff separately.
 //
 // Fin's answer is delivered asynchronously via the `fin_replied` event. The conversation
 // ends with a `complete` status — there is no `awaiting_user_reply` cycle.
@@ -13492,10 +13610,11 @@ func (c *ClientWithResponses) AskFinWithBodyWithResponse(ctx context.Context, pa
 // Ask Fin a single, self-contained question and receive one informational answer.
 //
 // Unlike a conversation, `/fin/ask` is non-conversational: Fin will not ask follow-up
-// questions, will not run procedures, and will not escalate to a human on its own. You can
-// still escalate one yourself with `POST /fin/escalate`; the ask conversation is already
-// closed after its one-shot answer, and escalation leaves it closed while routing the
-// handoff separately.
+// questions, will not run procedures, and will not decide to hand over to a human itself.
+// Escalation rules can still match, and the conversation can still be routed to a team or
+// finish without resolution. You can also escalate one yourself with `POST /fin/escalate`;
+// the ask conversation is already closed after its one-shot answer, and escalation leaves
+// it closed while routing the handoff separately.
 //
 // Fin's answer is delivered asynchronously via the `fin_replied` event. The conversation
 // ends with a `complete` status — there is no `awaiting_user_reply` cycle.
@@ -14191,6 +14310,8 @@ func (c *ClientWithResponses) RetrieveCollectionWithResponse(ctx context.Context
 //
 // You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
 //
+// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
+//
 // Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
@@ -14207,6 +14328,8 @@ func (c *ClientWithResponses) UpdateCollectionWithBodyWithResponse(ctx context.C
 // UpdateCollectionWithResponse Update a collection
 //
 // You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
 //
 // Requires the `read_write_articles_scope` OAuth scope.
 //
@@ -14570,6 +14693,8 @@ func (c *ClientWithResponses) GetIpAllowlistWithResponse(ctx context.Context, pa
 //
 // Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
 //
+// When the update leaves the allowlist enabled with at least one entry, the request must come from an IPv4 address that is on the list. A request from an IPv6 address can never match an IPv4 allowlist, so it returns the lockout 422 below.
+//
 // Requires the `manage_ip_allowlist` OAuth scope.
 //
 // {% admonition type="warning" name="Lockout Protection" %}
@@ -14596,6 +14721,8 @@ func (c *ClientWithResponses) UpdateIpAllowlistWithBodyWithResponse(ctx context.
 // Both `enabled` and `ip_allowlist` are optional. A field you omit is left unchanged, and a request with neither returns the current settings without changing anything. Sending `null` for a field is the same as omitting it.
 //
 // Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
+//
+// When the update leaves the allowlist enabled with at least one entry, the request must come from an IPv4 address that is on the list. A request from an IPv6 address can never match an IPv4 allowlist, so it returns the lockout 422 below.
 //
 // Requires the `manage_ip_allowlist` OAuth scope.
 //
@@ -19963,93 +20090,6 @@ func ParseMergeContactResponse(rsp *http.Response) (*MergeContactResponse, error
 			return nil, err
 		}
 		response.JSON409 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParsePreviewMergeContactResponse parses an HTTP response from a PreviewMergeContactWithResponse call
-func ParsePreviewMergeContactResponse(rsp *http.Response) (*PreviewMergeContactResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &PreviewMergeContactResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest MergePreviewResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseSearchContactsResponse parses an HTTP response from a SearchContactsWithResponse call
-func ParseSearchContactsResponse(rsp *http.Response) (*SearchContactsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &SearchContactsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ContactList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
 
 	}
 

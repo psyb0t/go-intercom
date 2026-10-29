@@ -9130,7 +9130,7 @@ type BulkCreateContactsRequest struct {
 
 // BulkDeleteContactsRequest Request body for permanently bulk deleting contacts.
 type BulkDeleteContactsRequest struct {
-	// Contacts An array of contacts to delete, each identified by `id`. Maximum 100 contacts per request.
+	// Contacts An array of contacts to delete, each identified by `id`. Maximum 1,000 contacts per request.
 	Contacts []struct {
 		// Id The unique identifier for the contact.
 		//
@@ -11307,7 +11307,7 @@ type ContentImportSourcesList struct {
 	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
 	Pages *PagesLink `json:"pages,omitempty"`
 
-	// TotalCount A count of the total number of content import sources.
+	// TotalCount A count of the total number of content import sources, including deleted ones that the list leaves out.
 	//
 	// Example: 1
 	TotalCount *int `json:"total_count,omitempty"`
@@ -11535,7 +11535,7 @@ type ContentSnippet struct {
 	UpdatedAt *int `json:"updated_at,omitempty"`
 }
 
-// ContentSnippetCreateRequest The request payload for creating a content snippet. You must provide either `json_blocks` or `body_markdown` for the snippet content — they are mutually exclusive.
+// ContentSnippetCreateRequest The request payload for creating a content snippet. You can provide either `json_blocks` or `body_markdown` for the snippet content — they are mutually exclusive. When `json_blocks` is omitted or `null` and `body_markdown` is omitted or blank, the snippet is created with a single empty paragraph.
 type ContentSnippetCreateRequest struct {
 	// AiChatbotAvailability Whether the content snippet should be available for AI Chatbot (Fin). Defaults to true.
 	//
@@ -11574,7 +11574,7 @@ type ContentSnippetCreateRequest struct {
 	// Example: en
 	Locale *string `json:"locale,omitempty"`
 
-	// Title The title of the content snippet.
+	// Title The title of the content snippet. The API accepts a missing, `null` or empty title.
 	//
 	// Example: How to reset your password
 	Title string `json:"title"`
@@ -17569,7 +17569,7 @@ type Folder struct {
 	// Example: 6
 	Id *int `json:"id,omitempty"`
 
-	// Name The name of the folder
+	// Name The name of the folder. Returned HTML-escaped, for example `&` as `&amp;`.
 	//
 	// Example: Product Documentation
 	Name *string `json:"name,omitempty"`

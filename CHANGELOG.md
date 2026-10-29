@@ -2,6 +2,14 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.5.1, 2026-10-29
+
+- Documentation only. No exported identifiers changed.
+- The doc comments on `BulkUpdateContacts` and `BulkDeleteContacts` (and their `WithBody` and `WithResponse` variants) now give the limit as 1,000 contacts per request instead of 100.
+- Updated doc comments for the article, collection, content snippet, content import source, workflow export and Fin ask and escalate methods. They now describe the `404` and `422` response bodies, the `help_center_id` rules on collection updates, the IPv4 allowlist lockout `422`, the workflow ruleset ID versus `workflow.id`, and that `Title` on content snippet requests may be missing, null or empty.
+- Updated field comments: `Name` on folders is returned HTML-escaped, `Page` above 5001 returns a `400`, `Query` should stay under 500 characters, and `TotalCount` on content import source lists includes deleted sources.
+- Moved `ParsePreviewMergeContactResponse` and `ParseSearchContactsResponse` to a different generated file, and reordered some response types between files. Behavior is the same.
+
 ## v0.5.0, 2026-10-28
 
 - Breaking: the note methods take a string ID instead of an int. This changes `(*Client).CreateNote`, `CreateNoteWithBody`, `DeleteNote` and `RetrieveNote`, the matching `ClientWithResponses` methods, `ClientInterface`, `ClientWithResponsesInterface`, and `NewCreateNoteRequest`, `NewCreateNoteRequestWithBody`, `NewDeleteNoteRequest` and `NewRetrieveNoteRequest`.

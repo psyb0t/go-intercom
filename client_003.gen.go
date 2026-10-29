@@ -16,6 +16,33 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// DeleteCompany Delete a company
+//
+// Delete a single company.
+//
+// The company record is kept in your workspace, but all contacts are detached. The contacts themselves are not deleted. Detaching contacts is permanent and can't be reversed. These changes may take some time to be reflected in your workspace.
+//
+// The response returns `"deleted": true` as soon as the request is accepted; the contacts are detached in the background. A `company.deleted` webhook is sent after that work finishes, so it arrives some time after the response. No webhook is sent for a company that has no contacts attached, because there is nothing to detach.
+//
+// {% admonition type="warning" %}
+// Third-party integrations that sync companies into Intercom (for example, Salesforce or Chargebee) will recreate any company deleted through this endpoint on their next sync. To prevent recreation, remove or filter the company at the source integration before deleting it via the API.
+// {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Corresponds with DELETE /companies/{company_id} (the `DeleteCompany` operationId).
+func (c *Client) DeleteCompany(ctx context.Context, companyId string, params *DeleteCompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteCompanyRequest(c.Server, companyId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // RetrieveACompanyById Retrieve a company by ID
 //
 // You can fetch a single company.
@@ -451,7 +478,7 @@ func (c *Client) BulkUpdateContacts(ctx context.Context, params *BulkUpdateConta
 // {% /admonition %}
 //
 // {% admonition type="info" name="Limits" %}
-//   - Maximum of 100 contacts per request.
+//   - Maximum of 1,000 contacts per request.
 //   - You can append tasks to an existing job by including `job.id` in the request body.
 //
 // {% /admonition %}
@@ -486,7 +513,7 @@ func (c *Client) BulkDeleteContactsWithBody(ctx context.Context, params *BulkDel
 // {% /admonition %}
 //
 // {% admonition type="info" name="Limits" %}
-//   - Maximum of 100 contacts per request.
+//   - Maximum of 1,000 contacts per request.
 //   - You can append tasks to an existing job by including `job.id` in the request body.
 //
 // {% /admonition %}
@@ -1723,6 +1750,8 @@ func (c *Client) ListContentSnippets(ctx context.Context, params *ListContentSni
 //
 // You can create a new content snippet.
 //
+// `title` is listed as required, but a missing, `null` or empty `title` is accepted and the snippet is created with a blank title. When `json_blocks` is omitted or `null` and `body_markdown` is omitted or blank, the snippet is created with a single empty paragraph.
+//
 // Requires the `read_write_content_snippets` OAuth scope.
 //
 // Takes any type of body and a specified content type.
@@ -1743,6 +1772,8 @@ func (c *Client) CreateContentSnippetWithBody(ctx context.Context, params *Creat
 // CreateContentSnippet Create a content snippet
 //
 // You can create a new content snippet.
+//
+// `title` is listed as required, but a missing, `null` or empty `title` is accepted and the snippet is created with a blank title. When `json_blocks` is omitted or `null` and `body_markdown` is omitted or blank, the snippet is created with a single empty paragraph.
 //
 // Requires the `read_write_content_snippets` OAuth scope.
 //
@@ -4232,6 +4263,8 @@ func (c *Client) GetExportReportingDataJobIdentifier(ctx context.Context, jobIde
 //
 // Export a workflow configuration by its ID. This endpoint returns the complete workflow definition including its steps, targeting rules, and attributes.
 //
+// The `id` in the path is the workflow's ruleset ID, the number at the end of the workflow's URL in Intercom (`https://app.intercom.com/a/apps/<app_id>/automation/workflows/<id>`). The `workflow.id` in the response is a different ID, so don't pass it back as `id`.
+//
 // This endpoint is designed for EU Data Act compliance, allowing customers to export their workflow configurations.
 //
 // Corresponds with GET /export/workflows/{id} (the `ExportWorkflow` operationId).
@@ -4252,10 +4285,11 @@ func (c *Client) ExportWorkflow(ctx context.Context, id string, params *ExportWo
 // Ask Fin a single, self-contained question and receive one informational answer.
 //
 // Unlike a conversation, `/fin/ask` is non-conversational: Fin will not ask follow-up
-// questions, will not run procedures, and will not escalate to a human on its own. You can
-// still escalate one yourself with `POST /fin/escalate`; the ask conversation is already
-// closed after its one-shot answer, and escalation leaves it closed while routing the
-// handoff separately.
+// questions, will not run procedures, and will not decide to hand over to a human itself.
+// Escalation rules can still match, and the conversation can still be routed to a team or
+// finish without resolution. You can also escalate one yourself with `POST /fin/escalate`;
+// the ask conversation is already closed after its one-shot answer, and escalation leaves
+// it closed while routing the handoff separately.
 //
 // Fin's answer is delivered asynchronously via the `fin_replied` event. The conversation
 // ends with a `complete` status — there is no `awaiting_user_reply` cycle.
@@ -4284,10 +4318,11 @@ func (c *Client) AskFinWithBody(ctx context.Context, params *AskFinParams, conte
 // Ask Fin a single, self-contained question and receive one informational answer.
 //
 // Unlike a conversation, `/fin/ask` is non-conversational: Fin will not ask follow-up
-// questions, will not run procedures, and will not escalate to a human on its own. You can
-// still escalate one yourself with `POST /fin/escalate`; the ask conversation is already
-// closed after its one-shot answer, and escalation leaves it closed while routing the
-// handoff separately.
+// questions, will not run procedures, and will not decide to hand over to a human itself.
+// Escalation rules can still match, and the conversation can still be routed to a team or
+// finish without resolution. You can also escalate one yourself with `POST /fin/escalate`;
+// the ask conversation is already closed after its one-shot answer, and escalation leaves
+// it closed while routing the handoff separately.
 //
 // Fin's answer is delivered asynchronously via the `fin_replied` event. The conversation
 // ends with a `complete` status — there is no `awaiting_user_reply` cycle.
@@ -5087,6 +5122,8 @@ func (c *Client) RetrieveCollection(ctx context.Context, collectionId int, param
 //
 // You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
 //
+// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
+//
 // Requires the `read_write_articles_scope` OAuth scope.
 //
 // Takes any type of body and a specified content type.
@@ -5107,6 +5144,8 @@ func (c *Client) UpdateCollectionWithBody(ctx context.Context, collectionId int,
 // UpdateCollection Update a collection
 //
 // You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
 //
 // Requires the `read_write_articles_scope` OAuth scope.
 //
@@ -5528,6 +5567,8 @@ func (c *Client) GetIpAllowlist(ctx context.Context, params *GetIpAllowlistParam
 //
 // Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
 //
+// When the update leaves the allowlist enabled with at least one entry, the request must come from an IPv4 address that is on the list. A request from an IPv6 address can never match an IPv4 allowlist, so it returns the lockout 422 below.
+//
 // Requires the `manage_ip_allowlist` OAuth scope.
 //
 // {% admonition type="warning" name="Lockout Protection" %}
@@ -5558,6 +5599,8 @@ func (c *Client) UpdateIpAllowlistWithBody(ctx context.Context, params *UpdateIp
 // Both `enabled` and `ip_allowlist` are optional. A field you omit is left unchanged, and a request with neither returns the current settings without changing anything. Sending `null` for a field is the same as omitting it.
 //
 // Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
+//
+// When the update leaves the allowlist enabled with at least one entry, the request must come from an IPv4 address that is on the list. A request from an IPv6 address can never match an IPv4 allowlist, so it returns the lockout 422 below.
 //
 // Requires the `manage_ip_allowlist` OAuth scope.
 //
@@ -19983,55 +20026,6 @@ func NewSearchInternalArticlesRequest(server string, params *SearchInternalArtic
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewDeleteInternalArticleRequest constructs an http.Request for the DeleteInternalArticle method
-func NewDeleteInternalArticleRequest(server string, internalArticleId int, params *DeleteInternalArticleParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "internal_article_id", internalArticleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/internal_articles/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
