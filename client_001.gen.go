@@ -12,135 +12,435 @@ import (
 
 // Defines values for ActivityLogActivityType.
 const (
-	ActivityLogActivityTypeAdminAvatarChange                        ActivityLogActivityType = "admin_avatar_change"
-	ActivityLogActivityTypeAdminAwayModeChange                      ActivityLogActivityType = "admin_away_mode_change"
-	ActivityLogActivityTypeAdminConversationAssignmentLimitChange   ActivityLogActivityType = "admin_conversation_assignment_limit_change"
-	ActivityLogActivityTypeAdminDeletion                            ActivityLogActivityType = "admin_deletion"
-	ActivityLogActivityTypeAdminDeprovisioned                       ActivityLogActivityType = "admin_deprovisioned"
-	ActivityLogActivityTypeAdminImpersonationConsentApproved        ActivityLogActivityType = "admin_impersonation_consent_approved"
-	ActivityLogActivityTypeAdminImpersonationConsentRevoked         ActivityLogActivityType = "admin_impersonation_consent_revoked"
-	ActivityLogActivityTypeAdminImpersonationEnd                    ActivityLogActivityType = "admin_impersonation_end"
-	ActivityLogActivityTypeAdminImpersonationStart                  ActivityLogActivityType = "admin_impersonation_start"
-	ActivityLogActivityTypeAdminInviteChange                        ActivityLogActivityType = "admin_invite_change"
-	ActivityLogActivityTypeAdminInviteCreation                      ActivityLogActivityType = "admin_invite_creation"
-	ActivityLogActivityTypeAdminInviteDeletion                      ActivityLogActivityType = "admin_invite_deletion"
-	ActivityLogActivityTypeAdminLoginFailure                        ActivityLogActivityType = "admin_login_failure"
-	ActivityLogActivityTypeAdminLoginSuccess                        ActivityLogActivityType = "admin_login_success"
-	ActivityLogActivityTypeAdminLogout                              ActivityLogActivityType = "admin_logout"
-	ActivityLogActivityTypeAdminOccupancySettingChange              ActivityLogActivityType = "admin_occupancy_setting_change"
-	ActivityLogActivityTypeAdminOccupancyStateChange                ActivityLogActivityType = "admin_occupancy_state_change"
-	ActivityLogActivityTypeAdminPasswordResetRequest                ActivityLogActivityType = "admin_password_reset_request"
-	ActivityLogActivityTypeAdminPasswordResetSuccess                ActivityLogActivityType = "admin_password_reset_success"
-	ActivityLogActivityTypeAdminPermissionChange                    ActivityLogActivityType = "admin_permission_change"
-	ActivityLogActivityTypeAdminProvisioned                         ActivityLogActivityType = "admin_provisioned"
-	ActivityLogActivityTypeAdminTicketAssignmentLimitChange         ActivityLogActivityType = "admin_ticket_assignment_limit_change"
-	ActivityLogActivityTypeAdminTwoFactorAuthChange                 ActivityLogActivityType = "admin_two_factor_auth_change"
-	ActivityLogActivityTypeAdminUnauthorizedSignInMethod            ActivityLogActivityType = "admin_unauthorized_sign_in_method"
-	ActivityLogActivityTypeAllowedAttachmentFiletypesSettingChange  ActivityLogActivityType = "allowed_attachment_filetypes_setting_change"
-	ActivityLogActivityTypeAppAdminJoin                             ActivityLogActivityType = "app_admin_join"
-	ActivityLogActivityTypeAppAuthenticationMethodChange            ActivityLogActivityType = "app_authentication_method_change"
-	ActivityLogActivityTypeAppDataDeletion                          ActivityLogActivityType = "app_data_deletion"
-	ActivityLogActivityTypeAppDataExport                            ActivityLogActivityType = "app_data_export"
-	ActivityLogActivityTypeAppGoogleSsoDomainChange                 ActivityLogActivityType = "app_google_sso_domain_change"
-	ActivityLogActivityTypeAppIdentityVerificationChange            ActivityLogActivityType = "app_identity_verification_change"
-	ActivityLogActivityTypeAppNameChange                            ActivityLogActivityType = "app_name_change"
-	ActivityLogActivityTypeAppOutboundAddressChange                 ActivityLogActivityType = "app_outbound_address_change"
-	ActivityLogActivityTypeAppPackageInstallation                   ActivityLogActivityType = "app_package_installation"
-	ActivityLogActivityTypeAppPackageTokenRegeneration              ActivityLogActivityType = "app_package_token_regeneration"
-	ActivityLogActivityTypeAppPackageUninstallation                 ActivityLogActivityType = "app_package_uninstallation"
-	ActivityLogActivityTypeAppTeamCreation                          ActivityLogActivityType = "app_team_creation"
-	ActivityLogActivityTypeAppTeamDeletion                          ActivityLogActivityType = "app_team_deletion"
-	ActivityLogActivityTypeAppTeamMembershipModification            ActivityLogActivityType = "app_team_membership_modification"
-	ActivityLogActivityTypeAppTimezoneChange                        ActivityLogActivityType = "app_timezone_change"
-	ActivityLogActivityTypeAppWebhookCreation                       ActivityLogActivityType = "app_webhook_creation"
-	ActivityLogActivityTypeAppWebhookDeletion                       ActivityLogActivityType = "app_webhook_deletion"
-	ActivityLogActivityTypeArticlesInMessengerEnabledChange         ActivityLogActivityType = "articles_in_messenger_enabled_change"
-	ActivityLogActivityTypeAttachUploadsInlineSettingChange         ActivityLogActivityType = "attach_uploads_inline_setting_change"
-	ActivityLogActivityTypeAutomaticAwayModeSettingChange           ActivityLogActivityType = "automatic_away_mode_setting_change"
-	ActivityLogActivityTypeBulkDelete                               ActivityLogActivityType = "bulk_delete"
-	ActivityLogActivityTypeBulkExport                               ActivityLogActivityType = "bulk_export"
-	ActivityLogActivityTypeCampaignDeletion                         ActivityLogActivityType = "campaign_deletion"
-	ActivityLogActivityTypeCampaignStateChange                      ActivityLogActivityType = "campaign_state_change"
-	ActivityLogActivityTypeContentRedactionRuleCreation             ActivityLogActivityType = "content_redaction_rule_creation"
-	ActivityLogActivityTypeContentRedactionRuleDeletion             ActivityLogActivityType = "content_redaction_rule_deletion"
-	ActivityLogActivityTypeContentRedactionRuleUpdate               ActivityLogActivityType = "content_redaction_rule_update"
-	ActivityLogActivityTypeConversationDeletionScheduleCreation     ActivityLogActivityType = "conversation_deletion_schedule_creation"
-	ActivityLogActivityTypeConversationDeletionScheduleDeletion     ActivityLogActivityType = "conversation_deletion_schedule_deletion"
-	ActivityLogActivityTypeConversationDeletionScheduleStateChange  ActivityLogActivityType = "conversation_deletion_schedule_state_change"
-	ActivityLogActivityTypeConversationDeletionScheduleUpdate       ActivityLogActivityType = "conversation_deletion_schedule_update"
-	ActivityLogActivityTypeConversationPartDeletion                 ActivityLogActivityType = "conversation_part_deletion"
-	ActivityLogActivityTypeConversationPdfExport                    ActivityLogActivityType = "conversation_pdf_export"
-	ActivityLogActivityTypeConversationTopicChange                  ActivityLogActivityType = "conversation_topic_change"
-	ActivityLogActivityTypeConversationTopicCreation                ActivityLogActivityType = "conversation_topic_creation"
-	ActivityLogActivityTypeConversationTopicDeletion                ActivityLogActivityType = "conversation_topic_deletion"
-	ActivityLogActivityTypeCsvImportCompletion                      ActivityLogActivityType = "csv_import_completion"
-	ActivityLogActivityTypeCsvImportCreation                        ActivityLogActivityType = "csv_import_creation"
-	ActivityLogActivityTypeCustomAuthenticationTokenCreation        ActivityLogActivityType = "custom_authentication_token_creation"
-	ActivityLogActivityTypeHelpCenterSettingsChange                 ActivityLogActivityType = "help_center_settings_change"
-	ActivityLogActivityTypeHideCsatFromAgentsSettingChange          ActivityLogActivityType = "hide_csat_from_agents_setting_change"
-	ActivityLogActivityTypeInboundConversationsChange               ActivityLogActivityType = "inbound_conversations_change"
-	ActivityLogActivityTypeInboxAccessChange                        ActivityLogActivityType = "inbox_access_change"
-	ActivityLogActivityTypeInboxBulkAction                          ActivityLogActivityType = "inbox_bulk_action"
-	ActivityLogActivityTypeMacroCreation                            ActivityLogActivityType = "macro_creation"
-	ActivityLogActivityTypeMacroDeletion                            ActivityLogActivityType = "macro_deletion"
-	ActivityLogActivityTypeMacroUpdate                              ActivityLogActivityType = "macro_update"
-	ActivityLogActivityTypeMacroUsageExport                         ActivityLogActivityType = "macro_usage_export"
-	ActivityLogActivityTypeMaliciousDomainsSettingChange            ActivityLogActivityType = "malicious_domains_setting_change"
-	ActivityLogActivityTypeMessageDeletion                          ActivityLogActivityType = "message_deletion"
-	ActivityLogActivityTypeMessageStateChange                       ActivityLogActivityType = "message_state_change"
-	ActivityLogActivityTypeMessengerApiSecretCreation               ActivityLogActivityType = "messenger_api_secret_creation"
-	ActivityLogActivityTypeMessengerApiSecretDeletion               ActivityLogActivityType = "messenger_api_secret_deletion"
-	ActivityLogActivityTypeMessengerLookAndFeelChange               ActivityLogActivityType = "messenger_look_and_feel_change"
-	ActivityLogActivityTypeMessengerSearchRequiredChange            ActivityLogActivityType = "messenger_search_required_change"
-	ActivityLogActivityTypeMessengerSpacesChange                    ActivityLogActivityType = "messenger_spaces_change"
-	ActivityLogActivityTypeOauthTokenRevocation                     ActivityLogActivityType = "oauth_token_revocation"
-	ActivityLogActivityTypeOfficeHoursChange                        ActivityLogActivityType = "office_hours_change"
-	ActivityLogActivityTypeRoleChange                               ActivityLogActivityType = "role_change"
-	ActivityLogActivityTypeRoleCreation                             ActivityLogActivityType = "role_creation"
-	ActivityLogActivityTypeRoleDeletion                             ActivityLogActivityType = "role_deletion"
-	ActivityLogActivityTypeRulesetActivationTitlePreview            ActivityLogActivityType = "ruleset_activation_title_preview"
-	ActivityLogActivityTypeRulesetCreation                          ActivityLogActivityType = "ruleset_creation"
-	ActivityLogActivityTypeRulesetDeletion                          ActivityLogActivityType = "ruleset_deletion"
-	ActivityLogActivityTypeSearchBrowseEnabledChange                ActivityLogActivityType = "search_browse_enabled_change"
-	ActivityLogActivityTypeSearchBrowseRequiredChange               ActivityLogActivityType = "search_browse_required_change"
-	ActivityLogActivityTypeSeatChange                               ActivityLogActivityType = "seat_change"
-	ActivityLogActivityTypeSeatRevoke                               ActivityLogActivityType = "seat_revoke"
-	ActivityLogActivityTypeSecuritySettingsChange                   ActivityLogActivityType = "security_settings_change"
-	ActivityLogActivityTypeSeriesCreation                           ActivityLogActivityType = "series_creation"
-	ActivityLogActivityTypeSeriesDeletion                           ActivityLogActivityType = "series_deletion"
-	ActivityLogActivityTypeSeriesSettingsUpdate                     ActivityLogActivityType = "series_settings_update"
-	ActivityLogActivityTypeSeriesStatusChange                       ActivityLogActivityType = "series_status_change"
-	ActivityLogActivityTypeSeriesUpdate                             ActivityLogActivityType = "series_update"
-	ActivityLogActivityTypeStripInboundEmailLinksChange             ActivityLogActivityType = "strip_inbound_email_links_change"
-	ActivityLogActivityTypeTeamAssignmentLimitChange                ActivityLogActivityType = "team_assignment_limit_change"
-	ActivityLogActivityTypeTeammateGifsSettingChange                ActivityLogActivityType = "teammate_gifs_setting_change"
-	ActivityLogActivityTypeTemporaryExpectationChange               ActivityLogActivityType = "temporary_expectation_change"
-	ActivityLogActivityTypeTrustedDomainsSettingChange              ActivityLogActivityType = "trusted_domains_setting_change"
-	ActivityLogActivityTypeUnassignUnsnoozedAtCapacitySettingChange ActivityLogActivityType = "unassign_unsnoozed_at_capacity_setting_change"
-	ActivityLogActivityTypeUnassignUnsnoozedWhenAwaySettingChange   ActivityLogActivityType = "unassign_unsnoozed_when_away_setting_change"
-	ActivityLogActivityTypeUpfrontEmailCollectionChange             ActivityLogActivityType = "upfront_email_collection_change"
-	ActivityLogActivityTypeUserCameraAttachmentsSettingChange       ActivityLogActivityType = "user_camera_attachments_setting_change"
-	ActivityLogActivityTypeUserConversationAttachmentsSettingChange ActivityLogActivityType = "user_conversation_attachments_setting_change"
-	ActivityLogActivityTypeUserFileAttachmentsSettingChange         ActivityLogActivityType = "user_file_attachments_setting_change"
-	ActivityLogActivityTypeUserGifsSettingChange                    ActivityLogActivityType = "user_gifs_setting_change"
-	ActivityLogActivityTypeUserMediaAttachmentsSettingChange        ActivityLogActivityType = "user_media_attachments_setting_change"
-	ActivityLogActivityTypeUserVoiceNotesSettingChange              ActivityLogActivityType = "user_voice_notes_setting_change"
-	ActivityLogActivityTypeWelcomeMessageChange                     ActivityLogActivityType = "welcome_message_change"
-	ActivityLogActivityTypeWorkspaceDeletionRequest                 ActivityLogActivityType = "workspace_deletion_request"
+	ActivityLogActivityTypeA2aAgentOauthConnected                    ActivityLogActivityType = "a2a_agent_oauth_connected"
+	ActivityLogActivityTypeA2aAgentRegistered                        ActivityLogActivityType = "a2a_agent_registered"
+	ActivityLogActivityTypeActionCreated                             ActivityLogActivityType = "action_created"
+	ActivityLogActivityTypeActionPublished                           ActivityLogActivityType = "action_published"
+	ActivityLogActivityTypeActionRiskAcceptedChange                  ActivityLogActivityType = "action_risk_accepted_change"
+	ActivityLogActivityTypeActionStatusChange                        ActivityLogActivityType = "action_status_change"
+	ActivityLogActivityTypeActionUpdate                              ActivityLogActivityType = "action_update"
+	ActivityLogActivityTypeActivityTypeCreation                      ActivityLogActivityType = "activity_type_creation"
+	ActivityLogActivityTypeAdminAssignmentLimitChange                ActivityLogActivityType = "admin_assignment_limit_change"
+	ActivityLogActivityTypeAdminAvatarChange                         ActivityLogActivityType = "admin_avatar_change"
+	ActivityLogActivityTypeAdminAwayModeChange                       ActivityLogActivityType = "admin_away_mode_change"
+	ActivityLogActivityTypeAdminBulkInviteCreation                   ActivityLogActivityType = "admin_bulk_invite_creation"
+	ActivityLogActivityTypeAdminBulkNotificationSettingsChange       ActivityLogActivityType = "admin_bulk_notification_settings_change"
+	ActivityLogActivityTypeAdminChannelChange                        ActivityLogActivityType = "admin_channel_change"
+	ActivityLogActivityTypeAdminChannelLimitChange                   ActivityLogActivityType = "admin_channel_limit_change"
+	ActivityLogActivityTypeAdminConversationAssignmentLimitChange    ActivityLogActivityType = "admin_conversation_assignment_limit_change"
+	ActivityLogActivityTypeAdminDeletion                             ActivityLogActivityType = "admin_deletion"
+	ActivityLogActivityTypeAdminDeprovisioned                        ActivityLogActivityType = "admin_deprovisioned"
+	ActivityLogActivityTypeAdminEmailChange                          ActivityLogActivityType = "admin_email_change"
+	ActivityLogActivityTypeAdminImpersonationConsentApproved         ActivityLogActivityType = "admin_impersonation_consent_approved"
+	ActivityLogActivityTypeAdminImpersonationConsentRevoked          ActivityLogActivityType = "admin_impersonation_consent_revoked"
+	ActivityLogActivityTypeAdminImpersonationEnd                     ActivityLogActivityType = "admin_impersonation_end"
+	ActivityLogActivityTypeAdminImpersonationStart                   ActivityLogActivityType = "admin_impersonation_start"
+	ActivityLogActivityTypeAdminInviteChange                         ActivityLogActivityType = "admin_invite_change"
+	ActivityLogActivityTypeAdminInviteCreation                       ActivityLogActivityType = "admin_invite_creation"
+	ActivityLogActivityTypeAdminInviteDeletion                       ActivityLogActivityType = "admin_invite_deletion"
+	ActivityLogActivityTypeAdminLocaleChange                         ActivityLogActivityType = "admin_locale_change"
+	ActivityLogActivityTypeAdminLoginAttemptsReset                   ActivityLogActivityType = "admin_login_attempts_reset"
+	ActivityLogActivityTypeAdminLoginFailure                         ActivityLogActivityType = "admin_login_failure"
+	ActivityLogActivityTypeAdminLoginSuccess                         ActivityLogActivityType = "admin_login_success"
+	ActivityLogActivityTypeAdminLogout                               ActivityLogActivityType = "admin_logout"
+	ActivityLogActivityTypeAdminMobileLoginFailure                   ActivityLogActivityType = "admin_mobile_login_failure"
+	ActivityLogActivityTypeAdminMobileLoginSuccess                   ActivityLogActivityType = "admin_mobile_login_success"
+	ActivityLogActivityTypeAdminNameChange                           ActivityLogActivityType = "admin_name_change"
+	ActivityLogActivityTypeAdminOccupancySettingChange               ActivityLogActivityType = "admin_occupancy_setting_change"
+	ActivityLogActivityTypeAdminOccupancyStateChange                 ActivityLogActivityType = "admin_occupancy_state_change"
+	ActivityLogActivityTypeAdminPasswordChange                       ActivityLogActivityType = "admin_password_change"
+	ActivityLogActivityTypeAdminPasswordResetRequest                 ActivityLogActivityType = "admin_password_reset_request"
+	ActivityLogActivityTypeAdminPasswordResetSuccess                 ActivityLogActivityType = "admin_password_reset_success"
+	ActivityLogActivityTypeAdminPermissionChange                     ActivityLogActivityType = "admin_permission_change"
+	ActivityLogActivityTypeAdminProvisioned                          ActivityLogActivityType = "admin_provisioned"
+	ActivityLogActivityTypeAdminSignInMethodExpired                  ActivityLogActivityType = "admin_sign_in_method_expired"
+	ActivityLogActivityTypeAdminTicketAssignmentLimitChange          ActivityLogActivityType = "admin_ticket_assignment_limit_change"
+	ActivityLogActivityTypeAdminTwoFactorAuthChange                  ActivityLogActivityType = "admin_two_factor_auth_change"
+	ActivityLogActivityTypeAdminTwoFactorLoginFailure                ActivityLogActivityType = "admin_two_factor_login_failure"
+	ActivityLogActivityTypeAdminUnassignUnsnoozedAtCapacityChange    ActivityLogActivityType = "admin_unassign_unsnoozed_at_capacity_change"
+	ActivityLogActivityTypeAdminUnauthorizedSignInMethod             ActivityLogActivityType = "admin_unauthorized_sign_in_method"
+	ActivityLogActivityTypeAiAgentCustomizationSettingsChange        ActivityLogActivityType = "ai_agent_customization_settings_change"
+	ActivityLogActivityTypeAiAgentFinPlaygroundChange                ActivityLogActivityType = "ai_agent_fin_playground_change"
+	ActivityLogActivityTypeAiAgentGuidanceChange                     ActivityLogActivityType = "ai_agent_guidance_change"
+	ActivityLogActivityTypeAiAgentIdentitySettingsChange             ActivityLogActivityType = "ai_agent_identity_settings_change"
+	ActivityLogActivityTypeAiAgentMultilingualSettingsChange         ActivityLogActivityType = "ai_agent_multilingual_settings_change"
+	ActivityLogActivityTypeAiAgentPreviewTokenGenerated              ActivityLogActivityType = "ai_agent_preview_token_generated"
+	ActivityLogActivityTypeAiAgentSafetyGuardSettingsChange          ActivityLogActivityType = "ai_agent_safety_guard_settings_change"
+	ActivityLogActivityTypeAiCategoryChange                          ActivityLogActivityType = "ai_category_change"
+	ActivityLogActivityTypeAiInboxTranslationSettingChange           ActivityLogActivityType = "ai_inbox_translation_setting_change"
+	ActivityLogActivityTypeAliasModeChange                           ActivityLogActivityType = "alias_mode_change"
+	ActivityLogActivityTypeAliasNameChange                           ActivityLogActivityType = "alias_name_change"
+	ActivityLogActivityTypeAllowedAttachmentFiletypesSettingChange   ActivityLogActivityType = "allowed_attachment_filetypes_setting_change"
+	ActivityLogActivityTypeAppAdminJoin                              ActivityLogActivityType = "app_admin_join"
+	ActivityLogActivityTypeAppAuthenticationMethodChange             ActivityLogActivityType = "app_authentication_method_change"
+	ActivityLogActivityTypeAppDataDeletion                           ActivityLogActivityType = "app_data_deletion"
+	ActivityLogActivityTypeAppDataExport                             ActivityLogActivityType = "app_data_export"
+	ActivityLogActivityTypeAppGoogleSsoDomainChange                  ActivityLogActivityType = "app_google_sso_domain_change"
+	ActivityLogActivityTypeAppIdentityVerificationChange             ActivityLogActivityType = "app_identity_verification_change"
+	ActivityLogActivityTypeAppIdentityVerificationReminderDisabled   ActivityLogActivityType = "app_identity_verification_reminder_disabled"
+	ActivityLogActivityTypeAppNameChange                             ActivityLogActivityType = "app_name_change"
+	ActivityLogActivityTypeAppOutboundAddressChange                  ActivityLogActivityType = "app_outbound_address_change"
+	ActivityLogActivityTypeAppPackageInstallation                    ActivityLogActivityType = "app_package_installation"
+	ActivityLogActivityTypeAppPackageTokenRegeneration               ActivityLogActivityType = "app_package_token_regeneration"
+	ActivityLogActivityTypeAppPackageUninstallation                  ActivityLogActivityType = "app_package_uninstallation"
+	ActivityLogActivityTypeAppTeamCreation                           ActivityLogActivityType = "app_team_creation"
+	ActivityLogActivityTypeAppTeamDeletion                           ActivityLogActivityType = "app_team_deletion"
+	ActivityLogActivityTypeAppTeamMembershipModification             ActivityLogActivityType = "app_team_membership_modification"
+	ActivityLogActivityTypeAppTimezoneChange                         ActivityLogActivityType = "app_timezone_change"
+	ActivityLogActivityTypeAppWebhookCreation                        ActivityLogActivityType = "app_webhook_creation"
+	ActivityLogActivityTypeAppWebhookDeletion                        ActivityLogActivityType = "app_webhook_deletion"
+	ActivityLogActivityTypeArticleContentAudienceUpdated             ActivityLogActivityType = "article_content_audience_updated"
+	ActivityLogActivityTypeArticleContentCreation                    ActivityLogActivityType = "article_content_creation"
+	ActivityLogActivityTypeArticleContentDeletion                    ActivityLogActivityType = "article_content_deletion"
+	ActivityLogActivityTypeArticleContentPublished                   ActivityLogActivityType = "article_content_published"
+	ActivityLogActivityTypeArticleContentUnpublished                 ActivityLogActivityType = "article_content_unpublished"
+	ActivityLogActivityTypeArticleContentUpdate                      ActivityLogActivityType = "article_content_update"
+	ActivityLogActivityTypeArticleCreation                           ActivityLogActivityType = "article_creation"
+	ActivityLogActivityTypeArticleDeletion                           ActivityLogActivityType = "article_deletion"
+	ActivityLogActivityTypeArticlesInMessengerEnabledChange          ActivityLogActivityType = "articles_in_messenger_enabled_change"
+	ActivityLogActivityTypeAttachUploadsInlineSettingChange          ActivityLogActivityType = "attach_uploads_inline_setting_change"
+	ActivityLogActivityTypeAutomaticAwayModeSettingChange            ActivityLogActivityType = "automatic_away_mode_setting_change"
+	ActivityLogActivityTypeAutomaticDomainAuthenticationComplete     ActivityLogActivityType = "automatic_domain_authentication_complete"
+	ActivityLogActivityTypeAutomaticDomainAuthenticationStarted      ActivityLogActivityType = "automatic_domain_authentication_started"
+	ActivityLogActivityTypeAutomationRoadmapFormSubmissionCreation   ActivityLogActivityType = "automation_roadmap_form_submission_creation"
+	ActivityLogActivityTypeBillingAddresseesBouncedAndRemoved        ActivityLogActivityType = "billing_addressees_bounced_and_removed"
+	ActivityLogActivityTypeBillingAddresseesChange                   ActivityLogActivityType = "billing_addressees_change"
+	ActivityLogActivityTypeBillingDetailsChange                      ActivityLogActivityType = "billing_details_change"
+	ActivityLogActivityTypeBrandCreation                             ActivityLogActivityType = "brand_creation"
+	ActivityLogActivityTypeBrandDeletion                             ActivityLogActivityType = "brand_deletion"
+	ActivityLogActivityTypeBrandSettingsChange                       ActivityLogActivityType = "brand_settings_change"
+	ActivityLogActivityTypeBrandUpdate                               ActivityLogActivityType = "brand_update"
+	ActivityLogActivityTypeBroadcastDeletion                         ActivityLogActivityType = "broadcast_deletion"
+	ActivityLogActivityTypeBulkDataExportCreation                    ActivityLogActivityType = "bulk_data_export_creation"
+	ActivityLogActivityTypeBulkDataExportDelete                      ActivityLogActivityType = "bulk_data_export_delete"
+	ActivityLogActivityTypeBulkDataExportRun                         ActivityLogActivityType = "bulk_data_export_run"
+	ActivityLogActivityTypeBulkDataExportSettingsChange              ActivityLogActivityType = "bulk_data_export_settings_change"
+	ActivityLogActivityTypeBulkDelete                                ActivityLogActivityType = "bulk_delete"
+	ActivityLogActivityTypeBulkExport                                ActivityLogActivityType = "bulk_export"
+	ActivityLogActivityTypeCalendarMappingRuleCreation               ActivityLogActivityType = "calendar_mapping_rule_creation"
+	ActivityLogActivityTypeCalendarMappingRuleDeletion               ActivityLogActivityType = "calendar_mapping_rule_deletion"
+	ActivityLogActivityTypeCalendarMappingRuleUpdate                 ActivityLogActivityType = "calendar_mapping_rule_update"
+	ActivityLogActivityTypeCallSettingsChange                        ActivityLogActivityType = "call_settings_change"
+	ActivityLogActivityTypeCampaignDeletion                          ActivityLogActivityType = "campaign_deletion"
+	ActivityLogActivityTypeCampaignStateChange                       ActivityLogActivityType = "campaign_state_change"
+	ActivityLogActivityTypeChannelIdentityRuleChange                 ActivityLogActivityType = "channel_identity_rule_change"
+	ActivityLogActivityTypeChannelWrapUpSettingsChange               ActivityLogActivityType = "channel_wrap_up_settings_change"
+	ActivityLogActivityTypeConsentBannerSettingsChange               ActivityLogActivityType = "consent_banner_settings_change"
+	ActivityLogActivityTypeContentRedactionRuleCreation              ActivityLogActivityType = "content_redaction_rule_creation"
+	ActivityLogActivityTypeContentRedactionRuleDeletion              ActivityLogActivityType = "content_redaction_rule_deletion"
+	ActivityLogActivityTypeContentRedactionRuleUpdate                ActivityLogActivityType = "content_redaction_rule_update"
+	ActivityLogActivityTypeContentSuggestionsChange                  ActivityLogActivityType = "content_suggestions_change"
+	ActivityLogActivityTypeContentSyncPairCreation                   ActivityLogActivityType = "content_sync_pair_creation"
+	ActivityLogActivityTypeContentSyncPairDeletion                   ActivityLogActivityType = "content_sync_pair_deletion"
+	ActivityLogActivityTypeContentSyncPairRun                        ActivityLogActivityType = "content_sync_pair_run"
+	ActivityLogActivityTypeContentSyncPairUpdate                     ActivityLogActivityType = "content_sync_pair_update"
+	ActivityLogActivityTypeConversationAttributeArchive              ActivityLogActivityType = "conversation_attribute_archive"
+	ActivityLogActivityTypeConversationDeletion                      ActivityLogActivityType = "conversation_deletion"
+	ActivityLogActivityTypeConversationDeletionScheduleCreation      ActivityLogActivityType = "conversation_deletion_schedule_creation"
+	ActivityLogActivityTypeConversationDeletionScheduleStateChange   ActivityLogActivityType = "conversation_deletion_schedule_state_change"
+	ActivityLogActivityTypeConversationDeletionScheduleUpdate        ActivityLogActivityType = "conversation_deletion_schedule_update"
+	ActivityLogActivityTypeConversationHardDeletionEnqueued          ActivityLogActivityType = "conversation_hard_deletion_enqueued"
+	ActivityLogActivityTypeConversationPartDeletion                  ActivityLogActivityType = "conversation_part_deletion"
+	ActivityLogActivityTypeConversationPartEdited                    ActivityLogActivityType = "conversation_part_edited"
+	ActivityLogActivityTypeConversationPartRedaction                 ActivityLogActivityType = "conversation_part_redaction"
+	ActivityLogActivityTypeConversationPdfExport                     ActivityLogActivityType = "conversation_pdf_export"
+	ActivityLogActivityTypeConversationRedactionEnqueued             ActivityLogActivityType = "conversation_redaction_enqueued"
+	ActivityLogActivityTypeConversationSlaChange                     ActivityLogActivityType = "conversation_sla_change"
+	ActivityLogActivityTypeConversationTopicChange                   ActivityLogActivityType = "conversation_topic_change"
+	ActivityLogActivityTypeConversationTopicCreation                 ActivityLogActivityType = "conversation_topic_creation"
+	ActivityLogActivityTypeConversationTopicDeletion                 ActivityLogActivityType = "conversation_topic_deletion"
+	ActivityLogActivityTypeCsvImportCompletion                       ActivityLogActivityType = "csv_import_completion"
+	ActivityLogActivityTypeCsvImportCreation                         ActivityLogActivityType = "csv_import_creation"
+	ActivityLogActivityTypeCustomAuthenticationTokenCreation         ActivityLogActivityType = "custom_authentication_token_creation"
+	ActivityLogActivityTypeCustomAuthenticationTokenDeletion         ActivityLogActivityType = "custom_authentication_token_deletion"
+	ActivityLogActivityTypeCustomAuthenticationTokenUpdate           ActivityLogActivityType = "custom_authentication_token_update"
+	ActivityLogActivityTypeCustomEmojiDeletion                       ActivityLogActivityType = "custom_emoji_deletion"
+	ActivityLogActivityTypeCustomReportCreate                        ActivityLogActivityType = "custom_report_create"
+	ActivityLogActivityTypeCustomReportDelete                        ActivityLogActivityType = "custom_report_delete"
+	ActivityLogActivityTypeCustomReportUpdate                        ActivityLogActivityType = "custom_report_update"
+	ActivityLogActivityTypeCustomerFacingNameChange                  ActivityLogActivityType = "customer_facing_name_change"
+	ActivityLogActivityTypeDataConnectorLogRetentionSettingCreation  ActivityLogActivityType = "data_connector_log_retention_setting_creation"
+	ActivityLogActivityTypeDataConnectorLogRetentionSettingUpdate    ActivityLogActivityType = "data_connector_log_retention_setting_update"
+	ActivityLogActivityTypeDataConnectorSecurityWarningAcknowledged  ActivityLogActivityType = "data_connector_security_warning_acknowledged"
+	ActivityLogActivityTypeDeveloperHubSecretCopied                  ActivityLogActivityType = "developer_hub_secret_copied"
+	ActivityLogActivityTypeDeveloperHubSecretRevealed                ActivityLogActivityType = "developer_hub_secret_revealed"
+	ActivityLogActivityTypeDeviceTokenDeletion                       ActivityLogActivityType = "device_token_deletion"
+	ActivityLogActivityTypeEmailSettingsChange                       ActivityLogActivityType = "email_settings_change"
+	ActivityLogActivityTypeEmailSignatureChange                      ActivityLogActivityType = "email_signature_change"
+	ActivityLogActivityTypeEscalationRuleChange                      ActivityLogActivityType = "escalation_rule_change"
+	ActivityLogActivityTypeFallbackAdminAliasChange                  ActivityLogActivityType = "fallback_admin_alias_change"
+	ActivityLogActivityTypeFileUploadAudiencePredicatesSettingChange ActivityLogActivityType = "file_upload_audience_predicates_setting_change"
+	ActivityLogActivityTypeFinAgentApiSecretCopied                   ActivityLogActivityType = "fin_agent_api_secret_copied"
+	ActivityLogActivityTypeFinAgentApiSecretRevealed                 ActivityLogActivityType = "fin_agent_api_secret_revealed"
+	ActivityLogActivityTypeFinAgentApiSettingsChange                 ActivityLogActivityType = "fin_agent_api_settings_change"
+	ActivityLogActivityTypeFinFreeUsageWindowCreate                  ActivityLogActivityType = "fin_free_usage_window_create"
+	ActivityLogActivityTypeFinFreeUsageWindowExtension               ActivityLogActivityType = "fin_free_usage_window_extension"
+	ActivityLogActivityTypeFinIngestionConsent                       ActivityLogActivityType = "fin_ingestion_consent"
+	ActivityLogActivityTypeFinOptIn                                  ActivityLogActivityType = "fin_opt_in"
+	ActivityLogActivityTypeFinPersistedDataContextAttributeChange    ActivityLogActivityType = "fin_persisted_data_context_attribute_change"
+	ActivityLogActivityTypeFinProceduresHitlAccessTokenRotated       ActivityLogActivityType = "fin_procedures_hitl_access_token_rotated"
+	ActivityLogActivityTypeFinProceduresHitlSettingsChange           ActivityLogActivityType = "fin_procedures_hitl_settings_change"
+	ActivityLogActivityTypeFinSdrConnectorActivated                  ActivityLogActivityType = "fin_sdr_connector_activated"
+	ActivityLogActivityTypeFinSdrConnectorGenerated                  ActivityLogActivityType = "fin_sdr_connector_generated"
+	ActivityLogActivityTypeFinSdrMarketoConnected                    ActivityLogActivityType = "fin_sdr_marketo_connected"
+	ActivityLogActivityTypeFinSdrMarketoDisconnected                 ActivityLogActivityType = "fin_sdr_marketo_disconnected"
+	ActivityLogActivityTypeFinSdrMarketoPartitionSelected            ActivityLogActivityType = "fin_sdr_marketo_partition_selected"
+	ActivityLogActivityTypeFinSdrPlaybookUpdated                     ActivityLogActivityType = "fin_sdr_playbook_updated"
+	ActivityLogActivityTypeGenericEcommerceConnectorCreation         ActivityLogActivityType = "generic_ecommerce_connector_creation"
+	ActivityLogActivityTypeGithubSyncCleanupDeletedFolder            ActivityLogActivityType = "github_sync_cleanup_deleted_folder"
+	ActivityLogActivityTypeGithubSyncConnectorCloned                 ActivityLogActivityType = "github_sync_connector_cloned"
+	ActivityLogActivityTypeGithubSyncDisconnected                    ActivityLogActivityType = "github_sync_disconnected"
+	ActivityLogActivityTypeGithubSyncInstalled                       ActivityLogActivityType = "github_sync_installed"
+	ActivityLogActivityTypeGithubSyncPulled                          ActivityLogActivityType = "github_sync_pulled"
+	ActivityLogActivityTypeHelpCenterSettingsChange                  ActivityLogActivityType = "help_center_settings_change"
+	ActivityLogActivityTypeHideCsatFromAgentsSettingChange           ActivityLogActivityType = "hide_csat_from_agents_setting_change"
+	ActivityLogActivityTypeHippaComplianceSettingsChange             ActivityLogActivityType = "hippa_compliance_settings_change"
+	ActivityLogActivityTypeHitlInboxAction                           ActivityLogActivityType = "hitl_inbox_action"
+	ActivityLogActivityTypeHitlRuleChange                            ActivityLogActivityType = "hitl_rule_change"
+	ActivityLogActivityTypeIdentityVerificationUnmarked              ActivityLogActivityType = "identity_verification_unmarked"
+	ActivityLogActivityTypeInboundConversationsChange                ActivityLogActivityType = "inbound_conversations_change"
+	ActivityLogActivityTypeInboxAccessChange                         ActivityLogActivityType = "inbox_access_change"
+	ActivityLogActivityTypeInboxBulkAction                           ActivityLogActivityType = "inbox_bulk_action"
+	ActivityLogActivityTypeIntercomTeammateRemoval                   ActivityLogActivityType = "intercom_teammate_removal"
+	ActivityLogActivityTypeInternalAgentProposalApplied              ActivityLogActivityType = "internal_agent_proposal_applied"
+	ActivityLogActivityTypeIpAllowlistSettingChange                  ActivityLogActivityType = "ip_allowlist_setting_change"
+	ActivityLogActivityTypeLeadToUserMerge                           ActivityLogActivityType = "lead_to_user_merge"
+	ActivityLogActivityTypeMacroContentExportRun                     ActivityLogActivityType = "macro_content_export_run"
+	ActivityLogActivityTypeMacroCreation                             ActivityLogActivityType = "macro_creation"
+	ActivityLogActivityTypeMacroDeletion                             ActivityLogActivityType = "macro_deletion"
+	ActivityLogActivityTypeMacroUpdate                               ActivityLogActivityType = "macro_update"
+	ActivityLogActivityTypeMacroUsageExport                          ActivityLogActivityType = "macro_usage_export"
+	ActivityLogActivityTypeMaliciousDomainsSettingChange             ActivityLogActivityType = "malicious_domains_setting_change"
+	ActivityLogActivityTypeMaskedAdminAvatarChange                   ActivityLogActivityType = "masked_admin_avatar_change"
+	ActivityLogActivityTypeMcpActionAdded                            ActivityLogActivityType = "mcp_action_added"
+	ActivityLogActivityTypeMcpActionRemoved                          ActivityLogActivityType = "mcp_action_removed"
+	ActivityLogActivityTypeMcpActionUpdated                          ActivityLogActivityType = "mcp_action_updated"
+	ActivityLogActivityTypeMcpActionsBatchAdded                      ActivityLogActivityType = "mcp_actions_batch_added"
+	ActivityLogActivityTypeMcpServerCreated                          ActivityLogActivityType = "mcp_server_created"
+	ActivityLogActivityTypeMcpServerDeleted                          ActivityLogActivityType = "mcp_server_deleted"
+	ActivityLogActivityTypeMcpServerDisabled                         ActivityLogActivityType = "mcp_server_disabled"
+	ActivityLogActivityTypeMcpServerEnabled                          ActivityLogActivityType = "mcp_server_enabled"
+	ActivityLogActivityTypeMcpServerOauthConnected                   ActivityLogActivityType = "mcp_server_oauth_connected"
+	ActivityLogActivityTypeMcpServerOauthDisconnected                ActivityLogActivityType = "mcp_server_oauth_disconnected"
+	ActivityLogActivityTypeMcpServerReconnected                      ActivityLogActivityType = "mcp_server_reconnected"
+	ActivityLogActivityTypeMcpServerUpdated                          ActivityLogActivityType = "mcp_server_updated"
+	ActivityLogActivityTypeMessageDeletion                           ActivityLogActivityType = "message_deletion"
+	ActivityLogActivityTypeMessageStateChange                        ActivityLogActivityType = "message_state_change"
+	ActivityLogActivityTypeMessengerAllowedDomainsChange             ActivityLogActivityType = "messenger_allowed_domains_change"
+	ActivityLogActivityTypeMessengerApiSecretCreation                ActivityLogActivityType = "messenger_api_secret_creation"
+	ActivityLogActivityTypeMessengerApiSecretDeletion                ActivityLogActivityType = "messenger_api_secret_deletion"
+	ActivityLogActivityTypeMessengerLanguageChange                   ActivityLogActivityType = "messenger_language_change"
+	ActivityLogActivityTypeMessengerLaunchToConversationChange       ActivityLogActivityType = "messenger_launch_to_conversation_change"
+	ActivityLogActivityTypeMessengerLauncherDisplayConditionChange   ActivityLogActivityType = "messenger_launcher_display_condition_change"
+	ActivityLogActivityTypeMessengerLookAndFeelChange                ActivityLogActivityType = "messenger_look_and_feel_change"
+	ActivityLogActivityTypeMessengerPlatformAvailabilityChange       ActivityLogActivityType = "messenger_platform_availability_change"
+	ActivityLogActivityTypeMessengerPlatformInactivityDisableEvent   ActivityLogActivityType = "messenger_platform_inactivity_disable_event"
+	ActivityLogActivityTypeMessengerSearchRequiredChange             ActivityLogActivityType = "messenger_search_required_change"
+	ActivityLogActivityTypeMessengerSpacesChange                     ActivityLogActivityType = "messenger_spaces_change"
+	ActivityLogActivityTypeMsTeamsUserAssociationSettingChange       ActivityLogActivityType = "ms_teams_user_association_setting_change"
+	ActivityLogActivityTypeOauthTokenRevocation                      ActivityLogActivityType = "oauth_token_revocation"
+	ActivityLogActivityTypeOfficeHoursChange                         ActivityLogActivityType = "office_hours_change"
+	ActivityLogActivityTypeOfficeHoursExceptionChange                ActivityLogActivityType = "office_hours_exception_change"
+	ActivityLogActivityTypeOutboundPhoneCampaignChange               ActivityLogActivityType = "outbound_phone_campaign_change"
+	ActivityLogActivityTypeOutboundPhoneCampaignCreation             ActivityLogActivityType = "outbound_phone_campaign_creation"
+	ActivityLogActivityTypeOutboundPhoneCampaignCsvUpload            ActivityLogActivityType = "outbound_phone_campaign_csv_upload"
+	ActivityLogActivityTypeOutboundPhoneCampaignDeletion             ActivityLogActivityType = "outbound_phone_campaign_deletion"
+	ActivityLogActivityTypeOutboundPhoneCampaignImport               ActivityLogActivityType = "outbound_phone_campaign_import"
+	ActivityLogActivityTypeOutboundPhoneCampaignSessionStart         ActivityLogActivityType = "outbound_phone_campaign_session_start"
+	ActivityLogActivityTypeOutboundPhoneCampaignStateChange          ActivityLogActivityType = "outbound_phone_campaign_state_change"
+	ActivityLogActivityTypePersonalMacroAdminConvert                 ActivityLogActivityType = "personal_macro_admin_convert"
+	ActivityLogActivityTypePersonalMacroAdminDestroy                 ActivityLogActivityType = "personal_macro_admin_destroy"
+	ActivityLogActivityTypePersonalMacroAdminRead                    ActivityLogActivityType = "personal_macro_admin_read"
+	ActivityLogActivityTypePhoneNumberPurchase                       ActivityLogActivityType = "phone_number_purchase"
+	ActivityLogActivityTypePhonePurchaseDiagnostic                   ActivityLogActivityType = "phone_purchase_diagnostic"
+	ActivityLogActivityTypePhoneQueueCallPinCleared                  ActivityLogActivityType = "phone_queue_call_pin_cleared"
+	ActivityLogActivityTypePhoneQueueCallPinned                      ActivityLogActivityType = "phone_queue_call_pinned"
+	ActivityLogActivityTypePhoneQueueCallUnpinned                    ActivityLogActivityType = "phone_queue_call_unpinned"
+	ActivityLogActivityTypePiiDataRevealed                           ActivityLogActivityType = "pii_data_revealed"
+	ActivityLogActivityTypePostMigrationSeatCreation                 ActivityLogActivityType = "post_migration_seat_creation"
+	ActivityLogActivityTypePostMigrationSeatDeletion                 ActivityLogActivityType = "post_migration_seat_deletion"
+	ActivityLogActivityTypePostMigrationSeatUpdate                   ActivityLogActivityType = "post_migration_seat_update"
+	ActivityLogActivityTypePreMigrationSeatExpirationDateChange      ActivityLogActivityType = "pre_migration_seat_expiration_date_change"
+	ActivityLogActivityTypePredictiveAnswersSettingsChange           ActivityLogActivityType = "predictive_answers_settings_change"
+	ActivityLogActivityTypePrivacyPolicyNoticeChange                 ActivityLogActivityType = "privacy_policy_notice_change"
+	ActivityLogActivityTypePrivacyPolicyNoticeContentsChange         ActivityLogActivityType = "privacy_policy_notice_contents_change"
+	ActivityLogActivityTypeQaMonitorArchive                          ActivityLogActivityType = "qa_monitor_archive"
+	ActivityLogActivityTypeQaMonitorCreation                         ActivityLogActivityType = "qa_monitor_creation"
+	ActivityLogActivityTypeQaMonitorRestore                          ActivityLogActivityType = "qa_monitor_restore"
+	ActivityLogActivityTypeQaMonitorUpdate                           ActivityLogActivityType = "qa_monitor_update"
+	ActivityLogActivityTypeQaReviewPlanArchive                       ActivityLogActivityType = "qa_review_plan_archive"
+	ActivityLogActivityTypeQaReviewPlanCreation                      ActivityLogActivityType = "qa_review_plan_creation"
+	ActivityLogActivityTypeQaScorecardArchive                        ActivityLogActivityType = "qa_scorecard_archive"
+	ActivityLogActivityTypeQaScorecardCreation                       ActivityLogActivityType = "qa_scorecard_creation"
+	ActivityLogActivityTypeQaScorecardUpdate                         ActivityLogActivityType = "qa_scorecard_update"
+	ActivityLogActivityTypeRecoveryCodeSent                          ActivityLogActivityType = "recovery_code_sent"
+	ActivityLogActivityTypeReportAccessCreate                        ActivityLogActivityType = "report_access_create"
+	ActivityLogActivityTypeReportAccessDelete                        ActivityLogActivityType = "report_access_delete"
+	ActivityLogActivityTypeReportAccessUpdate                        ActivityLogActivityType = "report_access_update"
+	ActivityLogActivityTypeReportScheduledShareCreate                ActivityLogActivityType = "report_scheduled_share_create"
+	ActivityLogActivityTypeReportScheduledShareDelete                ActivityLogActivityType = "report_scheduled_share_delete"
+	ActivityLogActivityTypeReportScheduledShareUpdate                ActivityLogActivityType = "report_scheduled_share_update"
+	ActivityLogActivityTypeReportSnapshotCreate                      ActivityLogActivityType = "report_snapshot_create"
+	ActivityLogActivityTypeReportingCsvExport                        ActivityLogActivityType = "reporting_csv_export"
+	ActivityLogActivityTypeReportingFolderCreate                     ActivityLogActivityType = "reporting_folder_create"
+	ActivityLogActivityTypeReportingFolderDelete                     ActivityLogActivityType = "reporting_folder_delete"
+	ActivityLogActivityTypeReportingFolderNameChange                 ActivityLogActivityType = "reporting_folder_name_change"
+	ActivityLogActivityTypeReportingFolderPinChange                  ActivityLogActivityType = "reporting_folder_pin_change"
+	ActivityLogActivityTypeReportingFolderPositionChange             ActivityLogActivityType = "reporting_folder_position_change"
+	ActivityLogActivityTypeReportingFolderReportsChange              ActivityLogActivityType = "reporting_folder_reports_change"
+	ActivityLogActivityTypeRequestLogExportRequested                 ActivityLogActivityType = "request_log_export_requested"
+	ActivityLogActivityTypeRestApiIpAllowlistSettingChange           ActivityLogActivityType = "rest_api_ip_allowlist_setting_change"
+	ActivityLogActivityTypeRoleChange                                ActivityLogActivityType = "role_change"
+	ActivityLogActivityTypeRoleCreation                              ActivityLogActivityType = "role_creation"
+	ActivityLogActivityTypeRoleDeletion                              ActivityLogActivityType = "role_deletion"
+	ActivityLogActivityTypeRulesetActivation                         ActivityLogActivityType = "ruleset_activation"
+	ActivityLogActivityTypeRulesetCreation                           ActivityLogActivityType = "ruleset_creation"
+	ActivityLogActivityTypeRulesetDeletion                           ActivityLogActivityType = "ruleset_deletion"
+	ActivityLogActivityTypeSafetyResponseCategoryConfigChange        ActivityLogActivityType = "safety_response_category_config_change"
+	ActivityLogActivityTypeSalesMessengerConfigurationChange         ActivityLogActivityType = "sales_messenger_configuration_change"
+	ActivityLogActivityTypeScheduleTemplateApply                     ActivityLogActivityType = "schedule_template_apply"
+	ActivityLogActivityTypeScheduleTemplateCreation                  ActivityLogActivityType = "schedule_template_creation"
+	ActivityLogActivityTypeScheduleTemplateDeletion                  ActivityLogActivityType = "schedule_template_deletion"
+	ActivityLogActivityTypeScheduleTemplateUpdate                    ActivityLogActivityType = "schedule_template_update"
+	ActivityLogActivityTypeScimAdminBulkRoleAssignment               ActivityLogActivityType = "scim_admin_bulk_role_assignment"
+	ActivityLogActivityTypeScimAdminPasswordUpdate                   ActivityLogActivityType = "scim_admin_password_update"
+	ActivityLogActivityTypeScimAdminProfileUpdate                    ActivityLogActivityType = "scim_admin_profile_update"
+	ActivityLogActivityTypeScimAdminRoleChange                       ActivityLogActivityType = "scim_admin_role_change"
+	ActivityLogActivityTypeScimGroupCreation                         ActivityLogActivityType = "scim_group_creation"
+	ActivityLogActivityTypeScimGroupDeletion                         ActivityLogActivityType = "scim_group_deletion"
+	ActivityLogActivityTypeScimGroupMembershipChange                 ActivityLogActivityType = "scim_group_membership_change"
+	ActivityLogActivityTypeScimGroupUpdate                           ActivityLogActivityType = "scim_group_update"
+	ActivityLogActivityTypeScimGroupsBulkUpdate                      ActivityLogActivityType = "scim_groups_bulk_update"
+	ActivityLogActivityTypeScimSettingsChange                        ActivityLogActivityType = "scim_settings_change"
+	ActivityLogActivityTypeScimSystemDisabled                        ActivityLogActivityType = "scim_system_disabled"
+	ActivityLogActivityTypeScimSystemEnabled                         ActivityLogActivityType = "scim_system_enabled"
+	ActivityLogActivityTypeSeatChange                                ActivityLogActivityType = "seat_change"
+	ActivityLogActivityTypeSeatRevoke                                ActivityLogActivityType = "seat_revoke"
+	ActivityLogActivityTypeSecuritySettingsChange                    ActivityLogActivityType = "security_settings_change"
+	ActivityLogActivityTypeSelectionSetArchive                       ActivityLogActivityType = "selection_set_archive"
+	ActivityLogActivityTypeSelectionSetCreation                      ActivityLogActivityType = "selection_set_creation"
+	ActivityLogActivityTypeSeriesCreation                            ActivityLogActivityType = "series_creation"
+	ActivityLogActivityTypeSeriesDeletion                            ActivityLogActivityType = "series_deletion"
+	ActivityLogActivityTypeSeriesSettingsUpdate                      ActivityLogActivityType = "series_settings_update"
+	ActivityLogActivityTypeSeriesStatusChange                        ActivityLogActivityType = "series_status_change"
+	ActivityLogActivityTypeSeriesUpdate                              ActivityLogActivityType = "series_update"
+	ActivityLogActivityTypeShopifyAddReplacementItem                 ActivityLogActivityType = "shopify_add_replacement_item"
+	ActivityLogActivityTypeShopifyCreateDiscountCode                 ActivityLogActivityType = "shopify_create_discount_code"
+	ActivityLogActivityTypeShopifyDisableDiscountCode                ActivityLogActivityType = "shopify_disable_discount_code"
+	ActivityLogActivityTypeShopifyDisableGiftCard                    ActivityLogActivityType = "shopify_disable_gift_card"
+	ActivityLogActivityTypeShopifyGiftCardCompensation               ActivityLogActivityType = "shopify_gift_card_compensation"
+	ActivityLogActivityTypeShopifyRefundOrder                        ActivityLogActivityType = "shopify_refund_order"
+	ActivityLogActivityTypeShopifyReplacementOrder                   ActivityLogActivityType = "shopify_replacement_order"
+	ActivityLogActivityTypeShopifyUpdateShippingAddress              ActivityLogActivityType = "shopify_update_shipping_address"
+	ActivityLogActivityTypeSipDomainDeleted                          ActivityLogActivityType = "sip_domain_deleted"
+	ActivityLogActivityTypeSipDomainProvisioned                      ActivityLogActivityType = "sip_domain_provisioned"
+	ActivityLogActivityTypeSipHeaderMappingsUpdated                  ActivityLogActivityType = "sip_header_mappings_updated"
+	ActivityLogActivityTypeSipIntegrationStageConfirmed              ActivityLogActivityType = "sip_integration_stage_confirmed"
+	ActivityLogActivityTypeSkillBasedRoutingToggled                  ActivityLogActivityType = "skill_based_routing_toggled"
+	ActivityLogActivityTypeSkillCategoryCreated                      ActivityLogActivityType = "skill_category_created"
+	ActivityLogActivityTypeSkillCategoryDeleted                      ActivityLogActivityType = "skill_category_deleted"
+	ActivityLogActivityTypeSkillCategoryUpdated                      ActivityLogActivityType = "skill_category_updated"
+	ActivityLogActivityTypeSlackIntegrationAutoPromoted              ActivityLogActivityType = "slack_integration_auto_promoted"
+	ActivityLogActivityTypeSlackIntegrationTypeChange                ActivityLogActivityType = "slack_integration_type_change"
+	ActivityLogActivityTypeSlackIntegrationUninstalled               ActivityLogActivityType = "slack_integration_uninstalled"
+	ActivityLogActivityTypeSlackMultiConversationalChanged           ActivityLogActivityType = "slack_multi_conversational_changed"
+	ActivityLogActivityTypeSlackOauthFreshInstall                    ActivityLogActivityType = "slack_oauth_fresh_install"
+	ActivityLogActivityTypeSlackOauthReauthentication                ActivityLogActivityType = "slack_oauth_reauthentication"
+	ActivityLogActivityTypeSlackOauthReinstall                       ActivityLogActivityType = "slack_oauth_reinstall"
+	ActivityLogActivityTypeSlackUserAssociationSettingChange         ActivityLogActivityType = "slack_user_association_setting_change"
+	ActivityLogActivityTypeSlackUserTokenCreation                    ActivityLogActivityType = "slack_user_token_creation"
+	ActivityLogActivityTypeSnoozePresetsChange                       ActivityLogActivityType = "snooze_presets_change"
+	ActivityLogActivityTypeSnowflakeShareActivated                   ActivityLogActivityType = "snowflake_share_activated"
+	ActivityLogActivityTypeSnowflakeShareTornDown                    ActivityLogActivityType = "snowflake_share_torn_down"
+	ActivityLogActivityTypeSpamEmailDeletion                         ActivityLogActivityType = "spam_email_deletion"
+	ActivityLogActivityTypeStandaloneChannelChange                   ActivityLogActivityType = "standalone_channel_change"
+	ActivityLogActivityTypeStandaloneConnectionConfigChange          ActivityLogActivityType = "standalone_connection_config_change"
+	ActivityLogActivityTypeStandaloneScheduleSyncDeletion            ActivityLogActivityType = "standalone_schedule_sync_deletion"
+	ActivityLogActivityTypeStartConversationButtonTextChange         ActivityLogActivityType = "start_conversation_button_text_change"
+	ActivityLogActivityTypeStripInboundEmailLinksChange              ActivityLogActivityType = "strip_inbound_email_links_change"
+	ActivityLogActivityTypeSuggestionsLimitersReset                  ActivityLogActivityType = "suggestions_limiters_reset"
+	ActivityLogActivityTypeTaxonomyUploadCreation                    ActivityLogActivityType = "taxonomy_upload_creation"
+	ActivityLogActivityTypeTeamAssignmentLimitChange                 ActivityLogActivityType = "team_assignment_limit_change"
+	ActivityLogActivityTypeTeamSkillCategoriesUpdated                ActivityLogActivityType = "team_skill_categories_updated"
+	ActivityLogActivityTypeTeammateGifsSettingChange                 ActivityLogActivityType = "teammate_gifs_setting_change"
+	ActivityLogActivityTypeTeammateOfficeHoursScheduleAssign         ActivityLogActivityType = "teammate_office_hours_schedule_assign"
+	ActivityLogActivityTypeTeammateOfficeHoursScheduleUnassign       ActivityLogActivityType = "teammate_office_hours_schedule_unassign"
+	ActivityLogActivityTypeTeammateSkillsSynced                      ActivityLogActivityType = "teammate_skills_synced"
+	ActivityLogActivityTypeTelegramIdentityReset                     ActivityLogActivityType = "telegram_identity_reset"
+	ActivityLogActivityTypeTelegramIntegrationInstalled              ActivityLogActivityType = "telegram_integration_installed"
+	ActivityLogActivityTypeTelegramIntegrationUninstalled            ActivityLogActivityType = "telegram_integration_uninstalled"
+	ActivityLogActivityTypeTemporaryExpectationAutoExpired           ActivityLogActivityType = "temporary_expectation_auto_expired"
+	ActivityLogActivityTypeTemporaryExpectationChange                ActivityLogActivityType = "temporary_expectation_change"
+	ActivityLogActivityTypeTemporaryExpectationMessagesChange        ActivityLogActivityType = "temporary_expectation_messages_change"
+	ActivityLogActivityTypeTicketStateCustomerNotificationsChange    ActivityLogActivityType = "ticket_state_customer_notifications_change"
+	ActivityLogActivityTypeTopicCurationSetLive                      ActivityLogActivityType = "topic_curation_set_live"
+	ActivityLogActivityTypeTrustedDomainsSettingChange               ActivityLogActivityType = "trusted_domains_setting_change"
+	ActivityLogActivityTypeUnassignTriggersSettingChange             ActivityLogActivityType = "unassign_triggers_setting_change"
+	ActivityLogActivityTypeUnassignUnsnoozedAtCapacitySettingChange  ActivityLogActivityType = "unassign_unsnoozed_at_capacity_setting_change"
+	ActivityLogActivityTypeUnassignUnsnoozedWhenAwaySettingChange    ActivityLogActivityType = "unassign_unsnoozed_when_away_setting_change"
+	ActivityLogActivityTypeUpfrontEmailCollectionChange              ActivityLogActivityType = "upfront_email_collection_change"
+	ActivityLogActivityTypeUserCameraAttachmentsSettingChange        ActivityLogActivityType = "user_camera_attachments_setting_change"
+	ActivityLogActivityTypeUserConversationAttachmentsSettingChange  ActivityLogActivityType = "user_conversation_attachments_setting_change"
+	ActivityLogActivityTypeUserEmojisSettingChange                   ActivityLogActivityType = "user_emojis_setting_change"
+	ActivityLogActivityTypeUserFileAttachmentsSettingChange          ActivityLogActivityType = "user_file_attachments_setting_change"
+	ActivityLogActivityTypeUserGifsSettingChange                     ActivityLogActivityType = "user_gifs_setting_change"
+	ActivityLogActivityTypeUserMediaAttachmentsSettingChange         ActivityLogActivityType = "user_media_attachments_setting_change"
+	ActivityLogActivityTypeUserToUserMerge                           ActivityLogActivityType = "user_to_user_merge"
+	ActivityLogActivityTypeUserVoiceNotesSettingChange               ActivityLogActivityType = "user_voice_notes_setting_change"
+	ActivityLogActivityTypeWelcomeMessageChange                      ActivityLogActivityType = "welcome_message_change"
+	ActivityLogActivityTypeWfmGoogleCalendarConnected                ActivityLogActivityType = "wfm_google_calendar_connected"
+	ActivityLogActivityTypeWfmGoogleCalendarDisconnected             ActivityLogActivityType = "wfm_google_calendar_disconnected"
+	ActivityLogActivityTypeWfmGoogleCalendarSyncSettingChange        ActivityLogActivityType = "wfm_google_calendar_sync_setting_change"
+	ActivityLogActivityTypeWhatsappDirectSendChanged                 ActivityLogActivityType = "whatsapp_direct_send_changed"
+	ActivityLogActivityTypeWorkflowCreation                          ActivityLogActivityType = "workflow_creation"
+	ActivityLogActivityTypeWorkflowDeletion                          ActivityLogActivityType = "workflow_deletion"
+	ActivityLogActivityTypeWorkflowParticipantActionConfigured       ActivityLogActivityType = "workflow_participant_action_configured"
+	ActivityLogActivityTypeWorkflowStatusChange                      ActivityLogActivityType = "workflow_status_change"
+	ActivityLogActivityTypeWorkflowUpdate                            ActivityLogActivityType = "workflow_update"
+	ActivityLogActivityTypeWorkspaceDeletionRequest                  ActivityLogActivityType = "workspace_deletion_request"
+	ActivityLogActivityTypeWorkspaceOwnerDesignationChange           ActivityLogActivityType = "workspace_owner_designation_change"
 )
 
 // Valid indicates whether the value is a known member of the ActivityLogActivityType enum.
 func (e ActivityLogActivityType) Valid() bool {
 	switch e {
+	case ActivityLogActivityTypeA2aAgentOauthConnected:
+		return true
+	case ActivityLogActivityTypeA2aAgentRegistered:
+		return true
+	case ActivityLogActivityTypeActionCreated:
+		return true
+	case ActivityLogActivityTypeActionPublished:
+		return true
+	case ActivityLogActivityTypeActionRiskAcceptedChange:
+		return true
+	case ActivityLogActivityTypeActionStatusChange:
+		return true
+	case ActivityLogActivityTypeActionUpdate:
+		return true
+	case ActivityLogActivityTypeActivityTypeCreation:
+		return true
+	case ActivityLogActivityTypeAdminAssignmentLimitChange:
+		return true
 	case ActivityLogActivityTypeAdminAvatarChange:
 		return true
 	case ActivityLogActivityTypeAdminAwayModeChange:
+		return true
+	case ActivityLogActivityTypeAdminBulkInviteCreation:
+		return true
+	case ActivityLogActivityTypeAdminBulkNotificationSettingsChange:
+		return true
+	case ActivityLogActivityTypeAdminChannelChange:
+		return true
+	case ActivityLogActivityTypeAdminChannelLimitChange:
 		return true
 	case ActivityLogActivityTypeAdminConversationAssignmentLimitChange:
 		return true
 	case ActivityLogActivityTypeAdminDeletion:
 		return true
 	case ActivityLogActivityTypeAdminDeprovisioned:
+		return true
+	case ActivityLogActivityTypeAdminEmailChange:
 		return true
 	case ActivityLogActivityTypeAdminImpersonationConsentApproved:
 		return true
@@ -156,15 +456,27 @@ func (e ActivityLogActivityType) Valid() bool {
 		return true
 	case ActivityLogActivityTypeAdminInviteDeletion:
 		return true
+	case ActivityLogActivityTypeAdminLocaleChange:
+		return true
+	case ActivityLogActivityTypeAdminLoginAttemptsReset:
+		return true
 	case ActivityLogActivityTypeAdminLoginFailure:
 		return true
 	case ActivityLogActivityTypeAdminLoginSuccess:
 		return true
 	case ActivityLogActivityTypeAdminLogout:
 		return true
+	case ActivityLogActivityTypeAdminMobileLoginFailure:
+		return true
+	case ActivityLogActivityTypeAdminMobileLoginSuccess:
+		return true
+	case ActivityLogActivityTypeAdminNameChange:
+		return true
 	case ActivityLogActivityTypeAdminOccupancySettingChange:
 		return true
 	case ActivityLogActivityTypeAdminOccupancyStateChange:
+		return true
+	case ActivityLogActivityTypeAdminPasswordChange:
 		return true
 	case ActivityLogActivityTypeAdminPasswordResetRequest:
 		return true
@@ -174,11 +486,39 @@ func (e ActivityLogActivityType) Valid() bool {
 		return true
 	case ActivityLogActivityTypeAdminProvisioned:
 		return true
+	case ActivityLogActivityTypeAdminSignInMethodExpired:
+		return true
 	case ActivityLogActivityTypeAdminTicketAssignmentLimitChange:
 		return true
 	case ActivityLogActivityTypeAdminTwoFactorAuthChange:
 		return true
+	case ActivityLogActivityTypeAdminTwoFactorLoginFailure:
+		return true
+	case ActivityLogActivityTypeAdminUnassignUnsnoozedAtCapacityChange:
+		return true
 	case ActivityLogActivityTypeAdminUnauthorizedSignInMethod:
+		return true
+	case ActivityLogActivityTypeAiAgentCustomizationSettingsChange:
+		return true
+	case ActivityLogActivityTypeAiAgentFinPlaygroundChange:
+		return true
+	case ActivityLogActivityTypeAiAgentGuidanceChange:
+		return true
+	case ActivityLogActivityTypeAiAgentIdentitySettingsChange:
+		return true
+	case ActivityLogActivityTypeAiAgentMultilingualSettingsChange:
+		return true
+	case ActivityLogActivityTypeAiAgentPreviewTokenGenerated:
+		return true
+	case ActivityLogActivityTypeAiAgentSafetyGuardSettingsChange:
+		return true
+	case ActivityLogActivityTypeAiCategoryChange:
+		return true
+	case ActivityLogActivityTypeAiInboxTranslationSettingChange:
+		return true
+	case ActivityLogActivityTypeAliasModeChange:
+		return true
+	case ActivityLogActivityTypeAliasNameChange:
 		return true
 	case ActivityLogActivityTypeAllowedAttachmentFiletypesSettingChange:
 		return true
@@ -193,6 +533,8 @@ func (e ActivityLogActivityType) Valid() bool {
 	case ActivityLogActivityTypeAppGoogleSsoDomainChange:
 		return true
 	case ActivityLogActivityTypeAppIdentityVerificationChange:
+		return true
+	case ActivityLogActivityTypeAppIdentityVerificationReminderDisabled:
 		return true
 	case ActivityLogActivityTypeAppNameChange:
 		return true
@@ -216,19 +558,79 @@ func (e ActivityLogActivityType) Valid() bool {
 		return true
 	case ActivityLogActivityTypeAppWebhookDeletion:
 		return true
+	case ActivityLogActivityTypeArticleContentAudienceUpdated:
+		return true
+	case ActivityLogActivityTypeArticleContentCreation:
+		return true
+	case ActivityLogActivityTypeArticleContentDeletion:
+		return true
+	case ActivityLogActivityTypeArticleContentPublished:
+		return true
+	case ActivityLogActivityTypeArticleContentUnpublished:
+		return true
+	case ActivityLogActivityTypeArticleContentUpdate:
+		return true
+	case ActivityLogActivityTypeArticleCreation:
+		return true
+	case ActivityLogActivityTypeArticleDeletion:
+		return true
 	case ActivityLogActivityTypeArticlesInMessengerEnabledChange:
 		return true
 	case ActivityLogActivityTypeAttachUploadsInlineSettingChange:
 		return true
 	case ActivityLogActivityTypeAutomaticAwayModeSettingChange:
 		return true
+	case ActivityLogActivityTypeAutomaticDomainAuthenticationComplete:
+		return true
+	case ActivityLogActivityTypeAutomaticDomainAuthenticationStarted:
+		return true
+	case ActivityLogActivityTypeAutomationRoadmapFormSubmissionCreation:
+		return true
+	case ActivityLogActivityTypeBillingAddresseesBouncedAndRemoved:
+		return true
+	case ActivityLogActivityTypeBillingAddresseesChange:
+		return true
+	case ActivityLogActivityTypeBillingDetailsChange:
+		return true
+	case ActivityLogActivityTypeBrandCreation:
+		return true
+	case ActivityLogActivityTypeBrandDeletion:
+		return true
+	case ActivityLogActivityTypeBrandSettingsChange:
+		return true
+	case ActivityLogActivityTypeBrandUpdate:
+		return true
+	case ActivityLogActivityTypeBroadcastDeletion:
+		return true
+	case ActivityLogActivityTypeBulkDataExportCreation:
+		return true
+	case ActivityLogActivityTypeBulkDataExportDelete:
+		return true
+	case ActivityLogActivityTypeBulkDataExportRun:
+		return true
+	case ActivityLogActivityTypeBulkDataExportSettingsChange:
+		return true
 	case ActivityLogActivityTypeBulkDelete:
 		return true
 	case ActivityLogActivityTypeBulkExport:
 		return true
+	case ActivityLogActivityTypeCalendarMappingRuleCreation:
+		return true
+	case ActivityLogActivityTypeCalendarMappingRuleDeletion:
+		return true
+	case ActivityLogActivityTypeCalendarMappingRuleUpdate:
+		return true
+	case ActivityLogActivityTypeCallSettingsChange:
+		return true
 	case ActivityLogActivityTypeCampaignDeletion:
 		return true
 	case ActivityLogActivityTypeCampaignStateChange:
+		return true
+	case ActivityLogActivityTypeChannelIdentityRuleChange:
+		return true
+	case ActivityLogActivityTypeChannelWrapUpSettingsChange:
+		return true
+	case ActivityLogActivityTypeConsentBannerSettingsChange:
 		return true
 	case ActivityLogActivityTypeContentRedactionRuleCreation:
 		return true
@@ -236,17 +638,39 @@ func (e ActivityLogActivityType) Valid() bool {
 		return true
 	case ActivityLogActivityTypeContentRedactionRuleUpdate:
 		return true
-	case ActivityLogActivityTypeConversationDeletionScheduleCreation:
+	case ActivityLogActivityTypeContentSuggestionsChange:
 		return true
-	case ActivityLogActivityTypeConversationDeletionScheduleDeletion:
+	case ActivityLogActivityTypeContentSyncPairCreation:
+		return true
+	case ActivityLogActivityTypeContentSyncPairDeletion:
+		return true
+	case ActivityLogActivityTypeContentSyncPairRun:
+		return true
+	case ActivityLogActivityTypeContentSyncPairUpdate:
+		return true
+	case ActivityLogActivityTypeConversationAttributeArchive:
+		return true
+	case ActivityLogActivityTypeConversationDeletion:
+		return true
+	case ActivityLogActivityTypeConversationDeletionScheduleCreation:
 		return true
 	case ActivityLogActivityTypeConversationDeletionScheduleStateChange:
 		return true
 	case ActivityLogActivityTypeConversationDeletionScheduleUpdate:
 		return true
+	case ActivityLogActivityTypeConversationHardDeletionEnqueued:
+		return true
 	case ActivityLogActivityTypeConversationPartDeletion:
 		return true
+	case ActivityLogActivityTypeConversationPartEdited:
+		return true
+	case ActivityLogActivityTypeConversationPartRedaction:
+		return true
 	case ActivityLogActivityTypeConversationPdfExport:
+		return true
+	case ActivityLogActivityTypeConversationRedactionEnqueued:
+		return true
+	case ActivityLogActivityTypeConversationSlaChange:
 		return true
 	case ActivityLogActivityTypeConversationTopicChange:
 		return true
@@ -260,15 +684,113 @@ func (e ActivityLogActivityType) Valid() bool {
 		return true
 	case ActivityLogActivityTypeCustomAuthenticationTokenCreation:
 		return true
+	case ActivityLogActivityTypeCustomAuthenticationTokenDeletion:
+		return true
+	case ActivityLogActivityTypeCustomAuthenticationTokenUpdate:
+		return true
+	case ActivityLogActivityTypeCustomEmojiDeletion:
+		return true
+	case ActivityLogActivityTypeCustomReportCreate:
+		return true
+	case ActivityLogActivityTypeCustomReportDelete:
+		return true
+	case ActivityLogActivityTypeCustomReportUpdate:
+		return true
+	case ActivityLogActivityTypeCustomerFacingNameChange:
+		return true
+	case ActivityLogActivityTypeDataConnectorLogRetentionSettingCreation:
+		return true
+	case ActivityLogActivityTypeDataConnectorLogRetentionSettingUpdate:
+		return true
+	case ActivityLogActivityTypeDataConnectorSecurityWarningAcknowledged:
+		return true
+	case ActivityLogActivityTypeDeveloperHubSecretCopied:
+		return true
+	case ActivityLogActivityTypeDeveloperHubSecretRevealed:
+		return true
+	case ActivityLogActivityTypeDeviceTokenDeletion:
+		return true
+	case ActivityLogActivityTypeEmailSettingsChange:
+		return true
+	case ActivityLogActivityTypeEmailSignatureChange:
+		return true
+	case ActivityLogActivityTypeEscalationRuleChange:
+		return true
+	case ActivityLogActivityTypeFallbackAdminAliasChange:
+		return true
+	case ActivityLogActivityTypeFileUploadAudiencePredicatesSettingChange:
+		return true
+	case ActivityLogActivityTypeFinAgentApiSecretCopied:
+		return true
+	case ActivityLogActivityTypeFinAgentApiSecretRevealed:
+		return true
+	case ActivityLogActivityTypeFinAgentApiSettingsChange:
+		return true
+	case ActivityLogActivityTypeFinFreeUsageWindowCreate:
+		return true
+	case ActivityLogActivityTypeFinFreeUsageWindowExtension:
+		return true
+	case ActivityLogActivityTypeFinIngestionConsent:
+		return true
+	case ActivityLogActivityTypeFinOptIn:
+		return true
+	case ActivityLogActivityTypeFinPersistedDataContextAttributeChange:
+		return true
+	case ActivityLogActivityTypeFinProceduresHitlAccessTokenRotated:
+		return true
+	case ActivityLogActivityTypeFinProceduresHitlSettingsChange:
+		return true
+	case ActivityLogActivityTypeFinSdrConnectorActivated:
+		return true
+	case ActivityLogActivityTypeFinSdrConnectorGenerated:
+		return true
+	case ActivityLogActivityTypeFinSdrMarketoConnected:
+		return true
+	case ActivityLogActivityTypeFinSdrMarketoDisconnected:
+		return true
+	case ActivityLogActivityTypeFinSdrMarketoPartitionSelected:
+		return true
+	case ActivityLogActivityTypeFinSdrPlaybookUpdated:
+		return true
+	case ActivityLogActivityTypeGenericEcommerceConnectorCreation:
+		return true
+	case ActivityLogActivityTypeGithubSyncCleanupDeletedFolder:
+		return true
+	case ActivityLogActivityTypeGithubSyncConnectorCloned:
+		return true
+	case ActivityLogActivityTypeGithubSyncDisconnected:
+		return true
+	case ActivityLogActivityTypeGithubSyncInstalled:
+		return true
+	case ActivityLogActivityTypeGithubSyncPulled:
+		return true
 	case ActivityLogActivityTypeHelpCenterSettingsChange:
 		return true
 	case ActivityLogActivityTypeHideCsatFromAgentsSettingChange:
+		return true
+	case ActivityLogActivityTypeHippaComplianceSettingsChange:
+		return true
+	case ActivityLogActivityTypeHitlInboxAction:
+		return true
+	case ActivityLogActivityTypeHitlRuleChange:
+		return true
+	case ActivityLogActivityTypeIdentityVerificationUnmarked:
 		return true
 	case ActivityLogActivityTypeInboundConversationsChange:
 		return true
 	case ActivityLogActivityTypeInboxAccessChange:
 		return true
 	case ActivityLogActivityTypeInboxBulkAction:
+		return true
+	case ActivityLogActivityTypeIntercomTeammateRemoval:
+		return true
+	case ActivityLogActivityTypeInternalAgentProposalApplied:
+		return true
+	case ActivityLogActivityTypeIpAllowlistSettingChange:
+		return true
+	case ActivityLogActivityTypeLeadToUserMerge:
+		return true
+	case ActivityLogActivityTypeMacroContentExportRun:
 		return true
 	case ActivityLogActivityTypeMacroCreation:
 		return true
@@ -280,23 +802,163 @@ func (e ActivityLogActivityType) Valid() bool {
 		return true
 	case ActivityLogActivityTypeMaliciousDomainsSettingChange:
 		return true
+	case ActivityLogActivityTypeMaskedAdminAvatarChange:
+		return true
+	case ActivityLogActivityTypeMcpActionAdded:
+		return true
+	case ActivityLogActivityTypeMcpActionRemoved:
+		return true
+	case ActivityLogActivityTypeMcpActionUpdated:
+		return true
+	case ActivityLogActivityTypeMcpActionsBatchAdded:
+		return true
+	case ActivityLogActivityTypeMcpServerCreated:
+		return true
+	case ActivityLogActivityTypeMcpServerDeleted:
+		return true
+	case ActivityLogActivityTypeMcpServerDisabled:
+		return true
+	case ActivityLogActivityTypeMcpServerEnabled:
+		return true
+	case ActivityLogActivityTypeMcpServerOauthConnected:
+		return true
+	case ActivityLogActivityTypeMcpServerOauthDisconnected:
+		return true
+	case ActivityLogActivityTypeMcpServerReconnected:
+		return true
+	case ActivityLogActivityTypeMcpServerUpdated:
+		return true
 	case ActivityLogActivityTypeMessageDeletion:
 		return true
 	case ActivityLogActivityTypeMessageStateChange:
+		return true
+	case ActivityLogActivityTypeMessengerAllowedDomainsChange:
 		return true
 	case ActivityLogActivityTypeMessengerApiSecretCreation:
 		return true
 	case ActivityLogActivityTypeMessengerApiSecretDeletion:
 		return true
+	case ActivityLogActivityTypeMessengerLanguageChange:
+		return true
+	case ActivityLogActivityTypeMessengerLaunchToConversationChange:
+		return true
+	case ActivityLogActivityTypeMessengerLauncherDisplayConditionChange:
+		return true
 	case ActivityLogActivityTypeMessengerLookAndFeelChange:
+		return true
+	case ActivityLogActivityTypeMessengerPlatformAvailabilityChange:
+		return true
+	case ActivityLogActivityTypeMessengerPlatformInactivityDisableEvent:
 		return true
 	case ActivityLogActivityTypeMessengerSearchRequiredChange:
 		return true
 	case ActivityLogActivityTypeMessengerSpacesChange:
 		return true
+	case ActivityLogActivityTypeMsTeamsUserAssociationSettingChange:
+		return true
 	case ActivityLogActivityTypeOauthTokenRevocation:
 		return true
 	case ActivityLogActivityTypeOfficeHoursChange:
+		return true
+	case ActivityLogActivityTypeOfficeHoursExceptionChange:
+		return true
+	case ActivityLogActivityTypeOutboundPhoneCampaignChange:
+		return true
+	case ActivityLogActivityTypeOutboundPhoneCampaignCreation:
+		return true
+	case ActivityLogActivityTypeOutboundPhoneCampaignCsvUpload:
+		return true
+	case ActivityLogActivityTypeOutboundPhoneCampaignDeletion:
+		return true
+	case ActivityLogActivityTypeOutboundPhoneCampaignImport:
+		return true
+	case ActivityLogActivityTypeOutboundPhoneCampaignSessionStart:
+		return true
+	case ActivityLogActivityTypeOutboundPhoneCampaignStateChange:
+		return true
+	case ActivityLogActivityTypePersonalMacroAdminConvert:
+		return true
+	case ActivityLogActivityTypePersonalMacroAdminDestroy:
+		return true
+	case ActivityLogActivityTypePersonalMacroAdminRead:
+		return true
+	case ActivityLogActivityTypePhoneNumberPurchase:
+		return true
+	case ActivityLogActivityTypePhonePurchaseDiagnostic:
+		return true
+	case ActivityLogActivityTypePhoneQueueCallPinCleared:
+		return true
+	case ActivityLogActivityTypePhoneQueueCallPinned:
+		return true
+	case ActivityLogActivityTypePhoneQueueCallUnpinned:
+		return true
+	case ActivityLogActivityTypePiiDataRevealed:
+		return true
+	case ActivityLogActivityTypePostMigrationSeatCreation:
+		return true
+	case ActivityLogActivityTypePostMigrationSeatDeletion:
+		return true
+	case ActivityLogActivityTypePostMigrationSeatUpdate:
+		return true
+	case ActivityLogActivityTypePreMigrationSeatExpirationDateChange:
+		return true
+	case ActivityLogActivityTypePredictiveAnswersSettingsChange:
+		return true
+	case ActivityLogActivityTypePrivacyPolicyNoticeChange:
+		return true
+	case ActivityLogActivityTypePrivacyPolicyNoticeContentsChange:
+		return true
+	case ActivityLogActivityTypeQaMonitorArchive:
+		return true
+	case ActivityLogActivityTypeQaMonitorCreation:
+		return true
+	case ActivityLogActivityTypeQaMonitorRestore:
+		return true
+	case ActivityLogActivityTypeQaMonitorUpdate:
+		return true
+	case ActivityLogActivityTypeQaReviewPlanArchive:
+		return true
+	case ActivityLogActivityTypeQaReviewPlanCreation:
+		return true
+	case ActivityLogActivityTypeQaScorecardArchive:
+		return true
+	case ActivityLogActivityTypeQaScorecardCreation:
+		return true
+	case ActivityLogActivityTypeQaScorecardUpdate:
+		return true
+	case ActivityLogActivityTypeRecoveryCodeSent:
+		return true
+	case ActivityLogActivityTypeReportAccessCreate:
+		return true
+	case ActivityLogActivityTypeReportAccessDelete:
+		return true
+	case ActivityLogActivityTypeReportAccessUpdate:
+		return true
+	case ActivityLogActivityTypeReportScheduledShareCreate:
+		return true
+	case ActivityLogActivityTypeReportScheduledShareDelete:
+		return true
+	case ActivityLogActivityTypeReportScheduledShareUpdate:
+		return true
+	case ActivityLogActivityTypeReportSnapshotCreate:
+		return true
+	case ActivityLogActivityTypeReportingCsvExport:
+		return true
+	case ActivityLogActivityTypeReportingFolderCreate:
+		return true
+	case ActivityLogActivityTypeReportingFolderDelete:
+		return true
+	case ActivityLogActivityTypeReportingFolderNameChange:
+		return true
+	case ActivityLogActivityTypeReportingFolderPinChange:
+		return true
+	case ActivityLogActivityTypeReportingFolderPositionChange:
+		return true
+	case ActivityLogActivityTypeReportingFolderReportsChange:
+		return true
+	case ActivityLogActivityTypeRequestLogExportRequested:
+		return true
+	case ActivityLogActivityTypeRestApiIpAllowlistSettingChange:
 		return true
 	case ActivityLogActivityTypeRoleChange:
 		return true
@@ -304,21 +966,57 @@ func (e ActivityLogActivityType) Valid() bool {
 		return true
 	case ActivityLogActivityTypeRoleDeletion:
 		return true
-	case ActivityLogActivityTypeRulesetActivationTitlePreview:
+	case ActivityLogActivityTypeRulesetActivation:
 		return true
 	case ActivityLogActivityTypeRulesetCreation:
 		return true
 	case ActivityLogActivityTypeRulesetDeletion:
 		return true
-	case ActivityLogActivityTypeSearchBrowseEnabledChange:
+	case ActivityLogActivityTypeSafetyResponseCategoryConfigChange:
 		return true
-	case ActivityLogActivityTypeSearchBrowseRequiredChange:
+	case ActivityLogActivityTypeSalesMessengerConfigurationChange:
+		return true
+	case ActivityLogActivityTypeScheduleTemplateApply:
+		return true
+	case ActivityLogActivityTypeScheduleTemplateCreation:
+		return true
+	case ActivityLogActivityTypeScheduleTemplateDeletion:
+		return true
+	case ActivityLogActivityTypeScheduleTemplateUpdate:
+		return true
+	case ActivityLogActivityTypeScimAdminBulkRoleAssignment:
+		return true
+	case ActivityLogActivityTypeScimAdminPasswordUpdate:
+		return true
+	case ActivityLogActivityTypeScimAdminProfileUpdate:
+		return true
+	case ActivityLogActivityTypeScimAdminRoleChange:
+		return true
+	case ActivityLogActivityTypeScimGroupCreation:
+		return true
+	case ActivityLogActivityTypeScimGroupDeletion:
+		return true
+	case ActivityLogActivityTypeScimGroupMembershipChange:
+		return true
+	case ActivityLogActivityTypeScimGroupUpdate:
+		return true
+	case ActivityLogActivityTypeScimGroupsBulkUpdate:
+		return true
+	case ActivityLogActivityTypeScimSettingsChange:
+		return true
+	case ActivityLogActivityTypeScimSystemDisabled:
+		return true
+	case ActivityLogActivityTypeScimSystemEnabled:
 		return true
 	case ActivityLogActivityTypeSeatChange:
 		return true
 	case ActivityLogActivityTypeSeatRevoke:
 		return true
 	case ActivityLogActivityTypeSecuritySettingsChange:
+		return true
+	case ActivityLogActivityTypeSelectionSetArchive:
+		return true
+	case ActivityLogActivityTypeSelectionSetCreation:
 		return true
 	case ActivityLogActivityTypeSeriesCreation:
 		return true
@@ -330,15 +1028,109 @@ func (e ActivityLogActivityType) Valid() bool {
 		return true
 	case ActivityLogActivityTypeSeriesUpdate:
 		return true
+	case ActivityLogActivityTypeShopifyAddReplacementItem:
+		return true
+	case ActivityLogActivityTypeShopifyCreateDiscountCode:
+		return true
+	case ActivityLogActivityTypeShopifyDisableDiscountCode:
+		return true
+	case ActivityLogActivityTypeShopifyDisableGiftCard:
+		return true
+	case ActivityLogActivityTypeShopifyGiftCardCompensation:
+		return true
+	case ActivityLogActivityTypeShopifyRefundOrder:
+		return true
+	case ActivityLogActivityTypeShopifyReplacementOrder:
+		return true
+	case ActivityLogActivityTypeShopifyUpdateShippingAddress:
+		return true
+	case ActivityLogActivityTypeSipDomainDeleted:
+		return true
+	case ActivityLogActivityTypeSipDomainProvisioned:
+		return true
+	case ActivityLogActivityTypeSipHeaderMappingsUpdated:
+		return true
+	case ActivityLogActivityTypeSipIntegrationStageConfirmed:
+		return true
+	case ActivityLogActivityTypeSkillBasedRoutingToggled:
+		return true
+	case ActivityLogActivityTypeSkillCategoryCreated:
+		return true
+	case ActivityLogActivityTypeSkillCategoryDeleted:
+		return true
+	case ActivityLogActivityTypeSkillCategoryUpdated:
+		return true
+	case ActivityLogActivityTypeSlackIntegrationAutoPromoted:
+		return true
+	case ActivityLogActivityTypeSlackIntegrationTypeChange:
+		return true
+	case ActivityLogActivityTypeSlackIntegrationUninstalled:
+		return true
+	case ActivityLogActivityTypeSlackMultiConversationalChanged:
+		return true
+	case ActivityLogActivityTypeSlackOauthFreshInstall:
+		return true
+	case ActivityLogActivityTypeSlackOauthReauthentication:
+		return true
+	case ActivityLogActivityTypeSlackOauthReinstall:
+		return true
+	case ActivityLogActivityTypeSlackUserAssociationSettingChange:
+		return true
+	case ActivityLogActivityTypeSlackUserTokenCreation:
+		return true
+	case ActivityLogActivityTypeSnoozePresetsChange:
+		return true
+	case ActivityLogActivityTypeSnowflakeShareActivated:
+		return true
+	case ActivityLogActivityTypeSnowflakeShareTornDown:
+		return true
+	case ActivityLogActivityTypeSpamEmailDeletion:
+		return true
+	case ActivityLogActivityTypeStandaloneChannelChange:
+		return true
+	case ActivityLogActivityTypeStandaloneConnectionConfigChange:
+		return true
+	case ActivityLogActivityTypeStandaloneScheduleSyncDeletion:
+		return true
+	case ActivityLogActivityTypeStartConversationButtonTextChange:
+		return true
 	case ActivityLogActivityTypeStripInboundEmailLinksChange:
+		return true
+	case ActivityLogActivityTypeSuggestionsLimitersReset:
+		return true
+	case ActivityLogActivityTypeTaxonomyUploadCreation:
 		return true
 	case ActivityLogActivityTypeTeamAssignmentLimitChange:
 		return true
+	case ActivityLogActivityTypeTeamSkillCategoriesUpdated:
+		return true
 	case ActivityLogActivityTypeTeammateGifsSettingChange:
+		return true
+	case ActivityLogActivityTypeTeammateOfficeHoursScheduleAssign:
+		return true
+	case ActivityLogActivityTypeTeammateOfficeHoursScheduleUnassign:
+		return true
+	case ActivityLogActivityTypeTeammateSkillsSynced:
+		return true
+	case ActivityLogActivityTypeTelegramIdentityReset:
+		return true
+	case ActivityLogActivityTypeTelegramIntegrationInstalled:
+		return true
+	case ActivityLogActivityTypeTelegramIntegrationUninstalled:
+		return true
+	case ActivityLogActivityTypeTemporaryExpectationAutoExpired:
 		return true
 	case ActivityLogActivityTypeTemporaryExpectationChange:
 		return true
+	case ActivityLogActivityTypeTemporaryExpectationMessagesChange:
+		return true
+	case ActivityLogActivityTypeTicketStateCustomerNotificationsChange:
+		return true
+	case ActivityLogActivityTypeTopicCurationSetLive:
+		return true
 	case ActivityLogActivityTypeTrustedDomainsSettingChange:
+		return true
+	case ActivityLogActivityTypeUnassignTriggersSettingChange:
 		return true
 	case ActivityLogActivityTypeUnassignUnsnoozedAtCapacitySettingChange:
 		return true
@@ -350,17 +1142,41 @@ func (e ActivityLogActivityType) Valid() bool {
 		return true
 	case ActivityLogActivityTypeUserConversationAttachmentsSettingChange:
 		return true
+	case ActivityLogActivityTypeUserEmojisSettingChange:
+		return true
 	case ActivityLogActivityTypeUserFileAttachmentsSettingChange:
 		return true
 	case ActivityLogActivityTypeUserGifsSettingChange:
 		return true
 	case ActivityLogActivityTypeUserMediaAttachmentsSettingChange:
 		return true
+	case ActivityLogActivityTypeUserToUserMerge:
+		return true
 	case ActivityLogActivityTypeUserVoiceNotesSettingChange:
 		return true
 	case ActivityLogActivityTypeWelcomeMessageChange:
 		return true
+	case ActivityLogActivityTypeWfmGoogleCalendarConnected:
+		return true
+	case ActivityLogActivityTypeWfmGoogleCalendarDisconnected:
+		return true
+	case ActivityLogActivityTypeWfmGoogleCalendarSyncSettingChange:
+		return true
+	case ActivityLogActivityTypeWhatsappDirectSendChanged:
+		return true
+	case ActivityLogActivityTypeWorkflowCreation:
+		return true
+	case ActivityLogActivityTypeWorkflowDeletion:
+		return true
+	case ActivityLogActivityTypeWorkflowParticipantActionConfigured:
+		return true
+	case ActivityLogActivityTypeWorkflowStatusChange:
+		return true
+	case ActivityLogActivityTypeWorkflowUpdate:
+		return true
 	case ActivityLogActivityTypeWorkspaceDeletionRequest:
+		return true
+	case ActivityLogActivityTypeWorkspaceOwnerDesignationChange:
 		return true
 	default:
 		return false
@@ -5107,7 +5923,10 @@ func (e RedactConversationRequest1Type) Valid() bool {
 // Defines values for RegisterFinVoiceCallRequestSource.
 const (
 	RegisterFinVoiceCallRequestSourceAwsConnect RegisterFinVoiceCallRequestSource = "aws_connect"
+	RegisterFinVoiceCallRequestSourceDialpad    RegisterFinVoiceCallRequestSource = "dialpad"
 	RegisterFinVoiceCallRequestSourceFive9      RegisterFinVoiceCallRequestSource = "five9"
+	RegisterFinVoiceCallRequestSourceGeneric    RegisterFinVoiceCallRequestSource = "generic"
+	RegisterFinVoiceCallRequestSourceNiceCxone  RegisterFinVoiceCallRequestSource = "nice_cxone"
 	RegisterFinVoiceCallRequestSourceZoomPhone  RegisterFinVoiceCallRequestSource = "zoom_phone"
 )
 
@@ -5116,7 +5935,13 @@ func (e RegisterFinVoiceCallRequestSource) Valid() bool {
 	switch e {
 	case RegisterFinVoiceCallRequestSourceAwsConnect:
 		return true
+	case RegisterFinVoiceCallRequestSourceDialpad:
+		return true
 	case RegisterFinVoiceCallRequestSourceFive9:
+		return true
+	case RegisterFinVoiceCallRequestSourceGeneric:
+		return true
+	case RegisterFinVoiceCallRequestSourceNiceCxone:
 		return true
 	case RegisterFinVoiceCallRequestSourceZoomPhone:
 		return true
@@ -7017,7 +7842,7 @@ func (e EnqueueCreateTicketJSONBodyChannel) Valid() bool {
 
 // ActivityLog Activities performed by Admins.
 type ActivityLog struct {
-	// ActivityDescription A sentence or two describing the activity.
+	// ActivityDescription A sentence or two describing the activity. `null` when the admin who performed the activity isn't available.
 	//
 	// Example: Admin updated the app's name to "My App".
 	ActivityDescription *string `json:"activity_description,omitempty"`
@@ -7038,7 +7863,7 @@ type ActivityLog struct {
 	// Metadata Additional data provided about Admin activity.
 	Metadata *ActivityLogMetadata `json:"metadata,omitempty"`
 
-	// PerformedBy Details about the Admin involved in the activity.
+	// PerformedBy Details about the Admin involved in the activity. `null` when the admin who performed the activity isn't available.
 	PerformedBy *struct {
 		// Email The email of the admin.
 		//
@@ -7060,6 +7885,11 @@ type ActivityLog struct {
 		// Example: admin
 		Type *string `json:"type,omitempty"`
 	} `json:"performed_by,omitempty"`
+
+	// Type String representing the object's type. Always has the value `admin_activity_log_event`.
+	//
+	// Example: admin_activity_log_event
+	Type *string `json:"type,omitempty"`
 }
 
 // ActivityLogActivityType Example: app_name_change
@@ -7083,9 +7913,10 @@ type ActivityLogList struct {
 	// ActivityLogs An array of activity logs
 	ActivityLogs *[]*ActivityLog `json:"activity_logs,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// Type String representing the object's type. Always has the value `activity_log.list`.
 	//
@@ -7279,7 +8110,7 @@ type Admin struct {
 	// Example: false
 	AwayModeReassign *bool `json:"away_mode_reassign,omitempty"`
 
-	// AwayStatusReasonId The unique identifier of the away status reason
+	// AwayStatusReasonId The unique identifier of the away status reason. Not returned by List all admins.
 	//
 	// Example: 12345
 	AwayStatusReasonId *int `json:"away_status_reason_id,omitempty"`
@@ -7327,7 +8158,7 @@ type Admin struct {
 		Type *string `json:"type,omitempty"`
 	} `json:"role,omitempty"`
 
-	// TeamIds This object represents the avatar associated with the admin.
+	// TeamIds The ids of the teams the admin belongs to. When the workspace has a default team, its id is the last item.
 	//
 	// Example: [814865]
 	TeamIds *[]int `json:"team_ids,omitempty"`
@@ -7521,6 +8352,24 @@ type AdminWithApp struct {
 	// Example: Joe Example
 	Name *string `json:"name,omitempty"`
 
+	// Role The role assigned to this admin. Only present if the admin has a role assigned.
+	Role *struct {
+		// Id The id of the role.
+		//
+		// Example: 1
+		Id *string `json:"id,omitempty"`
+
+		// Name The name of the role.
+		//
+		// Example: Support Agent
+		Name *string `json:"name,omitempty"`
+
+		// Type String representing the object's type. Always has the value `role`.
+		//
+		// Example: role
+		Type *string `json:"type,omitempty"`
+	} `json:"role,omitempty"`
+
 	// TeamIds This is a list of ids of the teams that this admin is part of.
 	//
 	// Example: [814865]
@@ -7652,6 +8501,11 @@ type AiCallResponse struct {
 	// Example: call-123-abc
 	ExternalCallId *string `json:"external_call_id,omitempty"`
 
+	// FinCallDuration How long the most recent AI Agent (Fin) part of the call lasted, in seconds, returned as a string. Null until the call is matched and that part has ended, or when the call has no AI Agent part.
+	//
+	// Example: 45
+	FinCallDuration *string `json:"fin_call_duration,omitempty"`
+
 	// Id The unique identifier for the external reference
 	//
 	// Example: 12345
@@ -7672,6 +8526,11 @@ type AiCallResponse struct {
 	// Example: 5678
 	IntercomConversationId *string `json:"intercom_conversation_id,omitempty"`
 
+	// Language The language of the call's conversation, as a locale code. Null until the call is matched to a conversation or while no language has been set.
+	//
+	// Example: fr
+	Language *string `json:"language,omitempty"`
+
 	// Status Status of the call. Can be "registered", "in-progress", or a resolution state
 	//
 	// Example: registered
@@ -7681,6 +8540,11 @@ type AiCallResponse struct {
 	//
 	// Example: +1234567890
 	UserPhoneNumber *string `json:"user_phone_number,omitempty"`
+
+	// VendorInternalId Vendor-supplied identifier provided at registration time, for linking the Fin Voice session to records in the vendor's own systems. Null when the vendor did not supply one.
+	//
+	// Example: vendor-internal-abc-123
+	VendorInternalId *string `json:"vendor_internal_id,omitempty"`
 }
 
 // AiTopicSubtopic A single AI-generated topic and subtopic classification for a conversation. Surfaced inside `custom_attributes` under the "AI Topic and Subtopic" key as an array of these objects. Requires the AI add-on; the key is omitted when the conversation has no classification.
@@ -7727,6 +8591,11 @@ type App struct {
 	//
 	// Example: US
 	Region *string `json:"region,omitempty"`
+
+	// Secure Whether or not the app uses identity verification. Same value as `identity_verification`.
+	//
+	// Example: false
+	Secure *bool `json:"secure,omitempty"`
 
 	// Timezone The timezone of the region where the app is located.
 	//
@@ -9278,12 +10147,17 @@ type Call struct {
 	// Direction The direction of the call.
 	//
 	// Example: outbound
-	Direction *string   `json:"direction,omitempty"`
-	EndedAt   *Datetime `json:"ended_at,omitempty"`
+	Direction *string `json:"direction,omitempty"`
+
+	// Duration Total call duration in seconds from the caller's perspective. For inbound calls, measured from initiated to ended. For outbound calls, measured from answered to ended. Null until the call ends, and for outbound calls that were never answered.
+	//
+	// Example: 900
+	Duration *int      `json:"duration,omitempty"`
+	EndedAt  *Datetime `json:"ended_at,omitempty"`
 
 	// EndedReason The reason for the call end, if applicable.
 	//
-	// Example: completed
+	// Example: missed
 	EndedReason *string `json:"ended_reason,omitempty"`
 
 	// FinRecordingUrl API URL to the AI Agent (Fin) call recording if available.
@@ -9291,6 +10165,11 @@ type Call struct {
 
 	// FinTranscriptionUrl API URL to the AI Agent (Fin) call transcript if available.
 	FinTranscriptionUrl *string `json:"fin_transcription_url,omitempty"`
+
+	// HoldTime Total time in seconds the caller was placed on hold during the call.
+	//
+	// Example: 60
+	HoldTime *int `json:"hold_time,omitempty"`
 
 	// Id The id of the call.
 	//
@@ -9303,6 +10182,11 @@ type Call struct {
 	// Example: +15551234567
 	Phone *string `json:"phone,omitempty"`
 
+	// QueueTime Total time in seconds the caller waited in queue before connecting, when assigned to a team.
+	//
+	// Example: 45
+	QueueTime *int `json:"queue_time,omitempty"`
+
 	// RecordingUrl API URL to download or redirect to the call recording if available.
 	//
 	// Example: https://api.intercom.io/calls/123/recording
@@ -9310,8 +10194,13 @@ type Call struct {
 
 	// State The current state of the call.
 	//
-	// Example: completed
+	// Example: ended
 	State *string `json:"state,omitempty"`
+
+	// TalkTime Total time in seconds the agent and customer were connected.
+	//
+	// Example: 300
+	TalkTime *int `json:"talk_time,omitempty"`
 
 	// TranscriptionUrl API URL to download or redirect to the call transcript if available.
 	//
@@ -9330,9 +10219,10 @@ type CallList struct {
 	// Data A list of calls.
 	Data *[]Call `json:"data,omitempty"`
 
-	// Pages Cursor-based pagination is a technique used in the Intercom API to navigate through large amounts of data.
-	// A "cursor" or pointer is used to keep track of the current position in the result set, allowing the API to return the data in small chunks or "pages" as needed.
-	Pages *CursorPages `json:"pages,omitempty"`
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
 
 	// TotalCount Total number of items available.
 	//
@@ -14803,9 +15693,9 @@ type CreateMessageRequest1 = interface{}
 // CreateMessageRequest2 defines model for CreateMessageRequest.2.
 type CreateMessageRequest2 = interface{}
 
-// CreateOfficeHoursExceptionRequest The request payload for creating an office hours exception. Omit `time_intervals` when `exception_type` is `closed`.
+// CreateOfficeHoursExceptionRequest The request payload for creating an office hours exception. Omit `time_intervals` when `exception_type` is `closed`. Any other field, apart from `id` and `office_hours_schedule_id`, is rejected with a 400 error.
 type CreateOfficeHoursExceptionRequest struct {
-	// ExceptionDate The date the exception applies to, in `YYYY-MM-DD` format.
+	// ExceptionDate The date the exception applies to, in `YYYY-MM-DD` format. A schedule can have only one exception for each date; a second one returns a 422 error.
 	//
 	// Example: 2026-12-25
 	ExceptionDate openapi_types.Date `json:"exception_date"`
@@ -14825,7 +15715,7 @@ type CreateOfficeHoursExceptionRequest struct {
 	// Example: true
 	RecurringAnnually *bool `json:"recurring_annually,omitempty"`
 
-	// TimeIntervals The open intervals for the exception date. Required for `custom_hours`; omit for `closed`.
+	// TimeIntervals The open intervals for the exception date. Required for `custom_hours`; omit for `closed`, which returns a 422 error if intervals are sent. `start_minute` and `end_minute` must be on a 15-minute boundary. Don't send `day_of_week`; it is read-only and a request that includes it is rejected with a 400 error.
 	TimeIntervals *[]OfficeHoursTimeInterval `json:"time_intervals,omitempty"`
 }
 
@@ -14834,20 +15724,20 @@ type CreateOfficeHoursExceptionRequest struct {
 // Example: closed
 type CreateOfficeHoursExceptionRequestExceptionType string
 
-// CreateOfficeHoursScheduleRequest The request payload for creating an office hours schedule.
+// CreateOfficeHoursScheduleRequest The request payload for creating an office hours schedule. Any other field, apart from `id`, is rejected with a 400 error.
 type CreateOfficeHoursScheduleRequest struct {
-	// Name The name of the office hours schedule.
+	// Name The name of the office hours schedule. It must be unique among the workspace's schedules; a duplicate name returns a 422 error.
 	//
 	// Example: Standard Support Hours
 	Name string `json:"name"`
 
-	// TimeIntervals The open intervals for the schedule. `start_minute` and `end_minute` must be on a 15-minute boundary.
+	// TimeIntervals The open intervals for the schedule. `start_minute` and `end_minute` must be on a 15-minute boundary, except for the whole-week interval `0` to `10079`. Don't send `day_of_week`; it is read-only and a request that includes it is rejected with a 400 error.
 	TimeIntervals []OfficeHoursTimeInterval `json:"time_intervals"`
 
-	// TimeZoneName The IANA time zone the schedule's hours are evaluated in.
+	// TimeZoneName The IANA time zone the schedule's hours are evaluated in. Optional; defaults to the workspace's time zone.
 	//
 	// Example: America/New_York
-	TimeZoneName string `json:"time_zone_name"`
+	TimeZoneName *string `json:"time_zone_name,omitempty"`
 }
 
 // CreateOrUpdateCompanyRequest You can create or update a Company. Send either `company_id` or `id`; a request with neither returns a `400` error.
@@ -19126,891 +20016,4 @@ type OfficeHoursSchedule struct {
 	//
 	// Example: 1717200000
 	UpdatedAt *int `json:"updated_at,omitempty"`
-}
-
-// OfficeHoursScheduleList A list of office hours schedules.
-type OfficeHoursScheduleList struct {
-	// Data An array of office hours schedules.
-	Data *[]OfficeHoursSchedule `json:"data,omitempty"`
-
-	// Type The type of the object - always `office_hours_schedule.list`.
-	//
-	// Example: office_hours_schedule.list
-	Type *string `json:"type,omitempty"`
-}
-
-// OfficeHoursTimeInterval A single open interval. For schedules, `start_minute` and `end_minute` are minute offsets from the start of the week (Monday 00:00 = 0), in the range 0 to 10080. For exceptions, they are minute offsets from midnight on `exception_date`, in the range 0 to 1440.
-type OfficeHoursTimeInterval struct {
-	// DayOfWeek Derived day of the week the interval falls on (0 = Monday … 6 = Sunday). For exceptions, this is derived from `exception_date`.
-	//
-	// Example: 0
-	DayOfWeek *int `json:"day_of_week,omitempty"`
-
-	// EndMinute Minute the interval ends. For schedules, offset from the start of the week (Monday 00:00 = 0); for exceptions, offset from midnight on `exception_date`.
-	//
-	// Example: 1020
-	EndMinute *int `json:"end_minute,omitempty"`
-
-	// StartMinute Minute the interval starts. For schedules, offset from the start of the week (Monday 00:00 = 0); for exceptions, offset from midnight on `exception_date`.
-	//
-	// Example: 540
-	StartMinute *int `json:"start_minute,omitempty"`
-}
-
-// OpenConversationRequest Payload of the request to open a conversation
-type OpenConversationRequest struct {
-	// AdminId The id of the admin who is performing the action.
-	//
-	// Example: 5017690
-	AdminId string `json:"admin_id"`
-
-	// MessageType Example: open
-	MessageType OpenConversationRequestMessageType `json:"message_type"`
-}
-
-// OpenConversationRequestMessageType Example: open
-type OpenConversationRequestMessageType string
-
-// OperatorWorkflowEvent Contains details about name of the workflow for conversation part type <code>operator_workflow_event</code>.
-type OperatorWorkflowEvent struct {
-	Event *struct {
-		// Result Result of the workflow event
-		//
-		// Example: Finsihed waiting
-		Result *string `json:"result,omitempty"`
-
-		// Type Type of the workflow event initiated
-		//
-		// Example: wait_finished
-		Type *string `json:"type,omitempty"`
-	} `json:"event,omitempty"`
-	Workflow *struct {
-		// Name The name of the workflow
-		//
-		// Example: Custom Bot 1
-		Name *string `json:"name,omitempty"`
-	} `json:"workflow,omitempty"`
-}
-
-// PagesLink The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
-//
-// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
-type PagesLink struct {
-	// Next A link to the next page of results. Omitted on the last page. Some lists never include `next` or `prev`, so compare `page` with `total_pages` to tell whether more pages remain.
-	Next *string `json:"next,omitempty"`
-
-	// Page Example: 1
-	Page *int `json:"page,omitempty"`
-
-	// PerPage Example: 50
-	PerPage *int `json:"per_page,omitempty"`
-
-	// Prev A link to the previous page of results. Omitted on the first page.
-	Prev *string `json:"prev,omitempty"`
-
-	// TotalPages Example: 1
-	TotalPages *int `json:"total_pages,omitempty"`
-
-	// Type Example: pages
-	Type *PagesLinkType `json:"type,omitempty"`
-}
-
-// PagesLinkType Example: pages
-type PagesLinkType string
-
-// PaginatedResponse Paginated Response
-type PaginatedResponse struct {
-	// Data An array of Objects
-	Data *[]PaginatedResponse_Data_Item `json:"data,omitempty"`
-
-	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
-	//
-	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
-	Pages *PagesLink `json:"pages,omitempty"`
-
-	// TotalCount A count of the total number of objects.
-	//
-	// Example: 1
-	TotalCount *int `json:"total_count,omitempty"`
-
-	// Type The type of object
-	//
-	// Example: list
-	Type *PaginatedResponseType `json:"type,omitempty"`
-}
-
-// PaginatedResponse_Data_Item defines model for paginated_response.data.Item.
-type PaginatedResponse_Data_Item struct {
-	union json.RawMessage
-}
-
-// PaginatedResponseType The type of object
-//
-// Example: list
-type PaginatedResponseType string
-
-// PartAttachment The file attached to a part
-type PartAttachment struct {
-	// ContentType The content type of the attachment
-	//
-	// Example: image/png
-	ContentType *string `json:"content_type,omitempty"`
-
-	// Filesize The size of the attachment
-	//
-	// Example: 100
-	Filesize *int `json:"filesize,omitempty"`
-
-	// Height The height of the attachment
-	//
-	// Example: 100
-	Height *int `json:"height,omitempty"`
-
-	// Name The name of the attachment
-	//
-	// Example: example.png
-	Name *string `json:"name,omitempty"`
-
-	// Type The type of attachment
-	//
-	// Example: upload
-	Type *string `json:"type,omitempty"`
-
-	// Url The URL of the attachment
-	//
-	// Example: https://picsum.photos/200/300
-	Url *string `json:"url,omitempty"`
-
-	// Width The width of the attachment
-	//
-	// Example: 100
-	Width *int `json:"width,omitempty"`
-}
-
-// PhoneSwitch Phone Switch Response
-type PhoneSwitch struct {
-	// Type Example: phone_call_redirect
-	Type *PhoneSwitchType `json:"type,omitempty"`
-
-	// Url The Messenger link for the phone call redirect, which is also the link sent by SMS to the phone number.
-	//
-	// Example: http://via.intercom.io/msgr/1add3dd1-a75e-4a96-96fd-984d16aba059
-	Url *string `json:"url,omitempty"`
-}
-
-// PhoneSwitchType Example: phone_call_redirect
-type PhoneSwitchType string
-
-// Predicate A condition used to filter contacts in an audience. An attribute predicate compares one attribute. A logical predicate has a `type` of `and`, `or` or `not` and groups other predicates instead.
-type Predicate struct {
-	// Attribute The attribute to filter on. Required on an attribute predicate.
-	//
-	// Example: company.name
-	Attribute *string `json:"attribute,omitempty"`
-
-	// Comparison The comparison operator. Required on an attribute predicate.
-	//
-	// Example: contains
-	Comparison *string `json:"comparison,omitempty"`
-
-	// Predicates The predicates grouped by a logical predicate. Only used when `type` is `and`, `or` or `not`.
-	Predicates *[]Predicate `json:"predicates,omitempty"`
-
-	// Type The type of the attribute, or `and`, `or` or `not` on a logical predicate.
-	//
-	// Example: string
-	Type *string `json:"type,omitempty"`
-
-	// Value The value to compare against. The accepted value depends on the attribute and the comparison, and can be a string, a number, a boolean, an array or `null`.
-	//
-	// Example: Acme
-	Value interface{} `json:"value,omitempty"`
-}
-
-// PublishArticleDraftRequest Optional body for publishing a staged article draft. On a single-language
-// workspace the body can be omitted. On a multilingual workspace, `locales`
-// is required and lists which locales' drafts to publish.
-type PublishArticleDraftRequest struct {
-	// AuthorId The id of the teammate to publish as. This is only used when the access token is not associated with a teammate, and is then required; omitting it returns 400 `parameter_not_found`. Otherwise the authenticating teammate is used. Must be a teammate on the workspace.
-	//
-	// Example: 1295
-	AuthorId *int `json:"author_id,omitempty"`
-
-	// Locales The locales whose staged drafts should be published. Required on
-	// multilingual workspaces; each locale must have a pending draft.
-	//
-	//
-	// Example: ["en","fr"]
-	Locales *[]string `json:"locales,omitempty"`
-}
-
-// QuickReplyOption defines model for quick_reply_option.
-type QuickReplyOption struct {
-	// Text The text to display in this quick reply option.
-	Text string `json:"text"`
-
-	// Uuid A unique identifier for this quick reply option. This value will be available within the metadata of the comment conversation part that is created when a user clicks on this reply option.
-	Uuid openapi_types.UUID `json:"uuid"`
-}
-
-// Recipient A recipient of a message
-type Recipient struct {
-	// Id The identifier for the contact which is given by Intercom.
-	//
-	// Example: 536e564f316c83104c000020
-	Id string `json:"id"`
-
-	// Type The role associated to the contact - `user` or `lead`.
-	//
-	// Example: user
-	Type RecipientType `json:"type"`
-}
-
-// RecipientType The role associated to the contact - `user` or `lead`.
-//
-// Example: user
-type RecipientType string
-
-// RedactConversationRequest defines model for redact_conversation_request.
-type RedactConversationRequest struct {
-	union json.RawMessage
-}
-
-// RedactConversationRequest0 Payload of the request to redact a conversation part
-type RedactConversationRequest0 struct {
-	// ConversationId The id of the conversation.
-	//
-	// Example: 19894788788
-	ConversationId string `json:"conversation_id"`
-
-	// ConversationPartId The id of the conversation_part.
-	//
-	// Example: 19381789428
-	ConversationPartId string `json:"conversation_part_id"`
-
-	// Type The type of resource being redacted.
-	//
-	// Example: conversation_part
-	Type RedactConversationRequest0Type `json:"type"`
-}
-
-// RedactConversationRequest0Type The type of resource being redacted.
-//
-// Example: conversation_part
-type RedactConversationRequest0Type string
-
-// RedactConversationRequest1 Payload of the request to redact a conversation source
-type RedactConversationRequest1 struct {
-	// ConversationId The id of the conversation.
-	//
-	// Example: 19894788788
-	ConversationId string `json:"conversation_id"`
-
-	// SourceId The id of the source.
-	//
-	// Example: 19894781231
-	SourceId string `json:"source_id"`
-
-	// Type The type of resource being redacted.
-	//
-	// Example: source
-	Type RedactConversationRequest1Type `json:"type"`
-}
-
-// RedactConversationRequest1Type The type of resource being redacted.
-//
-// Example: source
-type RedactConversationRequest1Type string
-
-// Reference reference to another object
-type Reference struct {
-	// Id Example: 1a2b3c
-	Id *string `json:"id,omitempty"`
-
-	// Type Example: contact
-	Type *string `json:"type,omitempty"`
-}
-
-// RegisterFinVoiceCallRequest Register a Fin Voice call with Intercom
-type RegisterFinVoiceCallRequest struct {
-	// CallId External call identifier from the call provider
-	//
-	// Example: call-123-abc
-	CallId string `json:"call_id"`
-
-	// Data Additional metadata about the call
-	//
-	// Example: {"key":"value"}
-	Data *map[string]interface{} `json:"data,omitempty"`
-
-	// PhoneNumber Phone number in E.164 format for the call
-	//
-	// Example: +1234567890
-	PhoneNumber string `json:"phone_number"`
-
-	// Source Source of the call. Can be "five9", "zoom_phone", or defaults to "aws_connect"
-	//
-	// Example: aws_connect
-	Source *RegisterFinVoiceCallRequestSource `json:"source,omitempty"`
-}
-
-// RegisterFinVoiceCallRequestSource Source of the call. Can be "five9", "zoom_phone", or defaults to "aws_connect"
-//
-// Example: aws_connect
-type RegisterFinVoiceCallRequestSource string
-
-// ReplyConversationRequest defines model for reply_conversation_request.
-type ReplyConversationRequest struct {
-	union json.RawMessage
-}
-
-// SalesAgent Data related to Sales Agent involvement in the conversation.
-type SalesAgent struct {
-	// CollectedData A flat key-value map of memory fields collected by the sales agent during the conversation.
-	//
-	// Example: {"company.name":"Acme Inc","email":"user@example.com"}
-	CollectedData *map[string]string `json:"collected_data,omitempty"`
-
-	// Outcome The fixed outcome of the sales agent interaction, used for billing and tracking.
-	//
-	// Example: qualified
-	Outcome *SalesAgentOutcome `json:"outcome,omitempty"`
-
-	// RoutingOutcome The identifier of the user-defined routing outcome selected by the sales agent.
-	//
-	// Example: enterprise_sales
-	RoutingOutcome *string `json:"routing_outcome,omitempty"`
-}
-
-// SalesAgentOutcome The fixed outcome of the sales agent interaction, used for billing and tracking.
-//
-// Example: qualified
-type SalesAgentOutcome string
-
-// SearchRequest Search using Intercoms Search APIs.
-type SearchRequest struct {
-	Pagination *StartingAfterPaging `json:"pagination,omitempty"`
-	Query      SearchRequest_Query  `json:"query"`
-}
-
-// SearchRequest_Query defines model for SearchRequest.Query.
-type SearchRequest_Query struct {
-	union json.RawMessage
-}
-
-// Segment A segment is a group of your contacts defined by the rules that you set.
-type Segment struct {
-	// Count The number of items in the user segment. It's returned when the request has `include_count` with a value. A company segment only gets a count when a contact segment has the same name, and it shows that segment's count.
-	//
-	// Example: 3
-	Count *int `json:"count,omitempty"`
-
-	// CreatedAt The time the segment was created.
-	//
-	// Example: 1394621988
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// Id The unique identifier representing the segment.
-	//
-	// Example: 56203d253cba154d39010062
-	Id *string `json:"id,omitempty"`
-
-	// Name The name of the segment.
-	//
-	// Example: Active
-	Name *string `json:"name,omitempty"`
-
-	// PersonType Type of the contact: contact (lead) or user.
-	//
-	// Example: contact
-	PersonType *SegmentPersonType `json:"person_type,omitempty"`
-
-	// Type The type of object.
-	//
-	// Example: segment
-	Type *SegmentType `json:"type,omitempty"`
-
-	// UpdatedAt The time the segment was updated.
-	//
-	// Example: 1394622004
-	UpdatedAt *int `json:"updated_at,omitempty"`
-}
-
-// SegmentPersonType Type of the contact: contact (lead) or user.
-//
-// Example: contact
-type SegmentPersonType string
-
-// SegmentType The type of object.
-//
-// Example: segment
-type SegmentType string
-
-// SegmentList This will return a list of Segment Objects. The list is not paginated.
-type SegmentList struct {
-	// Segments A list of Segment objects
-	Segments *[]Segment `json:"segments,omitempty"`
-
-	// Type The type of the object
-	//
-	// Example: segment.list
-	Type *SegmentListType `json:"type,omitempty"`
-}
-
-// SegmentListType The type of the object
-//
-// Example: segment.list
-type SegmentListType string
-
-// SideConversationList A paginated list of side conversations for a conversation.
-type SideConversationList struct {
-	// Pages Pagination metadata.
-	Pages *struct {
-		// Page The current page number.
-		//
-		// Example: 1
-		Page *int `json:"page,omitempty"`
-
-		// PerPage The number of results per page.
-		//
-		// Example: 25
-		PerPage *int `json:"per_page,omitempty"`
-
-		// TotalPages The total number of pages.
-		//
-		// Example: 1
-		TotalPages *int `json:"total_pages,omitempty"`
-
-		// Type Example: pages
-		Type *SideConversationListPagesType `json:"type,omitempty"`
-	} `json:"pages,omitempty"`
-
-	// SideConversations An array of side conversation objects.
-	SideConversations *[]SideConversationSummary `json:"side_conversations,omitempty"`
-
-	// TotalCount The total number of side conversations.
-	//
-	// Example: 1
-	TotalCount *int `json:"total_count,omitempty"`
-
-	// Type The type of the response object.
-	//
-	// Example: side_conversation.list
-	Type *SideConversationListType `json:"type,omitempty"`
-}
-
-// SideConversationListPagesType Example: pages
-type SideConversationListPagesType string
-
-// SideConversationListType The type of the response object.
-//
-// Example: side_conversation.list
-type SideConversationListType string
-
-// SideConversationSummary A side conversation with its conversation parts.
-type SideConversationSummary struct {
-	// ConversationParts The conversation parts (messages) in this side conversation.
-	ConversationParts *[]ConversationPart `json:"conversation_parts,omitempty"`
-
-	// SideConversationId The unique identifier for the side conversation.
-	//
-	// Example: 456
-	SideConversationId *string `json:"side_conversation_id,omitempty"`
-
-	// TotalCount The total number of conversation parts in this side conversation.
-	//
-	// Example: 1
-	TotalCount *int `json:"total_count,omitempty"`
-}
-
-// SingleFilterSearchRequest Search using Intercoms Search APIs with a single filter.
-type SingleFilterSearchRequest struct {
-	// Field The accepted field that you want to search on.
-	//
-	// Example: created_at
-	Field *string `json:"field,omitempty"`
-
-	// Operator The accepted operators you can use to define how you want to search for the value. Operator support depends on the field's data type. The breakdown below is for Contacts search; the other search endpoints that share this schema accept a different set per field:
-	// - `string` fields: `=`, `!=`, `IN`, `NIN`, `~`, `!~`, `^`, `$`
-	// - `tag_id`: `=` and `!=` only. Every other operator returns an error.
-	// - `boolean` fields: `=`, `!=`, `IN`, `NIN`
-	// - `integer` fields: `=`, `!=`, `IN`, `NIN`, `<`, `>`, `<=`, `>=`
-	// - `datetime` fields (standard contact timestamps such as `created_at` and `last_seen_at`): `=`, `!=`, `<`, `>`, `<=`, `>=`. Filtering is on the exact second, in UTC.
-	// - `date` fields (Date custom attributes): `=`, `<`, `>` only. `!=`, `<=`, and `>=` are not supported and return an error. Values are truncated to a whole UTC day.
-	//
-	// Example: >
-	Operator *SingleFilterSearchRequestOperator `json:"operator,omitempty"`
-
-	// Value The value that you want to search on.
-	//
-	// Example: 73732934
-	Value *SingleFilterSearchRequest_Value `json:"value,omitempty"`
-}
-
-// SingleFilterSearchRequestOperator The accepted operators you can use to define how you want to search for the value. Operator support depends on the field's data type. The breakdown below is for Contacts search; the other search endpoints that share this schema accept a different set per field:
-// - `string` fields: `=`, `!=`, `IN`, `NIN`, `~`, `!~`, `^`, `$`
-// - `tag_id`: `=` and `!=` only. Every other operator returns an error.
-// - `boolean` fields: `=`, `!=`, `IN`, `NIN`
-// - `integer` fields: `=`, `!=`, `IN`, `NIN`, `<`, `>`, `<=`, `>=`
-// - `datetime` fields (standard contact timestamps such as `created_at` and `last_seen_at`): `=`, `!=`, `<`, `>`, `<=`, `>=`. Filtering is on the exact second, in UTC.
-// - `date` fields (Date custom attributes): `=`, `<`, `>` only. `!=`, `<=`, and `>=` are not supported and return an error. Values are truncated to a whole UTC day.
-//
-// Example: >
-type SingleFilterSearchRequestOperator string
-
-// SingleFilterSearchRequestValue0 defines model for SingleFilterSearchRequest.Value.0.
-type SingleFilterSearchRequestValue0 = string
-
-// SingleFilterSearchRequestValue1 defines model for SingleFilterSearchRequest.Value.1.
-type SingleFilterSearchRequestValue1 = int
-
-// SingleFilterSearchRequestValue2 defines model for SingleFilterSearchRequest.Value.2.
-type SingleFilterSearchRequestValue2 = bool
-
-// SingleFilterSearchRequestValue3 defines model for SingleFilterSearchRequest.Value.3.
-type SingleFilterSearchRequestValue3 = []SingleFilterSearchRequest_Value_3_Item
-
-// SingleFilterSearchRequestValue30 defines model for SingleFilterSearchRequest.Value.3.0.
-type SingleFilterSearchRequestValue30 = string
-
-// SingleFilterSearchRequestValue31 defines model for SingleFilterSearchRequest.Value.3.1.
-type SingleFilterSearchRequestValue31 = int
-
-// SingleFilterSearchRequest_Value_3_Item defines model for SingleFilterSearchRequest.Value.3.Item.
-type SingleFilterSearchRequest_Value_3_Item struct {
-	union json.RawMessage
-}
-
-// SingleFilterSearchRequest_Value The value that you want to search on.
-//
-// Example: 73732934
-type SingleFilterSearchRequest_Value struct {
-	union json.RawMessage
-}
-
-// SlaApplied The SLA Applied object contains the details for which SLA has been applied to this conversation.
-// Important: if there are any canceled sla_events for the conversation - meaning an SLA has been manually removed from a conversation, the sla_status will always be returned as null.
-type SlaApplied struct {
-	// SlaName The name of the SLA as given by the teammate when it was created.
-	//
-	// Example:
-	SlaName *string `json:"sla_name,omitempty"`
-
-	// SlaStatus SLA statuses:
-	//             - `hit`: If there’s at least one hit event in the underlying sla_events table, and no “missed” or “canceled” events for the conversation.
-	//             - `missed`: If there are any missed sla_events for the conversation and no canceled events. If there’s even a single missed sla event, the status will always be missed. A missed status is not applied when the SLA expires, only the next time a teammate replies.
-	//             - `active`: An SLA has been applied to a conversation, but has not yet been fulfilled. SLA status is active only if there are no “hit, “missed”, or “canceled” events.
-	//
-	// Example: hit
-	SlaStatus *SlaAppliedSlaStatus `json:"sla_status,omitempty"`
-
-	// Type object type
-	//
-	// Example: conversation_sla_summary
-	Type *string `json:"type,omitempty"`
-}
-
-// SlaAppliedSlaStatus SLA statuses:
-//   - `hit`: If there’s at least one hit event in the underlying sla_events table, and no “missed” or “canceled” events for the conversation.
-//   - `missed`: If there are any missed sla_events for the conversation and no canceled events. If there’s even a single missed sla event, the status will always be missed. A missed status is not applied when the SLA expires, only the next time a teammate replies.
-//   - `active`: An SLA has been applied to a conversation, but has not yet been fulfilled. SLA status is active only if there are no “hit, “missed”, or “canceled” events.
-//
-// Example: hit
-type SlaAppliedSlaStatus string
-
-// SnoozeConversationRequest Payload of the request to snooze a conversation
-type SnoozeConversationRequest struct {
-	// AdminId The id of the admin who is performing the action.
-	//
-	// Example: 5017691
-	AdminId string `json:"admin_id"`
-
-	// MessageType Example: snoozed
-	MessageType SnoozeConversationRequestMessageType `json:"message_type"`
-
-	// SnoozedUntil The time you want the conversation to reopen.
-	//
-	// Example: 1673609604
-	SnoozedUntil int `json:"snoozed_until"`
-}
-
-// SnoozeConversationRequestMessageType Example: snoozed
-type SnoozeConversationRequestMessageType string
-
-// SocialProfile A Social Profile allows you to label your contacts, companies, and conversations and list them using that Social Profile.
-type SocialProfile struct {
-	// Name The name of the Social media profile
-	//
-	// Example: Facebook
-	Name *string `json:"name,omitempty"`
-
-	// Type value is "social_profile"
-	//
-	// Example: social_profile
-	Type *string `json:"type,omitempty"`
-
-	// Url The name of the Social media profile
-	//
-	// Example: http://twitter.com/th1sland
-	Url *string `json:"url,omitempty"`
-}
-
-// SourceEmailMessageMetadata Contains metadata if the message was sent as an email
-type SourceEmailMessageMetadata struct {
-	// EmailAddressHeaders A list of an email address headers.
-	EmailAddressHeaders *[]EmailAddressHeader `json:"email_address_headers,omitempty"`
-
-	// History The HTML content of any quoted or forwarded email history from the initial inbound message
-	//
-	// Example: <div><span>On Jan 28, wrote:</span><blockquote>Previous thread</blockquote></div>
-	History *string `json:"history,omitempty"`
-
-	// MessageId The unique identifier for the email message as specified in the Message-ID header
-	//
-	// Example: <CADKw7xrXzqSn8v3mP8K8Q8yZ6K8Q8yZ6@mail.gmail.com>
-	MessageId *string `json:"message_id,omitempty"`
-
-	// Subject The subject of the email
-	//
-	// Example: Question about my order
-	Subject *string `json:"subject,omitempty"`
-}
-
-// StartingAfterPaging defines model for starting_after_paging.
-type StartingAfterPaging struct {
-	// PerPage The number of results to fetch per page.
-	//
-	// Example: 2
-	PerPage *int `json:"per_page,omitempty"`
-
-	// StartingAfter The cursor to use in the next request to get the next page of results.
-	//
-	// Example: your-cursor-from-response
-	StartingAfter *string `json:"starting_after,omitempty"`
-}
-
-// SubscriptionType A subscription type lets customers easily opt out of non-essential communications without missing what's important to them.
-type SubscriptionType struct {
-	// ConsentType Describes the type of consent.
-	//
-	// Example: opt_in
-	ConsentType *SubscriptionTypeConsentType `json:"consent_type,omitempty"`
-
-	// ContentTypes The message types that this subscription supports - can contain `email` or `sms_message`.
-	ContentTypes *[]SubscriptionTypeContentTypes `json:"content_types,omitempty"`
-
-	// DefaultTranslation A translation object contains the localised details of a subscription type.
-	DefaultTranslation *Translation `json:"default_translation,omitempty"`
-
-	// Id The unique identifier representing the subscription type.
-	//
-	// Example: 123456
-	Id *string `json:"id,omitempty"`
-
-	// State The state of the subscription type.
-	//
-	// Example: live
-	State *SubscriptionTypeState `json:"state,omitempty"`
-
-	// Translations An array of translations objects with the localised version of the subscription type in each available locale within your translation settings.
-	Translations *[]Translation `json:"translations,omitempty"`
-
-	// Type The type of the object - subscription
-	//
-	// Example: subscription
-	Type *string `json:"type,omitempty"`
-}
-
-// SubscriptionTypeConsentType Describes the type of consent.
-//
-// Example: opt_in
-type SubscriptionTypeConsentType string
-
-// SubscriptionTypeContentTypes Example: email
-type SubscriptionTypeContentTypes string
-
-// SubscriptionTypeState The state of the subscription type.
-//
-// Example: live
-type SubscriptionTypeState string
-
-// SubscriptionTypeList A list of subscription type objects.
-type SubscriptionTypeList struct {
-	// Data A list of subscription type objects associated with the workspace .
-	Data *[]SubscriptionType `json:"data,omitempty"`
-
-	// Type The type of the object
-	//
-	// Example: list
-	Type *SubscriptionTypeListType `json:"type,omitempty"`
-}
-
-// SubscriptionTypeListType The type of the object
-//
-// Example: list
-type SubscriptionTypeListType string
-
-// Tag A tag allows you to label your contacts, companies, conversations, tickets, articles, internal articles and content snippets, and list them using that tag.
-type Tag struct {
-	// AppliedAt The time when the tag was applied to the object. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet, when listing the tags on a contact, or when it is returned as part of an external page. `null` when the tag has just been removed from an article, internal article, content snippet or external page. Removing a tag from a contact, conversation or ticket returns the original value.
-	//
-	// Example: 1663597223
-	AppliedAt *int `json:"applied_at,omitempty"`
-
-	// AppliedBy The admin who applied the tag. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet, when listing the tags on a contact, or when it is returned as part of an external page. `null` when the tag has just been removed from an article, internal article, content snippet or external page. Removing a tag from a contact, conversation or ticket returns the original value. When no admin is recorded, `type` is `nobody_admin` and `id` is `null`.
-	AppliedBy *Reference `json:"applied_by,omitempty"`
-
-	// Id The id of the tag
-	//
-	// Example: 123456
-	Id *string `json:"id,omitempty"`
-
-	// Name The name of the tag
-	//
-	// Example: Test tag
-	Name *string `json:"name,omitempty"`
-
-	// Type value is "tag"
-	//
-	// Example: tag
-	Type *string `json:"type,omitempty"`
-}
-
-// TagBasic A tag allows you to label your contacts, companies, and conversations and list them using that tag.
-type TagBasic struct {
-	// Id The id of the tag
-	//
-	// Example: 123456
-	Id *string `json:"id,omitempty"`
-
-	// Name The name of the tag
-	//
-	// Example: Test tag
-	Name *string `json:"name,omitempty"`
-
-	// Type value is "tag"
-	//
-	// Example: tag
-	Type *string `json:"type,omitempty"`
-}
-
-// TagCompanyRequest You can tag a single company or a list of companies.
-type TagCompanyRequest struct {
-	// Companies The id, company_id or name of the company can be passed as input parameters. Companies that cannot be found are skipped.
-	Companies []struct {
-		// CompanyId The company id you have defined for the company.
-		//
-		// Example: 6
-		CompanyId *string `json:"company_id,omitempty"`
-
-		// Id The Intercom defined id representing the company.
-		//
-		// Example: 531ee472cce572a6ec000006
-		Id *string `json:"id,omitempty"`
-
-		// Name The name of the company, used to look it up when neither `id` nor `company_id` is given.
-		//
-		// Example: Intercom
-		Name *string `json:"name,omitempty"`
-	} `json:"companies"`
-
-	// Name The name of the tag, which will be created if not found. Names can be at most 191 characters long.
-	//
-	// Example: Independent
-	Name string `json:"name"`
-}
-
-// TagCreateResponse The response for creating or updating a tag, including the entities that were tagged or untagged.
-type TagCreateResponse struct {
-	// Companies The companies that were tagged or untagged.
-	//
-	// Example: []
-	Companies *[]struct {
-		// Id The Intercom ID of the company.
-		//
-		// Example: 6329e838deab40166d1a5400
-		Id *string `json:"id,omitempty"`
-
-		// Tagged Whether the company was tagged (true) or untagged (false).
-		//
-		// Example: true
-		Tagged *bool `json:"tagged,omitempty"`
-	} `json:"companies,omitempty"`
-
-	// Id The id of the tag
-	//
-	// Example: 123456
-	Id *string `json:"id,omitempty"`
-
-	// Name The name of the tag
-	//
-	// Example: Test tag
-	Name *string `json:"name,omitempty"`
-
-	// Type value is "tag"
-	//
-	// Example: tag
-	Type *string `json:"type,omitempty"`
-
-	// Users The users that were tagged or untagged.
-	//
-	// Example: []
-	Users *[]struct {
-		// Id The Intercom ID of the user.
-		//
-		// Example: 6329e838deab40166d1a53f7
-		Id *string `json:"id,omitempty"`
-
-		// Tagged Whether the user was tagged (true) or untagged (false).
-		//
-		// Example: true
-		Tagged *bool `json:"tagged,omitempty"`
-	} `json:"users,omitempty"`
-}
-
-// TagList A list of tags objects in the workspace.
-type TagList struct {
-	// Data A list of tags objects associated with the workspace .
-	Data *[]Tag `json:"data,omitempty"`
-
-	// Type The type of the object
-	//
-	// Example: list
-	Type *TagListType `json:"type,omitempty"`
-}
-
-// TagListType The type of the object
-//
-// Example: list
-type TagListType string
-
-// TagMultipleUsersRequest You can tag or untag a list of users.
-type TagMultipleUsersRequest struct {
-	// Name The name of the tag, which will be created if not found. Names can be at most 191 characters long.
-	//
-	// Example: Independent
-	Name string `json:"name"`
-
-	// Users The id, user_id or email of the user can be passed as input parameters. Users that cannot be found are skipped.
-	Users []struct {
-		// Email The email address of the user, used to look it up when neither `id` nor `user_id` is given.
-		//
-		// Example: jane@example.com
-		Email *string `json:"email,omitempty"`
-
-		// Id The Intercom defined id representing the user.
-		//
-		// Example: 5f7f0d217289f8d2f4262080
-		Id *string `json:"id,omitempty"`
-
-		// Untag Set to true to remove the tag from this user instead of applying it.
-		//
-		// Example: true
-		Untag *bool `json:"untag,omitempty"`
-
-		// UserId The user id you have defined for the user, used to look it up when `id` is not given.
-		//
-		// Example: 25
-		UserId *string `json:"user_id,omitempty"`
-	} `json:"users"`
 }

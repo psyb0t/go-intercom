@@ -17,6 +17,900 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// OfficeHoursScheduleList A list of office hours schedules.
+type OfficeHoursScheduleList struct {
+	// Data An array of office hours schedules.
+	Data *[]OfficeHoursSchedule `json:"data,omitempty"`
+
+	// Type The type of the object - always `office_hours_schedule.list`.
+	//
+	// Example: office_hours_schedule.list
+	Type *string `json:"type,omitempty"`
+}
+
+// OfficeHoursTimeInterval A single open interval. For schedules, `start_minute` and `end_minute` are minute offsets from the start of the week (Monday 00:00 = 0), in the range 0 to 10080. For exceptions, they are minute offsets from midnight on `exception_date`, in the range 0 to 1440.
+//
+// In requests, `start_minute` and `end_minute` must be multiples of 15. The one exception is a schedule's whole-week interval, `0` to `10079`, which makes the schedule open 24/7. A request interval can contain only `start_minute` and `end_minute`; any other field, including the read-only `day_of_week`, is rejected with a 400 error.
+type OfficeHoursTimeInterval struct {
+	// DayOfWeek Derived day of the week the interval falls on (0 = Monday … 6 = Sunday). For exceptions, this is derived from `exception_date`. It is returned in responses only; a request that includes it is rejected with a 400 error.
+	//
+	// Example: 0
+	DayOfWeek *int `json:"day_of_week,omitempty"`
+
+	// EndMinute Minute the interval ends. For schedules, offset from the start of the week (Monday 00:00 = 0); for exceptions, offset from midnight on `exception_date`.
+	//
+	// Example: 1020
+	EndMinute *int `json:"end_minute,omitempty"`
+
+	// StartMinute Minute the interval starts. For schedules, offset from the start of the week (Monday 00:00 = 0); for exceptions, offset from midnight on `exception_date`.
+	//
+	// Example: 540
+	StartMinute *int `json:"start_minute,omitempty"`
+}
+
+// OpenConversationRequest Payload of the request to open a conversation
+type OpenConversationRequest struct {
+	// AdminId The id of the admin who is performing the action.
+	//
+	// Example: 5017690
+	AdminId string `json:"admin_id"`
+
+	// MessageType Example: open
+	MessageType OpenConversationRequestMessageType `json:"message_type"`
+}
+
+// OpenConversationRequestMessageType Example: open
+type OpenConversationRequestMessageType string
+
+// OperatorWorkflowEvent Contains details about name of the workflow for conversation part type <code>operator_workflow_event</code>.
+type OperatorWorkflowEvent struct {
+	Event *struct {
+		// Result Result of the workflow event
+		//
+		// Example: Finsihed waiting
+		Result *string `json:"result,omitempty"`
+
+		// Type Type of the workflow event initiated
+		//
+		// Example: wait_finished
+		Type *string `json:"type,omitempty"`
+	} `json:"event,omitempty"`
+	Workflow *struct {
+		// Name The name of the workflow
+		//
+		// Example: Custom Bot 1
+		Name *string `json:"name,omitempty"`
+	} `json:"workflow,omitempty"`
+}
+
+// PagesLink The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+//
+// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+type PagesLink struct {
+	// Next A link to the next page of results. Omitted or `null` on the last page, depending on the list. Some lists never include `next` or `prev`, so compare `page` with `total_pages` to tell whether more pages remain.
+	Next *string `json:"next,omitempty"`
+
+	// Page Example: 1
+	Page *int `json:"page,omitempty"`
+
+	// PerPage Example: 50
+	PerPage *int `json:"per_page,omitempty"`
+
+	// Prev A link to the previous page of results. Omitted on the first page.
+	Prev *string `json:"prev,omitempty"`
+
+	// TotalPages Example: 1
+	TotalPages *int `json:"total_pages,omitempty"`
+
+	// Type Example: pages
+	Type *PagesLinkType `json:"type,omitempty"`
+}
+
+// PagesLinkType Example: pages
+type PagesLinkType string
+
+// PaginatedResponse Paginated Response
+type PaginatedResponse struct {
+	// Data An array of Objects
+	Data *[]PaginatedResponse_Data_Item `json:"data,omitempty"`
+
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
+
+	// TotalCount A count of the total number of objects.
+	//
+	// Example: 1
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type The type of object
+	//
+	// Example: list
+	Type *PaginatedResponseType `json:"type,omitempty"`
+}
+
+// PaginatedResponse_Data_Item defines model for paginated_response.data.Item.
+type PaginatedResponse_Data_Item struct {
+	union json.RawMessage
+}
+
+// PaginatedResponseType The type of object
+//
+// Example: list
+type PaginatedResponseType string
+
+// PartAttachment The file attached to a part
+type PartAttachment struct {
+	// ContentType The content type of the attachment
+	//
+	// Example: image/png
+	ContentType *string `json:"content_type,omitempty"`
+
+	// Filesize The size of the attachment
+	//
+	// Example: 100
+	Filesize *int `json:"filesize,omitempty"`
+
+	// Height The height of the attachment
+	//
+	// Example: 100
+	Height *int `json:"height,omitempty"`
+
+	// Name The name of the attachment
+	//
+	// Example: example.png
+	Name *string `json:"name,omitempty"`
+
+	// Type The type of attachment
+	//
+	// Example: upload
+	Type *string `json:"type,omitempty"`
+
+	// Url The URL of the attachment
+	//
+	// Example: https://picsum.photos/200/300
+	Url *string `json:"url,omitempty"`
+
+	// Width The width of the attachment
+	//
+	// Example: 100
+	Width *int `json:"width,omitempty"`
+}
+
+// PhoneSwitch Phone Switch Response
+type PhoneSwitch struct {
+	// Type Example: phone_call_redirect
+	Type *PhoneSwitchType `json:"type,omitempty"`
+
+	// Url The Messenger link for the phone call redirect, which is also the link sent by SMS to the phone number.
+	//
+	// Example: http://via.intercom.io/msgr/1add3dd1-a75e-4a96-96fd-984d16aba059
+	Url *string `json:"url,omitempty"`
+}
+
+// PhoneSwitchType Example: phone_call_redirect
+type PhoneSwitchType string
+
+// Predicate A condition used to filter contacts in an audience. An attribute predicate compares one attribute. A logical predicate has a `type` of `and`, `or` or `not` and groups other predicates instead.
+type Predicate struct {
+	// Attribute The attribute to filter on. Required on an attribute predicate.
+	//
+	// Example: company.name
+	Attribute *string `json:"attribute,omitempty"`
+
+	// Comparison The comparison operator. Required on an attribute predicate.
+	//
+	// Example: contains
+	Comparison *string `json:"comparison,omitempty"`
+
+	// Predicates The predicates grouped by a logical predicate. Only used when `type` is `and`, `or` or `not`.
+	Predicates *[]Predicate `json:"predicates,omitempty"`
+
+	// Type The type of the attribute, or `and`, `or` or `not` on a logical predicate.
+	//
+	// Example: string
+	Type *string `json:"type,omitempty"`
+
+	// Value The value to compare against. The accepted value depends on the attribute and the comparison, and can be a string, a number, a boolean, an array or `null`.
+	//
+	// Example: Acme
+	Value interface{} `json:"value,omitempty"`
+}
+
+// PublishArticleDraftRequest Optional body for publishing a staged article draft. On a single-language
+// workspace the body can be omitted. On a multilingual workspace, `locales`
+// is required and lists which locales' drafts to publish.
+type PublishArticleDraftRequest struct {
+	// AuthorId The id of the teammate to publish as. This is only used when the access token is not associated with a teammate, and is then required; omitting it returns 400 `parameter_not_found`. Otherwise the authenticating teammate is used. Must be a teammate on the workspace.
+	//
+	// Example: 1295
+	AuthorId *int `json:"author_id,omitempty"`
+
+	// Locales The locales whose staged drafts should be published. Required on
+	// multilingual workspaces; each locale must have a pending draft.
+	//
+	//
+	// Example: ["en","fr"]
+	Locales *[]string `json:"locales,omitempty"`
+}
+
+// QuickReplyOption defines model for quick_reply_option.
+type QuickReplyOption struct {
+	// Text The text to display in this quick reply option.
+	Text string `json:"text"`
+
+	// Uuid A unique identifier for this quick reply option. This value will be available within the metadata of the comment conversation part that is created when a user clicks on this reply option.
+	Uuid openapi_types.UUID `json:"uuid"`
+}
+
+// Recipient A recipient of a message
+type Recipient struct {
+	// Id The identifier for the contact which is given by Intercom.
+	//
+	// Example: 536e564f316c83104c000020
+	Id string `json:"id"`
+
+	// Type The role associated to the contact - `user` or `lead`.
+	//
+	// Example: user
+	Type RecipientType `json:"type"`
+}
+
+// RecipientType The role associated to the contact - `user` or `lead`.
+//
+// Example: user
+type RecipientType string
+
+// RedactConversationRequest defines model for redact_conversation_request.
+type RedactConversationRequest struct {
+	union json.RawMessage
+}
+
+// RedactConversationRequest0 Payload of the request to redact a conversation part
+type RedactConversationRequest0 struct {
+	// ConversationId The id of the conversation.
+	//
+	// Example: 19894788788
+	ConversationId string `json:"conversation_id"`
+
+	// ConversationPartId The id of the conversation_part.
+	//
+	// Example: 19381789428
+	ConversationPartId string `json:"conversation_part_id"`
+
+	// Type The type of resource being redacted.
+	//
+	// Example: conversation_part
+	Type RedactConversationRequest0Type `json:"type"`
+}
+
+// RedactConversationRequest0Type The type of resource being redacted.
+//
+// Example: conversation_part
+type RedactConversationRequest0Type string
+
+// RedactConversationRequest1 Payload of the request to redact a conversation source
+type RedactConversationRequest1 struct {
+	// ConversationId The id of the conversation.
+	//
+	// Example: 19894788788
+	ConversationId string `json:"conversation_id"`
+
+	// SourceId The id of the source.
+	//
+	// Example: 19894781231
+	SourceId string `json:"source_id"`
+
+	// Type The type of resource being redacted.
+	//
+	// Example: source
+	Type RedactConversationRequest1Type `json:"type"`
+}
+
+// RedactConversationRequest1Type The type of resource being redacted.
+//
+// Example: source
+type RedactConversationRequest1Type string
+
+// Reference reference to another object
+type Reference struct {
+	// Id Example: 1a2b3c
+	Id *string `json:"id,omitempty"`
+
+	// Type Example: contact
+	Type *string `json:"type,omitempty"`
+}
+
+// RegisterFinVoiceCallRequest Register a Fin Voice call with Intercom
+type RegisterFinVoiceCallRequest struct {
+	// CallId External call identifier from the call provider
+	//
+	// Example: call-123-abc
+	CallId string `json:"call_id"`
+
+	// Data Additional metadata about the call
+	//
+	// Example: {"key":"value"}
+	Data *map[string]interface{} `json:"data,omitempty"`
+
+	// PhoneNumber Phone number in E.164 format for the call
+	//
+	// Example: +1234567890
+	PhoneNumber string `json:"phone_number"`
+
+	// Source Source of the call. Can be "five9", "zoom_phone", "nice_cxone", "dialpad", "generic", or "aws_connect". Defaults to "aws_connect", and any other value is treated as "aws_connect".
+	//
+	// Example: aws_connect
+	Source *RegisterFinVoiceCallRequestSource `json:"source,omitempty"`
+
+	// VendorInternalId Optional vendor-supplied identifier for linking the Fin Voice session to records in the vendor's own systems. Stored as-is and returned on every lookup.
+	//
+	// Example: vendor-internal-abc-123
+	VendorInternalId *string `json:"vendor_internal_id,omitempty"`
+}
+
+// RegisterFinVoiceCallRequestSource Source of the call. Can be "five9", "zoom_phone", "nice_cxone", "dialpad", "generic", or "aws_connect". Defaults to "aws_connect", and any other value is treated as "aws_connect".
+//
+// Example: aws_connect
+type RegisterFinVoiceCallRequestSource string
+
+// ReplyConversationRequest defines model for reply_conversation_request.
+type ReplyConversationRequest struct {
+	union json.RawMessage
+}
+
+// SalesAgent Data related to Sales Agent involvement in the conversation.
+type SalesAgent struct {
+	// CollectedData A flat key-value map of memory fields collected by the sales agent during the conversation.
+	//
+	// Example: {"company.name":"Acme Inc","email":"user@example.com"}
+	CollectedData *map[string]string `json:"collected_data,omitempty"`
+
+	// Outcome The fixed outcome of the sales agent interaction, used for billing and tracking.
+	//
+	// Example: qualified
+	Outcome *SalesAgentOutcome `json:"outcome,omitempty"`
+
+	// RoutingOutcome The identifier of the user-defined routing outcome selected by the sales agent.
+	//
+	// Example: enterprise_sales
+	RoutingOutcome *string `json:"routing_outcome,omitempty"`
+}
+
+// SalesAgentOutcome The fixed outcome of the sales agent interaction, used for billing and tracking.
+//
+// Example: qualified
+type SalesAgentOutcome string
+
+// SearchRequest Search using Intercoms Search APIs.
+type SearchRequest struct {
+	Pagination *StartingAfterPaging `json:"pagination,omitempty"`
+	Query      SearchRequest_Query  `json:"query"`
+}
+
+// SearchRequest_Query defines model for SearchRequest.Query.
+type SearchRequest_Query struct {
+	union json.RawMessage
+}
+
+// Segment A segment is a group of your contacts defined by the rules that you set.
+type Segment struct {
+	// Count The number of items in the user segment. It's returned when the request has `include_count` with a value. A company segment only gets a count when a contact segment has the same name, and it shows that segment's count.
+	//
+	// Example: 3
+	Count *int `json:"count,omitempty"`
+
+	// CreatedAt The time the segment was created.
+	//
+	// Example: 1394621988
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// Id The unique identifier representing the segment.
+	//
+	// Example: 56203d253cba154d39010062
+	Id *string `json:"id,omitempty"`
+
+	// Name The name of the segment.
+	//
+	// Example: Active
+	Name *string `json:"name,omitempty"`
+
+	// PersonType Type of the contact: contact (lead) or user.
+	//
+	// Example: contact
+	PersonType *SegmentPersonType `json:"person_type,omitempty"`
+
+	// Type The type of object.
+	//
+	// Example: segment
+	Type *SegmentType `json:"type,omitempty"`
+
+	// UpdatedAt The time the segment was updated.
+	//
+	// Example: 1394622004
+	UpdatedAt *int `json:"updated_at,omitempty"`
+}
+
+// SegmentPersonType Type of the contact: contact (lead) or user.
+//
+// Example: contact
+type SegmentPersonType string
+
+// SegmentType The type of object.
+//
+// Example: segment
+type SegmentType string
+
+// SegmentList This will return a list of Segment Objects. The list is not paginated.
+type SegmentList struct {
+	// Segments A list of Segment objects
+	Segments *[]Segment `json:"segments,omitempty"`
+
+	// Type The type of the object
+	//
+	// Example: segment.list
+	Type *SegmentListType `json:"type,omitempty"`
+}
+
+// SegmentListType The type of the object
+//
+// Example: segment.list
+type SegmentListType string
+
+// SideConversationList A paginated list of side conversations for a conversation.
+type SideConversationList struct {
+	// Pages Pagination metadata.
+	Pages *struct {
+		// Page The current page number.
+		//
+		// Example: 1
+		Page *int `json:"page,omitempty"`
+
+		// PerPage The number of results per page.
+		//
+		// Example: 25
+		PerPage *int `json:"per_page,omitempty"`
+
+		// TotalPages The total number of pages.
+		//
+		// Example: 1
+		TotalPages *int `json:"total_pages,omitempty"`
+
+		// Type Example: pages
+		Type *SideConversationListPagesType `json:"type,omitempty"`
+	} `json:"pages,omitempty"`
+
+	// SideConversations An array of side conversation objects.
+	SideConversations *[]SideConversationSummary `json:"side_conversations,omitempty"`
+
+	// TotalCount The total number of side conversations.
+	//
+	// Example: 1
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type The type of the response object.
+	//
+	// Example: side_conversation.list
+	Type *SideConversationListType `json:"type,omitempty"`
+}
+
+// SideConversationListPagesType Example: pages
+type SideConversationListPagesType string
+
+// SideConversationListType The type of the response object.
+//
+// Example: side_conversation.list
+type SideConversationListType string
+
+// SideConversationSummary A side conversation with its conversation parts.
+type SideConversationSummary struct {
+	// ConversationParts The conversation parts (messages) in this side conversation.
+	ConversationParts *[]ConversationPart `json:"conversation_parts,omitempty"`
+
+	// SideConversationId The unique identifier for the side conversation.
+	//
+	// Example: 456
+	SideConversationId *string `json:"side_conversation_id,omitempty"`
+
+	// TotalCount The total number of conversation parts in this side conversation.
+	//
+	// Example: 1
+	TotalCount *int `json:"total_count,omitempty"`
+}
+
+// SingleFilterSearchRequest Search using Intercoms Search APIs with a single filter.
+type SingleFilterSearchRequest struct {
+	// Field The accepted field that you want to search on.
+	//
+	// Example: created_at
+	Field *string `json:"field,omitempty"`
+
+	// Operator The accepted operators you can use to define how you want to search for the value. Operator support depends on the field's data type. The breakdown below is for Contacts search; the other search endpoints that share this schema accept a different set per field:
+	// - `string` fields: `=`, `!=`, `IN`, `NIN`, `~`, `!~`, `^`, `$`
+	// - `tag_id`: `=` and `!=` only. Every other operator returns an error.
+	// - `boolean` fields: `=`, `!=`, `IN`, `NIN`
+	// - `integer` fields: `=`, `!=`, `IN`, `NIN`, `<`, `>`, `<=`, `>=`
+	// - `datetime` fields (standard contact timestamps such as `created_at` and `last_seen_at`): `=`, `!=`, `<`, `>`, `<=`, `>=`. Filtering is on the exact second, in UTC.
+	// - `date` fields (Date custom attributes): `=`, `<`, `>` only. `!=`, `<=`, and `>=` are not supported and return an error. Values are truncated to a whole UTC day.
+	//
+	// Example: >
+	Operator *SingleFilterSearchRequestOperator `json:"operator,omitempty"`
+
+	// Value The value that you want to search on.
+	//
+	// Example: 73732934
+	Value *SingleFilterSearchRequest_Value `json:"value,omitempty"`
+}
+
+// SingleFilterSearchRequestOperator The accepted operators you can use to define how you want to search for the value. Operator support depends on the field's data type. The breakdown below is for Contacts search; the other search endpoints that share this schema accept a different set per field:
+// - `string` fields: `=`, `!=`, `IN`, `NIN`, `~`, `!~`, `^`, `$`
+// - `tag_id`: `=` and `!=` only. Every other operator returns an error.
+// - `boolean` fields: `=`, `!=`, `IN`, `NIN`
+// - `integer` fields: `=`, `!=`, `IN`, `NIN`, `<`, `>`, `<=`, `>=`
+// - `datetime` fields (standard contact timestamps such as `created_at` and `last_seen_at`): `=`, `!=`, `<`, `>`, `<=`, `>=`. Filtering is on the exact second, in UTC.
+// - `date` fields (Date custom attributes): `=`, `<`, `>` only. `!=`, `<=`, and `>=` are not supported and return an error. Values are truncated to a whole UTC day.
+//
+// Example: >
+type SingleFilterSearchRequestOperator string
+
+// SingleFilterSearchRequestValue0 defines model for SingleFilterSearchRequest.Value.0.
+type SingleFilterSearchRequestValue0 = string
+
+// SingleFilterSearchRequestValue1 defines model for SingleFilterSearchRequest.Value.1.
+type SingleFilterSearchRequestValue1 = int
+
+// SingleFilterSearchRequestValue2 defines model for SingleFilterSearchRequest.Value.2.
+type SingleFilterSearchRequestValue2 = bool
+
+// SingleFilterSearchRequestValue3 defines model for SingleFilterSearchRequest.Value.3.
+type SingleFilterSearchRequestValue3 = []SingleFilterSearchRequest_Value_3_Item
+
+// SingleFilterSearchRequestValue30 defines model for SingleFilterSearchRequest.Value.3.0.
+type SingleFilterSearchRequestValue30 = string
+
+// SingleFilterSearchRequestValue31 defines model for SingleFilterSearchRequest.Value.3.1.
+type SingleFilterSearchRequestValue31 = int
+
+// SingleFilterSearchRequest_Value_3_Item defines model for SingleFilterSearchRequest.Value.3.Item.
+type SingleFilterSearchRequest_Value_3_Item struct {
+	union json.RawMessage
+}
+
+// SingleFilterSearchRequest_Value The value that you want to search on.
+//
+// Example: 73732934
+type SingleFilterSearchRequest_Value struct {
+	union json.RawMessage
+}
+
+// SlaApplied The SLA Applied object contains the details for which SLA has been applied to this conversation.
+// Important: if there are any canceled sla_events for the conversation - meaning an SLA has been manually removed from a conversation, the sla_status will always be returned as null.
+type SlaApplied struct {
+	// SlaName The name of the SLA as given by the teammate when it was created.
+	//
+	// Example:
+	SlaName *string `json:"sla_name,omitempty"`
+
+	// SlaStatus SLA statuses:
+	//             - `hit`: If there’s at least one hit event in the underlying sla_events table, and no “missed” or “canceled” events for the conversation.
+	//             - `missed`: If there are any missed sla_events for the conversation and no canceled events. If there’s even a single missed sla event, the status will always be missed. A missed status is not applied when the SLA expires, only the next time a teammate replies.
+	//             - `active`: An SLA has been applied to a conversation, but has not yet been fulfilled. SLA status is active only if there are no “hit, “missed”, or “canceled” events.
+	//
+	// Example: hit
+	SlaStatus *SlaAppliedSlaStatus `json:"sla_status,omitempty"`
+
+	// Type object type
+	//
+	// Example: conversation_sla_summary
+	Type *string `json:"type,omitempty"`
+}
+
+// SlaAppliedSlaStatus SLA statuses:
+//   - `hit`: If there’s at least one hit event in the underlying sla_events table, and no “missed” or “canceled” events for the conversation.
+//   - `missed`: If there are any missed sla_events for the conversation and no canceled events. If there’s even a single missed sla event, the status will always be missed. A missed status is not applied when the SLA expires, only the next time a teammate replies.
+//   - `active`: An SLA has been applied to a conversation, but has not yet been fulfilled. SLA status is active only if there are no “hit, “missed”, or “canceled” events.
+//
+// Example: hit
+type SlaAppliedSlaStatus string
+
+// SnoozeConversationRequest Payload of the request to snooze a conversation
+type SnoozeConversationRequest struct {
+	// AdminId The id of the admin who is performing the action.
+	//
+	// Example: 5017691
+	AdminId string `json:"admin_id"`
+
+	// MessageType Example: snoozed
+	MessageType SnoozeConversationRequestMessageType `json:"message_type"`
+
+	// SnoozedUntil The time you want the conversation to reopen.
+	//
+	// Example: 1673609604
+	SnoozedUntil int `json:"snoozed_until"`
+}
+
+// SnoozeConversationRequestMessageType Example: snoozed
+type SnoozeConversationRequestMessageType string
+
+// SocialProfile A Social Profile allows you to label your contacts, companies, and conversations and list them using that Social Profile.
+type SocialProfile struct {
+	// Name The name of the Social media profile
+	//
+	// Example: Facebook
+	Name *string `json:"name,omitempty"`
+
+	// Type value is "social_profile"
+	//
+	// Example: social_profile
+	Type *string `json:"type,omitempty"`
+
+	// Url The name of the Social media profile
+	//
+	// Example: http://twitter.com/th1sland
+	Url *string `json:"url,omitempty"`
+}
+
+// SourceEmailMessageMetadata Contains metadata if the message was sent as an email
+type SourceEmailMessageMetadata struct {
+	// EmailAddressHeaders A list of an email address headers.
+	EmailAddressHeaders *[]EmailAddressHeader `json:"email_address_headers,omitempty"`
+
+	// History The HTML content of any quoted or forwarded email history from the initial inbound message
+	//
+	// Example: <div><span>On Jan 28, wrote:</span><blockquote>Previous thread</blockquote></div>
+	History *string `json:"history,omitempty"`
+
+	// MessageId The unique identifier for the email message as specified in the Message-ID header
+	//
+	// Example: <CADKw7xrXzqSn8v3mP8K8Q8yZ6K8Q8yZ6@mail.gmail.com>
+	MessageId *string `json:"message_id,omitempty"`
+
+	// Subject The subject of the email
+	//
+	// Example: Question about my order
+	Subject *string `json:"subject,omitempty"`
+}
+
+// StartingAfterPaging defines model for starting_after_paging.
+type StartingAfterPaging struct {
+	// PerPage The number of results to fetch per page.
+	//
+	// Example: 2
+	PerPage *int `json:"per_page,omitempty"`
+
+	// StartingAfter The cursor to use in the next request to get the next page of results.
+	//
+	// Example: your-cursor-from-response
+	StartingAfter *string `json:"starting_after,omitempty"`
+}
+
+// SubscriptionType A subscription type lets customers easily opt out of non-essential communications without missing what's important to them.
+type SubscriptionType struct {
+	// ConsentType Describes the type of consent.
+	//
+	// Example: opt_in
+	ConsentType *SubscriptionTypeConsentType `json:"consent_type,omitempty"`
+
+	// ContentTypes The message types that this subscription supports - can contain `email` or `sms_message`.
+	ContentTypes *[]SubscriptionTypeContentTypes `json:"content_types,omitempty"`
+
+	// DefaultTranslation A translation object contains the localised details of a subscription type.
+	DefaultTranslation *Translation `json:"default_translation,omitempty"`
+
+	// Id The unique identifier representing the subscription type.
+	//
+	// Example: 123456
+	Id *string `json:"id,omitempty"`
+
+	// State The state of the subscription type.
+	//
+	// Example: live
+	State *SubscriptionTypeState `json:"state,omitempty"`
+
+	// Translations An array of translations objects with the localised version of the subscription type in each available locale within your translation settings.
+	Translations *[]Translation `json:"translations,omitempty"`
+
+	// Type The type of the object - subscription
+	//
+	// Example: subscription
+	Type *string `json:"type,omitempty"`
+}
+
+// SubscriptionTypeConsentType Describes the type of consent.
+//
+// Example: opt_in
+type SubscriptionTypeConsentType string
+
+// SubscriptionTypeContentTypes Example: email
+type SubscriptionTypeContentTypes string
+
+// SubscriptionTypeState The state of the subscription type.
+//
+// Example: live
+type SubscriptionTypeState string
+
+// SubscriptionTypeList A list of subscription type objects.
+type SubscriptionTypeList struct {
+	// Data A list of subscription type objects associated with the workspace .
+	Data *[]SubscriptionType `json:"data,omitempty"`
+
+	// Type The type of the object
+	//
+	// Example: list
+	Type *SubscriptionTypeListType `json:"type,omitempty"`
+}
+
+// SubscriptionTypeListType The type of the object
+//
+// Example: list
+type SubscriptionTypeListType string
+
+// Tag A tag allows you to label your contacts, companies, conversations, tickets, articles, internal articles and content snippets, and list them using that tag.
+type Tag struct {
+	// AppliedAt The time when the tag was applied to the object. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet, when listing the tags on a contact, or when it is returned as part of an external page. `null` when the tag has just been removed from an article, internal article, content snippet or external page. Removing a tag from a contact, conversation or ticket returns the original value.
+	//
+	// Example: 1663597223
+	AppliedAt *int `json:"applied_at,omitempty"`
+
+	// AppliedBy The admin who applied the tag. Only present when the tag is returned as part of a tagging operation on a contact, conversation, ticket, article, internal article, or content snippet, when listing the tags on a contact, or when it is returned as part of an external page. `null` when the tag has just been removed from an article, internal article, content snippet or external page. Removing a tag from a contact, conversation or ticket returns the original value. When no admin is recorded, `type` is `nobody_admin` and `id` is `null`.
+	AppliedBy *Reference `json:"applied_by,omitempty"`
+
+	// Id The id of the tag
+	//
+	// Example: 123456
+	Id *string `json:"id,omitempty"`
+
+	// Name The name of the tag
+	//
+	// Example: Test tag
+	Name *string `json:"name,omitempty"`
+
+	// Type value is "tag"
+	//
+	// Example: tag
+	Type *string `json:"type,omitempty"`
+}
+
+// TagBasic A tag allows you to label your contacts, companies, and conversations and list them using that tag.
+type TagBasic struct {
+	// Id The id of the tag
+	//
+	// Example: 123456
+	Id *string `json:"id,omitempty"`
+
+	// Name The name of the tag
+	//
+	// Example: Test tag
+	Name *string `json:"name,omitempty"`
+
+	// Type value is "tag"
+	//
+	// Example: tag
+	Type *string `json:"type,omitempty"`
+}
+
+// TagCompanyRequest You can tag a single company or a list of companies.
+type TagCompanyRequest struct {
+	// Companies The id, company_id or name of the company can be passed as input parameters. Companies that cannot be found are skipped.
+	Companies []struct {
+		// CompanyId The company id you have defined for the company.
+		//
+		// Example: 6
+		CompanyId *string `json:"company_id,omitempty"`
+
+		// Id The Intercom defined id representing the company.
+		//
+		// Example: 531ee472cce572a6ec000006
+		Id *string `json:"id,omitempty"`
+
+		// Name The name of the company, used to look it up when neither `id` nor `company_id` is given.
+		//
+		// Example: Intercom
+		Name *string `json:"name,omitempty"`
+	} `json:"companies"`
+
+	// Name The name of the tag, which will be created if not found. Names can be at most 191 characters long.
+	//
+	// Example: Independent
+	Name string `json:"name"`
+}
+
+// TagCreateResponse The response for creating or updating a tag, including the entities that were tagged or untagged.
+type TagCreateResponse struct {
+	// Companies The companies that were tagged or untagged.
+	//
+	// Example: []
+	Companies *[]struct {
+		// Id The Intercom ID of the company.
+		//
+		// Example: 6329e838deab40166d1a5400
+		Id *string `json:"id,omitempty"`
+
+		// Tagged Whether the company was tagged (true) or untagged (false).
+		//
+		// Example: true
+		Tagged *bool `json:"tagged,omitempty"`
+	} `json:"companies,omitempty"`
+
+	// Id The id of the tag
+	//
+	// Example: 123456
+	Id *string `json:"id,omitempty"`
+
+	// Name The name of the tag
+	//
+	// Example: Test tag
+	Name *string `json:"name,omitempty"`
+
+	// Type value is "tag"
+	//
+	// Example: tag
+	Type *string `json:"type,omitempty"`
+
+	// Users The users that were tagged or untagged.
+	//
+	// Example: []
+	Users *[]struct {
+		// Id The Intercom ID of the user.
+		//
+		// Example: 6329e838deab40166d1a53f7
+		Id *string `json:"id,omitempty"`
+
+		// Tagged Whether the user was tagged (true) or untagged (false).
+		//
+		// Example: true
+		Tagged *bool `json:"tagged,omitempty"`
+	} `json:"users,omitempty"`
+}
+
+// TagList A list of tags objects in the workspace.
+type TagList struct {
+	// Data A list of tags objects associated with the workspace .
+	Data *[]Tag `json:"data,omitempty"`
+
+	// Type The type of the object
+	//
+	// Example: list
+	Type *TagListType `json:"type,omitempty"`
+}
+
+// TagListType The type of the object
+//
+// Example: list
+type TagListType string
+
+// TagMultipleUsersRequest You can tag or untag a list of users.
+type TagMultipleUsersRequest struct {
+	// Name The name of the tag, which will be created if not found. Names can be at most 191 characters long.
+	//
+	// Example: Independent
+	Name string `json:"name"`
+
+	// Users The id, user_id or email of the user can be passed as input parameters. Users that cannot be found are skipped.
+	Users []struct {
+		// Email The email address of the user, used to look it up when neither `id` nor `user_id` is given.
+		//
+		// Example: jane@example.com
+		Email *string `json:"email,omitempty"`
+
+		// Id The Intercom defined id representing the user.
+		//
+		// Example: 5f7f0d217289f8d2f4262080
+		Id *string `json:"id,omitempty"`
+
+		// Untag Set to true to remove the tag from this user instead of applying it.
+		//
+		// Example: true
+		Untag *bool `json:"untag,omitempty"`
+
+		// UserId The user id you have defined for the user, used to look it up when `id` is not given.
+		//
+		// Example: 25
+		UserId *string `json:"user_id,omitempty"`
+	} `json:"users"`
+}
+
 // Tags A list of tags objects associated with a conversation, article or internal article
 type Tags struct {
 	// Tags A list of tags objects associated with the object.
@@ -1698,9 +2592,9 @@ type UpdateNewsItemRequest struct {
 // Example: live
 type UpdateNewsItemRequestState string
 
-// UpdateOfficeHoursExceptionRequest The request payload for updating an office hours exception. Only the provided fields are updated.
+// UpdateOfficeHoursExceptionRequest The request payload for updating an office hours exception. Only the provided fields are updated. Any other field, apart from `id` and `office_hours_schedule_id`, is rejected with a 400 error.
 type UpdateOfficeHoursExceptionRequest struct {
-	// ExceptionDate The date the exception applies to, in `YYYY-MM-DD` format.
+	// ExceptionDate The date the exception applies to, in `YYYY-MM-DD` format. A schedule can have only one exception for each date.
 	//
 	// Example: 2026-12-25
 	ExceptionDate *openapi_types.Date `json:"exception_date,omitempty"`
@@ -1720,7 +2614,7 @@ type UpdateOfficeHoursExceptionRequest struct {
 	// Example: true
 	RecurringAnnually *bool `json:"recurring_annually,omitempty"`
 
-	// TimeIntervals The open intervals for the exception date. Required for `custom_hours`; omit for `closed`.
+	// TimeIntervals The open intervals for the exception date. Required for `custom_hours`; omit for `closed`, which returns a 422 error if intervals are sent. `start_minute` and `end_minute` must be on a 15-minute boundary. Don't send `day_of_week`; it is read-only and a request that includes it is rejected with a 400 error.
 	TimeIntervals *[]OfficeHoursTimeInterval `json:"time_intervals,omitempty"`
 }
 
@@ -1729,14 +2623,14 @@ type UpdateOfficeHoursExceptionRequest struct {
 // Example: custom_hours
 type UpdateOfficeHoursExceptionRequestExceptionType string
 
-// UpdateOfficeHoursScheduleRequest The request payload for updating an office hours schedule. Only the provided fields are updated.
+// UpdateOfficeHoursScheduleRequest The request payload for updating an office hours schedule. Only the provided fields are updated. Any other field, apart from `id`, is rejected with a 400 error.
 type UpdateOfficeHoursScheduleRequest struct {
-	// Name The name of the office hours schedule.
+	// Name The name of the office hours schedule. It must be unique among the workspace's schedules; a duplicate name returns a 422 error.
 	//
 	// Example: Extended Support Hours
 	Name *string `json:"name,omitempty"`
 
-	// TimeIntervals The open intervals for the schedule. `start_minute` and `end_minute` must be on a 15-minute boundary.
+	// TimeIntervals The open intervals for the schedule. `start_minute` and `end_minute` must be on a 15-minute boundary, except for the whole-week interval `0` to `10079`. Don't send `day_of_week`; it is read-only and a request that includes it is rejected with a 400 error. When provided, the intervals replace all of the schedule's existing intervals.
 	TimeIntervals *[]OfficeHoursTimeInterval `json:"time_intervals,omitempty"`
 
 	// TimeZoneName The IANA time zone the schedule's hours are evaluated in.
@@ -2520,9 +3414,6 @@ type TypeNotFound = Error
 // Unauthorized The API will return an Error List for a failed request, which will contain one or more Error objects.
 type Unauthorized = Error
 
-// ValidationError The API will return an Error List for a failed request, which will contain one or more Error objects.
-type ValidationError = Error
-
 // ListAdminsParams defines parameters for ListAdmins.
 type ListAdminsParams struct {
 	// DisplayAvatar If set to true, the response will include the admin's avatar object containing the image URL. Defaults to false.
@@ -2537,22 +3428,28 @@ type ListActivityLogEventTypesParams struct {
 
 // ListActivityLogsParams defines parameters for ListActivityLogs.
 type ListActivityLogsParams struct {
-	// CreatedAtAfter The start date that you request data for. It must be formatted as a UNIX timestamp.
-	CreatedAtAfter string `form:"created_at_after" json:"created_at_after"`
+	// CreatedAtAfter The start date that you request data for. It must be formatted as a UNIX timestamp. If you leave it out, it defaults to 30 days before the request.
+	CreatedAtAfter *string `form:"created_at_after,omitempty" json:"created_at_after,omitempty"`
 
-	// CreatedAtBefore The end date that you request data for. It must be formatted as a UNIX timestamp.
-	CreatedAtBefore *string          `form:"created_at_before,omitempty" json:"created_at_before,omitempty"`
+	// CreatedAtBefore The end date that you request data for. It must be formatted as a UNIX timestamp. If you leave it out, it defaults to the time of the request.
+	CreatedAtBefore *string `form:"created_at_before,omitempty" json:"created_at_before,omitempty"`
+
+	// Page The page number of results to return. Defaults to the first page.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of results per page. Must be between 1 and 250.
+	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
 // SearchActivityLogsJSONBody defines parameters for SearchActivityLogs.
 type SearchActivityLogsJSONBody struct {
-	// CreatedAtAfter The start date that you request data for. It must be formatted as a UNIX timestamp.
+	// CreatedAtAfter The start date that you request data for. It must be formatted as a UNIX timestamp. If you leave it out, it defaults to 30 days before the request.
 	//
 	// Example: 1677253093
-	CreatedAtAfter int `json:"created_at_after"`
+	CreatedAtAfter *int `json:"created_at_after,omitempty"`
 
-	// CreatedAtBefore The end date that you request data for. It must be formatted as a UNIX timestamp.
+	// CreatedAtBefore The end date that you request data for. It must be formatted as a UNIX timestamp. If you leave it out, it defaults to the time of the request.
 	//
 	// Example: 1677861493
 	CreatedAtBefore *int `json:"created_at_before,omitempty"`
@@ -2585,7 +3482,7 @@ type RetrieveAdminParams struct {
 
 // SetAwayAdminJSONBody defines parameters for SetAwayAdmin.
 type SetAwayAdminJSONBody struct {
-	// AwayModeEnabled Set to "true" to change the status of the admin to away.
+	// AwayModeEnabled Set to `true` to change the status of the admin to away, or `false` to set them back to active.
 	//
 	// Example: true
 	AwayModeEnabled bool `json:"away_mode_enabled"`
@@ -2595,7 +3492,7 @@ type SetAwayAdminJSONBody struct {
 	// Example: false
 	AwayModeReassign bool `json:"away_mode_reassign"`
 
-	// AwayStatusReasonId The unique identifier of the away status reason
+	// AwayStatusReasonId The unique identifier of the away status reason. Only allowed when `away_mode_enabled` is `true`, and the reason can't be archived, unless it is already the admin's current reason. Required if your workspace makes away status reasons mandatory.
 	//
 	// Example: 12345
 	AwayStatusReasonId *int `json:"away_status_reason_id,omitempty"`
@@ -2829,7 +3726,7 @@ type ListCallsParams struct {
 	// Page The page of results to fetch. Defaults to first page
 	Page *int `form:"page,omitempty" json:"page,omitempty"`
 
-	// PerPage How many results to display per page. Defaults to 25. Max 25.
+	// PerPage How many results to display per page. Defaults to 25. Must be between 1 and 25. A value outside that range returns a 400 error.
 	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
@@ -4234,6 +5131,31 @@ type StartFinConversationJSONBodyResponseFormat string
 
 // StartFinConversation200JSONResponseBodyStatus defines parameters for StartFinConversation.
 type StartFinConversation200JSONResponseBodyStatus string
+
+// CollectFinVoiceCallByIdParams defines parameters for CollectFinVoiceCallById.
+type CollectFinVoiceCallByIdParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// CollectFinVoiceCallsByConversationIdParams defines parameters for CollectFinVoiceCallsByConversationId.
+type CollectFinVoiceCallsByConversationIdParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// CollectFinVoiceCallByExternalIdParams defines parameters for CollectFinVoiceCallByExternalId.
+type CollectFinVoiceCallByExternalIdParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// CollectFinVoiceCallByPhoneNumberParams defines parameters for CollectFinVoiceCallByPhoneNumber.
+type CollectFinVoiceCallByPhoneNumberParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// RegisterFinVoiceCallParams defines parameters for RegisterFinVoiceCall.
+type RegisterFinVoiceCallParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
 
 // ListFoldersParams defines parameters for ListFolders.
 type ListFoldersParams struct {
@@ -13121,12 +14043,16 @@ type ClientInterface interface {
 	//
 	// You can fetch a list of admins for a given workspace.
 	//
+	// Requires the `read_admins` OAuth scope.
+	//
 	// Corresponds with GET /admins (the `ListAdmins` operationId).
 	ListAdmins(ctx context.Context, params *ListAdminsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListActivityLogEventTypes List all activity log event types
 	//
-	// You can get a list of all activity log event types. This is useful for discovering valid values to use with the `event_types` filter on the List all activity logs endpoint.
+	// You can get a list of all activity log event types. This is useful for discovering valid values to use with the `event_types` filter on the Search activity logs endpoint.
+	//
+	// Requires the `read_admins` OAuth scope.
 	//
 	// Corresponds with GET /admins/activity_log_event_types (the `ListActivityLogEventTypes` operationId).
 	ListActivityLogEventTypes(ctx context.Context, params *ListActivityLogEventTypesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -13135,12 +14061,18 @@ type ClientInterface interface {
 	//
 	// You can get a log of activities by all admins in an app.
 	//
+	// Requires the `read_admins` OAuth scope.
+	//
 	// Corresponds with GET /admins/activity_logs (the `ListActivityLogs` operationId).
 	ListActivityLogs(ctx context.Context, params *ListActivityLogsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SearchActivityLogsWithBody Search activity logs
 	//
 	// Search and filter admin activity logs using a POST request with event type filter in the request body. You can find more details about the available event types in the List all activity log event types endpoint.
+	//
+	// Results are paginated by page number. Use `page` and `per_page` in the request body to choose a page. The `next` link in the response is a URL that keeps the query string of the request URL and sets `page` and `per_page` for the next page. It does not include the filters from your request body. To fetch the next page, send a POST request with the same request body to that URL. Query parameters in the `next` URL take precedence over `page` and `per_page` in the body.
+	//
+	// Requires the `read_admins` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -13151,6 +14083,10 @@ type ClientInterface interface {
 	//
 	// Search and filter admin activity logs using a POST request with event type filter in the request body. You can find more details about the available event types in the List all activity log event types endpoint.
 	//
+	// Results are paginated by page number. Use `page` and `per_page` in the request body to choose a page. The `next` link in the response is a URL that keeps the query string of the request URL and sets `page` and `per_page` for the next page. It does not include the filters from your request body. To fetch the next page, send a POST request with the same request body to that URL. Query parameters in the `next` URL take precedence over `page` and `per_page` in the body.
+	//
+	// Requires the `read_admins` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /admins/activity_logs/search (the `SearchActivityLogs` operationId).
@@ -13160,12 +14096,16 @@ type ClientInterface interface {
 	//
 	// You can retrieve the details of a single admin.
 	//
+	// Requires the `read_single_admin` or `read_admins` OAuth scope.
+	//
 	// Corresponds with GET /admins/{admin_id} (the `RetrieveAdmin` operationId).
 	RetrieveAdmin(ctx context.Context, adminId int, params *RetrieveAdminParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SetAwayAdminWithBody Set an admin to away
 	//
 	// You can set an Admin as away for the Inbox.
+	//
+	// Requires the `update_admins` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -13175,6 +14115,8 @@ type ClientInterface interface {
 	// SetAwayAdmin Set an admin to away
 	//
 	// You can set an Admin as away for the Inbox.
+	//
+	// Requires the `update_admins` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -13720,6 +14662,8 @@ type ClientInterface interface {
 	//
 	// Retrieve a paginated list of calls.
 	//
+	// Requires the `read_conversations` OAuth scope.
+	//
 	// Corresponds with GET /calls (the `ListCalls` operationId).
 	ListCalls(ctx context.Context, params *ListCallsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -13727,6 +14671,8 @@ type ClientInterface interface {
 	//
 	// Retrieve calls by a list of conversation ids and include transcripts when available.
 	// A maximum of 20 `conversation_ids` can be provided. If none are provided or more than 20 are provided, a 400 error is returned.
+	//
+	// Requires the `read_conversations` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -13738,6 +14684,8 @@ type ClientInterface interface {
 	// Retrieve calls by a list of conversation ids and include transcripts when available.
 	// A maximum of 20 `conversation_ids` can be provided. If none are provided or more than 20 are provided, a 400 error is returned.
 	//
+	// Requires the `read_conversations` OAuth scope.
+	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /calls/search (the `ListCallsWithTranscripts` operationId).
@@ -13747,6 +14695,8 @@ type ClientInterface interface {
 	//
 	// Retrieve a single call by id.
 	//
+	// Requires the `read_conversations` OAuth scope.
+	//
 	// Corresponds with GET /calls/{call_id} (the `ShowCall` operationId).
 	ShowCall(ctx context.Context, callId string, params *ShowCallParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -13754,12 +14704,16 @@ type ClientInterface interface {
 	//
 	// Redirects to a signed URL for the call's recording if it exists.
 	//
+	// Requires the `read_conversations` OAuth scope.
+	//
 	// Corresponds with GET /calls/{call_id}/recording (the `ShowCallRecording` operationId).
 	ShowCallRecording(ctx context.Context, callId string, params *ShowCallRecordingParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ShowCallTranscript Get call transcript by call id
 	//
 	// Returns the transcript for the specified call as a JSON array of turns.
+	//
+	// Requires the `read_conversations` OAuth scope.
 	//
 	// Corresponds with GET /calls/{id}/transcript (the `ShowCallTranscript` operationId).
 	ShowCallTranscript(ctx context.Context, id string, params *ShowCallTranscriptParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16353,14 +17307,18 @@ type ClientInterface interface {
 
 	// ListEmails List all email settings
 	//
-	// Lists all sender email address settings for the workspace.
+	// Lists all sender email address settings for the workspace
+	//
+	// Requires the `read_emails` OAuth scope.
 	//
 	// Corresponds with GET /emails (the `ListEmails` operationId).
 	ListEmails(ctx context.Context, params *ListEmailsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RetrieveEmail Retrieve an email setting
 	//
-	// Fetches a specific email setting by its unique identifier.
+	// Fetches a specific email setting by its unique identifier
+	//
+	// Requires the `read_emails` OAuth scope.
 	//
 	// Corresponds with GET /emails/{id} (the `RetrieveEmail` operationId).
 	RetrieveEmail(ctx context.Context, id string, params *RetrieveEmailParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16976,8 +17934,10 @@ type ClientInterface interface {
 	//
 	// Retrieve information about a Fin Voice call using the external reference ID.
 	//
+	// Requires the `read_conversations` OAuth scope.
+	//
 	// Corresponds with GET /fin_voice/collect/{id} (the `CollectFinVoiceCallById` operationId).
-	CollectFinVoiceCallById(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CollectFinVoiceCallById(ctx context.Context, id int, params *CollectFinVoiceCallByIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CollectFinVoiceCallsByConversationId Collect Fin Voice calls by conversation ID
 	//
@@ -16985,15 +17945,19 @@ type ClientInterface interface {
 	//
 	// Returns all matched calls for the given conversation ID. A conversation may have multiple associated calls.
 	//
+	// Requires the `read_conversations` OAuth scope.
+	//
 	// Corresponds with GET /fin_voice/conversation/{conversation_id} (the `CollectFinVoiceCallsByConversationId` operationId).
-	CollectFinVoiceCallsByConversationId(ctx context.Context, conversationId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CollectFinVoiceCallsByConversationId(ctx context.Context, conversationId string, params *CollectFinVoiceCallsByConversationIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CollectFinVoiceCallByExternalId Collect Fin Voice call by external ID
 	//
 	// Retrieve information about a Fin Voice call using the external call identifier.
 	//
+	// Requires the `read_conversations` OAuth scope.
+	//
 	// Corresponds with GET /fin_voice/external_id/{external_id} (the `CollectFinVoiceCallByExternalId` operationId).
-	CollectFinVoiceCallByExternalId(ctx context.Context, externalId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CollectFinVoiceCallByExternalId(ctx context.Context, externalId string, params *CollectFinVoiceCallByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CollectFinVoiceCallByPhoneNumber Collect Fin Voice call by phone number
 	//
@@ -17001,8 +17965,10 @@ type ClientInterface interface {
 	//
 	// Returns the most recent matched call for the given phone number, ordered by creation date.
 	//
+	// Requires the `read_conversations` OAuth scope.
+	//
 	// Corresponds with GET /fin_voice/phone_number/{phone_number} (the `CollectFinVoiceCallByPhoneNumber` operationId).
-	CollectFinVoiceCallByPhoneNumber(ctx context.Context, phoneNumber string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CollectFinVoiceCallByPhoneNumber(ctx context.Context, phoneNumber string, params *CollectFinVoiceCallByPhoneNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RegisterFinVoiceCallWithBody Register a Fin Voice call
 	//
@@ -17013,11 +17979,16 @@ type ClientInterface interface {
 	// - AWS Connect (default)
 	// - Five9
 	// - Zoom Phone
+	// - NICE CXone
+	// - Dialpad
+	// - Generic
+	//
+	// Requires the `read_conversations` OAuth scope.
 	//
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with POST /fin_voice/register (the `RegisterFinVoiceCall` operationId).
-	RegisterFinVoiceCallWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RegisterFinVoiceCallWithBody(ctx context.Context, params *RegisterFinVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RegisterFinVoiceCall Register a Fin Voice call
 	//
@@ -17028,11 +17999,16 @@ type ClientInterface interface {
 	// - AWS Connect (default)
 	// - Five9
 	// - Zoom Phone
+	// - NICE CXone
+	// - Dialpad
+	// - Generic
+	//
+	// Requires the `read_conversations` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /fin_voice/register (the `RegisterFinVoiceCall` operationId).
-	RegisterFinVoiceCall(ctx context.Context, body RegisterFinVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RegisterFinVoiceCall(ctx context.Context, params *RegisterFinVoiceCallParams, body RegisterFinVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListFolders List all folders
 	//
@@ -17486,12 +18462,13 @@ type ClientInterface interface {
 
 	// IdentifyAdmin Identify an admin
 	//
-	//
 	// You can view the currently authorised admin along with the embedded app object (a "workspace" in legacy terminology).
 	//
 	// > 🚧 Single Sign On
 	// >
 	// > If you are building a custom "Log in with Intercom" flow for your site, and you call the `/me` endpoint to identify the logged-in user, you should not accept any sign-ins from users with unverified email addresses as it poses a potential impersonation security risk.
+	//
+	// Requires the `read_single_admin` or `read_admins` OAuth scope.
 	//
 	// Corresponds with GET /me (the `IdentifyAdmin` operationId).
 	IdentifyAdmin(ctx context.Context, params *IdentifyAdminParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -17718,7 +18695,7 @@ type ClientInterface interface {
 
 	// DeleteOfficeHoursSchedule Delete an office hours schedule
 	//
-	// You can delete a single office hours schedule.
+	// You can delete a single office hours schedule. The workspace's default schedule can't be deleted.
 	//
 	// Corresponds with DELETE /office_hours_schedules/{id} (the `DeleteOfficeHoursSchedule` operationId).
 	DeleteOfficeHoursSchedule(ctx context.Context, id string, params *DeleteOfficeHoursScheduleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -17750,7 +18727,7 @@ type ClientInterface interface {
 
 	// ListOfficeHoursExceptions List all office hours exceptions
 	//
-	// You can fetch a list of all exceptions for an office hours schedule.
+	// You can fetch a list of all exceptions for an office hours schedule, ordered by date with the earliest first.
 	//
 	// Corresponds with GET /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions (the `ListOfficeHoursExceptions` operationId).
 	ListOfficeHoursExceptions(ctx context.Context, officeHoursScheduleId string, params *ListOfficeHoursExceptionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -18520,6 +19497,8 @@ type ClientInterface interface {
 //
 // You can fetch a list of admins for a given workspace.
 //
+// Requires the `read_admins` OAuth scope.
+//
 // Corresponds with GET /admins (the `ListAdmins` operationId).
 func (c *Client) ListAdmins(ctx context.Context, params *ListAdminsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListAdminsRequest(c.Server, params)
@@ -18535,7 +19514,9 @@ func (c *Client) ListAdmins(ctx context.Context, params *ListAdminsParams, reqEd
 
 // ListActivityLogEventTypes List all activity log event types
 //
-// You can get a list of all activity log event types. This is useful for discovering valid values to use with the `event_types` filter on the List all activity logs endpoint.
+// You can get a list of all activity log event types. This is useful for discovering valid values to use with the `event_types` filter on the Search activity logs endpoint.
+//
+// Requires the `read_admins` OAuth scope.
 //
 // Corresponds with GET /admins/activity_log_event_types (the `ListActivityLogEventTypes` operationId).
 func (c *Client) ListActivityLogEventTypes(ctx context.Context, params *ListActivityLogEventTypesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -18554,6 +19535,8 @@ func (c *Client) ListActivityLogEventTypes(ctx context.Context, params *ListActi
 //
 // You can get a log of activities by all admins in an app.
 //
+// Requires the `read_admins` OAuth scope.
+//
 // Corresponds with GET /admins/activity_logs (the `ListActivityLogs` operationId).
 func (c *Client) ListActivityLogs(ctx context.Context, params *ListActivityLogsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListActivityLogsRequest(c.Server, params)
@@ -18570,6 +19553,10 @@ func (c *Client) ListActivityLogs(ctx context.Context, params *ListActivityLogsP
 // SearchActivityLogsWithBody Search activity logs
 //
 // Search and filter admin activity logs using a POST request with event type filter in the request body. You can find more details about the available event types in the List all activity log event types endpoint.
+//
+// Results are paginated by page number. Use `page` and `per_page` in the request body to choose a page. The `next` link in the response is a URL that keeps the query string of the request URL and sets `page` and `per_page` for the next page. It does not include the filters from your request body. To fetch the next page, send a POST request with the same request body to that URL. Query parameters in the `next` URL take precedence over `page` and `per_page` in the body.
+//
+// Requires the `read_admins` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -18590,6 +19577,10 @@ func (c *Client) SearchActivityLogsWithBody(ctx context.Context, params *SearchA
 //
 // Search and filter admin activity logs using a POST request with event type filter in the request body. You can find more details about the available event types in the List all activity log event types endpoint.
 //
+// Results are paginated by page number. Use `page` and `per_page` in the request body to choose a page. The `next` link in the response is a URL that keeps the query string of the request URL and sets `page` and `per_page` for the next page. It does not include the filters from your request body. To fetch the next page, send a POST request with the same request body to that URL. Query parameters in the `next` URL take precedence over `page` and `per_page` in the body.
+//
+// Requires the `read_admins` OAuth scope.
+//
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /admins/activity_logs/search (the `SearchActivityLogs` operationId).
@@ -18609,6 +19600,8 @@ func (c *Client) SearchActivityLogs(ctx context.Context, params *SearchActivityL
 //
 // You can retrieve the details of a single admin.
 //
+// Requires the `read_single_admin` or `read_admins` OAuth scope.
+//
 // Corresponds with GET /admins/{admin_id} (the `RetrieveAdmin` operationId).
 func (c *Client) RetrieveAdmin(ctx context.Context, adminId int, params *RetrieveAdminParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRetrieveAdminRequest(c.Server, adminId, params)
@@ -18625,6 +19618,8 @@ func (c *Client) RetrieveAdmin(ctx context.Context, adminId int, params *Retriev
 // SetAwayAdminWithBody Set an admin to away
 //
 // You can set an Admin as away for the Inbox.
+//
+// Requires the `update_admins` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -18644,6 +19639,8 @@ func (c *Client) SetAwayAdminWithBody(ctx context.Context, adminId int, params *
 // SetAwayAdmin Set an admin to away
 //
 // You can set an Admin as away for the Inbox.
+//
+// Requires the `update_admins` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -19028,1030 +20025,6 @@ func (c *Client) CreateArticle(ctx context.Context, params *CreateArticleParams,
 // Corresponds with GET /articles/search (the `SearchArticles` operationId).
 func (c *Client) SearchArticles(ctx context.Context, params *SearchArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewSearchArticlesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteArticle Delete an article
-//
-// You can delete a single article by making a DELETE request to `https://api.intercom.io/articles/<id>`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Corresponds with DELETE /articles/{article_id} (the `DeleteArticle` operationId).
-func (c *Client) DeleteArticle(ctx context.Context, articleId int, params *DeleteArticleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteArticleRequest(c.Server, articleId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RetrieveArticle Retrieve an article
-//
-// You can fetch the details of a single article by making a GET request to `https://api.intercom.io/articles/<id>`.
-//
-// Requires the `read_articles_scope` OAuth scope.
-//
-// Corresponds with GET /articles/{article_id} (the `RetrieveArticle` operationId).
-func (c *Client) RetrieveArticle(ctx context.Context, articleId int, params *RetrieveArticleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveArticleRequest(c.Server, articleId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateArticleWithBody Update an article
-//
-// You can update the details of a single article by making a PUT request to `https://api.intercom.io/articles/<id>`.
-//
-// > 📘 Tags are managed separately
-// >
-// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /articles/{article_id} (the `UpdateArticle` operationId).
-func (c *Client) UpdateArticleWithBody(ctx context.Context, articleId int, params *UpdateArticleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateArticleRequestWithBody(c.Server, articleId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateArticle Update an article
-//
-// You can update the details of a single article by making a PUT request to `https://api.intercom.io/articles/<id>`.
-//
-// > 📘 Tags are managed separately
-// >
-// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /articles/{article_id} (the `UpdateArticle` operationId).
-func (c *Client) UpdateArticle(ctx context.Context, articleId int, params *UpdateArticleParams, body UpdateArticleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateArticleRequest(c.Server, articleId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachTagToArticleWithBody Add a tag to an article
-//
-// Apply an existing tag to an article. Returns the tag that was applied.
-//
-// The tag must already exist in the workspace (create tags with the Tags API),
-// and the authenticating teammate must have the `manage_knowledge_base_content`
-// permission.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /articles/{article_id}/tags (the `AttachTagToArticle` operationId).
-func (c *Client) AttachTagToArticleWithBody(ctx context.Context, articleId int, params *AttachTagToArticleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachTagToArticleRequestWithBody(c.Server, articleId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// AttachTagToArticle Add a tag to an article
-//
-// Apply an existing tag to an article. Returns the tag that was applied.
-//
-// The tag must already exist in the workspace (create tags with the Tags API),
-// and the authenticating teammate must have the `manage_knowledge_base_content`
-// permission.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /articles/{article_id}/tags (the `AttachTagToArticle` operationId).
-func (c *Client) AttachTagToArticle(ctx context.Context, articleId int, params *AttachTagToArticleParams, body AttachTagToArticleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAttachTagToArticleRequest(c.Server, articleId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DetachTagFromArticle Remove a tag from an article
-//
-// Remove a tag from an article. Returns the tag that was removed, with null
-// `applied_at` and `applied_by`.
-//
-// The authenticating teammate must have the `manage_knowledge_base_content`
-// permission.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Corresponds with DELETE /articles/{article_id}/tags/{id} (the `DetachTagFromArticle` operationId).
-func (c *Client) DetachTagFromArticle(ctx context.Context, articleId int, id string, params *DetachTagFromArticleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDetachTagFromArticleRequest(c.Server, articleId, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListArticleVersions List article versions
-//
-// Fetch the version history of an article by making a GET request to
-// `https://api.intercom.io/articles/<article_id>/versions`. Versions are
-// returned newest-first as a paginated list of metadata. Use
-// `GET /articles/{article_id}/versions/{id}` to retrieve a single version
-// with its full content.
-//
-// A `404` has an empty response body, whether the article or its content
-// isn't found.
-//
-// Requires the `read_articles_scope` OAuth scope.
-//
-// Corresponds with GET /articles/{article_id}/versions (the `ListArticleVersions` operationId).
-func (c *Client) ListArticleVersions(ctx context.Context, articleId int, params *ListArticleVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListArticleVersionsRequest(c.Server, articleId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RetrieveArticleVersion Retrieve an article version
-//
-// Fetch a single prior version of an article, including its body content,
-// by making a GET request to
-// `https://api.intercom.io/articles/<article_id>/versions/<id>`. Returns
-// the version's full content; the live article remains untouched.
-//
-// A `404` has an empty response body, whether the article, its content or
-// the version isn't found.
-//
-// Requires the `read_articles_scope` OAuth scope.
-//
-// Corresponds with GET /articles/{article_id}/versions/{id} (the `RetrieveArticleVersion` operationId).
-func (c *Client) RetrieveArticleVersion(ctx context.Context, articleId int, id string, params *RetrieveArticleVersionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveArticleVersionRequest(c.Server, articleId, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RetrieveArticleDraft Retrieve an article draft
-//
-// Fetch the staged draft of a published article by making a GET request to
-// `https://api.intercom.io/articles/<id>/draft`. The response is the article
-// rendered with its draft content, leaving the live article untouched.
-//
-// A draft exists only when a published article has unpublished changes staged
-// on top of it. Returns `404` with an empty response body when the article
-// has no staged draft. An article ID that doesn't exist returns a `404` with
-// the standard error body.
-//
-// Requires the `read_articles_scope` OAuth scope.
-//
-// Corresponds with GET /articles/{id}/draft (the `RetrieveArticleDraft` operationId).
-func (c *Client) RetrieveArticleDraft(ctx context.Context, id int, params *RetrieveArticleDraftParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveArticleDraftRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// StageArticleDraftWithBody Stage an article draft
-//
-// Stage changes to a published article as a draft by making a PUT request to
-// `https://api.intercom.io/articles/<id>/draft`. The live article remains
-// unchanged until the draft is published.
-//
-// The article must already be published; staging a draft on an article that
-// has never been published returns `422`. That `422` has the short body
-// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
-// `request_id` or `code`. Other `422` errors use the standard error format.
-//
-// Only text content is staged: `title`, `description`, `body` or
-// `body_markdown`, and `author_id`, including per-locale values in
-// `translated_content`. Any other field in the request body, such as `state`,
-// `parent_id`, `folder_id`, `audience_ids`, the AI availability fields or the
-// scheduling fields, is still validated but not applied, so the live article is left untouched. The
-// scheduling, state and placement notes on the request schema's other fields
-// do not apply to this endpoint, because those fields are not applied.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /articles/{id}/draft (the `StageArticleDraft` operationId).
-func (c *Client) StageArticleDraftWithBody(ctx context.Context, id int, params *StageArticleDraftParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewStageArticleDraftRequestWithBody(c.Server, id, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// StageArticleDraft Stage an article draft
-//
-// Stage changes to a published article as a draft by making a PUT request to
-// `https://api.intercom.io/articles/<id>/draft`. The live article remains
-// unchanged until the draft is published.
-//
-// The article must already be published; staging a draft on an article that
-// has never been published returns `422`. That `422` has the short body
-// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
-// `request_id` or `code`. Other `422` errors use the standard error format.
-//
-// Only text content is staged: `title`, `description`, `body` or
-// `body_markdown`, and `author_id`, including per-locale values in
-// `translated_content`. Any other field in the request body, such as `state`,
-// `parent_id`, `folder_id`, `audience_ids`, the AI availability fields or the
-// scheduling fields, is still validated but not applied, so the live article is left untouched. The
-// scheduling, state and placement notes on the request schema's other fields
-// do not apply to this endpoint, because those fields are not applied.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /articles/{id}/draft (the `StageArticleDraft` operationId).
-func (c *Client) StageArticleDraft(ctx context.Context, id int, params *StageArticleDraftParams, body StageArticleDraftJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewStageArticleDraftRequest(c.Server, id, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// PublishArticleDraftWithBody Publish an article draft
-//
-// Publish a staged draft by making a POST request to
-// `https://api.intercom.io/articles/<id>/draft/publish`, promoting the draft
-// content to live.
-//
-// On a single-language workspace no body is required. On a multilingual
-// workspace you must list which locales to publish via the `locales` array;
-// omitting it returns `422`. Returns `422` when there is no staged draft to
-// publish, or when a requested locale has no pending changes.
-//
-// The `422` for no staged draft has the short body
-// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
-// `request_id` or `code`. The other `422` errors use the standard error format.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /articles/{id}/draft/publish (the `PublishArticleDraft` operationId).
-func (c *Client) PublishArticleDraftWithBody(ctx context.Context, id int, params *PublishArticleDraftParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewPublishArticleDraftRequestWithBody(c.Server, id, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// PublishArticleDraft Publish an article draft
-//
-// Publish a staged draft by making a POST request to
-// `https://api.intercom.io/articles/<id>/draft/publish`, promoting the draft
-// content to live.
-//
-// On a single-language workspace no body is required. On a multilingual
-// workspace you must list which locales to publish via the `locales` array;
-// omitting it returns `422`. Returns `422` when there is no staged draft to
-// publish, or when a requested locale has no pending changes.
-//
-// The `422` for no staged draft has the short body
-// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
-// `request_id` or `code`. The other `422` errors use the standard error format.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /articles/{id}/draft/publish (the `PublishArticleDraft` operationId).
-func (c *Client) PublishArticleDraft(ctx context.Context, id int, params *PublishArticleDraftParams, body PublishArticleDraftJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewPublishArticleDraftRequest(c.Server, id, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListAudiences List all audiences
-//
-// You can fetch a list of all audiences for the workspace.
-//
-// Requires the `read_audiences` or `read_write_audiences` OAuth scope.
-//
-// Corresponds with GET /audiences (the `ListAudiences` operationId).
-func (c *Client) ListAudiences(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListAudiencesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateAudienceWithBody Create an audience
-//
-// You can create a new audience by making a POST request to `https://api.intercom.io/audiences`.
-//
-// Requires the `read_write_audiences` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /audiences (the `CreateAudience` operationId).
-func (c *Client) CreateAudienceWithBody(ctx context.Context, params *CreateAudienceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateAudienceRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateAudience Create an audience
-//
-// You can create a new audience by making a POST request to `https://api.intercom.io/audiences`.
-//
-// Requires the `read_write_audiences` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /audiences (the `CreateAudience` operationId).
-func (c *Client) CreateAudience(ctx context.Context, params *CreateAudienceParams, body CreateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateAudienceRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// DeleteAudience Delete an audience
-//
-// You can delete a single audience by making a DELETE request to `https://api.intercom.io/audiences/{id}`.
-//
-// An audience that is still used by other objects, such as a workflow, cannot be deleted.
-//
-// Requires the `read_write_audiences` OAuth scope.
-//
-// Corresponds with DELETE /audiences/{id} (the `DeleteAudience` operationId).
-func (c *Client) DeleteAudience(ctx context.Context, id string, params *DeleteAudienceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteAudienceRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RetrieveAudience Retrieve an audience
-//
-// You can fetch the details of a single audience by making a GET request to `https://api.intercom.io/audiences/{id}`.
-//
-// Requires the `read_audiences` or `read_write_audiences` OAuth scope.
-//
-// Corresponds with GET /audiences/{id} (the `RetrieveAudience` operationId).
-func (c *Client) RetrieveAudience(ctx context.Context, id string, params *RetrieveAudienceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveAudienceRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateAudienceWithBody Update an audience
-//
-// You can update the details of a single audience by making a PUT request to `https://api.intercom.io/audiences/{id}`.
-//
-// You can also send this request with `PATCH`; it behaves the same as `PUT`.
-//
-// Requires the `read_write_audiences` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with PUT /audiences/{id} (the `UpdateAudience` operationId).
-func (c *Client) UpdateAudienceWithBody(ctx context.Context, id string, params *UpdateAudienceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateAudienceRequestWithBody(c.Server, id, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// UpdateAudience Update an audience
-//
-// You can update the details of a single audience by making a PUT request to `https://api.intercom.io/audiences/{id}`.
-//
-// You can also send this request with `PATCH`; it behaves the same as `PUT`.
-//
-// Requires the `read_write_audiences` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with PUT /audiences/{id} (the `UpdateAudience` operationId).
-func (c *Client) UpdateAudience(ctx context.Context, id string, params *UpdateAudienceParams, body UpdateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateAudienceRequest(c.Server, id, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListAwayStatusReasons List all away status reasons
-//
-// Returns a list of all away status reasons configured for the workspace, including deleted ones.
-//
-// Corresponds with GET /away_status_reasons (the `ListAwayStatusReasons` operationId).
-func (c *Client) ListAwayStatusReasons(ctx context.Context, params *ListAwayStatusReasonsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListAwayStatusReasonsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListBrands List all brands
-//
-// Retrieves all brands for the workspace, including the default brand.
-// The default brand id always matches the workspace id.
-//
-// Requires the `read_brands` OAuth scope.
-//
-// Corresponds with GET /brands (the `ListBrands` operationId).
-func (c *Client) ListBrands(ctx context.Context, params *ListBrandsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListBrandsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RetrieveBrand Retrieve a brand
-//
-// # Fetches a specific brand by its unique identifier
-//
-// Requires the `read_brands` OAuth scope.
-//
-// Corresponds with GET /brands/{id} (the `RetrieveBrand` operationId).
-func (c *Client) RetrieveBrand(ctx context.Context, id string, params *RetrieveBrandParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveBrandRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListCalls List all calls
-//
-// Retrieve a paginated list of calls.
-//
-// Corresponds with GET /calls (the `ListCalls` operationId).
-func (c *Client) ListCalls(ctx context.Context, params *ListCallsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListCallsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListCallsWithTranscriptsWithBody List calls with transcripts
-//
-// Retrieve calls by a list of conversation ids and include transcripts when available.
-// A maximum of 20 `conversation_ids` can be provided. If none are provided or more than 20 are provided, a 400 error is returned.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /calls/search (the `ListCallsWithTranscripts` operationId).
-func (c *Client) ListCallsWithTranscriptsWithBody(ctx context.Context, params *ListCallsWithTranscriptsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListCallsWithTranscriptsRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListCallsWithTranscripts List calls with transcripts
-//
-// Retrieve calls by a list of conversation ids and include transcripts when available.
-// A maximum of 20 `conversation_ids` can be provided. If none are provided or more than 20 are provided, a 400 error is returned.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /calls/search (the `ListCallsWithTranscripts` operationId).
-func (c *Client) ListCallsWithTranscripts(ctx context.Context, params *ListCallsWithTranscriptsParams, body ListCallsWithTranscriptsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListCallsWithTranscriptsRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShowCall Get a call
-//
-// Retrieve a single call by id.
-//
-// Corresponds with GET /calls/{call_id} (the `ShowCall` operationId).
-func (c *Client) ShowCall(ctx context.Context, callId string, params *ShowCallParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShowCallRequest(c.Server, callId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShowCallRecording Get call recording by call id
-//
-// Redirects to a signed URL for the call's recording if it exists.
-//
-// Corresponds with GET /calls/{call_id}/recording (the `ShowCallRecording` operationId).
-func (c *Client) ShowCallRecording(ctx context.Context, callId string, params *ShowCallRecordingParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShowCallRecordingRequest(c.Server, callId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShowCallTranscript Get call transcript by call id
-//
-// Returns the transcript for the specified call as a JSON array of turns.
-//
-// Corresponds with GET /calls/{id}/transcript (the `ShowCallTranscript` operationId).
-func (c *Client) ShowCallTranscript(ctx context.Context, id string, params *ShowCallTranscriptParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShowCallTranscriptRequest(c.Server, id, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// RetrieveCompany Retrieve companies
-//
-// You can fetch a single company by passing in `company_id` or `name`.
-//
-//	`https://api.intercom.io/companies?name={name}`
-//
-//	`https://api.intercom.io/companies?company_id={company_id}`
-//
-// You can fetch all companies and filter by `segment_id` or `tag_id` as a query parameter.
-//
-//	`https://api.intercom.io/companies?tag_id={tag_id}`
-//
-//	`https://api.intercom.io/companies?segment_id={segment_id}`
-//
-// The list is paged by page number. There is a limit of 10,000 companies; beyond that the request returns a `400` error and you should use the scroll endpoint instead.
-//
-// Corresponds with GET /companies (the `RetrieveCompany` operationId).
-func (c *Client) RetrieveCompany(ctx context.Context, params *RetrieveCompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRetrieveCompanyRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateOrUpdateCompanyWithBody Create or Update a company
-//
-// You can create or update a company.
-//
-// Companies will be only visible in Intercom when there is at least one associated user.
-//
-// Companies are looked up via `company_id` in a `POST` request, if not found via `company_id`, the new company will be created, if found, that company will be updated.
-//
-// You must send either `company_id` or `id`. A request with neither returns a `400` error.
-//
-// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
-//
-// {% admonition type="warning" name="Using `company_id`" %}
-//
-//	You can set a unique `company_id` value when creating a company. However, it is not possible to update `company_id`. Be sure to set a unique value once upon creation of the company.
-//
-// {% /admonition %}
-//
-// Requires the `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /companies (the `CreateOrUpdateCompany` operationId).
-func (c *Client) CreateOrUpdateCompanyWithBody(ctx context.Context, params *CreateOrUpdateCompanyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateOrUpdateCompanyRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateOrUpdateCompany Create or Update a company
-//
-// You can create or update a company.
-//
-// Companies will be only visible in Intercom when there is at least one associated user.
-//
-// Companies are looked up via `company_id` in a `POST` request, if not found via `company_id`, the new company will be created, if found, that company will be updated.
-//
-// You must send either `company_id` or `id`. A request with neither returns a `400` error.
-//
-// Every custom attribute you send must already exist in your workspace. Sending one that doesn't returns a `400` error.
-//
-// {% admonition type="warning" name="Using `company_id`" %}
-//
-//	You can set a unique `company_id` value when creating a company. However, it is not possible to update `company_id`. Be sure to set a unique value once upon creation of the company.
-//
-// {% /admonition %}
-//
-// Requires the `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /companies (the `CreateOrUpdateCompany` operationId).
-func (c *Client) CreateOrUpdateCompany(ctx context.Context, params *CreateOrUpdateCompanyParams, body CreateOrUpdateCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateOrUpdateCompanyRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ListAllCompanies List all companies
-//
-// You can list companies. The company list is sorted by the `last_request_at` field and by default is ordered descending, most recently requested first.
-//
-// Note that the API does not include companies who have no associated users in list responses.
-//
-// When using the Companies endpoint and the pages object to iterate through the returned companies, there is a limit of 10,000 Companies that can be returned. If you need to list or iterate on more than 10,000 Companies, please use the [Scroll API](https://developers.intercom.com/reference#iterating-over-all-companies). Going past that limit returns a `400` error with code `bad_request`.
-// {% admonition type="warning" name="Pagination" %}
-//
-//	This endpoint pages by page number, not by cursor. Use the `page` and `per_page` query parameters, and the `page`, `total_pages` and `next` values in the `pages` object of the response. The default is `15` results per page.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details.
-//
-// {% /admonition %}
-//
-// Requires the `write_users_companies` OAuth scope. A token with only read scopes cannot call this endpoint.
-//
-// Corresponds with POST /companies/list (the `ListAllCompanies` operationId).
-func (c *Client) ListAllCompanies(ctx context.Context, params *ListAllCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListAllCompaniesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ScrollOverAllCompanies Scroll over all companies
-//
-//	The `list all companies` functionality does not work well for huge datasets, and can result in errors and performance problems when paging deeply. The Scroll API provides an efficient mechanism for iterating over all companies in a dataset.
-//
-// - Each app can only have 1 scroll open at a time. Starting a second one returns a `400` error with code `scroll_exists`.
-// - If the scroll isn't used for 1 minute, it expires and calls with that scroll param return a `404` error with code `not_found`.
-// - If the end of the scroll is reached, `data` will be empty and the scroll parameter will expire.
-//
-// The response always has `pages` and `total_count` set to `null`. Use `scroll_param` to fetch the next page.
-//
-// {% admonition type="info" name="Scroll Parameter" %}
-//
-//	You can get the first page of companies by simply sending a GET request to the scroll endpoint.
-//	For subsequent requests you will need to use the scroll parameter from the response.
-//
-// {% /admonition %}
-// {% admonition type="danger" name="Scroll network timeouts" %}
-//
-//	Since scroll is often used on large datasets network errors such as timeouts can be encountered. When this occurs you will see a HTTP 500 error with the following message:
-//	"Request failed due to an internal network error. Please restart the scroll operation."
-//	If this happens, you will need to restart your scroll query: It is not possible to continue from a specific point when using scroll.
-//
-// {% /admonition %}
-//
-// Requires the `read_users_companies` OAuth scope.
-//
-// Corresponds with GET /companies/scroll (the `ScrollOverAllCompanies` operationId).
-func (c *Client) ScrollOverAllCompanies(ctx context.Context, params *ScrollOverAllCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScrollOverAllCompaniesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// SearchCompaniesWithBody Search companies
-//
-// You can search for companies by the value of their attributes in order to fetch exactly the companies you want.
-//
-// To search for companies, send a `POST` request to `https://api.intercom.io/companies/search`, with a query object in the body defining your filters.
-//
-// Note that the API does not include companies who have no associated users in search results.
-//
-// {% admonition type="warning" name="Optimizing search queries" %}
-//
-//	Search queries can be complex, so optimizing them can help the performance of your search.
-//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `15` results per page.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-//
-// ### Nesting & Limitations
-//
-// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
-// There are some limitations to the amount of multiple's there can be:
-// * There's a limit of max 2 nested filters
-// * There's a limit of max 15 filters for each AND or OR group
-//
-// ### Accepted Fields
-//
-// Most keys listed as part of the Companies Model are searchable. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
-//
-// | Field                              | Type                           |
-// | ---------------------------------- | ------------------------------ |
-// | company_id                         | String                         |
-// | name                               | String                         |
-// | created_at                         | Date (UNIX Timestamp)          |
-// | updated_at                         | Date (UNIX Timestamp)          |
-// | remote_created_at                  | Date (UNIX Timestamp)          |
-// | last_request_at                    | Date (UNIX Timestamp)          |
-// | monthly_spend                      | Integer                        |
-// | session_count                      | Integer                        |
-// | user_count                         | Integer                        |
-// | tag_id                             | String                         |
-// | custom_attributes.{attribute_name} | String                         |
-//
-// The `plan.id` and `plan.name` fields are not searchable and return a `400` error with code `invalid_field`.
-//
-// ### Accepted Operators
-//
-// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates). Searching by `tag_id` supports only the `=` and `!=` operators. The `IN` and `NIN` operators are not supported for Date fields.
-//
-// | Operator | Valid Types                      | Description                                                      |
-// | :------- | :------------------------------- | :--------------------------------------------------------------- |
-// | =        | All                              | Equals                                                           |
-// | !=       | All                              | Doesn't Equal                                                    |
-// | IN       | All except Date and tag_id       | In<br>Shortcut for `OR` queries<br>Values must be in Array       |
-// | NIN      | All except Date and tag_id       | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array |
-// | >        | Integer<br>Date (UNIX Timestamp) | Greater than                                                     |
-// | <       | Integer<br>Date (UNIX Timestamp) | Lower than                                                       |
-// | ~        | String                           | Contains                                                         |
-// | !~       | String                           | Doesn't Contain                                                  |
-// | ^        | String                           | Starts With                                                      |
-// | $        | String                           | Ends With                                                        |
-//
-// ### Sorting
-//
-// Pass an optional `sort` object with a `field` and an `order` (`ascending` or `descending`; defaults to `descending`) to order the results. An invalid `order` returns a `400` error with code `invalid_sort_order`. `tag_id` can be used as a filter but not as a sort field.
-//
-// ### Pagination
-//
-// Pass an optional `pagination` object with `per_page` and `starting_after`. `per_page` defaults to 15 and must be between 1 and 150; anything else returns a `400` error with code `invalid_per_page`. Take `starting_after` from `pages.next` in the previous response, and send it with the same `sort` you used for that response. A cursor from a sort on a text field such as `name`, sent with a sort on a number or date field (or the other way round), returns a `400` error with code `client_error`. Leaving out `sort` sorts by `last_request_at`, a date. A cursor sent with a different sort of the same kind is accepted, but the page it returns doesn't follow on from the previous one.
-//
-// Requires the `read_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /companies/search (the `SearchCompanies` operationId).
-func (c *Client) SearchCompaniesWithBody(ctx context.Context, params *SearchCompaniesParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchCompaniesRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// SearchCompanies Search companies
-//
-// You can search for companies by the value of their attributes in order to fetch exactly the companies you want.
-//
-// To search for companies, send a `POST` request to `https://api.intercom.io/companies/search`, with a query object in the body defining your filters.
-//
-// Note that the API does not include companies who have no associated users in search results.
-//
-// {% admonition type="warning" name="Optimizing search queries" %}
-//
-//	Search queries can be complex, so optimizing them can help the performance of your search.
-//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `15` results per page.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-//
-// ### Nesting & Limitations
-//
-// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
-// There are some limitations to the amount of multiple's there can be:
-// * There's a limit of max 2 nested filters
-// * There's a limit of max 15 filters for each AND or OR group
-//
-// ### Accepted Fields
-//
-// Most keys listed as part of the Companies Model are searchable. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
-//
-// | Field                              | Type                           |
-// | ---------------------------------- | ------------------------------ |
-// | company_id                         | String                         |
-// | name                               | String                         |
-// | created_at                         | Date (UNIX Timestamp)          |
-// | updated_at                         | Date (UNIX Timestamp)          |
-// | remote_created_at                  | Date (UNIX Timestamp)          |
-// | last_request_at                    | Date (UNIX Timestamp)          |
-// | monthly_spend                      | Integer                        |
-// | session_count                      | Integer                        |
-// | user_count                         | Integer                        |
-// | tag_id                             | String                         |
-// | custom_attributes.{attribute_name} | String                         |
-//
-// The `plan.id` and `plan.name` fields are not searchable and return a `400` error with code `invalid_field`.
-//
-// ### Accepted Operators
-//
-// The table below shows the operators you can use to define how you want to search for the value. The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates). Searching by `tag_id` supports only the `=` and `!=` operators. The `IN` and `NIN` operators are not supported for Date fields.
-//
-// | Operator | Valid Types                      | Description                                                      |
-// | :------- | :------------------------------- | :--------------------------------------------------------------- |
-// | =        | All                              | Equals                                                           |
-// | !=       | All                              | Doesn't Equal                                                    |
-// | IN       | All except Date and tag_id       | In<br>Shortcut for `OR` queries<br>Values must be in Array       |
-// | NIN      | All except Date and tag_id       | Not In<br>Shortcut for `OR !` queries<br>Values must be in Array |
-// | >        | Integer<br>Date (UNIX Timestamp) | Greater than                                                     |
-// | <       | Integer<br>Date (UNIX Timestamp) | Lower than                                                       |
-// | ~        | String                           | Contains                                                         |
-// | !~       | String                           | Doesn't Contain                                                  |
-// | ^        | String                           | Starts With                                                      |
-// | $        | String                           | Ends With                                                        |
-//
-// ### Sorting
-//
-// Pass an optional `sort` object with a `field` and an `order` (`ascending` or `descending`; defaults to `descending`) to order the results. An invalid `order` returns a `400` error with code `invalid_sort_order`. `tag_id` can be used as a filter but not as a sort field.
-//
-// ### Pagination
-//
-// Pass an optional `pagination` object with `per_page` and `starting_after`. `per_page` defaults to 15 and must be between 1 and 150; anything else returns a `400` error with code `invalid_per_page`. Take `starting_after` from `pages.next` in the previous response, and send it with the same `sort` you used for that response. A cursor from a sort on a text field such as `name`, sent with a sort on a number or date field (or the other way round), returns a `400` error with code `client_error`. Leaving out `sort` sorts by `last_request_at`, a date. A cursor sent with a different sort of the same kind is accepted, but the page it returns doesn't follow on from the previous one.
-//
-// Requires the `read_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /companies/search (the `SearchCompanies` operationId).
-func (c *Client) SearchCompanies(ctx context.Context, params *SearchCompaniesParams, body SearchCompaniesJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchCompaniesRequest(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}

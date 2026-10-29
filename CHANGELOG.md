@@ -2,6 +2,19 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.6.0, 2026-10-29
+
+- Breaking: the Fin Voice call methods take a new params argument. `CollectFinVoiceCallById`, `CollectFinVoiceCallByExternalId`, `CollectFinVoiceCallByPhoneNumber` and `CollectFinVoiceCallsByConversationId` now take `*CollectFinVoiceCallByIdParams`, `*CollectFinVoiceCallByExternalIdParams`, `*CollectFinVoiceCallByPhoneNumberParams` and `*CollectFinVoiceCallsByConversationIdParams`. `RegisterFinVoiceCall` and `RegisterFinVoiceCallWithBody` take `*RegisterFinVoiceCallParams` before the body. This also changes the `ClientWithResponses` methods, `ClientInterface`, `ClientWithResponsesInterface` and the `NewCollectFinVoiceCall*Request` and `NewRegisterFinVoiceCallRequest*` builders.
+- Breaking: `CursorPages.Next` is now `*string` instead of a struct with `Page` and `StartingAfter`. `CursorPages` also has a new `Prev` field.
+- Breaking: `CreateOfficeHoursScheduleRequest.TimeZoneName`, `ListActivityLogsParams.CreatedAtAfter`, `SearchActivityLogsJSONBody.CreatedAtAfter` and `SearchActivityLogsJSONRequestBody.CreatedAtAfter` are now pointers.
+- Breaking: the `JSON200` field and `GetJSON200` method on `ListCallsWithTranscriptsResponse` have a changed type. `ValidationError` is removed.
+- Breaking: removed the constants `ActivityLogActivityTypeConversationDeletionScheduleDeletion`, `ActivityLogActivityTypeRulesetActivationTitlePreview`, `ActivityLogActivityTypeSearchBrowseEnabledChange` and `ActivityLogActivityTypeSearchBrowseRequiredChange`.
+- Added about 270 `ActivityLogActivityType*` constants, for example `ActivityLogActivityTypeQaMonitorCreation`, `ActivityLogActivityTypeScimGroupCreation` and `ActivityLogActivityTypeRulesetActivation`.
+- Added `ListActivityLogsParams.Page` and `PerPage`, `ActivityLog.Type`, `AdminWithApp.Role` and `App.Secure`.
+- Added `Call.Duration`, `Call.HoldTime`, `Call.QueueTime` and `Call.TalkTime`, plus `AiCallResponse.FinCallDuration`, `Language` and `VendorInternalId`.
+- Added `RegisterFinVoiceCallRequest.VendorInternalId` and the source constants `RegisterFinVoiceCallRequestSourceDialpad`, `RegisterFinVoiceCallRequestSourceGeneric` and `RegisterFinVoiceCallRequestSourceNiceCxone`.
+- Added typed error bodies (`JSON400`, `JSON401`, `JSON404`, `JSON405`, `JSON422` and their `GetJSON` methods) on responses for office hours, `ListActivityLogs`, `ListCalls`, `IdentifyAdmin`, `SetAwayAdmin` and `ShowCallTranscript`.
+
 ## v0.5.1, 2026-10-29
 
 - Documentation only. No exported identifiers changed.

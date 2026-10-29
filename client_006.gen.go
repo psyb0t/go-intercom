@@ -13,6 +13,1446 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// ParseListCompanyNotesResponse parses an HTTP response from a ListCompanyNotesWithResponse call
+func ParseListCompanyNotesResponse(rsp *http.Response) (*ListCompanyNotesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListCompanyNotesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest NoteList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateCompanyNoteResponse parses an HTTP response from a CreateCompanyNoteWithResponse call
+func ParseCreateCompanyNoteResponse(rsp *http.Response) (*CreateCompanyNoteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateCompanyNoteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Note
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAttachedSegmentsForCompaniesResponse parses an HTTP response from a ListAttachedSegmentsForCompaniesWithResponse call
+func ParseListAttachedSegmentsForCompaniesResponse(rsp *http.Response) (*ListAttachedSegmentsForCompaniesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAttachedSegmentsForCompaniesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest CompanyAttachedSegments
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListContactsResponse parses an HTTP response from a ListContactsWithResponse call
+func ParseListContactsResponse(rsp *http.Response) (*ListContactsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListContactsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ContactList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateContactResponse parses an HTTP response from a CreateContactWithResponse call
+func ParseCreateContactResponse(rsp *http.Response) (*CreateContactResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateContactResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			// AndroidAppName The name of the Android app which the contact is using.
+			//
+			// Example: Intercom
+			AndroidAppName *string `json:"android_app_name,omitempty"`
+
+			// AndroidAppVersion The version of the Android app which the contact is using.
+			//
+			// Example: 5.0.0
+			AndroidAppVersion *string `json:"android_app_version,omitempty"`
+
+			// AndroidDevice The Android device which the contact is using.
+			//
+			// Example: Pixel 3
+			AndroidDevice *string `json:"android_device,omitempty"`
+
+			// AndroidLastSeenAt (Unix timestamp in seconds) The time when the contact was last seen on an Android device.
+			//
+			// Example: 1571672154
+			AndroidLastSeenAt *int `json:"android_last_seen_at,omitempty"`
+
+			// AndroidOsVersion The version of the Android OS which the contact is using.
+			//
+			// Example: 10
+			AndroidOsVersion *string `json:"android_os_version,omitempty"`
+
+			// AndroidSdkVersion The version of the Android SDK which the contact is using.
+			//
+			// Example: 28
+			AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
+
+			// Avatar An image URL containing the avatar of a contact.
+			//
+			// Example: https://example.org/128Wash.jpg
+			Avatar *string `json:"avatar,omitempty"`
+
+			// Browser The name of the browser which the contact is using.
+			//
+			// Example: Chrome
+			Browser *string `json:"browser,omitempty"`
+
+			// BrowserLanguage The language set by the browser which the contact is using.
+			//
+			// Example: en-US
+			BrowserLanguage *string `json:"browser_language,omitempty"`
+
+			// BrowserVersion The version of the browser which the contact is using.
+			//
+			// Example: 80.0.3987.132
+			BrowserVersion *string `json:"browser_version,omitempty"`
+
+			// Companies An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
+			Companies *ContactCompanies `json:"companies,omitempty"`
+
+			// CreatedAt (Unix timestamp in seconds) The time when the contact was created.
+			//
+			// Example: 1571672154
+			CreatedAt *int `json:"created_at,omitempty"`
+
+			// CustomAttributes The custom attributes which are set for the contact.
+			CustomAttributes *map[string]interface{} `json:"custom_attributes,omitempty"`
+
+			// Email The contact's email.
+			//
+			// Example: joe@example.com
+			Email *string `json:"email,omitempty"`
+
+			// EmailDomain The contact's email domain.
+			//
+			// Example: example.com
+			EmailDomain *string `json:"email_domain,omitempty"`
+
+			// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
+			//
+			// Example: true
+			EmailVerified *bool `json:"email_verified,omitempty"`
+
+			// EnabledPushMessaging If the user has enabled push messaging.
+			//
+			// Example: true
+			EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
+
+			// ExternalId The unique identifier for the contact which is provided by the Client.
+			//
+			// Example: f3b87a2e09d514c6c2e79b9a
+			ExternalId *string `json:"external_id,omitempty"`
+
+			// HasHardBounced Whether the contact has had an email sent to them hard bounce.
+			//
+			// Example: true
+			HasHardBounced *bool `json:"has_hard_bounced,omitempty"`
+
+			// Id The unique identifier for the contact which is given by Intercom.
+			//
+			// Example: 5ba682d23d7cf92bef87bfd4
+			Id *string `json:"id,omitempty"`
+
+			// IosAppName The name of the iOS app which the contact is using.
+			//
+			// Example: Intercom
+			IosAppName *string `json:"ios_app_name,omitempty"`
+
+			// IosAppVersion The version of the iOS app which the contact is using.
+			//
+			// Example: 5.0.0
+			IosAppVersion *string `json:"ios_app_version,omitempty"`
+
+			// IosDevice The iOS device which the contact is using.
+			//
+			// Example: iPhone 11
+			IosDevice *string `json:"ios_device,omitempty"`
+
+			// IosLastSeenAt (Unix timestamp in seconds) The last time the contact used the iOS app.
+			//
+			// Example: 1571672154
+			IosLastSeenAt *int `json:"ios_last_seen_at,omitempty"`
+
+			// IosOsVersion The version of iOS which the contact is using.
+			//
+			// Example: 13.3.1
+			IosOsVersion *string `json:"ios_os_version,omitempty"`
+
+			// IosSdkVersion The version of the iOS SDK which the contact is using.
+			//
+			// Example: 13.3.1
+			IosSdkVersion *string `json:"ios_sdk_version,omitempty"`
+
+			// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
+			//
+			// Example: en
+			LanguageOverride *string `json:"language_override,omitempty"`
+
+			// LastContactedAt (Unix timestamp in seconds) The time when the contact was last messaged.
+			//
+			// Example: 1571672154
+			LastContactedAt *int `json:"last_contacted_at,omitempty"`
+
+			// LastEmailClickedAt (Unix timestamp in seconds) The time when the contact last clicked a link in an email.
+			//
+			// Example: 1571672154
+			LastEmailClickedAt *int `json:"last_email_clicked_at,omitempty"`
+
+			// LastEmailOpenedAt (Unix timestamp in seconds) The time when the contact last opened an email.
+			//
+			// Example: 1571672154
+			LastEmailOpenedAt *int `json:"last_email_opened_at,omitempty"`
+
+			// LastRepliedAt (Unix timestamp in seconds) The time when the contact last messaged in.
+			//
+			// Example: 1571672154
+			LastRepliedAt *int `json:"last_replied_at,omitempty"`
+
+			// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
+			//
+			// Example: 1571672154
+			LastSeenAt *int `json:"last_seen_at,omitempty"`
+
+			// Location An object containing location meta data about a Intercom contact.
+			Location *ContactLocation `json:"location,omitempty"`
+
+			// MarkedEmailAsSpam Whether the contact has marked an email sent to them as spam.
+			//
+			// Example: true
+			MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
+
+			// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
+			MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
+
+			// Name The contacts name.
+			//
+			// Example: John Doe
+			Name *string `json:"name,omitempty"`
+
+			// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
+			Notes *ContactNotes `json:"notes,omitempty"`
+
+			// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+			OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
+
+			// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+			OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
+
+			// Os The operating system which the contact is using.
+			//
+			// Example: Mac OS X
+			Os *string `json:"os,omitempty"`
+
+			// OwnerId The id of an admin that has been assigned account ownership of the contact.
+			//
+			// Example: 321
+			OwnerId *string `json:"owner_id,omitempty"`
+
+			// Phone The contacts phone.
+			//
+			// Example: +1123456789
+			Phone *string `json:"phone,omitempty"`
+
+			// Referrer The URL of the page the contact came from, as recorded by the Messenger.
+			//
+			// Example: https://example.com/pricing
+			Referrer *string `json:"referrer,omitempty"`
+
+			// Role The role of the contact.
+			//
+			// Example: user
+			Role *string `json:"role,omitempty"`
+
+			// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
+			//
+			// Example: 1571672154
+			SignedUpAt *int `json:"signed_up_at,omitempty"`
+
+			// SmsConsent Whether the contact has consented to receive SMS messages.
+			//
+			// Example: false
+			SmsConsent *bool `json:"sms_consent,omitempty"`
+
+			// SocialProfiles An object containing social profiles that a contact has.
+			SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
+
+			// Tags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
+			Tags *ContactTags `json:"tags,omitempty"`
+
+			// Type The type of object.
+			//
+			// Example: contact
+			Type *string `json:"type,omitempty"`
+
+			// UnsubscribedFromEmails Whether the contact is unsubscribed from emails.
+			//
+			// Example: true
+			UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
+
+			// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
+			//
+			// Example: false
+			UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
+
+			// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
+			//
+			// Example: 1571672154
+			UpdatedAt *int `json:"updated_at,omitempty"`
+
+			// UtmCampaign The `utm_campaign` value recorded for the contact.
+			//
+			// Example: spring_launch
+			UtmCampaign *string `json:"utm_campaign,omitempty"`
+
+			// UtmContent The `utm_content` value recorded for the contact.
+			//
+			// Example: banner_ad
+			UtmContent *string `json:"utm_content,omitempty"`
+
+			// UtmMedium The `utm_medium` value recorded for the contact.
+			//
+			// Example: email
+			UtmMedium *string `json:"utm_medium,omitempty"`
+
+			// UtmSource The `utm_source` value recorded for the contact.
+			//
+			// Example: newsletter
+			UtmSource *string `json:"utm_source,omitempty"`
+
+			// UtmTerm The `utm_term` value recorded for the contact.
+			//
+			// Example: support_software
+			UtmTerm *string `json:"utm_term,omitempty"`
+
+			// WorkspaceId The id of the workspace which the contact belongs to.
+			//
+			// Example: ecahpwf5
+			WorkspaceId *string `json:"workspace_id,omitempty"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListContactActivitiesResponse parses an HTTP response from a ListContactActivitiesWithResponse call
+func ParseListContactActivitiesResponse(rsp *http.Response) (*ListContactActivitiesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListContactActivitiesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ContactActivityList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseBulkCreateContactsResponse parses an HTTP response from a BulkCreateContactsWithResponse call
+func ParseBulkCreateContactsResponse(rsp *http.Response) (*BulkCreateContactsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BulkCreateContactsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest ContactsBulkJob
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseBulkUpdateContactsResponse parses an HTTP response from a BulkUpdateContactsWithResponse call
+func ParseBulkUpdateContactsResponse(rsp *http.Response) (*BulkUpdateContactsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BulkUpdateContactsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest ContactsBulkJob
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseBulkDeleteContactsResponse parses an HTTP response from a BulkDeleteContactsWithResponse call
+func ParseBulkDeleteContactsResponse(rsp *http.Response) (*BulkDeleteContactsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BulkDeleteContactsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest ContactsBulkJob
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseShowBulkUpdateContactsJobResponse parses an HTTP response from a ShowBulkUpdateContactsJobWithResponse call
+func ParseShowBulkUpdateContactsJobResponse(rsp *http.Response) (*ShowBulkUpdateContactsJobResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ShowBulkUpdateContactsJobResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ContactsBulkJob
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListDeletedContactsResponse parses an HTTP response from a ListDeletedContactsWithResponse call
+func ParseListDeletedContactsResponse(rsp *http.Response) (*ListDeletedContactsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListDeletedContactsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeletedContactList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseShowContactByExternalIdResponse parses an HTTP response from a ShowContactByExternalIdWithResponse call
+func ParseShowContactByExternalIdResponse(rsp *http.Response) (*ShowContactByExternalIdResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ShowContactByExternalIdResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			// AndroidAppName The name of the Android app which the contact is using.
+			//
+			// Example: Intercom
+			AndroidAppName *string `json:"android_app_name,omitempty"`
+
+			// AndroidAppVersion The version of the Android app which the contact is using.
+			//
+			// Example: 5.0.0
+			AndroidAppVersion *string `json:"android_app_version,omitempty"`
+
+			// AndroidDevice The Android device which the contact is using.
+			//
+			// Example: Pixel 3
+			AndroidDevice *string `json:"android_device,omitempty"`
+
+			// AndroidLastSeenAt (Unix timestamp in seconds) The time when the contact was last seen on an Android device.
+			//
+			// Example: 1571672154
+			AndroidLastSeenAt *int `json:"android_last_seen_at,omitempty"`
+
+			// AndroidOsVersion The version of the Android OS which the contact is using.
+			//
+			// Example: 10
+			AndroidOsVersion *string `json:"android_os_version,omitempty"`
+
+			// AndroidSdkVersion The version of the Android SDK which the contact is using.
+			//
+			// Example: 28
+			AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
+
+			// Avatar An image URL containing the avatar of a contact.
+			//
+			// Example: https://example.org/128Wash.jpg
+			Avatar *string `json:"avatar,omitempty"`
+
+			// Browser The name of the browser which the contact is using.
+			//
+			// Example: Chrome
+			Browser *string `json:"browser,omitempty"`
+
+			// BrowserLanguage The language set by the browser which the contact is using.
+			//
+			// Example: en-US
+			BrowserLanguage *string `json:"browser_language,omitempty"`
+
+			// BrowserVersion The version of the browser which the contact is using.
+			//
+			// Example: 80.0.3987.132
+			BrowserVersion *string `json:"browser_version,omitempty"`
+
+			// Companies An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
+			Companies *ContactCompanies `json:"companies,omitempty"`
+
+			// CreatedAt (Unix timestamp in seconds) The time when the contact was created.
+			//
+			// Example: 1571672154
+			CreatedAt *int `json:"created_at,omitempty"`
+
+			// CustomAttributes The custom attributes which are set for the contact.
+			CustomAttributes *map[string]interface{} `json:"custom_attributes,omitempty"`
+
+			// Email The contact's email.
+			//
+			// Example: joe@example.com
+			Email *string `json:"email,omitempty"`
+
+			// EmailDomain The contact's email domain.
+			//
+			// Example: example.com
+			EmailDomain *string `json:"email_domain,omitempty"`
+
+			// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
+			//
+			// Example: true
+			EmailVerified *bool `json:"email_verified,omitempty"`
+
+			// EnabledPushMessaging If the user has enabled push messaging.
+			//
+			// Example: true
+			EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
+
+			// ExternalId The unique identifier for the contact which is provided by the Client.
+			//
+			// Example: f3b87a2e09d514c6c2e79b9a
+			ExternalId *string `json:"external_id,omitempty"`
+
+			// HasHardBounced Whether the contact has had an email sent to them hard bounce.
+			//
+			// Example: true
+			HasHardBounced *bool `json:"has_hard_bounced,omitempty"`
+
+			// Id The unique identifier for the contact which is given by Intercom.
+			//
+			// Example: 5ba682d23d7cf92bef87bfd4
+			Id *string `json:"id,omitempty"`
+
+			// IosAppName The name of the iOS app which the contact is using.
+			//
+			// Example: Intercom
+			IosAppName *string `json:"ios_app_name,omitempty"`
+
+			// IosAppVersion The version of the iOS app which the contact is using.
+			//
+			// Example: 5.0.0
+			IosAppVersion *string `json:"ios_app_version,omitempty"`
+
+			// IosDevice The iOS device which the contact is using.
+			//
+			// Example: iPhone 11
+			IosDevice *string `json:"ios_device,omitempty"`
+
+			// IosLastSeenAt (Unix timestamp in seconds) The last time the contact used the iOS app.
+			//
+			// Example: 1571672154
+			IosLastSeenAt *int `json:"ios_last_seen_at,omitempty"`
+
+			// IosOsVersion The version of iOS which the contact is using.
+			//
+			// Example: 13.3.1
+			IosOsVersion *string `json:"ios_os_version,omitempty"`
+
+			// IosSdkVersion The version of the iOS SDK which the contact is using.
+			//
+			// Example: 13.3.1
+			IosSdkVersion *string `json:"ios_sdk_version,omitempty"`
+
+			// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
+			//
+			// Example: en
+			LanguageOverride *string `json:"language_override,omitempty"`
+
+			// LastContactedAt (Unix timestamp in seconds) The time when the contact was last messaged.
+			//
+			// Example: 1571672154
+			LastContactedAt *int `json:"last_contacted_at,omitempty"`
+
+			// LastEmailClickedAt (Unix timestamp in seconds) The time when the contact last clicked a link in an email.
+			//
+			// Example: 1571672154
+			LastEmailClickedAt *int `json:"last_email_clicked_at,omitempty"`
+
+			// LastEmailOpenedAt (Unix timestamp in seconds) The time when the contact last opened an email.
+			//
+			// Example: 1571672154
+			LastEmailOpenedAt *int `json:"last_email_opened_at,omitempty"`
+
+			// LastRepliedAt (Unix timestamp in seconds) The time when the contact last messaged in.
+			//
+			// Example: 1571672154
+			LastRepliedAt *int `json:"last_replied_at,omitempty"`
+
+			// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
+			//
+			// Example: 1571672154
+			LastSeenAt *int `json:"last_seen_at,omitempty"`
+
+			// Location An object containing location meta data about a Intercom contact.
+			Location *ContactLocation `json:"location,omitempty"`
+
+			// MarkedEmailAsSpam Whether the contact has marked an email sent to them as spam.
+			//
+			// Example: true
+			MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
+
+			// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
+			MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
+
+			// Name The contacts name.
+			//
+			// Example: John Doe
+			Name *string `json:"name,omitempty"`
+
+			// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
+			Notes *ContactNotes `json:"notes,omitempty"`
+
+			// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+			OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
+
+			// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+			OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
+
+			// Os The operating system which the contact is using.
+			//
+			// Example: Mac OS X
+			Os *string `json:"os,omitempty"`
+
+			// OwnerId The id of an admin that has been assigned account ownership of the contact.
+			//
+			// Example: 321
+			OwnerId *string `json:"owner_id,omitempty"`
+
+			// Phone The contacts phone.
+			//
+			// Example: +1123456789
+			Phone *string `json:"phone,omitempty"`
+
+			// Referrer The URL of the page the contact came from, as recorded by the Messenger.
+			//
+			// Example: https://example.com/pricing
+			Referrer *string `json:"referrer,omitempty"`
+
+			// Role The role of the contact.
+			//
+			// Example: user
+			Role *string `json:"role,omitempty"`
+
+			// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
+			//
+			// Example: 1571672154
+			SignedUpAt *int `json:"signed_up_at,omitempty"`
+
+			// SmsConsent Whether the contact has consented to receive SMS messages.
+			//
+			// Example: false
+			SmsConsent *bool `json:"sms_consent,omitempty"`
+
+			// SocialProfiles An object containing social profiles that a contact has.
+			SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
+
+			// Tags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
+			Tags *ContactTags `json:"tags,omitempty"`
+
+			// Type The type of object.
+			//
+			// Example: contact
+			Type *string `json:"type,omitempty"`
+
+			// UnsubscribedFromEmails Whether the contact is unsubscribed from emails.
+			//
+			// Example: true
+			UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
+
+			// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
+			//
+			// Example: false
+			UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
+
+			// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
+			//
+			// Example: 1571672154
+			UpdatedAt *int `json:"updated_at,omitempty"`
+
+			// UtmCampaign The `utm_campaign` value recorded for the contact.
+			//
+			// Example: spring_launch
+			UtmCampaign *string `json:"utm_campaign,omitempty"`
+
+			// UtmContent The `utm_content` value recorded for the contact.
+			//
+			// Example: banner_ad
+			UtmContent *string `json:"utm_content,omitempty"`
+
+			// UtmMedium The `utm_medium` value recorded for the contact.
+			//
+			// Example: email
+			UtmMedium *string `json:"utm_medium,omitempty"`
+
+			// UtmSource The `utm_source` value recorded for the contact.
+			//
+			// Example: newsletter
+			UtmSource *string `json:"utm_source,omitempty"`
+
+			// UtmTerm The `utm_term` value recorded for the contact.
+			//
+			// Example: support_software
+			UtmTerm *string `json:"utm_term,omitempty"`
+
+			// WorkspaceId The id of the workspace which the contact belongs to.
+			//
+			// Example: ecahpwf5
+			WorkspaceId *string `json:"workspace_id,omitempty"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 410:
+		var headers ShowContactByExternalIdResponse410Headers
+		if values := rsp.Header.Values("Link"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Link", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.Link = &value
+		}
+		response.Headers410 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseMergeContactResponse parses an HTTP response from a MergeContactWithResponse call
+func ParseMergeContactResponse(rsp *http.Response) (*MergeContactResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &MergeContactResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			// AndroidAppName The name of the Android app which the contact is using.
+			//
+			// Example: Intercom
+			AndroidAppName *string `json:"android_app_name,omitempty"`
+
+			// AndroidAppVersion The version of the Android app which the contact is using.
+			//
+			// Example: 5.0.0
+			AndroidAppVersion *string `json:"android_app_version,omitempty"`
+
+			// AndroidDevice The Android device which the contact is using.
+			//
+			// Example: Pixel 3
+			AndroidDevice *string `json:"android_device,omitempty"`
+
+			// AndroidLastSeenAt (Unix timestamp in seconds) The time when the contact was last seen on an Android device.
+			//
+			// Example: 1571672154
+			AndroidLastSeenAt *int `json:"android_last_seen_at,omitempty"`
+
+			// AndroidOsVersion The version of the Android OS which the contact is using.
+			//
+			// Example: 10
+			AndroidOsVersion *string `json:"android_os_version,omitempty"`
+
+			// AndroidSdkVersion The version of the Android SDK which the contact is using.
+			//
+			// Example: 28
+			AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
+
+			// Avatar An image URL containing the avatar of a contact.
+			//
+			// Example: https://example.org/128Wash.jpg
+			Avatar *string `json:"avatar,omitempty"`
+
+			// Browser The name of the browser which the contact is using.
+			//
+			// Example: Chrome
+			Browser *string `json:"browser,omitempty"`
+
+			// BrowserLanguage The language set by the browser which the contact is using.
+			//
+			// Example: en-US
+			BrowserLanguage *string `json:"browser_language,omitempty"`
+
+			// BrowserVersion The version of the browser which the contact is using.
+			//
+			// Example: 80.0.3987.132
+			BrowserVersion *string `json:"browser_version,omitempty"`
+
+			// Companies An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
+			Companies *ContactCompanies `json:"companies,omitempty"`
+
+			// CreatedAt (Unix timestamp in seconds) The time when the contact was created.
+			//
+			// Example: 1571672154
+			CreatedAt *int `json:"created_at,omitempty"`
+
+			// CustomAttributes The custom attributes which are set for the contact.
+			CustomAttributes *map[string]interface{} `json:"custom_attributes,omitempty"`
+
+			// Email The contact's email.
+			//
+			// Example: joe@example.com
+			Email *string `json:"email,omitempty"`
+
+			// EmailDomain The contact's email domain.
+			//
+			// Example: example.com
+			EmailDomain *string `json:"email_domain,omitempty"`
+
+			// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
+			//
+			// Example: true
+			EmailVerified *bool `json:"email_verified,omitempty"`
+
+			// EnabledPushMessaging If the user has enabled push messaging.
+			//
+			// Example: true
+			EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
+
+			// ExternalId The unique identifier for the contact which is provided by the Client.
+			//
+			// Example: f3b87a2e09d514c6c2e79b9a
+			ExternalId *string `json:"external_id,omitempty"`
+
+			// HasHardBounced Whether the contact has had an email sent to them hard bounce.
+			//
+			// Example: true
+			HasHardBounced *bool `json:"has_hard_bounced,omitempty"`
+
+			// Id The unique identifier for the contact which is given by Intercom.
+			//
+			// Example: 5ba682d23d7cf92bef87bfd4
+			Id *string `json:"id,omitempty"`
+
+			// IosAppName The name of the iOS app which the contact is using.
+			//
+			// Example: Intercom
+			IosAppName *string `json:"ios_app_name,omitempty"`
+
+			// IosAppVersion The version of the iOS app which the contact is using.
+			//
+			// Example: 5.0.0
+			IosAppVersion *string `json:"ios_app_version,omitempty"`
+
+			// IosDevice The iOS device which the contact is using.
+			//
+			// Example: iPhone 11
+			IosDevice *string `json:"ios_device,omitempty"`
+
+			// IosLastSeenAt (Unix timestamp in seconds) The last time the contact used the iOS app.
+			//
+			// Example: 1571672154
+			IosLastSeenAt *int `json:"ios_last_seen_at,omitempty"`
+
+			// IosOsVersion The version of iOS which the contact is using.
+			//
+			// Example: 13.3.1
+			IosOsVersion *string `json:"ios_os_version,omitempty"`
+
+			// IosSdkVersion The version of the iOS SDK which the contact is using.
+			//
+			// Example: 13.3.1
+			IosSdkVersion *string `json:"ios_sdk_version,omitempty"`
+
+			// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
+			//
+			// Example: en
+			LanguageOverride *string `json:"language_override,omitempty"`
+
+			// LastContactedAt (Unix timestamp in seconds) The time when the contact was last messaged.
+			//
+			// Example: 1571672154
+			LastContactedAt *int `json:"last_contacted_at,omitempty"`
+
+			// LastEmailClickedAt (Unix timestamp in seconds) The time when the contact last clicked a link in an email.
+			//
+			// Example: 1571672154
+			LastEmailClickedAt *int `json:"last_email_clicked_at,omitempty"`
+
+			// LastEmailOpenedAt (Unix timestamp in seconds) The time when the contact last opened an email.
+			//
+			// Example: 1571672154
+			LastEmailOpenedAt *int `json:"last_email_opened_at,omitempty"`
+
+			// LastRepliedAt (Unix timestamp in seconds) The time when the contact last messaged in.
+			//
+			// Example: 1571672154
+			LastRepliedAt *int `json:"last_replied_at,omitempty"`
+
+			// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
+			//
+			// Example: 1571672154
+			LastSeenAt *int `json:"last_seen_at,omitempty"`
+
+			// Location An object containing location meta data about a Intercom contact.
+			Location *ContactLocation `json:"location,omitempty"`
+
+			// MarkedEmailAsSpam Whether the contact has marked an email sent to them as spam.
+			//
+			// Example: true
+			MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
+
+			// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
+			MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
+
+			// Name The contacts name.
+			//
+			// Example: John Doe
+			Name *string `json:"name,omitempty"`
+
+			// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
+			Notes *ContactNotes `json:"notes,omitempty"`
+
+			// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+			OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
+
+			// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+			OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
+
+			// Os The operating system which the contact is using.
+			//
+			// Example: Mac OS X
+			Os *string `json:"os,omitempty"`
+
+			// OwnerId The id of an admin that has been assigned account ownership of the contact.
+			//
+			// Example: 321
+			OwnerId *string `json:"owner_id,omitempty"`
+
+			// Phone The contacts phone.
+			//
+			// Example: +1123456789
+			Phone *string `json:"phone,omitempty"`
+
+			// Referrer The URL of the page the contact came from, as recorded by the Messenger.
+			//
+			// Example: https://example.com/pricing
+			Referrer *string `json:"referrer,omitempty"`
+
+			// Role The role of the contact.
+			//
+			// Example: user
+			Role *string `json:"role,omitempty"`
+
+			// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
+			//
+			// Example: 1571672154
+			SignedUpAt *int `json:"signed_up_at,omitempty"`
+
+			// SmsConsent Whether the contact has consented to receive SMS messages.
+			//
+			// Example: false
+			SmsConsent *bool `json:"sms_consent,omitempty"`
+
+			// SocialProfiles An object containing social profiles that a contact has.
+			SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
+
+			// Tags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
+			Tags *ContactTags `json:"tags,omitempty"`
+
+			// Type The type of object.
+			//
+			// Example: contact
+			Type *string `json:"type,omitempty"`
+
+			// UnsubscribedFromEmails Whether the contact is unsubscribed from emails.
+			//
+			// Example: true
+			UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
+
+			// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
+			//
+			// Example: false
+			UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
+
+			// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
+			//
+			// Example: 1571672154
+			UpdatedAt *int `json:"updated_at,omitempty"`
+
+			// UtmCampaign The `utm_campaign` value recorded for the contact.
+			//
+			// Example: spring_launch
+			UtmCampaign *string `json:"utm_campaign,omitempty"`
+
+			// UtmContent The `utm_content` value recorded for the contact.
+			//
+			// Example: banner_ad
+			UtmContent *string `json:"utm_content,omitempty"`
+
+			// UtmMedium The `utm_medium` value recorded for the contact.
+			//
+			// Example: email
+			UtmMedium *string `json:"utm_medium,omitempty"`
+
+			// UtmSource The `utm_source` value recorded for the contact.
+			//
+			// Example: newsletter
+			UtmSource *string `json:"utm_source,omitempty"`
+
+			// UtmTerm The `utm_term` value recorded for the contact.
+			//
+			// Example: support_software
+			UtmTerm *string `json:"utm_term,omitempty"`
+
+			// WorkspaceId The id of the workspace which the contact belongs to.
+			//
+			// Example: ecahpwf5
+			WorkspaceId *string `json:"workspace_id,omitempty"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParsePreviewMergeContactResponse parses an HTTP response from a PreviewMergeContactWithResponse call
 func ParsePreviewMergeContactResponse(rsp *http.Response) (*PreviewMergeContactResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -7037,6 +8477,20 @@ func ParseIdentifyAdminResponse(rsp *http.Response) (*IdentifyAdminResponse, err
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
 	}
 
 	return response, nil
@@ -7692,6 +9146,13 @@ func ParseCreateOfficeHoursScheduleResponse(rsp *http.Response) (*CreateOfficeHo
 		}
 		response.JSON201 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Unauthorized
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -7700,7 +9161,7 @@ func ParseCreateOfficeHoursScheduleResponse(rsp *http.Response) (*CreateOfficeHo
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest ValidationError
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -7749,11 +9210,18 @@ func ParseDeleteOfficeHoursScheduleResponse(rsp *http.Response) (*DeleteOfficeHo
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	}
 
@@ -7789,7 +9257,7 @@ func ParseGetOfficeHoursScheduleResponse(rsp *http.Response) (*GetOfficeHoursSch
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -7821,6 +9289,13 @@ func ParseUpdateOfficeHoursScheduleResponse(rsp *http.Response) (*UpdateOfficeHo
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Unauthorized
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -7829,14 +9304,14 @@ func ParseUpdateOfficeHoursScheduleResponse(rsp *http.Response) (*UpdateOfficeHo
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON404 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest ValidationError
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -7876,7 +9351,7 @@ func ParseListOfficeHoursExceptionsResponse(rsp *http.Response) (*ListOfficeHour
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -7908,6 +9383,13 @@ func ParseCreateOfficeHoursExceptionResponse(rsp *http.Response) (*CreateOfficeH
 		}
 		response.JSON201 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Unauthorized
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -7916,14 +9398,14 @@ func ParseCreateOfficeHoursExceptionResponse(rsp *http.Response) (*CreateOfficeH
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON404 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest ValidationError
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -7972,7 +9454,7 @@ func ParseDeleteOfficeHoursExceptionResponse(rsp *http.Response) (*DeleteOfficeH
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -8012,7 +9494,7 @@ func ParseGetOfficeHoursExceptionResponse(rsp *http.Response) (*GetOfficeHoursEx
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -8044,6 +9526,13 @@ func ParseUpdateOfficeHoursExceptionResponse(rsp *http.Response) (*UpdateOfficeH
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Unauthorized
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -8052,14 +9541,14 @@ func ParseUpdateOfficeHoursExceptionResponse(rsp *http.Response) (*UpdateOfficeH
 		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest ObjectNotFound
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
 		response.JSON404 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest ValidationError
+		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

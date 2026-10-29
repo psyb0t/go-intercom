@@ -15,6 +15,1245 @@ import (
 )
 
 // StatusCode returns HTTPResponse.StatusCode
+func (r CreateConversationAttributeOptionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateConversationAttributeOptionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteConversationAttributeOptionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ConversationAttribute
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r DeleteConversationAttributeOptionResponse) GetJSON200() *ConversationAttribute {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r DeleteConversationAttributeOptionResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r DeleteConversationAttributeOptionResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r DeleteConversationAttributeOptionResponse) GetJSON422() *Error {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r DeleteConversationAttributeOptionResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteConversationAttributeOptionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteConversationAttributeOptionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteConversationAttributeOptionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateConversationAttributeOptionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ConversationAttribute
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r UpdateConversationAttributeOptionResponse) GetJSON200() *ConversationAttribute {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r UpdateConversationAttributeOptionResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r UpdateConversationAttributeOptionResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r UpdateConversationAttributeOptionResponse) GetJSON422() *Error {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r UpdateConversationAttributeOptionResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateConversationAttributeOptionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateConversationAttributeOptionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateConversationAttributeOptionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListDeletedConversationIdsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *DeletedConversationList
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListDeletedConversationIdsResponse) GetJSON200() *DeletedConversationList {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListDeletedConversationIdsResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListDeletedConversationIdsResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetBody returns the raw response body bytes
+func (r ListDeletedConversationIdsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListDeletedConversationIdsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListDeletedConversationIdsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListDeletedConversationIdsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RedactConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Conversation
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r RedactConversationResponse) GetJSON200() *Conversation {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r RedactConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r RedactConversationResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r RedactConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RedactConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RedactConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RedactConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type SearchConversationsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ConversationList
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r SearchConversationsResponse) GetJSON200() *ConversationList {
+	return r.JSON200
+}
+
+// GetBody returns the raw response body bytes
+func (r SearchConversationsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r SearchConversationsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SearchConversationsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SearchConversationsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ConversationDeleted
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r DeleteConversationResponse) GetJSON200() *ConversationDeleted {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r DeleteConversationResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r DeleteConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r DeleteConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetBody returns the raw response body bytes
+func (r DeleteConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RetrieveConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Conversation
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r RetrieveConversationResponse) GetJSON200() *Conversation {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r RetrieveConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r RetrieveConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r RetrieveConversationResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r RetrieveConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RetrieveConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RetrieveConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RetrieveConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Conversation
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r UpdateConversationResponse) GetJSON200() *Conversation {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r UpdateConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r UpdateConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r UpdateConversationResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r UpdateConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ConvertConversationToTicketResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Ticket
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ConvertConversationToTicketResponse) GetJSON200() *Ticket {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ConvertConversationToTicketResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetBody returns the raw response body bytes
+func (r ConvertConversationToTicketResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ConvertConversationToTicketResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ConvertConversationToTicketResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ConvertConversationToTicketResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type AttachContactToConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ConversationParticipantsResponse
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r AttachContactToConversationResponse) GetJSON200() *ConversationParticipantsResponse {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r AttachContactToConversationResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r AttachContactToConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r AttachContactToConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r AttachContactToConversationResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r AttachContactToConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r AttachContactToConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r AttachContactToConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r AttachContactToConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DetachContactFromConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ConversationParticipantsResponse
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r DetachContactFromConversationResponse) GetJSON200() *ConversationParticipantsResponse {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r DetachContactFromConversationResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r DetachContactFromConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r DetachContactFromConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r DetachContactFromConversationResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r DetachContactFromConversationResponse) GetJSON422() *Error {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r DetachContactFromConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DetachContactFromConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DetachContactFromConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DetachContactFromConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ManageConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Conversation
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ManageConversationResponse) GetJSON200() *Conversation {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ManageConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r ManageConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ManageConversationResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ManageConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ManageConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ManageConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ManageConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ReplyConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Conversation
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ReplyConversationResponse) GetJSON200() *Conversation {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ReplyConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r ReplyConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ReplyConversationResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ReplyConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ReplyConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReplyConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ReplyConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type AttachTagToConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Tag
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r AttachTagToConversationResponse) GetJSON200() *Tag {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r AttachTagToConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r AttachTagToConversationResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r AttachTagToConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r AttachTagToConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r AttachTagToConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r AttachTagToConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DetachTagFromConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Tag
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r DetachTagFromConversationResponse) GetJSON200() *Tag {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r DetachTagFromConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r DetachTagFromConversationResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r DetachTagFromConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DetachTagFromConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DetachTagFromConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DetachTagFromConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListHandlingEventsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *HandlingEventList
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListHandlingEventsResponse) GetJSON200() *HandlingEventList {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListHandlingEventsResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListHandlingEventsResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ListHandlingEventsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListHandlingEventsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListHandlingEventsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListHandlingEventsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListHitlEventsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *HitlEventList
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListHitlEventsResponse) GetJSON200() *HitlEventList {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListHitlEventsResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListHitlEventsResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ListHitlEventsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListHitlEventsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListHitlEventsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListHitlEventsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type MergeConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Conversation
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r MergeConversationResponse) GetJSON200() *Conversation {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r MergeConversationResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r MergeConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r MergeConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r MergeConversationResponse) GetJSON422() *Error {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r MergeConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r MergeConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r MergeConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r MergeConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListSideConversationsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *SideConversationList
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListSideConversationsResponse) GetJSON200() *SideConversationList {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListSideConversationsResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListSideConversationsResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ListSideConversationsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSideConversationsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSideConversationsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSideConversationsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteCustomObjectInstancesByExternalIdResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *CustomObjectInstanceDeleted
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r DeleteCustomObjectInstancesByExternalIdResponse) GetJSON200() *CustomObjectInstanceDeleted {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r DeleteCustomObjectInstancesByExternalIdResponse) GetJSON401() *Unauthorized {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r DeleteCustomObjectInstancesByExternalIdResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r DeleteCustomObjectInstancesByExternalIdResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteCustomObjectInstancesByExternalIdResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteCustomObjectInstancesByExternalIdResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteCustomObjectInstancesByExternalIdResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListCustomObjectInstancesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ListCustomObjectInstances200JSONResponseBody
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *TypeNotFound
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListCustomObjectInstancesResponse) GetJSON200() *ListCustomObjectInstances200JSONResponseBody {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListCustomObjectInstancesResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListCustomObjectInstancesResponse) GetJSON401() *Unauthorized {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListCustomObjectInstancesResponse) GetJSON404() *TypeNotFound {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ListCustomObjectInstancesResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListCustomObjectInstancesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
 func (r ListCustomObjectInstancesResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
@@ -5216,11 +6455,25 @@ type IdentifyAdminResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *AdminWithApp
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r IdentifyAdminResponse) GetJSON200() *AdminWithApp {
 	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r IdentifyAdminResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r IdentifyAdminResponse) GetJSON404() *Error {
+	return r.JSON404
 }
 
 // GetBody returns the raw response body bytes
@@ -6090,15 +7343,22 @@ type CreateOfficeHoursScheduleResponse struct {
 	HTTPResponse *http.Response
 	// JSON201 the response for an HTTP 201 `application/json` response
 	JSON201 *OfficeHoursSchedule
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Unauthorized
 	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *ValidationError
+	JSON422 *Error
 }
 
 // GetJSON201 returns the response for an HTTP 201 `application/json` response
 func (r CreateOfficeHoursScheduleResponse) GetJSON201() *OfficeHoursSchedule {
 	return r.JSON201
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CreateOfficeHoursScheduleResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -6107,7 +7367,7 @@ func (r CreateOfficeHoursScheduleResponse) GetJSON401() *Unauthorized {
 }
 
 // GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r CreateOfficeHoursScheduleResponse) GetJSON422() *ValidationError {
+func (r CreateOfficeHoursScheduleResponse) GetJSON422() *Error {
 	return r.JSON422
 }
 
@@ -6157,7 +7417,9 @@ type DeleteOfficeHoursScheduleResponse struct {
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Unauthorized
 	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *ObjectNotFound
+	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -6180,8 +7442,13 @@ func (r DeleteOfficeHoursScheduleResponse) GetJSON401() *Unauthorized {
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r DeleteOfficeHoursScheduleResponse) GetJSON404() *ObjectNotFound {
+func (r DeleteOfficeHoursScheduleResponse) GetJSON404() *Error {
 	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r DeleteOfficeHoursScheduleResponse) GetJSON422() *Error {
+	return r.JSON422
 }
 
 // GetBody returns the raw response body bytes
@@ -6221,7 +7488,7 @@ type GetOfficeHoursScheduleResponse struct {
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Unauthorized
 	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *ObjectNotFound
+	JSON404 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -6235,7 +7502,7 @@ func (r GetOfficeHoursScheduleResponse) GetJSON401() *Unauthorized {
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r GetOfficeHoursScheduleResponse) GetJSON404() *ObjectNotFound {
+func (r GetOfficeHoursScheduleResponse) GetJSON404() *Error {
 	return r.JSON404
 }
 
@@ -6273,17 +7540,24 @@ type UpdateOfficeHoursScheduleResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *OfficeHoursSchedule
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Unauthorized
 	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *ObjectNotFound
+	JSON404 *Error
 	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *ValidationError
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r UpdateOfficeHoursScheduleResponse) GetJSON200() *OfficeHoursSchedule {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r UpdateOfficeHoursScheduleResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -6292,12 +7566,12 @@ func (r UpdateOfficeHoursScheduleResponse) GetJSON401() *Unauthorized {
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r UpdateOfficeHoursScheduleResponse) GetJSON404() *ObjectNotFound {
+func (r UpdateOfficeHoursScheduleResponse) GetJSON404() *Error {
 	return r.JSON404
 }
 
 // GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r UpdateOfficeHoursScheduleResponse) GetJSON422() *ValidationError {
+func (r UpdateOfficeHoursScheduleResponse) GetJSON422() *Error {
 	return r.JSON422
 }
 
@@ -6338,7 +7612,7 @@ type ListOfficeHoursExceptionsResponse struct {
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Unauthorized
 	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *ObjectNotFound
+	JSON404 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -6352,7 +7626,7 @@ func (r ListOfficeHoursExceptionsResponse) GetJSON401() *Unauthorized {
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r ListOfficeHoursExceptionsResponse) GetJSON404() *ObjectNotFound {
+func (r ListOfficeHoursExceptionsResponse) GetJSON404() *Error {
 	return r.JSON404
 }
 
@@ -6390,17 +7664,24 @@ type CreateOfficeHoursExceptionResponse struct {
 	HTTPResponse *http.Response
 	// JSON201 the response for an HTTP 201 `application/json` response
 	JSON201 *OfficeHoursException
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Unauthorized
 	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *ObjectNotFound
+	JSON404 *Error
 	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *ValidationError
+	JSON422 *Error
 }
 
 // GetJSON201 returns the response for an HTTP 201 `application/json` response
 func (r CreateOfficeHoursExceptionResponse) GetJSON201() *OfficeHoursException {
 	return r.JSON201
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CreateOfficeHoursExceptionResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -6409,12 +7690,12 @@ func (r CreateOfficeHoursExceptionResponse) GetJSON401() *Unauthorized {
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r CreateOfficeHoursExceptionResponse) GetJSON404() *ObjectNotFound {
+func (r CreateOfficeHoursExceptionResponse) GetJSON404() *Error {
 	return r.JSON404
 }
 
 // GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r CreateOfficeHoursExceptionResponse) GetJSON422() *ValidationError {
+func (r CreateOfficeHoursExceptionResponse) GetJSON422() *Error {
 	return r.JSON422
 }
 
@@ -6464,7 +7745,7 @@ type DeleteOfficeHoursExceptionResponse struct {
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Unauthorized
 	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *ObjectNotFound
+	JSON404 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -6487,7 +7768,7 @@ func (r DeleteOfficeHoursExceptionResponse) GetJSON401() *Unauthorized {
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r DeleteOfficeHoursExceptionResponse) GetJSON404() *ObjectNotFound {
+func (r DeleteOfficeHoursExceptionResponse) GetJSON404() *Error {
 	return r.JSON404
 }
 
@@ -6528,7 +7809,7 @@ type GetOfficeHoursExceptionResponse struct {
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Unauthorized
 	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *ObjectNotFound
+	JSON404 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -6542,7 +7823,7 @@ func (r GetOfficeHoursExceptionResponse) GetJSON401() *Unauthorized {
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r GetOfficeHoursExceptionResponse) GetJSON404() *ObjectNotFound {
+func (r GetOfficeHoursExceptionResponse) GetJSON404() *Error {
 	return r.JSON404
 }
 
@@ -6580,17 +7861,24 @@ type UpdateOfficeHoursExceptionResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *OfficeHoursException
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Unauthorized
 	// JSON404 the response for an HTTP 404 `application/json` response
-	JSON404 *ObjectNotFound
+	JSON404 *Error
 	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *ValidationError
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r UpdateOfficeHoursExceptionResponse) GetJSON200() *OfficeHoursException {
 	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r UpdateOfficeHoursExceptionResponse) GetJSON400() *Error {
+	return r.JSON400
 }
 
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
@@ -6599,12 +7887,12 @@ func (r UpdateOfficeHoursExceptionResponse) GetJSON401() *Unauthorized {
 }
 
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r UpdateOfficeHoursExceptionResponse) GetJSON404() *ObjectNotFound {
+func (r UpdateOfficeHoursExceptionResponse) GetJSON404() *Error {
 	return r.JSON404
 }
 
 // GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r UpdateOfficeHoursExceptionResponse) GetJSON422() *ValidationError {
+func (r UpdateOfficeHoursExceptionResponse) GetJSON422() *Error {
 	return r.JSON422
 }
 
@@ -8462,6 +9750,8 @@ func (r ConvertVisitorResponse) ContentType() string {
 //
 // You can fetch a list of admins for a given workspace.
 //
+// Requires the `read_admins` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /admins (the `ListAdmins` operationId).
@@ -8475,7 +9765,9 @@ func (c *ClientWithResponses) ListAdminsWithResponse(ctx context.Context, params
 
 // ListActivityLogEventTypesWithResponse List all activity log event types
 //
-// You can get a list of all activity log event types. This is useful for discovering valid values to use with the `event_types` filter on the List all activity logs endpoint.
+// You can get a list of all activity log event types. This is useful for discovering valid values to use with the `event_types` filter on the Search activity logs endpoint.
+//
+// Requires the `read_admins` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -8492,6 +9784,8 @@ func (c *ClientWithResponses) ListActivityLogEventTypesWithResponse(ctx context.
 //
 // You can get a log of activities by all admins in an app.
 //
+// Requires the `read_admins` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /admins/activity_logs (the `ListActivityLogs` operationId).
@@ -8506,6 +9800,10 @@ func (c *ClientWithResponses) ListActivityLogsWithResponse(ctx context.Context, 
 // SearchActivityLogsWithBodyWithResponse Search activity logs
 //
 // Search and filter admin activity logs using a POST request with event type filter in the request body. You can find more details about the available event types in the List all activity log event types endpoint.
+//
+// Results are paginated by page number. Use `page` and `per_page` in the request body to choose a page. The `next` link in the response is a URL that keeps the query string of the request URL and sets `page` and `per_page` for the next page. It does not include the filters from your request body. To fetch the next page, send a POST request with the same request body to that URL. Query parameters in the `next` URL take precedence over `page` and `per_page` in the body.
+//
+// Requires the `read_admins` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -8522,6 +9820,10 @@ func (c *ClientWithResponses) SearchActivityLogsWithBodyWithResponse(ctx context
 //
 // Search and filter admin activity logs using a POST request with event type filter in the request body. You can find more details about the available event types in the List all activity log event types endpoint.
 //
+// Results are paginated by page number. Use `page` and `per_page` in the request body to choose a page. The `next` link in the response is a URL that keeps the query string of the request URL and sets `page` and `per_page` for the next page. It does not include the filters from your request body. To fetch the next page, send a POST request with the same request body to that URL. Query parameters in the `next` URL take precedence over `page` and `per_page` in the body.
+//
+// Requires the `read_admins` OAuth scope.
+//
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /admins/activity_logs/search (the `SearchActivityLogs` operationId).
@@ -8536,6 +9838,8 @@ func (c *ClientWithResponses) SearchActivityLogsWithResponse(ctx context.Context
 // RetrieveAdminWithResponse Retrieve an admin
 //
 // You can retrieve the details of a single admin.
+//
+// Requires the `read_single_admin` or `read_admins` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -8552,6 +9856,8 @@ func (c *ClientWithResponses) RetrieveAdminWithResponse(ctx context.Context, adm
 //
 // You can set an Admin as away for the Inbox.
 //
+// Requires the `update_admins` OAuth scope.
+//
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with PUT /admins/{admin_id}/away (the `SetAwayAdmin` operationId).
@@ -8566,6 +9872,8 @@ func (c *ClientWithResponses) SetAwayAdminWithBodyWithResponse(ctx context.Conte
 // SetAwayAdminWithResponse Set an admin to away
 //
 // You can set an Admin as away for the Inbox.
+//
+// Requires the `update_admins` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -9409,6 +10717,8 @@ func (c *ClientWithResponses) RetrieveBrandWithResponse(ctx context.Context, id 
 //
 // Retrieve a paginated list of calls.
 //
+// Requires the `read_conversations` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /calls (the `ListCalls` operationId).
@@ -9424,6 +10734,8 @@ func (c *ClientWithResponses) ListCallsWithResponse(ctx context.Context, params 
 //
 // Retrieve calls by a list of conversation ids and include transcripts when available.
 // A maximum of 20 `conversation_ids` can be provided. If none are provided or more than 20 are provided, a 400 error is returned.
+//
+// Requires the `read_conversations` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -9441,6 +10753,8 @@ func (c *ClientWithResponses) ListCallsWithTranscriptsWithBodyWithResponse(ctx c
 // Retrieve calls by a list of conversation ids and include transcripts when available.
 // A maximum of 20 `conversation_ids` can be provided. If none are provided or more than 20 are provided, a 400 error is returned.
 //
+// Requires the `read_conversations` OAuth scope.
+//
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /calls/search (the `ListCallsWithTranscripts` operationId).
@@ -9455,6 +10769,8 @@ func (c *ClientWithResponses) ListCallsWithTranscriptsWithResponse(ctx context.C
 // ShowCallWithResponse Get a call
 //
 // Retrieve a single call by id.
+//
+// Requires the `read_conversations` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -9471,6 +10787,8 @@ func (c *ClientWithResponses) ShowCallWithResponse(ctx context.Context, callId s
 //
 // Redirects to a signed URL for the call's recording if it exists.
 //
+// Requires the `read_conversations` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /calls/{call_id}/recording (the `ShowCallRecording` operationId).
@@ -9485,6 +10803,8 @@ func (c *ClientWithResponses) ShowCallRecordingWithResponse(ctx context.Context,
 // ShowCallTranscriptWithResponse Get call transcript by call id
 //
 // Returns the transcript for the specified call as a JSON array of turns.
+//
+// Requires the `read_conversations` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -13178,7 +14498,9 @@ func (c *ClientWithResponses) UpdateDynamicContentWithResponse(ctx context.Conte
 
 // ListEmailsWithResponse List all email settings
 //
-// Lists all sender email address settings for the workspace.
+// # Lists all sender email address settings for the workspace
+//
+// Requires the `read_emails` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -13193,7 +14515,9 @@ func (c *ClientWithResponses) ListEmailsWithResponse(ctx context.Context, params
 
 // RetrieveEmailWithResponse Retrieve an email setting
 //
-// Fetches a specific email setting by its unique identifier.
+// # Fetches a specific email setting by its unique identifier
+//
+// Requires the `read_emails` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -13996,11 +15320,13 @@ func (c *ClientWithResponses) StartFinConversationWithResponse(ctx context.Conte
 //
 // Retrieve information about a Fin Voice call using the external reference ID.
 //
+// Requires the `read_conversations` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /fin_voice/collect/{id} (the `CollectFinVoiceCallById` operationId).
-func (c *ClientWithResponses) CollectFinVoiceCallByIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByIdResponse, error) {
-	rsp, err := c.CollectFinVoiceCallById(ctx, id, reqEditors...)
+func (c *ClientWithResponses) CollectFinVoiceCallByIdWithResponse(ctx context.Context, id int, params *CollectFinVoiceCallByIdParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByIdResponse, error) {
+	rsp, err := c.CollectFinVoiceCallById(ctx, id, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -14013,11 +15339,13 @@ func (c *ClientWithResponses) CollectFinVoiceCallByIdWithResponse(ctx context.Co
 //
 // Returns all matched calls for the given conversation ID. A conversation may have multiple associated calls.
 //
+// Requires the `read_conversations` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /fin_voice/conversation/{conversation_id} (the `CollectFinVoiceCallsByConversationId` operationId).
-func (c *ClientWithResponses) CollectFinVoiceCallsByConversationIdWithResponse(ctx context.Context, conversationId string, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallsByConversationIdResponse, error) {
-	rsp, err := c.CollectFinVoiceCallsByConversationId(ctx, conversationId, reqEditors...)
+func (c *ClientWithResponses) CollectFinVoiceCallsByConversationIdWithResponse(ctx context.Context, conversationId string, params *CollectFinVoiceCallsByConversationIdParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallsByConversationIdResponse, error) {
+	rsp, err := c.CollectFinVoiceCallsByConversationId(ctx, conversationId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -14028,11 +15356,13 @@ func (c *ClientWithResponses) CollectFinVoiceCallsByConversationIdWithResponse(c
 //
 // Retrieve information about a Fin Voice call using the external call identifier.
 //
+// Requires the `read_conversations` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /fin_voice/external_id/{external_id} (the `CollectFinVoiceCallByExternalId` operationId).
-func (c *ClientWithResponses) CollectFinVoiceCallByExternalIdWithResponse(ctx context.Context, externalId string, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByExternalIdResponse, error) {
-	rsp, err := c.CollectFinVoiceCallByExternalId(ctx, externalId, reqEditors...)
+func (c *ClientWithResponses) CollectFinVoiceCallByExternalIdWithResponse(ctx context.Context, externalId string, params *CollectFinVoiceCallByExternalIdParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByExternalIdResponse, error) {
+	rsp, err := c.CollectFinVoiceCallByExternalId(ctx, externalId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -14045,11 +15375,13 @@ func (c *ClientWithResponses) CollectFinVoiceCallByExternalIdWithResponse(ctx co
 //
 // Returns the most recent matched call for the given phone number, ordered by creation date.
 //
+// Requires the `read_conversations` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /fin_voice/phone_number/{phone_number} (the `CollectFinVoiceCallByPhoneNumber` operationId).
-func (c *ClientWithResponses) CollectFinVoiceCallByPhoneNumberWithResponse(ctx context.Context, phoneNumber string, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByPhoneNumberResponse, error) {
-	rsp, err := c.CollectFinVoiceCallByPhoneNumber(ctx, phoneNumber, reqEditors...)
+func (c *ClientWithResponses) CollectFinVoiceCallByPhoneNumberWithResponse(ctx context.Context, phoneNumber string, params *CollectFinVoiceCallByPhoneNumberParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByPhoneNumberResponse, error) {
+	rsp, err := c.CollectFinVoiceCallByPhoneNumber(ctx, phoneNumber, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -14065,12 +15397,17 @@ func (c *ClientWithResponses) CollectFinVoiceCallByPhoneNumberWithResponse(ctx c
 // - AWS Connect (default)
 // - Five9
 // - Zoom Phone
+// - NICE CXone
+// - Dialpad
+// - Generic
+//
+// Requires the `read_conversations` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /fin_voice/register (the `RegisterFinVoiceCall` operationId).
-func (c *ClientWithResponses) RegisterFinVoiceCallWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegisterFinVoiceCallResponse, error) {
-	rsp, err := c.RegisterFinVoiceCallWithBody(ctx, contentType, body, reqEditors...)
+func (c *ClientWithResponses) RegisterFinVoiceCallWithBodyWithResponse(ctx context.Context, params *RegisterFinVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegisterFinVoiceCallResponse, error) {
+	rsp, err := c.RegisterFinVoiceCallWithBody(ctx, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -14086,12 +15423,17 @@ func (c *ClientWithResponses) RegisterFinVoiceCallWithBodyWithResponse(ctx conte
 // - AWS Connect (default)
 // - Five9
 // - Zoom Phone
+// - NICE CXone
+// - Dialpad
+// - Generic
+//
+// Requires the `read_conversations` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /fin_voice/register (the `RegisterFinVoiceCall` operationId).
-func (c *ClientWithResponses) RegisterFinVoiceCallWithResponse(ctx context.Context, body RegisterFinVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*RegisterFinVoiceCallResponse, error) {
-	rsp, err := c.RegisterFinVoiceCall(ctx, body, reqEditors...)
+func (c *ClientWithResponses) RegisterFinVoiceCallWithResponse(ctx context.Context, params *RegisterFinVoiceCallParams, body RegisterFinVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*RegisterFinVoiceCallResponse, error) {
+	rsp, err := c.RegisterFinVoiceCall(ctx, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -14828,6 +16170,8 @@ func (c *ClientWithResponses) GetMacroWithResponse(ctx context.Context, id strin
 // >
 // > If you are building a custom "Log in with Intercom" flow for your site, and you call the `/me` endpoint to identify the logged-in user, you should not accept any sign-ins from users with unverified email addresses as it poses a potential impersonation security risk.
 //
+// Requires the `read_single_admin` or `read_admins` OAuth scope.
+//
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /me (the `IdentifyAdmin` operationId).
@@ -15195,7 +16539,7 @@ func (c *ClientWithResponses) CreateOfficeHoursScheduleWithResponse(ctx context.
 
 // DeleteOfficeHoursScheduleWithResponse Delete an office hours schedule
 //
-// You can delete a single office hours schedule.
+// You can delete a single office hours schedule. The workspace's default schedule can't be deleted.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -15255,7 +16599,7 @@ func (c *ClientWithResponses) UpdateOfficeHoursScheduleWithResponse(ctx context.
 
 // ListOfficeHoursExceptionsWithResponse List all office hours exceptions
 //
-// You can fetch a list of all exceptions for an office hours schedule.
+// You can fetch a list of all exceptions for an office hours schedule, ordered by date with the earliest first.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -16501,6 +17845,13 @@ func ParseListActivityLogsResponse(rsp *http.Response) (*ListActivityLogsRespons
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -16607,6 +17958,13 @@ func ParseSetAwayAdminResponse(rsp *http.Response) (*SetAwayAdminResponse, error
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -16620,6 +17978,13 @@ func ParseSetAwayAdminResponse(rsp *http.Response) (*SetAwayAdminResponse, error
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 405:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON405 = &dest
 
 	}
 
@@ -17970,6 +19335,13 @@ func ParseListCallsResponse(rsp *http.Response) (*ListCallsResponse, error) {
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -18024,12 +19396,17 @@ func ParseListCallsWithTranscriptsResponse(rsp *http.Response) (*ListCallsWithTr
 				// Direction The direction of the call.
 				//
 				// Example: outbound
-				Direction *string   `json:"direction,omitempty"`
-				EndedAt   *Datetime `json:"ended_at,omitempty"`
+				Direction *string `json:"direction,omitempty"`
+
+				// Duration Total call duration in seconds from the caller's perspective. For inbound calls, measured from initiated to ended. For outbound calls, measured from answered to ended. Null until the call ends, and for outbound calls that were never answered.
+				//
+				// Example: 900
+				Duration *int      `json:"duration,omitempty"`
+				EndedAt  *Datetime `json:"ended_at,omitempty"`
 
 				// EndedReason The reason for the call end, if applicable.
 				//
-				// Example: completed
+				// Example: missed
 				EndedReason *string `json:"ended_reason,omitempty"`
 
 				// FinRecordingUrl API URL to the AI Agent (Fin) call recording if available.
@@ -18037,6 +19414,11 @@ func ParseListCallsWithTranscriptsResponse(rsp *http.Response) (*ListCallsWithTr
 
 				// FinTranscriptionUrl API URL to the AI Agent (Fin) call transcript if available.
 				FinTranscriptionUrl *string `json:"fin_transcription_url,omitempty"`
+
+				// HoldTime Total time in seconds the caller was placed on hold during the call.
+				//
+				// Example: 60
+				HoldTime *int `json:"hold_time,omitempty"`
 
 				// Id The id of the call.
 				//
@@ -18049,6 +19431,11 @@ func ParseListCallsWithTranscriptsResponse(rsp *http.Response) (*ListCallsWithTr
 				// Example: +15551234567
 				Phone *string `json:"phone,omitempty"`
 
+				// QueueTime Total time in seconds the caller waited in queue before connecting, when assigned to a team.
+				//
+				// Example: 45
+				QueueTime *int `json:"queue_time,omitempty"`
+
 				// RecordingUrl API URL to download or redirect to the call recording if available.
 				//
 				// Example: https://api.intercom.io/calls/123/recording
@@ -18056,8 +19443,13 @@ func ParseListCallsWithTranscriptsResponse(rsp *http.Response) (*ListCallsWithTr
 
 				// State The current state of the call.
 				//
-				// Example: completed
+				// Example: ended
 				State *string `json:"state,omitempty"`
+
+				// TalkTime Total time in seconds the agent and customer were connected.
+				//
+				// Example: 300
+				TalkTime *int `json:"talk_time,omitempty"`
 
 				// Transcript The call transcript if available, otherwise an empty array.
 				Transcript *[]map[string]interface{} `json:"transcript,omitempty"`
@@ -18213,6 +19605,13 @@ func ParseShowCallTranscriptResponse(rsp *http.Response) (*ShowCallTranscriptRes
 			return nil, err
 		}
 		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
 		var dest Error
@@ -18650,1446 +20049,6 @@ func ParseListAttachedContactsResponse(rsp *http.Response) (*ListAttachedContact
 			return nil, err
 		}
 		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListCompanyNotesResponse parses an HTTP response from a ListCompanyNotesWithResponse call
-func ParseListCompanyNotesResponse(rsp *http.Response) (*ListCompanyNotesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListCompanyNotesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest NoteList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCreateCompanyNoteResponse parses an HTTP response from a CreateCompanyNoteWithResponse call
-func ParseCreateCompanyNoteResponse(rsp *http.Response) (*CreateCompanyNoteResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CreateCompanyNoteResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest Note
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListAttachedSegmentsForCompaniesResponse parses an HTTP response from a ListAttachedSegmentsForCompaniesWithResponse call
-func ParseListAttachedSegmentsForCompaniesResponse(rsp *http.Response) (*ListAttachedSegmentsForCompaniesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListAttachedSegmentsForCompaniesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CompanyAttachedSegments
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListContactsResponse parses an HTTP response from a ListContactsWithResponse call
-func ParseListContactsResponse(rsp *http.Response) (*ListContactsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListContactsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ContactList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCreateContactResponse parses an HTTP response from a CreateContactWithResponse call
-func ParseCreateContactResponse(rsp *http.Response) (*CreateContactResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CreateContactResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest struct {
-			// AndroidAppName The name of the Android app which the contact is using.
-			//
-			// Example: Intercom
-			AndroidAppName *string `json:"android_app_name,omitempty"`
-
-			// AndroidAppVersion The version of the Android app which the contact is using.
-			//
-			// Example: 5.0.0
-			AndroidAppVersion *string `json:"android_app_version,omitempty"`
-
-			// AndroidDevice The Android device which the contact is using.
-			//
-			// Example: Pixel 3
-			AndroidDevice *string `json:"android_device,omitempty"`
-
-			// AndroidLastSeenAt (Unix timestamp in seconds) The time when the contact was last seen on an Android device.
-			//
-			// Example: 1571672154
-			AndroidLastSeenAt *int `json:"android_last_seen_at,omitempty"`
-
-			// AndroidOsVersion The version of the Android OS which the contact is using.
-			//
-			// Example: 10
-			AndroidOsVersion *string `json:"android_os_version,omitempty"`
-
-			// AndroidSdkVersion The version of the Android SDK which the contact is using.
-			//
-			// Example: 28
-			AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
-
-			// Avatar An image URL containing the avatar of a contact.
-			//
-			// Example: https://example.org/128Wash.jpg
-			Avatar *string `json:"avatar,omitempty"`
-
-			// Browser The name of the browser which the contact is using.
-			//
-			// Example: Chrome
-			Browser *string `json:"browser,omitempty"`
-
-			// BrowserLanguage The language set by the browser which the contact is using.
-			//
-			// Example: en-US
-			BrowserLanguage *string `json:"browser_language,omitempty"`
-
-			// BrowserVersion The version of the browser which the contact is using.
-			//
-			// Example: 80.0.3987.132
-			BrowserVersion *string `json:"browser_version,omitempty"`
-
-			// Companies An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
-			Companies *ContactCompanies `json:"companies,omitempty"`
-
-			// CreatedAt (Unix timestamp in seconds) The time when the contact was created.
-			//
-			// Example: 1571672154
-			CreatedAt *int `json:"created_at,omitempty"`
-
-			// CustomAttributes The custom attributes which are set for the contact.
-			CustomAttributes *map[string]interface{} `json:"custom_attributes,omitempty"`
-
-			// Email The contact's email.
-			//
-			// Example: joe@example.com
-			Email *string `json:"email,omitempty"`
-
-			// EmailDomain The contact's email domain.
-			//
-			// Example: example.com
-			EmailDomain *string `json:"email_domain,omitempty"`
-
-			// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
-			//
-			// Example: true
-			EmailVerified *bool `json:"email_verified,omitempty"`
-
-			// EnabledPushMessaging If the user has enabled push messaging.
-			//
-			// Example: true
-			EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
-
-			// ExternalId The unique identifier for the contact which is provided by the Client.
-			//
-			// Example: f3b87a2e09d514c6c2e79b9a
-			ExternalId *string `json:"external_id,omitempty"`
-
-			// HasHardBounced Whether the contact has had an email sent to them hard bounce.
-			//
-			// Example: true
-			HasHardBounced *bool `json:"has_hard_bounced,omitempty"`
-
-			// Id The unique identifier for the contact which is given by Intercom.
-			//
-			// Example: 5ba682d23d7cf92bef87bfd4
-			Id *string `json:"id,omitempty"`
-
-			// IosAppName The name of the iOS app which the contact is using.
-			//
-			// Example: Intercom
-			IosAppName *string `json:"ios_app_name,omitempty"`
-
-			// IosAppVersion The version of the iOS app which the contact is using.
-			//
-			// Example: 5.0.0
-			IosAppVersion *string `json:"ios_app_version,omitempty"`
-
-			// IosDevice The iOS device which the contact is using.
-			//
-			// Example: iPhone 11
-			IosDevice *string `json:"ios_device,omitempty"`
-
-			// IosLastSeenAt (Unix timestamp in seconds) The last time the contact used the iOS app.
-			//
-			// Example: 1571672154
-			IosLastSeenAt *int `json:"ios_last_seen_at,omitempty"`
-
-			// IosOsVersion The version of iOS which the contact is using.
-			//
-			// Example: 13.3.1
-			IosOsVersion *string `json:"ios_os_version,omitempty"`
-
-			// IosSdkVersion The version of the iOS SDK which the contact is using.
-			//
-			// Example: 13.3.1
-			IosSdkVersion *string `json:"ios_sdk_version,omitempty"`
-
-			// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
-			//
-			// Example: en
-			LanguageOverride *string `json:"language_override,omitempty"`
-
-			// LastContactedAt (Unix timestamp in seconds) The time when the contact was last messaged.
-			//
-			// Example: 1571672154
-			LastContactedAt *int `json:"last_contacted_at,omitempty"`
-
-			// LastEmailClickedAt (Unix timestamp in seconds) The time when the contact last clicked a link in an email.
-			//
-			// Example: 1571672154
-			LastEmailClickedAt *int `json:"last_email_clicked_at,omitempty"`
-
-			// LastEmailOpenedAt (Unix timestamp in seconds) The time when the contact last opened an email.
-			//
-			// Example: 1571672154
-			LastEmailOpenedAt *int `json:"last_email_opened_at,omitempty"`
-
-			// LastRepliedAt (Unix timestamp in seconds) The time when the contact last messaged in.
-			//
-			// Example: 1571672154
-			LastRepliedAt *int `json:"last_replied_at,omitempty"`
-
-			// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
-			//
-			// Example: 1571672154
-			LastSeenAt *int `json:"last_seen_at,omitempty"`
-
-			// Location An object containing location meta data about a Intercom contact.
-			Location *ContactLocation `json:"location,omitempty"`
-
-			// MarkedEmailAsSpam Whether the contact has marked an email sent to them as spam.
-			//
-			// Example: true
-			MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
-
-			// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
-			MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
-
-			// Name The contacts name.
-			//
-			// Example: John Doe
-			Name *string `json:"name,omitempty"`
-
-			// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
-			Notes *ContactNotes `json:"notes,omitempty"`
-
-			// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
-			OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
-
-			// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
-			OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
-
-			// Os The operating system which the contact is using.
-			//
-			// Example: Mac OS X
-			Os *string `json:"os,omitempty"`
-
-			// OwnerId The id of an admin that has been assigned account ownership of the contact.
-			//
-			// Example: 321
-			OwnerId *string `json:"owner_id,omitempty"`
-
-			// Phone The contacts phone.
-			//
-			// Example: +1123456789
-			Phone *string `json:"phone,omitempty"`
-
-			// Referrer The URL of the page the contact came from, as recorded by the Messenger.
-			//
-			// Example: https://example.com/pricing
-			Referrer *string `json:"referrer,omitempty"`
-
-			// Role The role of the contact.
-			//
-			// Example: user
-			Role *string `json:"role,omitempty"`
-
-			// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
-			//
-			// Example: 1571672154
-			SignedUpAt *int `json:"signed_up_at,omitempty"`
-
-			// SmsConsent Whether the contact has consented to receive SMS messages.
-			//
-			// Example: false
-			SmsConsent *bool `json:"sms_consent,omitempty"`
-
-			// SocialProfiles An object containing social profiles that a contact has.
-			SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
-
-			// Tags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
-			Tags *ContactTags `json:"tags,omitempty"`
-
-			// Type The type of object.
-			//
-			// Example: contact
-			Type *string `json:"type,omitempty"`
-
-			// UnsubscribedFromEmails Whether the contact is unsubscribed from emails.
-			//
-			// Example: true
-			UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
-
-			// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
-			//
-			// Example: false
-			UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
-
-			// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
-			//
-			// Example: 1571672154
-			UpdatedAt *int `json:"updated_at,omitempty"`
-
-			// UtmCampaign The `utm_campaign` value recorded for the contact.
-			//
-			// Example: spring_launch
-			UtmCampaign *string `json:"utm_campaign,omitempty"`
-
-			// UtmContent The `utm_content` value recorded for the contact.
-			//
-			// Example: banner_ad
-			UtmContent *string `json:"utm_content,omitempty"`
-
-			// UtmMedium The `utm_medium` value recorded for the contact.
-			//
-			// Example: email
-			UtmMedium *string `json:"utm_medium,omitempty"`
-
-			// UtmSource The `utm_source` value recorded for the contact.
-			//
-			// Example: newsletter
-			UtmSource *string `json:"utm_source,omitempty"`
-
-			// UtmTerm The `utm_term` value recorded for the contact.
-			//
-			// Example: support_software
-			UtmTerm *string `json:"utm_term,omitempty"`
-
-			// WorkspaceId The id of the workspace which the contact belongs to.
-			//
-			// Example: ecahpwf5
-			WorkspaceId *string `json:"workspace_id,omitempty"`
-		}
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON409 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListContactActivitiesResponse parses an HTTP response from a ListContactActivitiesWithResponse call
-func ParseListContactActivitiesResponse(rsp *http.Response) (*ListContactActivitiesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListContactActivitiesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ContactActivityList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseBulkCreateContactsResponse parses an HTTP response from a BulkCreateContactsWithResponse call
-func ParseBulkCreateContactsResponse(rsp *http.Response) (*BulkCreateContactsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &BulkCreateContactsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
-		var dest ContactsBulkJob
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON202 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseBulkUpdateContactsResponse parses an HTTP response from a BulkUpdateContactsWithResponse call
-func ParseBulkUpdateContactsResponse(rsp *http.Response) (*BulkUpdateContactsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &BulkUpdateContactsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
-		var dest ContactsBulkJob
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON202 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseBulkDeleteContactsResponse parses an HTTP response from a BulkDeleteContactsWithResponse call
-func ParseBulkDeleteContactsResponse(rsp *http.Response) (*BulkDeleteContactsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &BulkDeleteContactsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
-		var dest ContactsBulkJob
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON202 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseShowBulkUpdateContactsJobResponse parses an HTTP response from a ShowBulkUpdateContactsJobWithResponse call
-func ParseShowBulkUpdateContactsJobResponse(rsp *http.Response) (*ShowBulkUpdateContactsJobResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ShowBulkUpdateContactsJobResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ContactsBulkJob
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListDeletedContactsResponse parses an HTTP response from a ListDeletedContactsWithResponse call
-func ParseListDeletedContactsResponse(rsp *http.Response) (*ListDeletedContactsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListDeletedContactsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeletedContactList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseShowContactByExternalIdResponse parses an HTTP response from a ShowContactByExternalIdWithResponse call
-func ParseShowContactByExternalIdResponse(rsp *http.Response) (*ShowContactByExternalIdResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ShowContactByExternalIdResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest struct {
-			// AndroidAppName The name of the Android app which the contact is using.
-			//
-			// Example: Intercom
-			AndroidAppName *string `json:"android_app_name,omitempty"`
-
-			// AndroidAppVersion The version of the Android app which the contact is using.
-			//
-			// Example: 5.0.0
-			AndroidAppVersion *string `json:"android_app_version,omitempty"`
-
-			// AndroidDevice The Android device which the contact is using.
-			//
-			// Example: Pixel 3
-			AndroidDevice *string `json:"android_device,omitempty"`
-
-			// AndroidLastSeenAt (Unix timestamp in seconds) The time when the contact was last seen on an Android device.
-			//
-			// Example: 1571672154
-			AndroidLastSeenAt *int `json:"android_last_seen_at,omitempty"`
-
-			// AndroidOsVersion The version of the Android OS which the contact is using.
-			//
-			// Example: 10
-			AndroidOsVersion *string `json:"android_os_version,omitempty"`
-
-			// AndroidSdkVersion The version of the Android SDK which the contact is using.
-			//
-			// Example: 28
-			AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
-
-			// Avatar An image URL containing the avatar of a contact.
-			//
-			// Example: https://example.org/128Wash.jpg
-			Avatar *string `json:"avatar,omitempty"`
-
-			// Browser The name of the browser which the contact is using.
-			//
-			// Example: Chrome
-			Browser *string `json:"browser,omitempty"`
-
-			// BrowserLanguage The language set by the browser which the contact is using.
-			//
-			// Example: en-US
-			BrowserLanguage *string `json:"browser_language,omitempty"`
-
-			// BrowserVersion The version of the browser which the contact is using.
-			//
-			// Example: 80.0.3987.132
-			BrowserVersion *string `json:"browser_version,omitempty"`
-
-			// Companies An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
-			Companies *ContactCompanies `json:"companies,omitempty"`
-
-			// CreatedAt (Unix timestamp in seconds) The time when the contact was created.
-			//
-			// Example: 1571672154
-			CreatedAt *int `json:"created_at,omitempty"`
-
-			// CustomAttributes The custom attributes which are set for the contact.
-			CustomAttributes *map[string]interface{} `json:"custom_attributes,omitempty"`
-
-			// Email The contact's email.
-			//
-			// Example: joe@example.com
-			Email *string `json:"email,omitempty"`
-
-			// EmailDomain The contact's email domain.
-			//
-			// Example: example.com
-			EmailDomain *string `json:"email_domain,omitempty"`
-
-			// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
-			//
-			// Example: true
-			EmailVerified *bool `json:"email_verified,omitempty"`
-
-			// EnabledPushMessaging If the user has enabled push messaging.
-			//
-			// Example: true
-			EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
-
-			// ExternalId The unique identifier for the contact which is provided by the Client.
-			//
-			// Example: f3b87a2e09d514c6c2e79b9a
-			ExternalId *string `json:"external_id,omitempty"`
-
-			// HasHardBounced Whether the contact has had an email sent to them hard bounce.
-			//
-			// Example: true
-			HasHardBounced *bool `json:"has_hard_bounced,omitempty"`
-
-			// Id The unique identifier for the contact which is given by Intercom.
-			//
-			// Example: 5ba682d23d7cf92bef87bfd4
-			Id *string `json:"id,omitempty"`
-
-			// IosAppName The name of the iOS app which the contact is using.
-			//
-			// Example: Intercom
-			IosAppName *string `json:"ios_app_name,omitempty"`
-
-			// IosAppVersion The version of the iOS app which the contact is using.
-			//
-			// Example: 5.0.0
-			IosAppVersion *string `json:"ios_app_version,omitempty"`
-
-			// IosDevice The iOS device which the contact is using.
-			//
-			// Example: iPhone 11
-			IosDevice *string `json:"ios_device,omitempty"`
-
-			// IosLastSeenAt (Unix timestamp in seconds) The last time the contact used the iOS app.
-			//
-			// Example: 1571672154
-			IosLastSeenAt *int `json:"ios_last_seen_at,omitempty"`
-
-			// IosOsVersion The version of iOS which the contact is using.
-			//
-			// Example: 13.3.1
-			IosOsVersion *string `json:"ios_os_version,omitempty"`
-
-			// IosSdkVersion The version of the iOS SDK which the contact is using.
-			//
-			// Example: 13.3.1
-			IosSdkVersion *string `json:"ios_sdk_version,omitempty"`
-
-			// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
-			//
-			// Example: en
-			LanguageOverride *string `json:"language_override,omitempty"`
-
-			// LastContactedAt (Unix timestamp in seconds) The time when the contact was last messaged.
-			//
-			// Example: 1571672154
-			LastContactedAt *int `json:"last_contacted_at,omitempty"`
-
-			// LastEmailClickedAt (Unix timestamp in seconds) The time when the contact last clicked a link in an email.
-			//
-			// Example: 1571672154
-			LastEmailClickedAt *int `json:"last_email_clicked_at,omitempty"`
-
-			// LastEmailOpenedAt (Unix timestamp in seconds) The time when the contact last opened an email.
-			//
-			// Example: 1571672154
-			LastEmailOpenedAt *int `json:"last_email_opened_at,omitempty"`
-
-			// LastRepliedAt (Unix timestamp in seconds) The time when the contact last messaged in.
-			//
-			// Example: 1571672154
-			LastRepliedAt *int `json:"last_replied_at,omitempty"`
-
-			// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
-			//
-			// Example: 1571672154
-			LastSeenAt *int `json:"last_seen_at,omitempty"`
-
-			// Location An object containing location meta data about a Intercom contact.
-			Location *ContactLocation `json:"location,omitempty"`
-
-			// MarkedEmailAsSpam Whether the contact has marked an email sent to them as spam.
-			//
-			// Example: true
-			MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
-
-			// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
-			MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
-
-			// Name The contacts name.
-			//
-			// Example: John Doe
-			Name *string `json:"name,omitempty"`
-
-			// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
-			Notes *ContactNotes `json:"notes,omitempty"`
-
-			// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
-			OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
-
-			// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
-			OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
-
-			// Os The operating system which the contact is using.
-			//
-			// Example: Mac OS X
-			Os *string `json:"os,omitempty"`
-
-			// OwnerId The id of an admin that has been assigned account ownership of the contact.
-			//
-			// Example: 321
-			OwnerId *string `json:"owner_id,omitempty"`
-
-			// Phone The contacts phone.
-			//
-			// Example: +1123456789
-			Phone *string `json:"phone,omitempty"`
-
-			// Referrer The URL of the page the contact came from, as recorded by the Messenger.
-			//
-			// Example: https://example.com/pricing
-			Referrer *string `json:"referrer,omitempty"`
-
-			// Role The role of the contact.
-			//
-			// Example: user
-			Role *string `json:"role,omitempty"`
-
-			// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
-			//
-			// Example: 1571672154
-			SignedUpAt *int `json:"signed_up_at,omitempty"`
-
-			// SmsConsent Whether the contact has consented to receive SMS messages.
-			//
-			// Example: false
-			SmsConsent *bool `json:"sms_consent,omitempty"`
-
-			// SocialProfiles An object containing social profiles that a contact has.
-			SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
-
-			// Tags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
-			Tags *ContactTags `json:"tags,omitempty"`
-
-			// Type The type of object.
-			//
-			// Example: contact
-			Type *string `json:"type,omitempty"`
-
-			// UnsubscribedFromEmails Whether the contact is unsubscribed from emails.
-			//
-			// Example: true
-			UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
-
-			// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
-			//
-			// Example: false
-			UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
-
-			// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
-			//
-			// Example: 1571672154
-			UpdatedAt *int `json:"updated_at,omitempty"`
-
-			// UtmCampaign The `utm_campaign` value recorded for the contact.
-			//
-			// Example: spring_launch
-			UtmCampaign *string `json:"utm_campaign,omitempty"`
-
-			// UtmContent The `utm_content` value recorded for the contact.
-			//
-			// Example: banner_ad
-			UtmContent *string `json:"utm_content,omitempty"`
-
-			// UtmMedium The `utm_medium` value recorded for the contact.
-			//
-			// Example: email
-			UtmMedium *string `json:"utm_medium,omitempty"`
-
-			// UtmSource The `utm_source` value recorded for the contact.
-			//
-			// Example: newsletter
-			UtmSource *string `json:"utm_source,omitempty"`
-
-			// UtmTerm The `utm_term` value recorded for the contact.
-			//
-			// Example: support_software
-			UtmTerm *string `json:"utm_term,omitempty"`
-
-			// WorkspaceId The id of the workspace which the contact belongs to.
-			//
-			// Example: ecahpwf5
-			WorkspaceId *string `json:"workspace_id,omitempty"`
-		}
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON410 = &dest
-
-	}
-
-	switch {
-	case rsp.StatusCode == 410:
-		var headers ShowContactByExternalIdResponse410Headers
-		if values := rsp.Header.Values("Link"); len(values) > 0 {
-			var value string
-			if err := runtime.BindStyledParameterWithOptions("simple", "Link", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			}
-			headers.Link = &value
-		}
-		response.Headers410 = &headers
-	}
-
-	return response, nil
-}
-
-// ParseMergeContactResponse parses an HTTP response from a MergeContactWithResponse call
-func ParseMergeContactResponse(rsp *http.Response) (*MergeContactResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &MergeContactResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest struct {
-			// AndroidAppName The name of the Android app which the contact is using.
-			//
-			// Example: Intercom
-			AndroidAppName *string `json:"android_app_name,omitempty"`
-
-			// AndroidAppVersion The version of the Android app which the contact is using.
-			//
-			// Example: 5.0.0
-			AndroidAppVersion *string `json:"android_app_version,omitempty"`
-
-			// AndroidDevice The Android device which the contact is using.
-			//
-			// Example: Pixel 3
-			AndroidDevice *string `json:"android_device,omitempty"`
-
-			// AndroidLastSeenAt (Unix timestamp in seconds) The time when the contact was last seen on an Android device.
-			//
-			// Example: 1571672154
-			AndroidLastSeenAt *int `json:"android_last_seen_at,omitempty"`
-
-			// AndroidOsVersion The version of the Android OS which the contact is using.
-			//
-			// Example: 10
-			AndroidOsVersion *string `json:"android_os_version,omitempty"`
-
-			// AndroidSdkVersion The version of the Android SDK which the contact is using.
-			//
-			// Example: 28
-			AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
-
-			// Avatar An image URL containing the avatar of a contact.
-			//
-			// Example: https://example.org/128Wash.jpg
-			Avatar *string `json:"avatar,omitempty"`
-
-			// Browser The name of the browser which the contact is using.
-			//
-			// Example: Chrome
-			Browser *string `json:"browser,omitempty"`
-
-			// BrowserLanguage The language set by the browser which the contact is using.
-			//
-			// Example: en-US
-			BrowserLanguage *string `json:"browser_language,omitempty"`
-
-			// BrowserVersion The version of the browser which the contact is using.
-			//
-			// Example: 80.0.3987.132
-			BrowserVersion *string `json:"browser_version,omitempty"`
-
-			// Companies An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
-			Companies *ContactCompanies `json:"companies,omitempty"`
-
-			// CreatedAt (Unix timestamp in seconds) The time when the contact was created.
-			//
-			// Example: 1571672154
-			CreatedAt *int `json:"created_at,omitempty"`
-
-			// CustomAttributes The custom attributes which are set for the contact.
-			CustomAttributes *map[string]interface{} `json:"custom_attributes,omitempty"`
-
-			// Email The contact's email.
-			//
-			// Example: joe@example.com
-			Email *string `json:"email,omitempty"`
-
-			// EmailDomain The contact's email domain.
-			//
-			// Example: example.com
-			EmailDomain *string `json:"email_domain,omitempty"`
-
-			// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
-			//
-			// Example: true
-			EmailVerified *bool `json:"email_verified,omitempty"`
-
-			// EnabledPushMessaging If the user has enabled push messaging.
-			//
-			// Example: true
-			EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
-
-			// ExternalId The unique identifier for the contact which is provided by the Client.
-			//
-			// Example: f3b87a2e09d514c6c2e79b9a
-			ExternalId *string `json:"external_id,omitempty"`
-
-			// HasHardBounced Whether the contact has had an email sent to them hard bounce.
-			//
-			// Example: true
-			HasHardBounced *bool `json:"has_hard_bounced,omitempty"`
-
-			// Id The unique identifier for the contact which is given by Intercom.
-			//
-			// Example: 5ba682d23d7cf92bef87bfd4
-			Id *string `json:"id,omitempty"`
-
-			// IosAppName The name of the iOS app which the contact is using.
-			//
-			// Example: Intercom
-			IosAppName *string `json:"ios_app_name,omitempty"`
-
-			// IosAppVersion The version of the iOS app which the contact is using.
-			//
-			// Example: 5.0.0
-			IosAppVersion *string `json:"ios_app_version,omitempty"`
-
-			// IosDevice The iOS device which the contact is using.
-			//
-			// Example: iPhone 11
-			IosDevice *string `json:"ios_device,omitempty"`
-
-			// IosLastSeenAt (Unix timestamp in seconds) The last time the contact used the iOS app.
-			//
-			// Example: 1571672154
-			IosLastSeenAt *int `json:"ios_last_seen_at,omitempty"`
-
-			// IosOsVersion The version of iOS which the contact is using.
-			//
-			// Example: 13.3.1
-			IosOsVersion *string `json:"ios_os_version,omitempty"`
-
-			// IosSdkVersion The version of the iOS SDK which the contact is using.
-			//
-			// Example: 13.3.1
-			IosSdkVersion *string `json:"ios_sdk_version,omitempty"`
-
-			// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
-			//
-			// Example: en
-			LanguageOverride *string `json:"language_override,omitempty"`
-
-			// LastContactedAt (Unix timestamp in seconds) The time when the contact was last messaged.
-			//
-			// Example: 1571672154
-			LastContactedAt *int `json:"last_contacted_at,omitempty"`
-
-			// LastEmailClickedAt (Unix timestamp in seconds) The time when the contact last clicked a link in an email.
-			//
-			// Example: 1571672154
-			LastEmailClickedAt *int `json:"last_email_clicked_at,omitempty"`
-
-			// LastEmailOpenedAt (Unix timestamp in seconds) The time when the contact last opened an email.
-			//
-			// Example: 1571672154
-			LastEmailOpenedAt *int `json:"last_email_opened_at,omitempty"`
-
-			// LastRepliedAt (Unix timestamp in seconds) The time when the contact last messaged in.
-			//
-			// Example: 1571672154
-			LastRepliedAt *int `json:"last_replied_at,omitempty"`
-
-			// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
-			//
-			// Example: 1571672154
-			LastSeenAt *int `json:"last_seen_at,omitempty"`
-
-			// Location An object containing location meta data about a Intercom contact.
-			Location *ContactLocation `json:"location,omitempty"`
-
-			// MarkedEmailAsSpam Whether the contact has marked an email sent to them as spam.
-			//
-			// Example: true
-			MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
-
-			// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
-			MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
-
-			// Name The contacts name.
-			//
-			// Example: John Doe
-			Name *string `json:"name,omitempty"`
-
-			// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
-			Notes *ContactNotes `json:"notes,omitempty"`
-
-			// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
-			OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
-
-			// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
-			OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
-
-			// Os The operating system which the contact is using.
-			//
-			// Example: Mac OS X
-			Os *string `json:"os,omitempty"`
-
-			// OwnerId The id of an admin that has been assigned account ownership of the contact.
-			//
-			// Example: 321
-			OwnerId *string `json:"owner_id,omitempty"`
-
-			// Phone The contacts phone.
-			//
-			// Example: +1123456789
-			Phone *string `json:"phone,omitempty"`
-
-			// Referrer The URL of the page the contact came from, as recorded by the Messenger.
-			//
-			// Example: https://example.com/pricing
-			Referrer *string `json:"referrer,omitempty"`
-
-			// Role The role of the contact.
-			//
-			// Example: user
-			Role *string `json:"role,omitempty"`
-
-			// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
-			//
-			// Example: 1571672154
-			SignedUpAt *int `json:"signed_up_at,omitempty"`
-
-			// SmsConsent Whether the contact has consented to receive SMS messages.
-			//
-			// Example: false
-			SmsConsent *bool `json:"sms_consent,omitempty"`
-
-			// SocialProfiles An object containing social profiles that a contact has.
-			SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
-
-			// Tags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
-			Tags *ContactTags `json:"tags,omitempty"`
-
-			// Type The type of object.
-			//
-			// Example: contact
-			Type *string `json:"type,omitempty"`
-
-			// UnsubscribedFromEmails Whether the contact is unsubscribed from emails.
-			//
-			// Example: true
-			UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
-
-			// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
-			//
-			// Example: false
-			UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
-
-			// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
-			//
-			// Example: 1571672154
-			UpdatedAt *int `json:"updated_at,omitempty"`
-
-			// UtmCampaign The `utm_campaign` value recorded for the contact.
-			//
-			// Example: spring_launch
-			UtmCampaign *string `json:"utm_campaign,omitempty"`
-
-			// UtmContent The `utm_content` value recorded for the contact.
-			//
-			// Example: banner_ad
-			UtmContent *string `json:"utm_content,omitempty"`
-
-			// UtmMedium The `utm_medium` value recorded for the contact.
-			//
-			// Example: email
-			UtmMedium *string `json:"utm_medium,omitempty"`
-
-			// UtmSource The `utm_source` value recorded for the contact.
-			//
-			// Example: newsletter
-			UtmSource *string `json:"utm_source,omitempty"`
-
-			// UtmTerm The `utm_term` value recorded for the contact.
-			//
-			// Example: support_software
-			UtmTerm *string `json:"utm_term,omitempty"`
-
-			// WorkspaceId The id of the workspace which the contact belongs to.
-			//
-			// Example: ecahpwf5
-			WorkspaceId *string `json:"workspace_id,omitempty"`
-		}
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON409 = &dest
 
 	}
 
