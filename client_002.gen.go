@@ -1071,6 +1071,11 @@ type Ticket struct {
 	// Example: messenger
 	Channel *string `json:"channel,omitempty"`
 
+	// CompanyId The ID of the company the ticket is associated with. Omitted when the ticket has no company.
+	//
+	// Example: 531ee472cce572a6ec000006
+	CompanyId *string `json:"company_id,omitempty"`
+
 	// Contacts The list of contacts affected by a ticket.
 	Contacts *TicketContacts `json:"contacts,omitempty"`
 
@@ -1458,6 +1463,11 @@ type TicketPartsType string
 
 // TicketReply A Ticket Part representing a note, comment, or quick_reply on a ticket
 type TicketReply struct {
+	// AppPackageCode The app package code if this part was created via API. Note this field won't show if the part was not created via API.
+	//
+	// Example: text-integration
+	AppPackageCode *string `json:"app_package_code,omitempty"`
+
 	// Attachments A list of attachments for the part.
 	Attachments *[]PartAttachment `json:"attachments,omitempty"`
 
@@ -1608,10 +1618,50 @@ type TicketStateDetailed struct {
 	// Example: With Dev Team
 	InternalLabel *string `json:"internal_label,omitempty"`
 
-	// TicketTypes A list of ticket types associated with a given ticket state.
+	// TicketTypes A list of the ticket types that use this ticket state.
 	TicketTypes *struct {
-		// Data A list of ticket type attributes associated with a given ticket type.
-		Data *[]*TicketType `json:"data,omitempty"`
+		// Data A summary of each ticket type that uses this ticket state. It doesn't include the ticket type's attributes or ticket states; retrieve the ticket type for those.
+		Data *[]struct {
+			// Archived Whether the ticket type is archived or not.
+			//
+			// Example: false
+			Archived *bool `json:"archived,omitempty"`
+
+			// Category Category of the Ticket Type.
+			//
+			// Example: Customer
+			Category *TicketStateDetailedTicketTypesDataCategory `json:"category,omitempty"`
+
+			// Description The description of the ticket type
+			//
+			// Example: A bug that has been reported.
+			Description *string `json:"description,omitempty"`
+
+			// Icon The icon of the ticket type
+			//
+			// Example: 🐞
+			Icon *string `json:"icon,omitempty"`
+
+			// Id The id representing the ticket type.
+			//
+			// Example: 1295
+			Id *string `json:"id,omitempty"`
+
+			// IsInternal `true` if tickets of this type are internal only and can never be shared with customers; `false` if they are, or can be, shared.
+			//
+			// Example: false
+			IsInternal *bool `json:"is_internal,omitempty"`
+
+			// Name The name of the ticket type
+			//
+			// Example: Bug
+			Name *string `json:"name,omitempty"`
+
+			// Type String representing the object's type. Always has the value `ticket_type`.
+			//
+			// Example: ticket_type
+			Type *string `json:"type,omitempty"`
+		} `json:"data,omitempty"`
 
 		// Type String representing the object's type. Always has the value `list`.
 		//
@@ -1629,6 +1679,11 @@ type TicketStateDetailed struct {
 //
 // Example: in_progress
 type TicketStateDetailedCategory string
+
+// TicketStateDetailedTicketTypesDataCategory Category of the Ticket Type.
+//
+// Example: Customer
+type TicketStateDetailedTicketTypesDataCategory string
 
 // TicketStateList A list of ticket states associated with a given ticket type.
 type TicketStateList struct {
@@ -1670,6 +1725,11 @@ type TicketType struct {
 	//
 	// Example: 1295
 	Id *string `json:"id,omitempty"`
+
+	// IsInternal `true` if tickets of this type are internal only and can never be shared with customers; `false` if they are, or can be, shared.
+	//
+	// Example: false
+	IsInternal *bool `json:"is_internal,omitempty"`
 
 	// Name The name of the ticket type
 	//
@@ -1739,9 +1799,9 @@ type TicketTypeAttribute struct {
 	// Example: 1
 	Id *string `json:"id,omitempty"`
 
-	// InputOptions Input options for the attribute
+	// InputOptions Input options for the attribute. For a string attribute this holds `multiline` when it was set; for a list attribute it holds the list's options. When the attribute has no input options, this is `null`, or left out of the create and update ticket type attribute responses.
 	//
-	// Example: multiline: true
+	// Example: {"multiline":true}
 	InputOptions *map[string]interface{} `json:"input_options,omitempty"`
 
 	// Name The name of the ticket type attribute
@@ -2656,7 +2716,7 @@ type UpdateTicketRequest struct {
 	// Example: 5f4d3c1c-7b1b-4d7d-a97e-6095715c6632
 	CompanyId *string `json:"company_id,omitempty"`
 
-	// IsShared Specify whether the ticket is visible to users.
+	// IsShared Set to `true` to share a ticket with the customer. Only a ticket that isn't shared yet can be shared: a Back-office ticket, of a ticket type that isn't internal, that is linked to a conversation with no other shared linked ticket. Sending `false`, or `true` for a ticket that is already shared (Customer tickets are shared by default) or can't be shared (Tracker tickets), returns a `400`.
 	//
 	// Example: true
 	IsShared *bool `json:"is_shared,omitempty"`
@@ -5709,10 +5769,10 @@ type CreateTicketJSONBody struct {
 	// Example: 5f4d3c1c-7b1b-4d7d-a97e-6095715c6632
 	CompanyId *string `json:"company_id,omitempty"`
 
-	// Contacts The list of contacts (users or leads) affected by this ticket. Currently only one is allowed
+	// Contacts The list of contacts (users or leads) affected by this ticket. Currently only one is allowed. Required for Customer and Back-office ticket types, and optional for Tracker ticket types.
 	//
 	// Example: [{"id":"1234"}]
-	Contacts []CreateTicketJSONBody_Contacts_Item `json:"contacts"`
+	Contacts *[]CreateTicketJSONBody_Contacts_Item `json:"contacts,omitempty"`
 
 	// ConversationToLinkId The ID of the conversation you want to link to the ticket. Here are the valid ways of linking two tickets:
 	//  - conversation | back-office ticket
@@ -5799,10 +5859,10 @@ type EnqueueCreateTicketJSONBody struct {
 	// Example: 5f4d3c1c-7b1b-4d7d-a97e-6095715c6632
 	CompanyId *string `json:"company_id,omitempty"`
 
-	// Contacts The list of contacts (users or leads) affected by this ticket. Currently only one is allowed
+	// Contacts The list of contacts (users or leads) affected by this ticket. Currently only one is allowed. Required for Customer and Back-office ticket types, and optional for Tracker ticket types.
 	//
 	// Example: [{"id":"1234"}]
-	Contacts []EnqueueCreateTicketJSONBody_Contacts_Item `json:"contacts"`
+	Contacts *[]EnqueueCreateTicketJSONBody_Contacts_Item `json:"contacts,omitempty"`
 
 	// ConversationToLinkId The ID of the conversation you want to link to the ticket. Here are the valid ways of linking two tickets:
 	//  - conversation | back-office ticket
@@ -5897,7 +5957,7 @@ type UpdateTicketJSONBody struct {
 	// Example: 5f4d3c1c-7b1b-4d7d-a97e-6095715c6632
 	CompanyId *string `json:"company_id,omitempty"`
 
-	// IsShared Specify whether the ticket is visible to users.
+	// IsShared Set to `true` to share a ticket with the customer. Only a ticket that isn't shared yet can be shared: a Back-office ticket, of a ticket type that isn't internal, that is linked to a conversation with no other shared linked ticket. Sending `false`, or `true` for a ticket that is already shared (Customer tickets are shared by default) or can't be shared (Tracker tickets), returns a `400`.
 	//
 	// Example: true
 	IsShared *bool `json:"is_shared,omitempty"`
@@ -18951,14 +19011,14 @@ type ClientInterface interface {
 
 	// ListTicketStates List all ticket states
 	//
-	// You can get a list of all ticket states for a workspace.
+	// You can get a list of all ticket states for a workspace. The list includes archived ticket states; check `archived` on each one.
 	//
 	// Corresponds with GET /ticket_states (the `ListTicketStates` operationId).
 	ListTicketStates(ctx context.Context, params *ListTicketStatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListTicketTypes List all ticket types
 	//
-	// You can get a list of all ticket types for a workspace.
+	// You can get a list of all ticket types for a workspace. The list includes archived ticket types and ticket types that Intercom creates itself.
 	//
 	// Corresponds with GET /ticket_types (the `ListTicketTypes` operationId).
 	ListTicketTypes(ctx context.Context, params *ListTicketTypesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -18991,7 +19051,7 @@ type ClientInterface interface {
 
 	// GetTicketType Retrieve a ticket type
 	//
-	// You can fetch the details of a single ticket type.
+	// You can fetch the details of a single ticket type. Archived ticket types are returned as well.
 	//
 	// Corresponds with GET /ticket_types/{ticket_type_id} (the `GetTicketType` operationId).
 	GetTicketType(ctx context.Context, ticketTypeId string, params *GetTicketTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -19954,77 +20014,6 @@ func (c *Client) UpdateExternalPage(ctx context.Context, pageId string, params *
 // Corresponds with GET /articles (the `ListArticles` operationId).
 func (c *Client) ListArticles(ctx context.Context, params *ListArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListArticlesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateArticleWithBody Create an article
-//
-// You can create a new article by making a POST request to `https://api.intercom.io/articles`.
-//
-// > 📘 Tags are managed separately
-// >
-// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type.
-//
-// Corresponds with POST /articles (the `CreateArticle` operationId).
-func (c *Client) CreateArticleWithBody(ctx context.Context, params *CreateArticleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateArticleRequestWithBody(c.Server, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// CreateArticle Create an article
-//
-// You can create a new article by making a POST request to `https://api.intercom.io/articles`.
-//
-// > 📘 Tags are managed separately
-// >
-// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type.
-//
-// Corresponds with POST /articles (the `CreateArticle` operationId).
-func (c *Client) CreateArticle(ctx context.Context, params *CreateArticleParams, body CreateArticleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateArticleRequest(c.Server, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// SearchArticles Search for articles
-//
-// You can search for articles by making a GET request to `https://api.intercom.io/articles/search`.
-//
-// If no articles match the search, `data` is an empty array rather than an object.
-//
-// Requires the `read_articles_scope` OAuth scope.
-//
-// Corresponds with GET /articles/search (the `SearchArticles` operationId).
-func (c *Client) SearchArticles(ctx context.Context, params *SearchArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSearchArticlesRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}

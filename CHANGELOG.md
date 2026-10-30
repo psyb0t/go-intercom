@@ -2,6 +2,18 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.7.0, 2026-10-30
+
+- Breaking: `CreateConversationAttributeListRequest.Options` is now `[]CreateConversationAttributeOptionRequest` instead of a pointer to the slice. The struct is no longer comparable.
+- Breaking: `CreateConversationAttributeRelationshipRequest.Reference` is now a struct value, and its `ObjectTypeId` is a `string` instead of `*string`.
+- Breaking: `Contacts` is now a pointer to the slice on `CreateTicketRequest`, `CreateTicketJSONBody`, `CreateTicketJSONRequestBody`, `EnqueueCreateTicketJSONBody` and `EnqueueCreateTicketJSONRequestBody`.
+- Breaking: `CreateTicketTypeAttributeRequest.Description` is now `*string`.
+- Breaking: `TicketStateDetailed.TicketTypes` data items are now an inline struct instead of `*TicketType`, with a typed `Category` of `TicketStateDetailedTicketTypesDataCategory`.
+- Added `TicketStateDetailedTicketTypesDataCategory` with the constants `TicketStateDetailedTicketTypesDataCategoryBackOffice`, `TicketStateDetailedTicketTypesDataCategoryCustomer` and `TicketStateDetailedTicketTypesDataCategoryTracker`, plus a `Valid` method.
+- Added `Ticket.CompanyId`, `TicketReply.AppPackageCode` and `TicketType.IsInternal`.
+- Added typed error bodies and their `GetJSON` methods: `JSON400`, `JSON404` and `JSON500` on `CreateTicketResponse`, `JSON400` on `CreateTicketTypeAttributeResponse`, `CreateTicketTypeResponse` and `SearchTicketsResponse`, `JSON404` on `GetTicketResponse` and `GetTicketTypeResponse`, `JSON500` on `EnqueueCreateTicketResponse`, and `JSON422` on `DeleteTicketResponse`, `UpdateTicketResponse`, `DeleteConversationAttributeResponse` and `UpdateConversationAttributeResponse`.
+- Documentation: the `AdminId` comment on the conversation attribute types now says it is `null` when there is no admin.
+
 ## v0.6.0, 2026-10-29
 
 - Breaking: the Fin Voice call methods take a new params argument. `CollectFinVoiceCallById`, `CollectFinVoiceCallByExternalId`, `CollectFinVoiceCallByPhoneNumber` and `CollectFinVoiceCallsByConversationId` now take `*CollectFinVoiceCallByIdParams`, `*CollectFinVoiceCallByExternalIdParams`, `*CollectFinVoiceCallByPhoneNumberParams` and `*CollectFinVoiceCallsByConversationIdParams`. `RegisterFinVoiceCall` and `RegisterFinVoiceCallWithBody` take `*RegisterFinVoiceCallParams` before the body. This also changes the `ClientWithResponses` methods, `ClientInterface`, `ClientWithResponsesInterface` and the `NewCollectFinVoiceCall*Request` and `NewRegisterFinVoiceCallRequest*` builders.

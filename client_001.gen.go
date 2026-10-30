@@ -6562,6 +6562,27 @@ func (e TicketStateDetailedCategory) Valid() bool {
 	}
 }
 
+// Defines values for TicketStateDetailedTicketTypesDataCategory.
+const (
+	TicketStateDetailedTicketTypesDataCategoryBackOffice TicketStateDetailedTicketTypesDataCategory = "Back-office"
+	TicketStateDetailedTicketTypesDataCategoryCustomer   TicketStateDetailedTicketTypesDataCategory = "Customer"
+	TicketStateDetailedTicketTypesDataCategoryTracker    TicketStateDetailedTicketTypesDataCategory = "Tracker"
+)
+
+// Valid indicates whether the value is a known member of the TicketStateDetailedTicketTypesDataCategory enum.
+func (e TicketStateDetailedTicketTypesDataCategory) Valid() bool {
+	switch e {
+	case TicketStateDetailedTicketTypesDataCategoryBackOffice:
+		return true
+	case TicketStateDetailedTicketTypesDataCategoryCustomer:
+		return true
+	case TicketStateDetailedTicketTypesDataCategoryTracker:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for TicketTypeCategory.
 const (
 	TicketTypeCategoryBackOffice TicketTypeCategory = "Back-office"
@@ -12764,7 +12785,7 @@ type ConversationAttribute struct {
 
 // ConversationAttributeBase defines model for conversation_attribute_base.
 type ConversationAttributeBase struct {
-	// AdminId ID of the admin who created the attribute.
+	// AdminId ID of the admin who created the attribute, or `null` if there isn't one.
 	//
 	// Example: 16
 	AdminId *string `json:"admin_id,omitempty"`
@@ -12832,7 +12853,7 @@ type ConversationAttributeBaseType string
 
 // ConversationAttributeBooleanType defines model for conversation_attribute_boolean_type.
 type ConversationAttributeBooleanType struct {
-	// AdminId ID of the admin who created the attribute.
+	// AdminId ID of the admin who created the attribute, or `null` if there isn't one.
 	//
 	// Example: 16
 	AdminId *string `json:"admin_id,omitempty"`
@@ -12894,7 +12915,7 @@ type ConversationAttributeBooleanTypeType string
 
 // ConversationAttributeDatetimeType defines model for conversation_attribute_datetime_type.
 type ConversationAttributeDatetimeType struct {
-	// AdminId ID of the admin who created the attribute.
+	// AdminId ID of the admin who created the attribute, or `null` if there isn't one.
 	//
 	// Example: 16
 	AdminId *string `json:"admin_id,omitempty"`
@@ -12956,7 +12977,7 @@ type ConversationAttributeDatetimeTypeType string
 
 // ConversationAttributeDecimalType defines model for conversation_attribute_decimal_type.
 type ConversationAttributeDecimalType struct {
-	// AdminId ID of the admin who created the attribute.
+	// AdminId ID of the admin who created the attribute, or `null` if there isn't one.
 	//
 	// Example: 16
 	AdminId *string `json:"admin_id,omitempty"`
@@ -13018,7 +13039,7 @@ type ConversationAttributeDecimalTypeType string
 
 // ConversationAttributeFilesType defines model for conversation_attribute_files_type.
 type ConversationAttributeFilesType struct {
-	// AdminId ID of the admin who created the attribute.
+	// AdminId ID of the admin who created the attribute, or `null` if there isn't one.
 	//
 	// Example: 16
 	AdminId *string `json:"admin_id,omitempty"`
@@ -13080,7 +13101,7 @@ type ConversationAttributeFilesTypeType string
 
 // ConversationAttributeIntegerType defines model for conversation_attribute_integer_type.
 type ConversationAttributeIntegerType struct {
-	// AdminId ID of the admin who created the attribute.
+	// AdminId ID of the admin who created the attribute, or `null` if there isn't one.
 	//
 	// Example: 16
 	AdminId *string `json:"admin_id,omitempty"`
@@ -13158,7 +13179,7 @@ type ConversationAttributeListObjectType string
 
 // ConversationAttributeListType defines model for conversation_attribute_list_type.
 type ConversationAttributeListType struct {
-	// AdminId ID of the admin who created the attribute.
+	// AdminId ID of the admin who created the attribute, or `null` if there isn't one.
 	//
 	// Example: 16
 	AdminId *string `json:"admin_id,omitempty"`
@@ -13241,7 +13262,7 @@ type ConversationAttributeOption struct {
 
 // ConversationAttributeRelationshipType defines model for conversation_attribute_relationship_type.
 type ConversationAttributeRelationshipType struct {
-	// AdminId ID of the admin who created the attribute.
+	// AdminId ID of the admin who created the attribute, or `null` if there isn't one.
 	//
 	// Example: 16
 	AdminId *string `json:"admin_id,omitempty"`
@@ -13321,7 +13342,7 @@ type ConversationAttributeRelationshipTypeType string
 
 // ConversationAttributeStringType defines model for conversation_attribute_string_type.
 type ConversationAttributeStringType struct {
-	// AdminId ID of the admin who created the attribute.
+	// AdminId ID of the admin who created the attribute, or `null` if there isn't one.
 	//
 	// Example: 16
 	AdminId *string `json:"admin_id,omitempty"`
@@ -14969,8 +14990,8 @@ type CreateConversationAttributeListRequest struct {
 	// Example: api_test_attr
 	Name string `json:"name"`
 
-	// Options Initial options for this list attribute. Each option must have a `label`.
-	Options *[]CreateConversationAttributeOptionRequest `json:"options,omitempty"`
+	// Options Initial options for this list attribute. Each option must have a `label`. A list attribute needs at least 2 options.
+	Options []CreateConversationAttributeOptionRequest `json:"options"`
 
 	// Required Whether this attribute is required.
 	//
@@ -15009,13 +15030,13 @@ type CreateConversationAttributeRelationshipRequest struct {
 	Name string `json:"name"`
 
 	// Reference Reference configuration for related objects.
-	Reference *struct {
-		// ObjectTypeId The ID of the related custom object type.
-		ObjectTypeId *string `json:"object_type_id,omitempty"`
+	Reference struct {
+		// ObjectTypeId The ID of the related custom object type. It must match an existing custom object type.
+		ObjectTypeId string `json:"object_type_id"`
 
 		// Type The cardinality of the relationship: `one` or `many`.
 		Type CreateConversationAttributeRelationshipRequestReferenceType `json:"type"`
-	} `json:"reference,omitempty"`
+	} `json:"reference"`
 
 	// Required Whether this attribute is required.
 	//
@@ -15923,10 +15944,10 @@ type CreateTicketRequest struct {
 	// Example: 5f4d3c1c-7b1b-4d7d-a97e-6095715c6632
 	CompanyId *string `json:"company_id,omitempty"`
 
-	// Contacts The list of contacts (users or leads) affected by this ticket. Currently only one is allowed
+	// Contacts The list of contacts (users or leads) affected by this ticket. Currently only one is allowed. Required for Customer and Back-office ticket types, and optional for Tracker ticket types.
 	//
 	// Example: [{"id":"1234"}]
-	Contacts []CreateTicketRequest_Contacts_Item `json:"contacts"`
+	Contacts *[]CreateTicketRequest_Contacts_Item `json:"contacts,omitempty"`
 
 	// ConversationToLinkId The ID of the conversation you want to link to the ticket. Here are the valid ways of linking two tickets:
 	//  - conversation | back-office ticket
@@ -15996,7 +16017,7 @@ type CreateTicketTypeAttributeRequest struct {
 	// Description The description of the attribute presented to the teammate or contact
 	//
 	// Example: Priority level of the bug
-	Description string `json:"description"`
+	Description *string `json:"description,omitempty"`
 
 	// ListItems A comma delimited list of items for the attribute value (only applicable to list attributes)
 	//

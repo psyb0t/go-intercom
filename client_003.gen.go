@@ -16,6 +16,77 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// CreateArticleWithBody Create an article
+//
+// You can create a new article by making a POST request to `https://api.intercom.io/articles`.
+//
+// > 📘 Tags are managed separately
+// >
+// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /articles (the `CreateArticle` operationId).
+func (c *Client) CreateArticleWithBody(ctx context.Context, params *CreateArticleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateArticleRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateArticle Create an article
+//
+// You can create a new article by making a POST request to `https://api.intercom.io/articles`.
+//
+// > 📘 Tags are managed separately
+// >
+// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /articles (the `CreateArticle` operationId).
+func (c *Client) CreateArticle(ctx context.Context, params *CreateArticleParams, body CreateArticleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateArticleRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SearchArticles Search for articles
+//
+// You can search for articles by making a GET request to `https://api.intercom.io/articles/search`.
+//
+// If no articles match the search, `data` is an empty array rather than an object.
+//
+// Requires the `read_articles_scope` OAuth scope.
+//
+// Corresponds with GET /articles/search (the `SearchArticles` operationId).
+func (c *Client) SearchArticles(ctx context.Context, params *SearchArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchArticlesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // DeleteArticle Delete an article
 //
 // You can delete a single article by making a DELETE request to `https://api.intercom.io/articles/<id>`.
@@ -7705,7 +7776,7 @@ func (c *Client) GetTeamMetrics(ctx context.Context, teamId string, params *GetT
 
 // ListTicketStates List all ticket states
 //
-// You can get a list of all ticket states for a workspace.
+// You can get a list of all ticket states for a workspace. The list includes archived ticket states; check `archived` on each one.
 //
 // Corresponds with GET /ticket_states (the `ListTicketStates` operationId).
 func (c *Client) ListTicketStates(ctx context.Context, params *ListTicketStatesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -7722,7 +7793,7 @@ func (c *Client) ListTicketStates(ctx context.Context, params *ListTicketStatesP
 
 // ListTicketTypes List all ticket types
 //
-// You can get a list of all ticket types for a workspace.
+// You can get a list of all ticket types for a workspace. The list includes archived ticket types and ticket types that Intercom creates itself.
 //
 // Corresponds with GET /ticket_types (the `ListTicketTypes` operationId).
 func (c *Client) ListTicketTypes(ctx context.Context, params *ListTicketTypesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -7785,7 +7856,7 @@ func (c *Client) CreateTicketType(ctx context.Context, params *CreateTicketTypeP
 
 // GetTicketType Retrieve a ticket type
 //
-// You can fetch the details of a single ticket type.
+// You can fetch the details of a single ticket type. Archived ticket types are returned as well.
 //
 // Corresponds with GET /ticket_types/{ticket_type_id} (the `GetTicketType` operationId).
 func (c *Client) GetTicketType(ctx context.Context, ticketTypeId string, params *GetTicketTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -19933,154 +20004,6 @@ func NewCollectFinVoiceCallByPhoneNumberRequest(server string, phoneNumber strin
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRegisterFinVoiceCallRequest calls the generic RegisterFinVoiceCall builder with application/json body
-func NewRegisterFinVoiceCallRequest(server string, params *RegisterFinVoiceCallParams, body RegisterFinVoiceCallJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewRegisterFinVoiceCallRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewRegisterFinVoiceCallRequestWithBody constructs an http.Request for the RegisterFinVoiceCall method, with any body, and a specified content type
-func NewRegisterFinVoiceCallRequestWithBody(server string, params *RegisterFinVoiceCallParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin_voice/register")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListFoldersRequest constructs an http.Request for the ListFolders method
-func NewListFoldersRequest(server string, params *ListFoldersParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/folders")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.Page != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.PerPage != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.ParentFolderId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "parent_folder_id", *params.ParentFolderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
