@@ -1777,6 +1777,42 @@ func (e AwayStatusReasonListType) Valid() bool {
 	}
 }
 
+// Defines values for BotReplyConversationRequestMessageType.
+const (
+	BotReplyConversationRequestMessageTypeComment    BotReplyConversationRequestMessageType = "comment"
+	BotReplyConversationRequestMessageTypeNote       BotReplyConversationRequestMessageType = "note"
+	BotReplyConversationRequestMessageTypeQuickReply BotReplyConversationRequestMessageType = "quick_reply"
+)
+
+// Valid indicates whether the value is a known member of the BotReplyConversationRequestMessageType enum.
+func (e BotReplyConversationRequestMessageType) Valid() bool {
+	switch e {
+	case BotReplyConversationRequestMessageTypeComment:
+		return true
+	case BotReplyConversationRequestMessageTypeNote:
+		return true
+	case BotReplyConversationRequestMessageTypeQuickReply:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BotReplyConversationRequestType.
+const (
+	BotReplyConversationRequestTypeBot BotReplyConversationRequestType = "bot"
+)
+
+// Valid indicates whether the value is a known member of the BotReplyConversationRequestType enum.
+func (e BotReplyConversationRequestType) Valid() bool {
+	switch e {
+	case BotReplyConversationRequestTypeBot:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for CloseConversationRequestMessageType.
 const (
 	CloseConversationRequestMessageTypeClose CloseConversationRequestMessageType = "close"
@@ -3181,12 +3217,15 @@ func (e ConversationContactsType) Valid() bool {
 // Defines values for ConversationDeletedObject.
 const (
 	ConversationDeletedObjectConversation ConversationDeletedObject = "conversation"
+	ConversationDeletedObjectTicket       ConversationDeletedObject = "ticket"
 )
 
 // Valid indicates whether the value is a known member of the ConversationDeletedObject enum.
 func (e ConversationDeletedObject) Valid() bool {
 	switch e {
 	case ConversationDeletedObjectConversation:
+		return true
+	case ConversationDeletedObjectTicket:
 		return true
 	default:
 		return false
@@ -3806,6 +3845,7 @@ func (e CreateMessageRequestFromType) Valid() bool {
 const (
 	CreateMessageRequestMessageTypeEmail    CreateMessageRequestMessageType = "email"
 	CreateMessageRequestMessageTypeInApp    CreateMessageRequestMessageType = "in_app"
+	CreateMessageRequestMessageTypeInapp    CreateMessageRequestMessageType = "inapp"
 	CreateMessageRequestMessageTypeWhatsapp CreateMessageRequestMessageType = "whatsapp"
 )
 
@@ -3815,6 +3855,8 @@ func (e CreateMessageRequestMessageType) Valid() bool {
 	case CreateMessageRequestMessageTypeEmail:
 		return true
 	case CreateMessageRequestMessageTypeInApp:
+		return true
+	case CreateMessageRequestMessageTypeInapp:
 		return true
 	case CreateMessageRequestMessageTypeWhatsapp:
 		return true
@@ -5692,6 +5734,7 @@ const (
 	MessageMessageTypeFacebook MessageMessageType = "facebook"
 	MessageMessageTypeInapp    MessageMessageType = "inapp"
 	MessageMessageTypeTwitter  MessageMessageType = "twitter"
+	MessageMessageTypeWhatsapp MessageMessageType = "whatsapp"
 )
 
 // Valid indicates whether the value is a known member of the MessageMessageType enum.
@@ -5704,6 +5747,8 @@ func (e MessageMessageType) Valid() bool {
 	case MessageMessageTypeInapp:
 		return true
 	case MessageMessageTypeTwitter:
+		return true
+	case MessageMessageTypeWhatsapp:
 		return true
 	default:
 		return false
@@ -5971,6 +6016,24 @@ func (e SalesAgentOutcome) Valid() bool {
 	case SalesAgentOutcomeQualified:
 		return true
 	case SalesAgentOutcomeSpam:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SearchRequestSortOrder.
+const (
+	SearchRequestSortOrderAscending  SearchRequestSortOrder = "ascending"
+	SearchRequestSortOrderDescending SearchRequestSortOrder = "descending"
+)
+
+// Valid indicates whether the value is a known member of the SearchRequestSortOrder enum.
+func (e SearchRequestSortOrder) Valid() bool {
+	switch e {
+	case SearchRequestSortOrderAscending:
+		return true
+	case SearchRequestSortOrderDescending:
 		return true
 	default:
 		return false
@@ -7045,6 +7108,36 @@ func (e WorkflowExportWorkflowState) Valid() bool {
 	}
 }
 
+// Defines values for RemoveAdmin200JSONResponseBodyObject.
+const (
+	RemoveAdmin200JSONResponseBodyObjectAdmin RemoveAdmin200JSONResponseBodyObject = "admin"
+)
+
+// Valid indicates whether the value is a known member of the RemoveAdmin200JSONResponseBodyObject enum.
+func (e RemoveAdmin200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case RemoveAdmin200JSONResponseBodyObjectAdmin:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RemoveAdmin200JSONResponseBodyRemoved.
+const (
+	RemoveAdmin200JSONResponseBodyRemovedTrue RemoveAdmin200JSONResponseBodyRemoved = "true"
+)
+
+// Valid indicates whether the value is a known member of the RemoveAdmin200JSONResponseBodyRemoved enum.
+func (e RemoveAdmin200JSONResponseBodyRemoved) Valid() bool {
+	switch e {
+	case RemoveAdmin200JSONResponseBodyRemovedTrue:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SearchArticlesParamsState.
 const (
 	SearchArticlesParamsStateAll       SearchArticlesParamsState = "all"
@@ -7330,6 +7423,7 @@ const (
 	CreateConversation200JSONResponseBodyMessageTypeFacebook CreateConversation200JSONResponseBodyMessageType = "facebook"
 	CreateConversation200JSONResponseBodyMessageTypeInapp    CreateConversation200JSONResponseBodyMessageType = "inapp"
 	CreateConversation200JSONResponseBodyMessageTypeTwitter  CreateConversation200JSONResponseBodyMessageType = "twitter"
+	CreateConversation200JSONResponseBodyMessageTypeWhatsapp CreateConversation200JSONResponseBodyMessageType = "whatsapp"
 )
 
 // Valid indicates whether the value is a known member of the CreateConversation200JSONResponseBodyMessageType enum.
@@ -7342,6 +7436,8 @@ func (e CreateConversation200JSONResponseBodyMessageType) Valid() bool {
 	case CreateConversation200JSONResponseBodyMessageTypeInapp:
 		return true
 	case CreateConversation200JSONResponseBodyMessageTypeTwitter:
+		return true
+	case CreateConversation200JSONResponseBodyMessageTypeWhatsapp:
 		return true
 	default:
 		return false
@@ -8224,6 +8320,11 @@ type AdminReplyConversationRequest struct {
 	// Example: 3156780
 	AdminId string `json:"admin_id"`
 
+	// AssigneeId The `id` of the admin or team to assign the conversation to with this reply.
+	//
+	// Example: 4324241
+	AssigneeId *string `json:"assignee_id,omitempty"`
+
 	// AttachmentFiles A list of files that will be added as attachments. You can include up to 10 files
 	AttachmentFiles *[]ConversationAttachmentFiles `json:"attachment_files,omitempty"`
 
@@ -8250,6 +8351,11 @@ type AdminReplyConversationRequest struct {
 	//
 	// Example: true
 	SkipNotifications *bool `json:"skip_notifications,omitempty"`
+
+	// SkipReopen When true, a reply that assigns the conversation (a `comment` with `assignee_id`) doesn't reopen or unsnooze it. A plain `comment` still reopens a closed conversation. Available from API version 2.17.
+	//
+	// Example: true
+	SkipReopen *bool `json:"skip_reopen,omitempty"`
 
 	// Type Example: admin
 	Type AdminReplyConversationRequestType `json:"type"`
@@ -9549,6 +9655,11 @@ type AssignConversationRequest struct {
 	// MessageType Example: assignment
 	MessageType AssignConversationRequestMessageType `json:"message_type"`
 
+	// SkipNotifications Option to disable notifications when assigning a conversation. Available from API version 2.15.
+	//
+	// Example: true
+	SkipNotifications *bool `json:"skip_notifications,omitempty"`
+
 	// SkipReopen When true, assigning a closed conversation leaves it closed instead of reopening it. No reopen event is recorded, so the conversation keeps its original close timestamp and the assignment does not count as a new closure in reporting.
 	//
 	// Example: true
@@ -9564,48 +9675,28 @@ type AssignConversationRequestMessageType string
 // AssignConversationRequestType Example: admin
 type AssignConversationRequestType string
 
-// AttachContactToConversationRequest Payload of the request to assign a conversation
+// AttachContactToConversationRequest Payload of the request to add a contact to a conversation. Say who is adding the contact in one of two ways: send `admin_id` to act as an admin, or send one of `intercom_user_id`, `user_id` or `email` to act as a contact. Sending both, or neither, returns a `422` error. Use `customer` to identify the contact to add.
 type AttachContactToConversationRequest struct {
-	// AdminId The `id` of the admin who is adding the new participant.
+	// AdminId The `id` of the admin who is adding the new participant. Send this to act as an admin.
 	//
 	// Example: 12345
-	AdminId  *string                                      `json:"admin_id,omitempty"`
-	Customer *AttachContactToConversationRequest_Customer `json:"customer,omitempty"`
-}
+	AdminId  *string          `json:"admin_id,omitempty"`
+	Customer *CustomerRequest `json:"customer"`
 
-// AttachContactToConversationRequestCustomer0 defines model for AttachContactToConversationRequest.Customer.0.
-type AttachContactToConversationRequestCustomer0 struct {
-	Customer *CustomerRequest `json:"customer,omitempty"`
-
-	// IntercomUserId The identifier for the contact as given by Intercom.
-	//
-	// Example: 6329bd9ffe4e2e91dac76188
-	IntercomUserId string `json:"intercom_user_id"`
-}
-
-// AttachContactToConversationRequestCustomer1 defines model for AttachContactToConversationRequest.Customer.1.
-type AttachContactToConversationRequestCustomer1 struct {
-	Customer *CustomerRequest `json:"customer,omitempty"`
-
-	// UserId The external_id you have defined for the contact who is being added as a participant.
-	//
-	// Example: 6329bd9ffe4e2e91dac76188
-	UserId string `json:"user_id"`
-}
-
-// AttachContactToConversationRequestCustomer2 defines model for AttachContactToConversationRequest.Customer.2.
-type AttachContactToConversationRequestCustomer2 struct {
-	Customer *CustomerRequest `json:"customer,omitempty"`
-
-	// Email The email you have defined for the contact who is being added as a participant.
+	// Email The email of the contact who is adding the new participant.
 	//
 	// Example: winstonsmith@truth.org
-	Email string `json:"email"`
-}
+	Email *string `json:"email,omitempty"`
 
-// AttachContactToConversationRequest_Customer defines model for AttachContactToConversationRequest.Customer.
-type AttachContactToConversationRequest_Customer struct {
-	union json.RawMessage
+	// IntercomUserId The identifier, as given by Intercom, of the contact who is adding the new participant. Send this, `user_id` or `email` to act as a contact.
+	//
+	// Example: 6329bd9ffe4e2e91dac76188
+	IntercomUserId *string `json:"intercom_user_id,omitempty"`
+
+	// UserId The `external_id` you have defined for the contact who is adding the new participant.
+	//
+	// Example: 2e91dac761886329bd9ffe4e
+	UserId *string `json:"user_id,omitempty"`
 }
 
 // Audience An audience represents a group of contacts that can be targeted by Fin.
@@ -9867,6 +9958,47 @@ type BannerList struct {
 	// Example: list
 	Type *string `json:"type,omitempty"`
 }
+
+// BotReplyConversationRequest Payload of the request to reply on behalf of a bot
+type BotReplyConversationRequest struct {
+	// AttachmentUrls A list of image URLs that will be added as attachments. You can include up to 10 URLs.
+	AttachmentUrls *[]string `json:"attachment_urls,omitempty"`
+
+	// Body The text body of the reply. Must be present for comment and note message types.
+	//
+	// Example: Hello there!
+	Body *string `json:"body,omitempty"`
+
+	// BotId The id of the bot that is authoring the reply. A bot that doesn't exist returns a `404` error.
+	//
+	// Example: 3156780
+	BotId string `json:"bot_id"`
+
+	// CreatedAt The time the reply was created. If not provided, the current time will be used.
+	//
+	// Example: 1590000000
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// MessageType Example: comment
+	MessageType BotReplyConversationRequestMessageType `json:"message_type"`
+
+	// ReplyOptions The quick reply options to display to the end user. Must be present for quick_reply message types.
+	ReplyOptions *[]QuickReplyOption `json:"reply_options,omitempty"`
+
+	// SkipNotifications Option to disable notifications when replying to a conversation. Available from API version 2.15.
+	//
+	// Example: true
+	SkipNotifications *bool `json:"skip_notifications,omitempty"`
+
+	// Type Example: bot
+	Type BotReplyConversationRequestType `json:"type"`
+}
+
+// BotReplyConversationRequestMessageType Example: comment
+type BotReplyConversationRequestMessageType string
+
+// BotReplyConversationRequestType Example: bot
+type BotReplyConversationRequestType string
 
 // Brand Represents a branding configuration for the workspace
 type Brand struct {
@@ -10458,6 +10590,11 @@ type CloseConversationRequest struct {
 	// Example: 12345
 	AdminId string `json:"admin_id"`
 
+	// AssigneeId The `id` of the `admin` or `team` to assign the conversation to when it is closed. Set `0` to unassign it, which clears both the teammate and the team assignee.
+	//
+	// Example: 4324241
+	AssigneeId *string `json:"assignee_id,omitempty"`
+
 	// Body Optionally you can leave a message in the conversation to provide additional context to the user and other teammates.
 	//
 	// Example:  This conversation is now closed!
@@ -10465,6 +10602,11 @@ type CloseConversationRequest struct {
 
 	// MessageType Example: close
 	MessageType CloseConversationRequestMessageType `json:"message_type"`
+
+	// SkipNotifications Option to disable notifications when closing a conversation. Available from API version 2.15.
+	//
+	// Example: true
+	SkipNotifications *bool `json:"skip_notifications,omitempty"`
 
 	// Type Example: admin
 	Type CloseConversationRequestType `json:"type"`
@@ -11586,8 +11728,8 @@ type ContactReplyBaseRequest struct {
 	// AttachmentUrls A list of image URLs that will be added as attachments. You can include up to 10 URLs.
 	AttachmentUrls *[]string `json:"attachment_urls,omitempty"`
 
-	// Body The text body of the comment.
-	Body string `json:"body"`
+	// Body The text body of the comment. Required unless the reply includes attachments. Always required when replying to a ticket.
+	Body *string `json:"body,omitempty"`
 
 	// CreatedAt The time the reply was created. If not provided, the current time will be used.
 	//
@@ -11625,8 +11767,8 @@ type ContactReplyEmailRequest struct {
 	// AttachmentUrls A list of image URLs that will be added as attachments. You can include up to 10 URLs.
 	AttachmentUrls *[]string `json:"attachment_urls,omitempty"`
 
-	// Body The text body of the comment.
-	Body string `json:"body"`
+	// Body The text body of the comment. Required unless the reply includes attachments. Always required when replying to a ticket.
+	Body *string `json:"body,omitempty"`
 
 	// CreatedAt The time the reply was created. If not provided, the current time will be used.
 	//
@@ -11662,8 +11804,8 @@ type ContactReplyIntercomUserIdRequest struct {
 	// AttachmentUrls A list of image URLs that will be added as attachments. You can include up to 10 URLs.
 	AttachmentUrls *[]string `json:"attachment_urls,omitempty"`
 
-	// Body The text body of the comment.
-	Body string `json:"body"`
+	// Body The text body of the comment. Required unless the reply includes attachments. Always required when replying to a ticket.
+	Body *string `json:"body,omitempty"`
 
 	// CreatedAt The time the reply was created. If not provided, the current time will be used.
 	//
@@ -11696,7 +11838,7 @@ type ContactReplyTicketEmailRequest struct {
 	// AttachmentUrls A list of image URLs that will be added as attachments. You can include up to 10 URLs.
 	AttachmentUrls *[]string `json:"attachment_urls,omitempty"`
 
-	// Body The text body of the comment.
+	// Body The text body of the comment. Required unless the reply includes attachments. Always required when replying to a ticket.
 	Body string `json:"body"`
 
 	// CreatedAt The time the reply was created. If not provided, the current time will be used.
@@ -11730,7 +11872,7 @@ type ContactReplyTicketIntercomUserIdRequest struct {
 	// AttachmentUrls A list of image URLs that will be added as attachments. You can include up to 10 URLs.
 	AttachmentUrls *[]string `json:"attachment_urls,omitempty"`
 
-	// Body The text body of the comment.
+	// Body The text body of the comment. Required unless the reply includes attachments. Always required when replying to a ticket.
 	Body string `json:"body"`
 
 	// CreatedAt The time the reply was created. If not provided, the current time will be used.
@@ -11769,7 +11911,7 @@ type ContactReplyTicketUserIdRequest struct {
 	// AttachmentUrls A list of image URLs that will be added as attachments. You can include up to 10 URLs.
 	AttachmentUrls *[]string `json:"attachment_urls,omitempty"`
 
-	// Body The text body of the comment.
+	// Body The text body of the comment. Required unless the reply includes attachments. Always required when replying to a ticket.
 	Body string `json:"body"`
 
 	// CreatedAt The time the reply was created. If not provided, the current time will be used.
@@ -11806,8 +11948,8 @@ type ContactReplyUserIdRequest struct {
 	// AttachmentUrls A list of image URLs that will be added as attachments. You can include up to 10 URLs.
 	AttachmentUrls *[]string `json:"attachment_urls,omitempty"`
 
-	// Body The text body of the comment.
-	Body string `json:"body"`
+	// Body The text body of the comment. Required unless the reply includes attachments. Always required when replying to a ticket.
+	Body *string `json:"body,omitempty"`
 
 	// CreatedAt The time the reply was created. If not provided, the current time will be used.
 	//
@@ -12669,7 +12811,7 @@ type Conversation struct {
 	// LinkedObjects An object containing metadata about linked conversations and linked tickets. Up to 1000 can be returned.
 	LinkedObjects *LinkedObjectList `json:"linked_objects,omitempty"`
 
-	// MonitorEvaluations QA monitor evaluations that flagged this conversation. Only included when `include_monitors=true` is passed as a query parameter.
+	// MonitorEvaluations The latest QA monitor evaluation for each monitor that has evaluated this conversation, whatever its result. Only included when `include_monitors=true` is passed as a query parameter.
 	MonitorEvaluations *[]ConversationMonitorEvaluation `json:"monitor_evaluations,omitempty"`
 
 	// Open Indicates whether a conversation is open (true) or closed (false).
@@ -13508,13 +13650,13 @@ type ConversationDeleted struct {
 	// Example: 5ba682d23d7cf92bef87bfd4
 	Id *string `json:"id,omitempty"`
 
-	// Object always conversation
+	// Object `conversation`, or `ticket` when the deleted item is a ticket.
 	//
 	// Example: conversation
 	Object *ConversationDeletedObject `json:"object,omitempty"`
 }
 
-// ConversationDeletedObject always conversation
+// ConversationDeletedObject `conversation`, or `ticket` when the deleted item is a ticket.
 //
 // Example: conversation
 type ConversationDeletedObject string
@@ -13622,7 +13764,7 @@ type ConversationListItem struct {
 	// LinkedObjects An object containing metadata about linked conversations and linked tickets. Up to 1000 can be returned.
 	LinkedObjects *LinkedObjectList `json:"linked_objects,omitempty"`
 
-	// MonitorEvaluations QA monitor evaluations that flagged this conversation. Only included when `include_monitors=true` is passed as a query parameter.
+	// MonitorEvaluations The latest QA monitor evaluation for each monitor that has evaluated this conversation, whatever its result. Only included when `include_monitors=true` is passed as a query parameter.
 	MonitorEvaluations *[]ConversationMonitorEvaluation `json:"monitor_evaluations,omitempty"`
 
 	// Open Indicates whether a conversation is open (true) or closed (false).
@@ -13682,10 +13824,100 @@ type ConversationListItem struct {
 	// Teammates The list of teammates who participated in the conversation (wrote at least one conversation part).
 	Teammates *ConversationTeammates `json:"teammates,omitempty"`
 
+	// Ticket The ticket details when the conversation is a ticket. `null` for any other conversation.
+	Ticket *struct {
+		// CustomAttributes The ticket's attributes, keyed by attribute name.
+		CustomAttributes *map[string]struct {
+			// Type The data type of the attribute.
+			//
+			// Example: string
+			Type *string `json:"type,omitempty"`
+
+			// Value The value of the attribute.
+			Value *ConversationListItem_Ticket_CustomAttributes_Value `json:"value,omitempty"`
+		} `json:"custom_attributes,omitempty"`
+
+		// Id The id of the ticket's conversation.
+		//
+		// Example: 1295
+		Id *int `json:"id,omitempty"`
+
+		// State The current state of the ticket.
+		//
+		// Example: submitted
+		State *string `json:"state,omitempty"`
+
+		// TicketCustomStateAdminLabel The label of the ticket's state as teammates see it.
+		//
+		// Example: Submitted
+		TicketCustomStateAdminLabel *string `json:"ticket_custom_state_admin_label,omitempty"`
+
+		// TicketCustomStateUserLabel The label of the ticket's state as the customer sees it.
+		//
+		// Example: Received
+		TicketCustomStateUserLabel *string `json:"ticket_custom_state_user_label,omitempty"`
+
+		// TicketType The name of the ticket type.
+		//
+		// Example: Bug report
+		TicketType *string `json:"ticket_type,omitempty"`
+
+		// TicketTypeDescription The description of the ticket type.
+		//
+		// Example: Something is broken
+		TicketTypeDescription *string `json:"ticket_type_description,omitempty"`
+
+		// TicketTypeEmoji The emoji of the ticket type.
+		//
+		// Example: 🐛
+		TicketTypeEmoji *string `json:"ticket_type_emoji,omitempty"`
+
+		// Type Always `ticket`.
+		//
+		// Example: ticket
+		Type *string `json:"type,omitempty"`
+
+		// Url The link to the ticket in the inbox.
+		//
+		// Example: https://app.intercom.com/a/apps/abcd1234/conversations/1295
+		Url *string `json:"url,omitempty"`
+	} `json:"ticket,omitempty"`
+
 	// Title The title given to the conversation.
 	//
 	// Example: Conversation Title
 	Title *string `json:"title,omitempty"`
+
+	// Topics The topics of the conversation. An empty object when the workspace doesn't use topics.
+	Topics *struct {
+		// Topics The topics of the conversation.
+		Topics *[]struct {
+			// Id The id of the topic.
+			//
+			// Example: 4521
+			Id *int `json:"id,omitempty"`
+
+			// Name The name of the topic.
+			//
+			// Example: Billing
+			Name *string `json:"name,omitempty"`
+
+			// Type Always `topic`.
+			//
+			// Example: topic
+			Type *string `json:"type,omitempty"`
+		} `json:"topics,omitempty"`
+
+		// TotalCount The number of topics.
+		//
+		// Example: 1
+		TotalCount *int `json:"total_count,omitempty"`
+
+		// Type Always `topic.list`.
+		//
+		// Example: topic.list
+		Type *string `json:"type,omitempty"`
+	} `json:"topics,omitempty"`
 
 	// Type Always conversation.
 	//
@@ -13713,7 +13945,24 @@ type ConversationListItemPriority string
 // Example: open
 type ConversationListItemState string
 
-// ConversationMonitorEvaluation A QA monitor evaluation that flagged this conversation. Returned in the `monitor_evaluations` array on conversation responses when `include_monitors=true` is passed.
+// ConversationListItemTicketCustomAttributesValue0 defines model for ConversationListItem.Ticket.CustomAttributes.Value.0.
+type ConversationListItemTicketCustomAttributesValue0 = string
+
+// ConversationListItemTicketCustomAttributesValue1 defines model for ConversationListItem.Ticket.CustomAttributes.Value.1.
+type ConversationListItemTicketCustomAttributesValue1 = float64
+
+// ConversationListItemTicketCustomAttributesValue2 defines model for ConversationListItem.Ticket.CustomAttributes.Value.2.
+type ConversationListItemTicketCustomAttributesValue2 = bool
+
+// ConversationListItemTicketCustomAttributesValue3 defines model for ConversationListItem.Ticket.CustomAttributes.Value.3.
+type ConversationListItemTicketCustomAttributesValue3 = []int
+
+// ConversationListItem_Ticket_CustomAttributes_Value The value of the attribute.
+type ConversationListItem_Ticket_CustomAttributes_Value struct {
+	union json.RawMessage
+}
+
+// ConversationMonitorEvaluation A QA monitor evaluation of this conversation. Returned in the `monitor_evaluations` array on conversation responses when `include_monitors=true` is passed.
 type ConversationMonitorEvaluation struct {
 	// EvaluatedAt The time the monitor evaluated this conversation. Null in the rare case the underlying record's timestamp is not yet set.
 	//
@@ -13740,9 +13989,9 @@ type ConversationMonitorEvaluation struct {
 	// Example: prompt
 	MonitorType *string `json:"monitor_type,omitempty"`
 
-	// Result The evaluation outcome reported by the monitor.
+	// Result The evaluation outcome reported by the monitor: `included` (the conversation matches the monitor's criteria), `excluded`, `error` or `awaiting_async_data`.
 	//
-	// Example: flagged
+	// Example: included
 	Result *string `json:"result,omitempty"`
 }
 
@@ -13822,7 +14071,7 @@ type ConversationPart struct {
 	// Example: 5017691
 	TeamAssigneeId *int `json:"team_assignee_id,omitempty"`
 
-	// Translations A map of the reply text keyed by locale code. Backs the `conversation.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in; every other key holds the reply translated into that locale.
+	// Translations A map of the reply text keyed by locale code. Backs the `conversation.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in, when it is known; every other key holds the reply translated into that locale.
 	//
 	// Example: {"en":"\u003cp\u003eHello\u003c/p\u003e","fr":"\u003cp\u003eBonjour\u003c/p\u003e","original":"en"}
 	Translations *ConversationPart_Translations `json:"translations,omitempty"`
@@ -13843,14 +14092,14 @@ type ConversationPart struct {
 // Example: open
 type ConversationPartState string
 
-// ConversationPart_Translations A map of the reply text keyed by locale code. Backs the `conversation.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in; every other key holds the reply translated into that locale.
+// ConversationPart_Translations A map of the reply text keyed by locale code. Backs the `conversation.admin.replied.translated` webhook topic. `original` holds the locale code the reply was written in, when it is known; every other key holds the reply translated into that locale.
 //
 // Example: {"en":"\u003cp\u003eHello\u003c/p\u003e","fr":"\u003cp\u003eBonjour\u003c/p\u003e","original":"en"}
 type ConversationPart_Translations struct {
 	// Original The locale code identifying the language the reply was originally written in.
 	//
 	// Example: en
-	Original             string            `json:"original"`
+	Original             *string           `json:"original,omitempty"`
 	AdditionalProperties map[string]string `json:"-"`
 }
 
@@ -14477,7 +14726,7 @@ type ConversationTeammates struct {
 
 // ConvertConversationToTicketRequest You can convert a Conversation to a Ticket
 type ConvertConversationToTicketRequest struct {
-	// Attributes The attributes set on the ticket. When setting the default title and description attributes, the attribute keys that should be used are `_default_title_` and `_default_description_`. When setting ticket type attributes of the list attribute type, the key should be the attribute name and the value of the attribute should be the list item id, obtainable by [listing the ticket type](ref:get_ticket-types). For example, if the ticket type has an attribute called `priority` of type `list`, the key should be `priority` and the value of the attribute should be the guid of the list item (e.g. `de1825a0-0164-4070-8ca6-13e22462fa7e`).
+	// Attributes The attributes set on the ticket. When setting the default title and description attributes, the attribute keys that should be used are `_default_title_` and `_default_description_`. When setting ticket type attributes of the list attribute type, the key should be the attribute name and the value of the attribute should be the list item id, obtainable by [listing the ticket type](ref:get_ticket-types). For example, if the ticket type has an attribute called `priority` of type `list`, the key should be `priority` and the value of the attribute should be the guid of the list item (e.g. `de1825a0-0164-4070-8ca6-13e22462fa7e`). For a `files` attribute, pass an array of upload ids; for a `relationship` attribute, pass an array of related object ids as strings.
 	//
 	// Example: {"_default_description_":"The button is not working","_default_title_":"Found a bug"}
 	Attributes *TicketRequestCustomAttributes `json:"attributes,omitempty"`
@@ -15621,8 +15870,18 @@ type CreateMessageRequest struct {
 	// Body The content of the message. HTML and plaintext are supported.
 	//
 	// Example: Hello there
-	Body *string                  `json:"body,omitempty"`
-	Cc   *CreateMessageRequest_Cc `json:"cc,omitempty"`
+	Body *string `json:"body,omitempty"`
+
+	// BrandId The id of the brand to send the message from. Not used for `whatsapp` messages. A brand that doesn't exist returns a `400` error.
+	//
+	// Example: 1234
+	BrandId *string                  `json:"brand_id,omitempty"`
+	Cc      *CreateMessageRequest_Cc `json:"cc,omitempty"`
+
+	// Components The components of the WhatsApp template, with the values for its variables. Required for `whatsapp` messages.
+	//
+	// Example: [{"parameters":[{"text":"Username 123","type":"text"}],"type":"BODY"}]
+	Components *[]map[string]interface{} `json:"components,omitempty"`
 
 	// CreateConversationWithoutContactReply Whether a conversation should be opened in the inbox for the message without the contact replying. Defaults to false if not provided.
 	//
@@ -15647,7 +15906,12 @@ type CreateMessageRequest struct {
 		Type CreateMessageRequestFromType `json:"type"`
 	} `json:"from,omitempty"`
 
-	// MessageType The kind of message being created. Values: `in_app`, `email` or `whatsapp`.
+	// Locale The locale of the WhatsApp template to send, such as `en`. If you leave it out, the contact's messenger locale is used, then the workspace locale. A template that isn't available in the locale returns a `400` error.
+	//
+	// Example: en
+	Locale *string `json:"locale,omitempty"`
+
+	// MessageType The kind of message being created. Values: `in_app`, `email` or `whatsapp`. `inapp` is also accepted for in-app messages, and responses always show in-app messages as `inapp`.
 	//
 	// Example: in_app
 	MessageType *CreateMessageRequestMessageType `json:"message_type,omitempty"`
@@ -15690,7 +15954,7 @@ type CreateMessageRequest_Cc struct {
 // Example: admin
 type CreateMessageRequestFromType string
 
-// CreateMessageRequestMessageType The kind of message being created. Values: `in_app`, `email` or `whatsapp`.
+// CreateMessageRequestMessageType The kind of message being created. Values: `in_app`, `email` or `whatsapp`. `inapp` is also accepted for in-app messages, and responses always show in-app messages as `inapp`.
 //
 // Example: in_app
 type CreateMessageRequestMessageType string
@@ -15699,6 +15963,19 @@ type CreateMessageRequestMessageType string
 //
 // Example: [{"id":"536e564f316c83104c000020","type":"user"},{"id":"536e564f316c83104c000021","type":"lead"}]
 type CreateMessageRequestTo1 = []Recipient
+
+// CreateMessageRequestTo2 The recipient of a `whatsapp` message, identified by phone number. Required form for `whatsapp` messages. A contact is created for the number if there isn't one.
+type CreateMessageRequestTo2 struct {
+	// Name The name to give the contact if one is created.
+	//
+	// Example: John Doe
+	Name *string `json:"name,omitempty"`
+
+	// Phone The recipient's phone number, in international format.
+	//
+	// Example: +5547999998888
+	Phone string `json:"phone"`
+}
 
 // CreateMessageRequest_To defines model for CreateMessageRequest.To.
 type CreateMessageRequest_To struct {
@@ -15909,15 +16186,49 @@ type CreateOrUpdateTagRequestTaggableType string
 
 // CreatePhoneSwitchRequest You can create an phone switch
 type CreatePhoneSwitchRequest struct {
-	// CustomAttributes The custom attributes which are set on this object, as key-value pairs. For relationship attributes the value should be a list of custom object instance models. Only attributes a caller may set should be sent here — attributes Intercom generates are returned in responses only.
+	// Body The text of the contact's first message. When you send it, a conversation is created straight away with this text as its first message.
 	//
-	// Example: {"end_date_timestamp":1677923174,"monthly_spend":155.5,"paid_subscriber":true,"start_date_iso8601":"2023-03-04T09:46:14Z","team_mates":9}
-	CustomAttributes *CustomAttributesRequest `json:"custom_attributes,omitempty"`
+	// Example: I need help with my invoice
+	Body *string `json:"body,omitempty"`
+
+	// Country The two-letter country code used to read `user_input_phone`. When `country` is `US`, Intercom also looks up the carrier to detect landlines.
+	//
+	// Example: IE
+	Country *string `json:"country,omitempty"`
+
+	// CustomAttributes Custom attributes to add to the user or lead's custom data attributes. Values are strings. Numbers and booleans are converted to strings. An empty string, or any array or object value, returns a `422` error with the key `context`. A `null` value is ignored.
+	//
+	// Example: {"issue_type":"Billing","priority":"High"}
+	CustomAttributes *map[string]CreatePhoneSwitchRequest_CustomAttributes_AdditionalProperties `json:"custom_attributes,omitempty"`
 
 	// Phone Phone number in E.164 format, that will receive the SMS to continue the conversation in the Messenger.
 	//
 	// Example: +1 1234567890
 	Phone string `json:"phone"`
+
+	// SendNotification Whether to send the SMS with the link to the Messenger. When `false`, no SMS is sent.
+	//
+	// Example: true
+	SendNotification *bool `json:"send_notification,omitempty"`
+
+	// UserInputPhone The phone number as the contact typed it, in national format. When sent with `country`, used in place of `phone` to read the number. `phone` is still required.
+	//
+	// Example: 087 234 5678
+	UserInputPhone *string `json:"user_input_phone,omitempty"`
+}
+
+// CreatePhoneSwitchRequestCustomAttributes0 defines model for CreatePhoneSwitchRequest.CustomAttributes.0.
+type CreatePhoneSwitchRequestCustomAttributes0 = string
+
+// CreatePhoneSwitchRequestCustomAttributes1 defines model for CreatePhoneSwitchRequest.CustomAttributes.1.
+type CreatePhoneSwitchRequestCustomAttributes1 = float64
+
+// CreatePhoneSwitchRequestCustomAttributes2 defines model for CreatePhoneSwitchRequest.CustomAttributes.2.
+type CreatePhoneSwitchRequestCustomAttributes2 = bool
+
+// CreatePhoneSwitchRequest_CustomAttributes_AdditionalProperties defines model for create_phone_switch_request.custom_attributes.AdditionalProperties.
+type CreatePhoneSwitchRequest_CustomAttributes_AdditionalProperties struct {
+	union json.RawMessage
 }
 
 // CreateTicketRequest You can create a Ticket
@@ -15963,7 +16274,7 @@ type CreateTicketRequest struct {
 	// Example: 1590000000
 	CreatedAt *int `json:"created_at,omitempty"`
 
-	// TicketAttributes The attributes set on the ticket. When setting the default title and description attributes, the attribute keys that should be used are `_default_title_` and `_default_description_`. When setting ticket type attributes of the list attribute type, the key should be the attribute name and the value of the attribute should be the list item id, obtainable by [listing the ticket type](ref:get_ticket-types). For example, if the ticket type has an attribute called `priority` of type `list`, the key should be `priority` and the value of the attribute should be the guid of the list item (e.g. `de1825a0-0164-4070-8ca6-13e22462fa7e`).
+	// TicketAttributes The attributes set on the ticket. When setting the default title and description attributes, the attribute keys that should be used are `_default_title_` and `_default_description_`. When setting ticket type attributes of the list attribute type, the key should be the attribute name and the value of the attribute should be the list item id, obtainable by [listing the ticket type](ref:get_ticket-types). For example, if the ticket type has an attribute called `priority` of type `list`, the key should be `priority` and the value of the attribute should be the guid of the list item (e.g. `de1825a0-0164-4070-8ca6-13e22462fa7e`). For a `files` attribute, pass an array of upload ids; for a `relationship` attribute, pass an array of related object ids as strings.
 	//
 	// Example: {"_default_description_":"The button is not working","_default_title_":"Found a bug"}
 	TicketAttributes *TicketRequestCustomAttributes `json:"ticket_attributes,omitempty"`
@@ -19630,28 +19941,46 @@ type Message struct {
 	// Example: 1667560812
 	CreatedAt int `json:"created_at"`
 
+	// ExternalId The external identifier of the message, if one was set when the message was created. Only returned for messages started by a contact.
+	//
+	// Example: api:order-1234
+	ExternalId *string `json:"external_id,omitempty"`
+
 	// Id The id representing the message.
 	//
 	// Example: 1488971108
 	Id string `json:"id"`
 
-	// MessageType The type of message that was sent. Can be email, inapp, facebook or twitter.
+	// MessageType The type of message that was sent. Can be email, inapp, facebook, twitter or whatsapp.
 	//
 	// Example: inapp
 	MessageType MessageMessageType `json:"message_type"`
+
+	// Owner Admins are teammate accounts that have access to a workspace.
+	Owner *Admin `json:"owner,omitempty"`
 
 	// Subject The subject of the message. Only present if message_type: email.
 	//
 	// Example: Greetings
 	Subject *string `json:"subject,omitempty"`
 
+	// Template The style of the email, such as `plain` or `personal`. Only present when `message_type` is `email`.
+	//
+	// Example: plain
+	Template *string `json:"template,omitempty"`
+
 	// Type The type of the message
 	//
 	// Example: user_message
 	Type string `json:"type"`
+
+	// WhatsappMessageId The id WhatsApp gave the message. Only present for `whatsapp` messages that WhatsApp accepted.
+	//
+	// Example: wamid.EXAMPLE123
+	WhatsappMessageId *string `json:"whatsapp_message_id,omitempty"`
 }
 
-// MessageMessageType The type of message that was sent. Can be email, inapp, facebook or twitter.
+// MessageMessageType The type of message that was sent. Can be email, inapp, facebook, twitter or whatsapp.
 //
 // Example: inapp
 type MessageMessageType string
@@ -19679,362 +20008,4 @@ type MultipleFilterSearchRequestValue1 = []SingleFilterSearchRequest
 // MultipleFilterSearchRequest_Value defines model for MultipleFilterSearchRequest.Value.
 type MultipleFilterSearchRequest_Value struct {
 	union json.RawMessage
-}
-
-// NewsItem A News Item is a content type in Intercom enabling you to announce product updates, company news, promotions, events and more with your customers.
-type NewsItem struct {
-	// Body The news item body, which may contain HTML.
-	//
-	// Example: We are excited to announce the launch of News Items, a new content type in Intercom enabling you to announce product updates, company news, promotions, events and more with your customers.
-	Body *string `json:"body,omitempty"`
-
-	// CoverImageUrl URL of the image used as cover. Must have .jpg or .png extension. Intercom copies the image you send on write, so the URL returned here is a signed Intercom URL that expires; fetch the news item again for a fresh one.
-	//
-	// Example: https://example.com/cover.jpg
-	CoverImageUrl *string `json:"cover_image_url,omitempty"`
-
-	// CreatedAt Timestamp for when the news item was created.
-	//
-	// Example: 1610589632
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// DeliverSilently When set to true, the news item will appear in the messenger newsfeed without showing a notification badge.
-	//
-	// Example: true
-	DeliverSilently *bool `json:"deliver_silently,omitempty"`
-
-	// Id The unique identifier for the news item which is given by Intercom.
-	//
-	// Example: 141
-	Id *string `json:"id,omitempty"`
-
-	// Labels Label names displayed to users to categorize the news item, sorted with uppercase letters before lowercase.
-	Labels *[]string `json:"labels,omitempty"`
-
-	// NewsfeedAssignments A list of newsfeed_assignments to assign to the specified newsfeed.
-	NewsfeedAssignments *[]NewsfeedAssignment `json:"newsfeed_assignments,omitempty"`
-
-	// PublishedAt Timestamp for when the news item last went live. Null if the news item has never been live.
-	//
-	// Example: 1610589632
-	PublishedAt *int `json:"published_at,omitempty"`
-
-	// Reactions Ordered list of emoji reactions to the news item. When empty, reactions are disabled. An update that leaves out `reactions` also disables them but leaves this list as it was.
-	Reactions *[]string `json:"reactions,omitempty"`
-
-	// SenderId The id of the sender of the news item. Must be a teammate on the workspace.
-	//
-	// Example: 123
-	SenderId *int `json:"sender_id,omitempty"`
-
-	// State News items will not be visible to your users in the assigned newsfeeds until they are set live.
-	//
-	// Example: live
-	State *NewsItemState `json:"state,omitempty"`
-
-	// Title The title of the news item.
-	//
-	// Example: New feature: News Items
-	Title *string `json:"title,omitempty"`
-
-	// Type The type of object.
-	//
-	// Example: news-item
-	Type *NewsItemType `json:"type,omitempty"`
-
-	// UpdatedAt Timestamp for when the news item was last updated.
-	//
-	// Example: 1610589632
-	UpdatedAt *int `json:"updated_at,omitempty"`
-
-	// WorkspaceId The id of the workspace which the news item belongs to.
-	//
-	// Example: t74hdn32
-	WorkspaceId *string `json:"workspace_id,omitempty"`
-}
-
-// NewsItemState News items will not be visible to your users in the assigned newsfeeds until they are set live.
-//
-// Example: live
-type NewsItemState string
-
-// NewsItemType The type of object.
-//
-// Example: news-item
-type NewsItemType string
-
-// NewsItemRequest A News Item is a content type in Intercom enabling you to announce product updates, company news, promotions, events and more with your customers.
-type NewsItemRequest struct {
-	// Body The news item body, which may contain HTML.
-	//
-	// Example: <p>New costumes in store for this spooky season</p>
-	Body *string `json:"body,omitempty"`
-
-	// CoverImageUrl URL of the image to use as the cover. Must contain `.png` or `.jpg` in lower case, so `.jpeg` and `.PNG` are rejected. Intercom copies the image and serves it from its own signed URL.
-	//
-	// Example: https://example.com/cover.jpg
-	CoverImageUrl *string `json:"cover_image_url,omitempty"`
-
-	// DeliverSilently When set to `true`, the news item will appear in the messenger newsfeed without showing a notification badge.
-	//
-	// Example: true
-	DeliverSilently *bool `json:"deliver_silently,omitempty"`
-
-	// Labels Label names displayed to users to categorize the news item.
-	//
-	// Example: ["Product","Update","New"]
-	Labels *[]string `json:"labels,omitempty"`
-
-	// NewsfeedAssignments A list of newsfeed_assignments to assign to the specified newsfeed.
-	NewsfeedAssignments *[]NewsfeedAssignment `json:"newsfeed_assignments,omitempty"`
-
-	// Reactions Ordered list of emoji reactions to the news item. Send an empty list to disable reactions. Send at most five, each a single Unicode code point, so an emoji with a skin tone, a joiner sequence or a variation selector (such as ❤️) is rejected. More than five returns a 400, but the news item is still saved as a draft, with no reactions or cover image.
-	//
-	// Example: ["😆","😅"]
-	Reactions *[]string `json:"reactions,omitempty"`
-
-	// SenderId The id of the sender of the news item. Must be a teammate on the workspace.
-	//
-	// Example: 123
-	SenderId int `json:"sender_id"`
-
-	// State News items will not be visible to your users in the assigned newsfeeds until they are set live.
-	//
-	// Example: live
-	State *NewsItemRequestState `json:"state,omitempty"`
-
-	// Title The title of the news item.
-	//
-	// Example: Halloween is here!
-	Title string `json:"title"`
-}
-
-// NewsItemRequestState News items will not be visible to your users in the assigned newsfeeds until they are set live.
-//
-// Example: live
-type NewsItemRequestState string
-
-// Newsfeed A newsfeed is a collection of news items, targeted to a specific audience.
-//
-// Newsfeeds currently cannot be edited through the API, please refer to [this article](https://www.intercom.com/help/en/articles/6362267-getting-started-with-news) to set up your newsfeeds in Intercom.
-type Newsfeed struct {
-	// CreatedAt Timestamp for when the newsfeed was created.
-	//
-	// Example: 1674917488
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// Id The unique identifier for the newsfeed which is given by Intercom.
-	//
-	// Example: 12312
-	Id *string `json:"id,omitempty"`
-
-	// Name The name of the newsfeed. This name will never be visible to your users. Returned HTML-escaped, for example `&` as `&amp;`. The News Center newsfeed always returns the name `News center newsfeed`.
-	//
-	// Example: My Newsfeed
-	Name *string `json:"name,omitempty"`
-
-	// Type The type of object.
-	//
-	// Example: newsfeed
-	Type *NewsfeedType `json:"type,omitempty"`
-
-	// UpdatedAt Timestamp for when the newsfeed was last updated.
-	//
-	// Example: 1674917488
-	UpdatedAt *int `json:"updated_at,omitempty"`
-}
-
-// NewsfeedType The type of object.
-//
-// Example: newsfeed
-type NewsfeedType string
-
-// NewsfeedAssignment Assigns a news item to a newsfeed.
-type NewsfeedAssignment struct {
-	// NewsfeedId The unique identifier for the newsfeed which is given by Intercom.
-	//
-	// Example: 198313
-	NewsfeedId *int `json:"newsfeed_id,omitempty"`
-
-	// PublishedAt Publish date of the news item on the newsfeed, use this field if you want to set a publish date in the past (e.g. when importing existing news items). On write, this field will be ignored if the news item state is "draft", and a date in the future is rejected with a `400`. Null while the news item isn't live.
-	//
-	// Example: 1674917488
-	PublishedAt *int `json:"published_at,omitempty"`
-}
-
-// Note Notes allow you to annotate and comment on your contacts and companies. A note is attached to either a contact or a company, never both.
-type Note struct {
-	// Author Represents the Admin that created the note. When the note has no recorded admin, this is `null` on a single note and left out of each note in a list.
-	Author *Admin `json:"author,omitempty"`
-
-	// Body The body text of the note.
-	//
-	// Example: <p>Text for the note.</p>
-	Body *string `json:"body,omitempty"`
-
-	// Company Represents the company that the note was created about.
-	Company *struct {
-		// Id The id of the company.
-		//
-		// Example: 5f4d3c1c-7b1b-4d7d-a97e-6095715c6632
-		Id *string `json:"id,omitempty"`
-
-		// Type String representing the object's type. Always has the value `company`.
-		Type *string `json:"type,omitempty"`
-	} `json:"company,omitempty"`
-
-	// Contact Represents the contact that the note was created about.
-	Contact *struct {
-		// Id The id of the contact.
-		//
-		// Example: 214656d0c743eafcfde7f248
-		Id *string `json:"id,omitempty"`
-
-		// Type String representing the object's type. Always has the value `contact`.
-		Type *string `json:"type,omitempty"`
-	} `json:"contact,omitempty"`
-
-	// CreatedAt The time the note was created.
-	//
-	// Example: 1674589321
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// Id The id of the note.
-	//
-	// Example: 17495962
-	Id *string `json:"id,omitempty"`
-
-	// Type String representing the object's type. Always has the value `note`.
-	//
-	// Example: note
-	Type *string `json:"type,omitempty"`
-}
-
-// NoteList A paginated list of notes associated with a contact or a company. On the last page, `pages.next` is `null`. These lists never send `pages.prev`.
-type NoteList struct {
-	// Data An array of notes.
-	Data *[]Note `json:"data,omitempty"`
-
-	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
-	//
-	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
-	Pages *PagesLink `json:"pages,omitempty"`
-
-	// TotalCount A count of the total number of notes.
-	//
-	// Example: 1
-	TotalCount *int `json:"total_count,omitempty"`
-
-	// Type String representing the object's type. Always has the value `list`.
-	//
-	// Example: list
-	Type *string `json:"type,omitempty"`
-}
-
-// OfficeHoursException An exception overrides a schedule's regular hours on a specific date, such as a public holiday.
-type OfficeHoursException struct {
-	// CreatedAt The time the exception was created as a Unix timestamp.
-	//
-	// Example: 1717200000
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// ExceptionDate The date the exception applies to, in `YYYY-MM-DD` format.
-	//
-	// Example: 2026-12-25
-	ExceptionDate *openapi_types.Date `json:"exception_date,omitempty"`
-
-	// ExceptionType `closed` means the workspace is closed all day; `custom_hours` replaces the regular hours with `time_intervals`.
-	//
-	// Example: closed
-	ExceptionType *OfficeHoursExceptionExceptionType `json:"exception_type,omitempty"`
-
-	// Id The unique identifier for the office hours exception.
-	//
-	// Example: 456
-	Id *string `json:"id,omitempty"`
-
-	// Name An optional name for the exception.
-	//
-	// Example: Christmas Day
-	Name *string `json:"name,omitempty"`
-
-	// OfficeHoursScheduleId The unique identifier for the schedule this exception belongs to.
-	//
-	// Example: 123
-	OfficeHoursScheduleId *string `json:"office_hours_schedule_id,omitempty"`
-
-	// RecurringAnnually Whether the exception repeats every year on the same date.
-	//
-	// Example: true
-	RecurringAnnually *bool `json:"recurring_annually,omitempty"`
-
-	// TimeIntervals The open intervals for the exception date. `null` when `exception_type` is `closed`.
-	TimeIntervals *[]OfficeHoursTimeInterval `json:"time_intervals,omitempty"`
-
-	// Type The type of the object - always `office_hours_exception`.
-	//
-	// Example: office_hours_exception
-	Type *string `json:"type,omitempty"`
-
-	// UpdatedAt The time the exception was last updated as a Unix timestamp.
-	//
-	// Example: 1717200000
-	UpdatedAt *int `json:"updated_at,omitempty"`
-}
-
-// OfficeHoursExceptionExceptionType `closed` means the workspace is closed all day; `custom_hours` replaces the regular hours with `time_intervals`.
-//
-// Example: closed
-type OfficeHoursExceptionExceptionType string
-
-// OfficeHoursExceptionList A list of office hours exceptions.
-type OfficeHoursExceptionList struct {
-	// Data An array of office hours exceptions.
-	Data *[]OfficeHoursException `json:"data,omitempty"`
-
-	// Type The type of the object - always `office_hours_exception.list`.
-	//
-	// Example: office_hours_exception.list
-	Type *string `json:"type,omitempty"`
-}
-
-// OfficeHoursSchedule An office hours schedule defines the recurring weekly hours during which the workspace is open.
-type OfficeHoursSchedule struct {
-	// CreatedAt The time the schedule was created as a Unix timestamp.
-	//
-	// Example: 1717200000
-	CreatedAt *int `json:"created_at,omitempty"`
-
-	// Id The unique identifier for the office hours schedule.
-	//
-	// Example: 123
-	Id *string `json:"id,omitempty"`
-
-	// Name The name of the office hours schedule.
-	//
-	// Example: Standard Support Hours
-	Name *string `json:"name,omitempty"`
-
-	// TimeIntervals The open intervals that make up the weekly schedule.
-	TimeIntervals *[]OfficeHoursTimeInterval `json:"time_intervals,omitempty"`
-
-	// TimeZoneName The IANA time zone the schedule's hours are evaluated in.
-	//
-	// Example: America/New_York
-	TimeZoneName *string `json:"time_zone_name,omitempty"`
-
-	// TwentyFourSeven Whether the schedule is open 24/7.
-	//
-	// Example: false
-	TwentyFourSeven *bool `json:"twenty_four_seven,omitempty"`
-
-	// Type The type of the object - always `office_hours_schedule`.
-	//
-	// Example: office_hours_schedule
-	Type *string `json:"type,omitempty"`
-
-	// UpdatedAt The time the schedule was last updated as a Unix timestamp.
-	//
-	// Example: 1717200000
-	UpdatedAt *int `json:"updated_at,omitempty"`
 }

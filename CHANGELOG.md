@@ -2,6 +2,22 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.8.0, 2026-11-03
+
+- Breaking: `AttachContactToConversationRequest_Customer` is removed, with `AttachContactToConversationRequestCustomer0`, `AttachContactToConversationRequestCustomer1`, `AttachContactToConversationRequestCustomer2` and their `As`, `From` and `Merge` methods. `AttachContactToConversationRequest` now has `Email`, `IntercomUserId` and `UserId` fields.
+- Breaking: `Body` is now `*string` on `ContactReplyBaseRequest`, `ContactReplyEmailRequest`, `ContactReplyIntercomUserIdRequest` and `ContactReplyUserIdRequest`. `Original` is now `*string` on `ConversationPart_Translations`, `TicketPart_Translations` and `TicketReply_Translations`.
+- Breaking: `CreatePhoneSwitchRequest.CustomAttributes` is now `*map[string]CreatePhoneSwitchRequest_CustomAttributes_AdditionalProperties` instead of `*CustomAttributesRequest`.
+- Breaking: `TicketCustomAttributes3` is now `[]FileAttribute` and `TicketRequestCustomAttributes3` is now `[]int`, which changes the matching `As`, `From` and `Merge` methods. `TicketRequestCustomAttributes4` is added.
+- Breaking: the `JSON200` field and `GetJSON200` method on `CreateConversationResponse` have a changed type.
+- Added `RemoveAdmin`, `AttachTagToExternalPage` and `DetachTagFromExternalPage`, with `WithResponse` variants, `ClientInterface` and `ClientWithResponsesInterface` entries, `New...Request` builders, `Parse...Response` functions and params and response types.
+- Added `BotReplyConversationRequest` as a `ReplyConversationRequest` variant, and `CustomerRequest` variants `CustomerRequest0`, `CustomerRequest1` and `CustomerRequest2`.
+- Added `AssigneeId` and `SkipNotifications` on `OpenConversationRequest` and `CloseConversationRequest`, `SkipNotifications` on `AssignConversationRequest`, and `AssigneeId` and `SkipReopen` on `AdminReplyConversationRequest`.
+- Added `CreateMessageRequest.BrandId`, `Components` and `Locale`, `CreateMessageRequestTo2` and the `CreateMessageRequestMessageTypeInapp` constant.
+- Added `Message.ExternalId`, `Owner`, `Template` and `WhatsappMessageId`, the `MessageMessageTypeWhatsapp` constant, `ConversationListItem.Ticket` and `Topics`, and `SearchRequest.Sort` with `SearchRequestSortOrder`.
+- Added `CreatePhoneSwitchRequest.Body`, `Country`, `SendNotification` and `UserInputPhone`, and `RetrieveConversationParams.IncludeEmailHistory`, `PartsCreatedAfter` and `PartsCreatedBefore`.
+- Added typed error bodies (`JSON400`, `JSON401`, `JSON403`, `JSON404`, `JSON422` and their `GetJSON` methods) on responses for conversations, messages, activity log search and `SetAwayAdminResponse`.
+- Generated code in `client_001.gen.go` to `client_006.gen.go` is also reordered, which makes the diff large.
+
 ## v0.7.0, 2026-10-30
 
 - Breaking: `CreateConversationAttributeListRequest.Options` is now `[]CreateConversationAttributeOptionRequest` instead of a pointer to the slice. The struct is no longer comparable.

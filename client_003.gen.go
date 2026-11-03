@@ -16,6 +16,577 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// ListAdmins List all admins
+//
+// You can fetch a list of admins for a given workspace.
+//
+// Requires the `read_admins` OAuth scope.
+//
+// Corresponds with GET /admins (the `ListAdmins` operationId).
+func (c *Client) ListAdmins(ctx context.Context, params *ListAdminsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAdminsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListActivityLogEventTypes List all activity log event types
+//
+// You can get a list of all activity log event types. This is useful for discovering valid values to use with the `event_types` filter on the Search activity logs endpoint.
+//
+// Requires the `read_admins` OAuth scope.
+//
+// Corresponds with GET /admins/activity_log_event_types (the `ListActivityLogEventTypes` operationId).
+func (c *Client) ListActivityLogEventTypes(ctx context.Context, params *ListActivityLogEventTypesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListActivityLogEventTypesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListActivityLogs List all activity logs
+//
+// You can get a log of activities by all admins in an app.
+//
+// Requires the `read_admins` OAuth scope.
+//
+// Corresponds with GET /admins/activity_logs (the `ListActivityLogs` operationId).
+func (c *Client) ListActivityLogs(ctx context.Context, params *ListActivityLogsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListActivityLogsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SearchActivityLogsWithBody Search activity logs
+//
+// Search and filter admin activity logs using a POST request with event type filter in the request body. You can find more details about the available event types in the List all activity log event types endpoint.
+//
+// Results are paginated by page number. Use `page` and `per_page` in the request body to choose a page. The `next` link in the response is a URL that keeps the query string of the request URL and sets `page` and `per_page` for the next page. It does not include the filters from your request body. To fetch the next page, send a POST request with the same request body to that URL. Query parameters in the `next` URL take precedence over `page` and `per_page` in the body.
+//
+// Requires the `read_admins` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /admins/activity_logs/search (the `SearchActivityLogs` operationId).
+func (c *Client) SearchActivityLogsWithBody(ctx context.Context, params *SearchActivityLogsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchActivityLogsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SearchActivityLogs Search activity logs
+//
+// Search and filter admin activity logs using a POST request with event type filter in the request body. You can find more details about the available event types in the List all activity log event types endpoint.
+//
+// Results are paginated by page number. Use `page` and `per_page` in the request body to choose a page. The `next` link in the response is a URL that keeps the query string of the request URL and sets `page` and `per_page` for the next page. It does not include the filters from your request body. To fetch the next page, send a POST request with the same request body to that URL. Query parameters in the `next` URL take precedence over `page` and `per_page` in the body.
+//
+// Requires the `read_admins` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /admins/activity_logs/search (the `SearchActivityLogs` operationId).
+func (c *Client) SearchActivityLogs(ctx context.Context, params *SearchActivityLogsParams, body SearchActivityLogsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchActivityLogsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RemoveAdmin Remove an admin
+//
+// You can remove a single admin (teammate) from your workspace.
+// Requires the `remove_admins` OAuth scope.
+//
+// This removes the admin's access to the workspace. In most cases their
+// work is reassigned to the IDs given in the `reassign_*` parameters. In
+// workspaces with more than one seat type, no reassignment happens if the
+// admin has no seat, a Collaborator seat or a Lite seat.
+//
+// Corresponds with DELETE /admins/remove (the `RemoveAdmin` operationId).
+func (c *Client) RemoveAdmin(ctx context.Context, params *RemoveAdminParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRemoveAdminRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RetrieveAdmin Retrieve an admin
+//
+// You can retrieve the details of a single admin.
+//
+// Requires the `read_single_admin` or `read_admins` OAuth scope.
+//
+// Corresponds with GET /admins/{admin_id} (the `RetrieveAdmin` operationId).
+func (c *Client) RetrieveAdmin(ctx context.Context, adminId int, params *RetrieveAdminParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetrieveAdminRequest(c.Server, adminId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SetAwayAdminWithBody Set an admin to away
+//
+// You can set an Admin as away for the Inbox.
+//
+// When `away_mode_reassign` is `true`, the request can return a `403` if the teammate does not have Inbox access.
+//
+// Requires the `update_admins` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /admins/{admin_id}/away (the `SetAwayAdmin` operationId).
+func (c *Client) SetAwayAdminWithBody(ctx context.Context, adminId int, params *SetAwayAdminParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSetAwayAdminRequestWithBody(c.Server, adminId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SetAwayAdmin Set an admin to away
+//
+// You can set an Admin as away for the Inbox.
+//
+// When `away_mode_reassign` is `true`, the request can return a `403` if the teammate does not have Inbox access.
+//
+// Requires the `update_admins` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /admins/{admin_id}/away (the `SetAwayAdmin` operationId).
+func (c *Client) SetAwayAdmin(ctx context.Context, adminId int, params *SetAwayAdminParams, body SetAwayAdminJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSetAwayAdminRequest(c.Server, adminId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListContentImportSources List content import sources
+//
+// You can retrieve a list of all content import sources for a workspace.
+//
+// `total_count` and `pages.total_pages` are worked out from every content import source in the workspace, including deleted ones that the list leaves out, so both can be higher than the number of sources you get back across all pages. The last pages can be short or empty.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Corresponds with GET /ai/content_import_sources (the `ListContentImportSources` operationId).
+func (c *Client) ListContentImportSources(ctx context.Context, params *ListContentImportSourcesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListContentImportSourcesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateContentImportSourceWithBody Create a content import source
+//
+// You can create a new content import source by sending a POST request to this endpoint.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /ai/content_import_sources (the `CreateContentImportSource` operationId).
+func (c *Client) CreateContentImportSourceWithBody(ctx context.Context, params *CreateContentImportSourceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContentImportSourceRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateContentImportSource Create a content import source
+//
+// You can create a new content import source by sending a POST request to this endpoint.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /ai/content_import_sources (the `CreateContentImportSource` operationId).
+func (c *Client) CreateContentImportSource(ctx context.Context, params *CreateContentImportSourceParams, body CreateContentImportSourceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContentImportSourceRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DeleteContentImportSource Delete a content import source
+//
+// You can delete a content import source by making a DELETE request this endpoint. This will also delete all external pages that were imported from this source.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Corresponds with DELETE /ai/content_import_sources/{source_id} (the `DeleteContentImportSource` operationId).
+func (c *Client) DeleteContentImportSource(ctx context.Context, sourceId string, params *DeleteContentImportSourceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteContentImportSourceRequest(c.Server, sourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetContentImportSource Retrieve a content import source
+//
+// You can retrieve a content import source.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Corresponds with GET /ai/content_import_sources/{source_id} (the `GetContentImportSource` operationId).
+func (c *Client) GetContentImportSource(ctx context.Context, sourceId string, params *GetContentImportSourceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetContentImportSourceRequest(c.Server, sourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateContentImportSourceWithBody Update a content import source
+//
+// You can update an existing content import source.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /ai/content_import_sources/{source_id} (the `UpdateContentImportSource` operationId).
+func (c *Client) UpdateContentImportSourceWithBody(ctx context.Context, sourceId string, params *UpdateContentImportSourceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateContentImportSourceRequestWithBody(c.Server, sourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateContentImportSource Update a content import source
+//
+// You can update an existing content import source.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /ai/content_import_sources/{source_id} (the `UpdateContentImportSource` operationId).
+func (c *Client) UpdateContentImportSource(ctx context.Context, sourceId string, params *UpdateContentImportSourceParams, body UpdateContentImportSourceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateContentImportSourceRequest(c.Server, sourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListExternalPages List external pages
+//
+// You can retrieve a list of all external pages for a workspace.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Corresponds with GET /ai/external_pages (the `ListExternalPages` operationId).
+func (c *Client) ListExternalPages(ctx context.Context, params *ListExternalPagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListExternalPagesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateExternalPageWithBody Create an external page (or update an external page by external ID)
+//
+// You can create a new external page by sending a POST request to this endpoint. If an external page already exists with the specified source_id and external_id, it will be updated instead.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /ai/external_pages (the `CreateExternalPage` operationId).
+func (c *Client) CreateExternalPageWithBody(ctx context.Context, params *CreateExternalPageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateExternalPageRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateExternalPage Create an external page (or update an external page by external ID)
+//
+// You can create a new external page by sending a POST request to this endpoint. If an external page already exists with the specified source_id and external_id, it will be updated instead.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /ai/external_pages (the `CreateExternalPage` operationId).
+func (c *Client) CreateExternalPage(ctx context.Context, params *CreateExternalPageParams, body CreateExternalPageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateExternalPageRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AttachTagToExternalPageWithBody Add a tag to an external page
+//
+// Apply an existing tag to an external page. Returns the tag that was applied.
+//
+// The tag must already exist in the workspace (create tags with the Tags API),
+// and the authenticating teammate must have the `manage_knowledge_base_content`
+// permission. Pages uploaded as files can't be tagged and return a 404.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /ai/external_pages/{external_page_id}/tags (the `AttachTagToExternalPage` operationId).
+func (c *Client) AttachTagToExternalPageWithBody(ctx context.Context, externalPageId string, params *AttachTagToExternalPageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAttachTagToExternalPageRequestWithBody(c.Server, externalPageId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// AttachTagToExternalPage Add a tag to an external page
+//
+// Apply an existing tag to an external page. Returns the tag that was applied.
+//
+// The tag must already exist in the workspace (create tags with the Tags API),
+// and the authenticating teammate must have the `manage_knowledge_base_content`
+// permission. Pages uploaded as files can't be tagged and return a 404.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /ai/external_pages/{external_page_id}/tags (the `AttachTagToExternalPage` operationId).
+func (c *Client) AttachTagToExternalPage(ctx context.Context, externalPageId string, params *AttachTagToExternalPageParams, body AttachTagToExternalPageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAttachTagToExternalPageRequest(c.Server, externalPageId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DetachTagFromExternalPage Remove a tag from an external page
+//
+// Remove a tag from an external page. Returns the tag that was removed, with
+// null `applied_at` and `applied_by`.
+//
+// The authenticating teammate must have the `manage_knowledge_base_content`
+// permission. Pages uploaded as files can't be tagged and return a 404.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Corresponds with DELETE /ai/external_pages/{external_page_id}/tags/{id} (the `DetachTagFromExternalPage` operationId).
+func (c *Client) DetachTagFromExternalPage(ctx context.Context, externalPageId string, id string, params *DetachTagFromExternalPageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDetachTagFromExternalPageRequest(c.Server, externalPageId, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DeleteExternalPage Delete an external page
+//
+// Sending a DELETE request for an external page will remove it from the content library UI and from being used for AI answers.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Corresponds with DELETE /ai/external_pages/{page_id} (the `DeleteExternalPage` operationId).
+func (c *Client) DeleteExternalPage(ctx context.Context, pageId string, params *DeleteExternalPageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteExternalPageRequest(c.Server, pageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetExternalPage Retrieve an external page
+//
+// You can retrieve an external page.
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Corresponds with GET /ai/external_pages/{page_id} (the `GetExternalPage` operationId).
+func (c *Client) GetExternalPage(ctx context.Context, pageId string, params *GetExternalPageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetExternalPageRequest(c.Server, pageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateExternalPageWithBody Update an external page
+//
+// You can update an existing external page (if it was created via the API).
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /ai/external_pages/{page_id} (the `UpdateExternalPage` operationId).
+func (c *Client) UpdateExternalPageWithBody(ctx context.Context, pageId string, params *UpdateExternalPageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateExternalPageRequestWithBody(c.Server, pageId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateExternalPage Update an external page
+//
+// You can update an existing external page (if it was created via the API).
+//
+// OAuth tokens must have the `read_write_ai_content` scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /ai/external_pages/{page_id} (the `UpdateExternalPage` operationId).
+func (c *Client) UpdateExternalPage(ctx context.Context, pageId string, params *UpdateExternalPageParams, body UpdateExternalPageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateExternalPageRequest(c.Server, pageId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListArticles List all articles
+//
+// You can fetch a list of all articles by making a GET request to `https://api.intercom.io/articles`.
+//
+// > 📘 How are the articles sorted and ordered?
+// >
+// > Articles will be returned in descending order on the `updated_at` attribute. This means if you need to iterate through results then we'll show the most recently updated articles first.
+//
+// Requires the `read_articles_scope` OAuth scope.
+//
+// Corresponds with GET /articles (the `ListArticles` operationId).
+func (c *Client) ListArticles(ctx context.Context, params *ListArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListArticlesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // CreateArticleWithBody Create an article
 //
 // You can create a new article by making a POST request to `https://api.intercom.io/articles`.
@@ -3450,11 +4021,12 @@ func (c *Client) RedactConversation(ctx context.Context, params *RedactConversat
 //
 // | Field                                     | Type                                                                                                                                                   |
 // | :---------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-// | id                                        | String                                                                                                                                                 |
+// | id                                        | Integer                                                                                                                                                |
+// | type                                      | String                                                                                                                                                 |
 // | created_at                                | Date (UNIX timestamp)                                                                                                                                  |
 // | updated_at                                | Date (UNIX timestamp)                                                                                                                                  |
 // | source.type                               | String<br>Accepted fields are `conversation`, `email`, `facebook`, `instagram`, `phone_call`, `phone_switch`, `push`, `sms`, `twitter` and `whatsapp`. |
-// | source.id                                 | String                                                                                                                                                 |
+// | source.id                                 | Integer                                                                                                                                                |
 // | source.delivered_as                       | String                                                                                                                                                 |
 // | source.subject                            | String                                                                                                                                                 |
 // | source.body                               | String                                                                                                                                                 |
@@ -3489,7 +4061,7 @@ func (c *Client) RedactConversation(ctx context.Context, params *RedactConversat
 // | statistics.last_contact_reply_at          | Date (UNIX timestamp)                                                                                                                                  |
 // | statistics.last_admin_reply_at            | Date (UNIX timestamp)                                                                                                                                  |
 // | statistics.last_close_at                  | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_closed_by_id              | String                                                                                                                                                 |
+// | statistics.last_closed_by_id              | Integer                                                                                                                                                |
 // | statistics.count_reopens                  | Integer                                                                                                                                                |
 // | statistics.count_assignments              | Integer                                                                                                                                                |
 // | statistics.count_conversation_parts       | Integer                                                                                                                                                |
@@ -3498,7 +4070,7 @@ func (c *Client) RedactConversation(ctx context.Context, params *RedactConversat
 // | conversation_rating.score                 | Integer                                                                                                                                                |
 // | conversation_rating.remark                | String                                                                                                                                                 |
 // | conversation_rating.contact_id            | String                                                                                                                                                 |
-// | conversation_rating.admin_d               | String                                                                                                                                                 |
+// | conversation_rating.admin_id              | String                                                                                                                                                 |
 // | ai_agent_participated                     | Boolean                                                                                                                                                |
 // | ai_agent.resolution_state                 | String                                                                                                                                                 |
 // | ai_agent.last_answer_type                 | String                                                                                                                                                 |
@@ -3517,12 +4089,17 @@ func (c *Client) RedactConversation(ctx context.Context, params *RedactConversat
 // | !=       | All                            | Doesn't Equal                                                |
 // | IN       | All                            | In  Shortcut for `OR` queries  Values most be in Array       |
 // | NIN      | All                            | Not In  Shortcut for `OR !` queries  Values must be in Array |
-// | >        | Integer  Date (UNIX Timestamp) | Greater (or equal) than                                      |
-// | <       | Integer  Date (UNIX Timestamp) | Lower (or equal) than                                        |
+// | >       | Integer  Date (UNIX Timestamp) | Greater than                                                 |
+// | >=      | Integer  Date (UNIX Timestamp) | Greater than or equal to                                     |
+// | <       | Integer  Date (UNIX Timestamp) | Lower than                                                   |
+// | <=      | Integer  Date (UNIX Timestamp) | Lower than or equal to                                       |
 // | ~        | String                         | Contains                                                     |
 // | !~       | String                         | Doesn't Contain                                              |
 // | ^        | String                         | Starts With                                                  |
 // | $        | String                         | Ends With                                                    |
+// ### Sorting
+//
+// Results are sorted by `updated_at`, newest first. To sort differently, add a `sort` object to the request body with a `field` and an `order` of `ascending` or `descending`. `field` is required whenever `sort` is sent, and must be one of the fields in the table above, other than `type`, `state`, `source.subject`, `source.body`, `source.author.id`, `source.author.type`, `source.author.name`, `source.author.email`, `conversation_rating.remark`, `ai_agent.rating_remark` and `ai_agent.source_title`, which can't be sorted. A missing `field`, or one that isn't searchable, returns a `400` error with the code `invalid_field`.
 //
 // Takes any type of body and a specified content type.
 //
@@ -3569,11 +4146,12 @@ func (c *Client) SearchConversationsWithBody(ctx context.Context, params *Search
 //
 // | Field                                     | Type                                                                                                                                                   |
 // | :---------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-// | id                                        | String                                                                                                                                                 |
+// | id                                        | Integer                                                                                                                                                |
+// | type                                      | String                                                                                                                                                 |
 // | created_at                                | Date (UNIX timestamp)                                                                                                                                  |
 // | updated_at                                | Date (UNIX timestamp)                                                                                                                                  |
 // | source.type                               | String<br>Accepted fields are `conversation`, `email`, `facebook`, `instagram`, `phone_call`, `phone_switch`, `push`, `sms`, `twitter` and `whatsapp`. |
-// | source.id                                 | String                                                                                                                                                 |
+// | source.id                                 | Integer                                                                                                                                                |
 // | source.delivered_as                       | String                                                                                                                                                 |
 // | source.subject                            | String                                                                                                                                                 |
 // | source.body                               | String                                                                                                                                                 |
@@ -3608,7 +4186,7 @@ func (c *Client) SearchConversationsWithBody(ctx context.Context, params *Search
 // | statistics.last_contact_reply_at          | Date (UNIX timestamp)                                                                                                                                  |
 // | statistics.last_admin_reply_at            | Date (UNIX timestamp)                                                                                                                                  |
 // | statistics.last_close_at                  | Date (UNIX timestamp)                                                                                                                                  |
-// | statistics.last_closed_by_id              | String                                                                                                                                                 |
+// | statistics.last_closed_by_id              | Integer                                                                                                                                                |
 // | statistics.count_reopens                  | Integer                                                                                                                                                |
 // | statistics.count_assignments              | Integer                                                                                                                                                |
 // | statistics.count_conversation_parts       | Integer                                                                                                                                                |
@@ -3617,7 +4195,7 @@ func (c *Client) SearchConversationsWithBody(ctx context.Context, params *Search
 // | conversation_rating.score                 | Integer                                                                                                                                                |
 // | conversation_rating.remark                | String                                                                                                                                                 |
 // | conversation_rating.contact_id            | String                                                                                                                                                 |
-// | conversation_rating.admin_d               | String                                                                                                                                                 |
+// | conversation_rating.admin_id              | String                                                                                                                                                 |
 // | ai_agent_participated                     | Boolean                                                                                                                                                |
 // | ai_agent.resolution_state                 | String                                                                                                                                                 |
 // | ai_agent.last_answer_type                 | String                                                                                                                                                 |
@@ -3636,12 +4214,17 @@ func (c *Client) SearchConversationsWithBody(ctx context.Context, params *Search
 // | !=       | All                            | Doesn't Equal                                                |
 // | IN       | All                            | In  Shortcut for `OR` queries  Values most be in Array       |
 // | NIN      | All                            | Not In  Shortcut for `OR !` queries  Values must be in Array |
-// | >        | Integer  Date (UNIX Timestamp) | Greater (or equal) than                                      |
-// | <       | Integer  Date (UNIX Timestamp) | Lower (or equal) than                                        |
+// | >       | Integer  Date (UNIX Timestamp) | Greater than                                                 |
+// | >=      | Integer  Date (UNIX Timestamp) | Greater than or equal to                                     |
+// | <       | Integer  Date (UNIX Timestamp) | Lower than                                                   |
+// | <=      | Integer  Date (UNIX Timestamp) | Lower than or equal to                                       |
 // | ~        | String                         | Contains                                                     |
 // | !~       | String                         | Doesn't Contain                                              |
 // | ^        | String                         | Starts With                                                  |
 // | $        | String                         | Ends With                                                    |
+// ### Sorting
+//
+// Results are sorted by `updated_at`, newest first. To sort differently, add a `sort` object to the request body with a `field` and an `order` of `ascending` or `descending`. `field` is required whenever `sort` is sent, and must be one of the fields in the table above, other than `type`, `state`, `source.subject`, `source.body`, `source.author.id`, `source.author.type`, `source.author.name`, `source.author.email`, `conversation_rating.remark`, `ai_agent.rating_remark` and `ai_agent.source_title`, which can't be sorted. A missing `field`, or one that isn't searchable, returns a `400` error with the code `invalid_field`.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -4170,8 +4753,7 @@ func (c *Client) ListHitlEvents(ctx context.Context, id string, params *ListHitl
 // The secondary conversation is closed and linked to the primary, which
 // becomes the surviving thread. Returns the primary conversation on success.
 //
-// Requires `write_conversations` OAuth scope. When the secondary is a ticket,
-// `write_tickets` scope is also required.
+// Requires `write_conversations` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -4194,8 +4776,7 @@ func (c *Client) MergeConversationWithBody(ctx context.Context, id string, param
 // The secondary conversation is closed and linked to the primary, which
 // becomes the surviving thread. Returns the primary conversation on success.
 //
-// Requires `write_conversations` OAuth scope. When the secondary is a ticket,
-// `write_tickets` scope is also required.
+// Requires `write_conversations` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -8123,7 +8704,7 @@ func (c *Client) EnqueueCreateTicket(ctx context.Context, params *EnqueueCreateT
 //
 // ### Sorting
 //
-// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`, and any other value is treated as `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
+// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
 //
 // ### Accepted Operators
 //
@@ -8217,7 +8798,7 @@ func (c *Client) SearchTicketsWithBody(ctx context.Context, params *SearchTicket
 //
 // ### Sorting
 //
-// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`, and any other value is treated as `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
+// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
 //
 // ### Accepted Operators
 //
@@ -8964,6 +9545,115 @@ func NewSearchActivityLogsRequestWithBody(server string, params *SearchActivityL
 	return req, nil
 }
 
+// NewRemoveAdminRequest constructs an http.Request for the RemoveAdmin method
+func NewRemoveAdminRequest(server string, params *RemoveAdminParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/admins/remove")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "admin_id", params.AdminId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reassign_messages_admin_id", params.ReassignMessagesAdminId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reassign_owner_admin_id", params.ReassignOwnerAdminId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reassign_articles_author_id", params.ReassignArticlesAuthorId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reassign_conversations_admin_id", params.ReassignConversationsAdminId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if params.ReassignRepliesTeams != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reassign_replies_teams", *params.ReassignRepliesTeams, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewRetrieveAdminRequest constructs an http.Request for the RetrieveAdmin method
 func NewRetrieveAdminRequest(server string, adminId int, params *RetrieveAdminParams) (*http.Request, error) {
 	var err error
@@ -9488,6 +10178,124 @@ func NewCreateExternalPageRequestWithBody(server string, params *CreateExternalP
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewAttachTagToExternalPageRequest calls the generic AttachTagToExternalPage builder with application/json body
+func NewAttachTagToExternalPageRequest(server string, externalPageId string, params *AttachTagToExternalPageParams, body AttachTagToExternalPageJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewAttachTagToExternalPageRequestWithBody(server, externalPageId, params, "application/json", bodyReader)
+}
+
+// NewAttachTagToExternalPageRequestWithBody constructs an http.Request for the AttachTagToExternalPage method, with any body, and a specified content type
+func NewAttachTagToExternalPageRequestWithBody(server string, externalPageId string, params *AttachTagToExternalPageParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "external_page_id", externalPageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/ai/external_pages/%s/tags", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDetachTagFromExternalPageRequest constructs an http.Request for the DetachTagFromExternalPage method
+func NewDetachTagFromExternalPageRequest(server string, externalPageId string, id string, params *DetachTagFromExternalPageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "external_page_id", externalPageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/ai/external_pages/%s/tags/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	if params != nil {
 
@@ -16222,6 +17030,42 @@ func NewRetrieveConversationRequest(server string, conversationId int, params *R
 
 		}
 
+		if params.IncludeEmailHistory != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_email_history", *params.IncludeEmailHistory, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PartsCreatedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "parts_created_after", *params.PartsCreatedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PartsCreatedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "parts_created_before", *params.PartsCreatedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.IncludeMonitors != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_monitors", *params.IncludeMonitors, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
@@ -19178,838 +20022,6 @@ func NewCreateDataExportRequestWithBody(server string, params *CreateDataExportP
 	}
 
 	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetDataExportRequest constructs an http.Request for the GetDataExport method
-func NewGetDataExportRequest(server string, jobIdentifier string, params *GetDataExportParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "job_identifier", jobIdentifier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/export/content/data/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewPostExportReportingDataEnqueueRequest calls the generic PostExportReportingDataEnqueue builder with application/json body
-func NewPostExportReportingDataEnqueueRequest(server string, params *PostExportReportingDataEnqueueParams, body PostExportReportingDataEnqueueJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewPostExportReportingDataEnqueueRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewPostExportReportingDataEnqueueRequestWithBody constructs an http.Request for the PostExportReportingDataEnqueue method, with any body, and a specified content type
-func NewPostExportReportingDataEnqueueRequestWithBody(server string, params *PostExportReportingDataEnqueueParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/export/reporting_data/enqueue")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetExportReportingDataGetDatasetsRequest constructs an http.Request for the GetExportReportingDataGetDatasets method
-func NewGetExportReportingDataGetDatasetsRequest(server string, params *GetExportReportingDataGetDatasetsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/export/reporting_data/get_datasets")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetExportReportingDataJobIdentifierRequest constructs an http.Request for the GetExportReportingDataJobIdentifier method
-func NewGetExportReportingDataJobIdentifierRequest(server string, jobIdentifier string, params *GetExportReportingDataJobIdentifierParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "job_identifier", jobIdentifier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/export/reporting_data/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewExportWorkflowRequest constructs an http.Request for the ExportWorkflow method
-func NewExportWorkflowRequest(server string, id string, params *ExportWorkflowParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/export/workflows/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewAskFinRequest calls the generic AskFin builder with application/json body
-func NewAskFinRequest(server string, params *AskFinParams, body AskFinJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewAskFinRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewAskFinRequestWithBody constructs an http.Request for the AskFin method, with any body, and a specified content type
-func NewAskFinRequestWithBody(server string, params *AskFinParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin/ask")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListFinCapabilitiesRequest calls the generic ListFinCapabilities builder with application/json body
-func NewListFinCapabilitiesRequest(server string, params *ListFinCapabilitiesParams, body ListFinCapabilitiesJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewListFinCapabilitiesRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewListFinCapabilitiesRequestWithBody constructs an http.Request for the ListFinCapabilities method, with any body, and a specified content type
-func NewListFinCapabilitiesRequestWithBody(server string, params *ListFinCapabilitiesParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin/capabilities")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewSubmitFinCsatRequest calls the generic SubmitFinCsat builder with application/json body
-func NewSubmitFinCsatRequest(server string, params *SubmitFinCsatParams, body SubmitFinCsatJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewSubmitFinCsatRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewSubmitFinCsatRequestWithBody constructs an http.Request for the SubmitFinCsat method, with any body, and a specified content type
-func NewSubmitFinCsatRequestWithBody(server string, params *SubmitFinCsatParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin/csat")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewEscalateFinConversationRequest calls the generic EscalateFinConversation builder with application/json body
-func NewEscalateFinConversationRequest(server string, params *EscalateFinConversationParams, body EscalateFinConversationJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewEscalateFinConversationRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewEscalateFinConversationRequestWithBody constructs an http.Request for the EscalateFinConversation method, with any body, and a specified content type
-func NewEscalateFinConversationRequestWithBody(server string, params *EscalateFinConversationParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin/escalate")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRunFinProcedureRequest calls the generic RunFinProcedure builder with application/json body
-func NewRunFinProcedureRequest(server string, procedureId string, params *RunFinProcedureParams, body RunFinProcedureJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewRunFinProcedureRequestWithBody(server, procedureId, params, "application/json", bodyReader)
-}
-
-// NewRunFinProcedureRequestWithBody constructs an http.Request for the RunFinProcedure method, with any body, and a specified content type
-func NewRunFinProcedureRequestWithBody(server string, procedureId string, params *RunFinProcedureParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "procedure_id", procedureId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin/procedures/%s/run", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewReplyToFinRequest calls the generic ReplyToFin builder with application/json body
-func NewReplyToFinRequest(server string, params *ReplyToFinParams, body ReplyToFinJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewReplyToFinRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewReplyToFinRequestWithBody constructs an http.Request for the ReplyToFin method, with any body, and a specified content type
-func NewReplyToFinRequestWithBody(server string, params *ReplyToFinParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin/reply")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewStartFinConversationRequest calls the generic StartFinConversation builder with application/json body
-func NewStartFinConversationRequest(server string, params *StartFinConversationParams, body StartFinConversationJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewStartFinConversationRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewStartFinConversationRequestWithBody constructs an http.Request for the StartFinConversation method, with any body, and a specified content type
-func NewStartFinConversationRequestWithBody(server string, params *StartFinConversationParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin/start")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCollectFinVoiceCallByIdRequest constructs an http.Request for the CollectFinVoiceCallById method
-func NewCollectFinVoiceCallByIdRequest(server string, id int, params *CollectFinVoiceCallByIdParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin_voice/collect/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCollectFinVoiceCallsByConversationIdRequest constructs an http.Request for the CollectFinVoiceCallsByConversationId method
-func NewCollectFinVoiceCallsByConversationIdRequest(server string, conversationId string, params *CollectFinVoiceCallsByConversationIdParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "conversation_id", conversationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin_voice/conversation/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCollectFinVoiceCallByExternalIdRequest constructs an http.Request for the CollectFinVoiceCallByExternalId method
-func NewCollectFinVoiceCallByExternalIdRequest(server string, externalId string, params *CollectFinVoiceCallByExternalIdParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "external_id", externalId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin_voice/external_id/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCollectFinVoiceCallByPhoneNumberRequest constructs an http.Request for the CollectFinVoiceCallByPhoneNumber method
-func NewCollectFinVoiceCallByPhoneNumberRequest(server string, phoneNumber string, params *CollectFinVoiceCallByPhoneNumberParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "phone_number", phoneNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/fin_voice/phone_number/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
 
 	if params != nil {
 
