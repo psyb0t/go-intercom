@@ -92,7 +92,7 @@ make generate
 
 `gen.go` declares the steps, so `make generate` is just `go generate ./...`:
 
-- `scripts/fetch-spec.sh` lists the provider's [version directories](https://github.com/intercom/Intercom-OpenAPI/tree/main/descriptions), skips `0` and preview names, sorts stable version components numerically, and downloads `api.intercom.io.yaml` to `api/openapi.yaml`.
+- `scripts/fetch-spec.sh` downloads the provider's [official repository archive](https://github.com/intercom/Intercom-OpenAPI), selects the highest stable version under `descriptions/`, and reads its `api.intercom.io.yaml` into `api/openapi.yaml`. It skips `0` and preview names and needs no GitHub API token or unauthenticated API quota.
 - `scripts/patch-spec.sh` runs the YAML tool under `internal/cmd/patch-spec/`, writing `api/openapi.fixed.yaml`. It adds missing required string `job_identifier` path parameters to reporting export status and download. It also gives the inline `type` enums on `conversation_attribute_list` and `ticket` distinct Go type names, avoiding collisions with component names while preserving JSON fields and enum values. Single-branch contact request unions become direct schema references so typed create and update requests serialize their fields instead of sending `{}`. Inline unions for Fin escalation, conversation parts, tags and ticket replies move unchanged into named components so request body aliases retain their JSON methods.
 - oapi-codegen runs with `config.yaml`, generating every operation. The config maps `number` to `float64` and prefixes enum values to avoid name collisions.
 - `scripts/split-gen.sh` splits the generated output at declaration boundaries and runs goimports. Smaller files keep linting practical.

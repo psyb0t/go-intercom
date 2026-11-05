@@ -7,8 +7,7 @@ trap 'on_error "$?" "$LINENO"' ERR
 LOG_FILE="${LOG_FILE:-/tmp/$(basename "$0" .sh).log}"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
-readonly METADATA_URL="https://api.github.com/repos/intercom/Intercom-OpenAPI/contents/descriptions?ref=main"
-readonly SPEC_BASE="https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions"
+readonly ARCHIVE_URL="https://codeload.github.com/intercom/Intercom-OpenAPI/tar.gz/refs/heads/main"
 readonly DOWNLOAD_TIMEOUT_SECONDS=60
 readonly SPEC_NAME="openapi.yaml"
 SPEC_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/api"
@@ -38,23 +37,24 @@ log() {
 
 main() {
 	mkdir -p "$SPEC_DIR"
-	local tmp version spec_url
+	local tmp entry version
 	tmp="$(mktemp "${SPEC_DIR}/.${SPEC_NAME}.XXXXXX")"
 	# shellcheck disable=SC2064 # expand tmp now, the local is gone when EXIT fires
-	trap "rm -f -- '${tmp}' '${tmp}.metadata'" EXIT
+	trap "rm -f -- '${tmp}' '${tmp}.archive'" EXIT
 
-	# Sort stable version components numerically, excluding 0 and previews.
-	wget -q -T "$DOWNLOAD_TIMEOUT_SECONDS" -O "${tmp}.metadata" "$METADATA_URL"
-	version="$(jq -er '[.[] | select(.type == "dir") | .name |
-		select(test("^[1-9][0-9]*(\\.[0-9]+)*$"))] |
-		sort_by(split(".") | map(tonumber)) | last // error("no stable spec")' "${tmp}.metadata")"
-	rm -f -- "${tmp}.metadata"
-	spec_url="${SPEC_BASE}/${version}/api.intercom.io.yaml"
-	log INFO "downloading spec=${SPEC_NAME} version=${version} url=${spec_url}"
-	wget -q \
-		-T "$DOWNLOAD_TIMEOUT_SECONDS" \
-		-O "$tmp" \
-		"$spec_url"
+	# The public archive avoids the unauthenticated GitHub API rate limit.
+	wget --no-verbose --tries=3 -T "$DOWNLOAD_TIMEOUT_SECONDS" \
+		-O "${tmp}.archive" "$ARCHIVE_URL"
+	entry="$(tar -tzf "${tmp}.archive" | LC_ALL=C sort -V |
+		awk '/^Intercom-OpenAPI-main\/descriptions\/[1-9][0-9]*(\.[0-9]+)*\/api\.intercom\.io\.yaml$/ {entry = $0} END {print entry}')"
+	if [[ -z "$entry" ]]; then
+		log ERROR "archive contains no stable OpenAPI specification"
+		exit 1
+	fi
+	version="${entry#*/descriptions/}"
+	version="${version%%/*}"
+	log INFO "reading spec=${SPEC_NAME} version=${version}"
+	tar -xOzf "${tmp}.archive" -- "$entry" >"$tmp"
 
 	# The spec is YAML and the image has no YAML parser, so check for the
 	# top-level openapi key instead of parsing it.

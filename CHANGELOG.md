@@ -2,6 +2,10 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.8.1, 2026-11-05
+
+- Download the official specification repository archive and select its highest stable numeric version without using GitHub's unauthenticated API quota.
+
 ## v0.8.0, 2026-11-03
 
 - Breaking: `AttachContactToConversationRequest_Customer` is removed, with `AttachContactToConversationRequestCustomer0`, `AttachContactToConversationRequestCustomer1`, `AttachContactToConversationRequestCustomer2` and their `As`, `From` and `Merge` methods. `AttachContactToConversationRequest` now has `Email`, `IntercomUserId` and `UserId` fields.
