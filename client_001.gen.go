@@ -3475,6 +3475,21 @@ func (e ConversationScorecardSubmittedByType) Valid() bool {
 	}
 }
 
+// Defines values for ConversationStreamTokenType.
+const (
+	ConversationStreamTokenTypeConversationStreamToken ConversationStreamTokenType = "conversation_stream_token"
+)
+
+// Valid indicates whether the value is a known member of the ConversationStreamTokenType enum.
+func (e ConversationStreamTokenType) Valid() bool {
+	switch e {
+	case ConversationStreamTokenTypeConversationStreamToken:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for CreateArticleRequestState.
 const (
 	CreateArticleRequestStateDraft     CreateArticleRequestState = "draft"
@@ -14713,6 +14728,76 @@ type ConversationStatistics struct {
 	Type *string `json:"type,omitempty"`
 }
 
+// ConversationStreamToken A token that lets a contact's client subscribe to a realtime stream of their conversation events.
+type ConversationStreamToken struct {
+	// ExpiresAt The time the token expires, as a UNIX timestamp.
+	//
+	// Example: 1731241200
+	ExpiresAt *int `json:"expires_at,omitempty"`
+
+	// Links The requests you can make with this token.
+	Links *struct {
+		// Revoke The request that revokes every active token for the contact.
+		Revoke *struct {
+			// Href The URL to request.
+			//
+			// Example: https://api.intercom.io/conversations/stream/token?external_id=contact-1234
+			Href *string `json:"href,omitempty"`
+
+			// Method The HTTP method to use.
+			//
+			// Example: DELETE
+			Method *string `json:"method,omitempty"`
+		} `json:"revoke,omitempty"`
+
+		// Self The request that issues a new token for the contact.
+		Self *struct {
+			// Href The URL to request.
+			//
+			// Example: https://api.intercom.io/conversations/stream/token
+			Href *string `json:"href,omitempty"`
+
+			// Method The HTTP method to use.
+			//
+			// Example: POST
+			Method *string `json:"method,omitempty"`
+		} `json:"self,omitempty"`
+	} `json:"links,omitempty"`
+
+	// Stream What the client needs to connect to the stream.
+	Stream *struct {
+		// Channel The channel to subscribe to.
+		//
+		// Example: conversation_stream:abc123:6710a1b2c3d4e5f6a7b8c9d0
+		Channel *string `json:"channel,omitempty"`
+
+		// Provider The realtime provider that delivers the stream.
+		//
+		// Example: ably
+		Provider *string `json:"provider,omitempty"`
+
+		// Token The token to connect with.
+		//
+		// Example: <stream token>
+		Token *string `json:"token,omitempty"`
+
+		// Url The host to connect to.
+		//
+		// Example: main.realtime.ably.net
+		Url *string `json:"url,omitempty"`
+	} `json:"stream,omitempty"`
+
+	// Type String representing the object's type. Always has the value `conversation_stream_token`.
+	//
+	// Example: conversation_stream_token
+	Type *ConversationStreamTokenType `json:"type,omitempty"`
+}
+
+// ConversationStreamTokenType String representing the object's type. Always has the value `conversation_stream_token`.
+//
+// Example: conversation_stream_token
+type ConversationStreamTokenType string
+
 // ConversationTeammates The list of teammates who participated in the conversation (wrote at least one conversation part).
 type ConversationTeammates struct {
 	// Admins The list of teammates who participated in the conversation (wrote at least one conversation part).
@@ -15426,6 +15511,14 @@ type CreateConversationRequest struct {
 //
 // Example: user
 type CreateConversationRequestFromType string
+
+// CreateConversationStreamTokenRequest defines model for create_conversation_stream_token_request.
+type CreateConversationStreamTokenRequest struct {
+	// ExternalId The external ID of the contact to issue a token for.
+	//
+	// Example: contact-1234
+	ExternalId string `json:"external_id"`
+}
 
 // CreateDataAttributeRequest defines model for create_data_attribute_request.
 type CreateDataAttributeRequest struct {
@@ -19922,90 +20015,4 @@ type MergePreviewSummary struct {
 
 	// Reassignments Two counts per object type — `from`, how many are on the lead and would move to the surviving contact, and `into`, how many the surviving contact already has. Only types with reassignments are included, and both counts are always present on a type that is included.
 	Reassignments *MergePreviewReassignments `json:"reassignments,omitempty"`
-}
-
-// Message Message are how you reach out to contacts in Intercom. They are created when an admin sends an outbound message to a contact.
-type Message struct {
-	// Body The message body, which may contain HTML.
-	//
-	// Example: Hello
-	Body string `json:"body"`
-
-	// ConversationId The associated conversation_id
-	//
-	// Example: 64619700005570
-	ConversationId *string `json:"conversation_id,omitempty"`
-
-	// CreatedAt The time the conversation was created.
-	//
-	// Example: 1667560812
-	CreatedAt int `json:"created_at"`
-
-	// ExternalId The external identifier of the message, if one was set when the message was created. Only returned for messages started by a contact.
-	//
-	// Example: api:order-1234
-	ExternalId *string `json:"external_id,omitempty"`
-
-	// Id The id representing the message.
-	//
-	// Example: 1488971108
-	Id string `json:"id"`
-
-	// MessageType The type of message that was sent. Can be email, inapp, facebook, twitter or whatsapp.
-	//
-	// Example: inapp
-	MessageType MessageMessageType `json:"message_type"`
-
-	// Owner Admins are teammate accounts that have access to a workspace.
-	Owner *Admin `json:"owner,omitempty"`
-
-	// Subject The subject of the message. Only present if message_type: email.
-	//
-	// Example: Greetings
-	Subject *string `json:"subject,omitempty"`
-
-	// Template The style of the email, such as `plain` or `personal`. Only present when `message_type` is `email`.
-	//
-	// Example: plain
-	Template *string `json:"template,omitempty"`
-
-	// Type The type of the message
-	//
-	// Example: user_message
-	Type string `json:"type"`
-
-	// WhatsappMessageId The id WhatsApp gave the message. Only present for `whatsapp` messages that WhatsApp accepted.
-	//
-	// Example: wamid.EXAMPLE123
-	WhatsappMessageId *string `json:"whatsapp_message_id,omitempty"`
-}
-
-// MessageMessageType The type of message that was sent. Can be email, inapp, facebook, twitter or whatsapp.
-//
-// Example: inapp
-type MessageMessageType string
-
-// MultipleFilterSearchRequest Search using Intercoms Search APIs with more than one filter.
-type MultipleFilterSearchRequest struct {
-	// Operator An operator to allow boolean inspection between multiple fields.
-	//
-	// Example: AND
-	Operator *MultipleFilterSearchRequestOperator `json:"operator,omitempty"`
-	Value    *MultipleFilterSearchRequest_Value   `json:"value,omitempty"`
-}
-
-// MultipleFilterSearchRequestOperator An operator to allow boolean inspection between multiple fields.
-//
-// Example: AND
-type MultipleFilterSearchRequestOperator string
-
-// MultipleFilterSearchRequestValue0 Add mutiple filters.
-type MultipleFilterSearchRequestValue0 = []MultipleFilterSearchRequest
-
-// MultipleFilterSearchRequestValue1 Add a single filter field.
-type MultipleFilterSearchRequestValue1 = []SingleFilterSearchRequest
-
-// MultipleFilterSearchRequest_Value defines model for MultipleFilterSearchRequest.Value.
-type MultipleFilterSearchRequest_Value struct {
-	union json.RawMessage
 }

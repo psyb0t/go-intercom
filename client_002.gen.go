@@ -17,6 +17,92 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Message Message are how you reach out to contacts in Intercom. They are created when an admin sends an outbound message to a contact.
+type Message struct {
+	// Body The message body, which may contain HTML.
+	//
+	// Example: Hello
+	Body string `json:"body"`
+
+	// ConversationId The associated conversation_id
+	//
+	// Example: 64619700005570
+	ConversationId *string `json:"conversation_id,omitempty"`
+
+	// CreatedAt The time the conversation was created.
+	//
+	// Example: 1667560812
+	CreatedAt int `json:"created_at"`
+
+	// ExternalId The external identifier of the message, if one was set when the message was created. Only returned for messages started by a contact.
+	//
+	// Example: api:order-1234
+	ExternalId *string `json:"external_id,omitempty"`
+
+	// Id The id representing the message.
+	//
+	// Example: 1488971108
+	Id string `json:"id"`
+
+	// MessageType The type of message that was sent. Can be email, inapp, facebook, twitter or whatsapp.
+	//
+	// Example: inapp
+	MessageType MessageMessageType `json:"message_type"`
+
+	// Owner Admins are teammate accounts that have access to a workspace.
+	Owner *Admin `json:"owner,omitempty"`
+
+	// Subject The subject of the message. Only present if message_type: email.
+	//
+	// Example: Greetings
+	Subject *string `json:"subject,omitempty"`
+
+	// Template The style of the email, such as `plain` or `personal`. Only present when `message_type` is `email`.
+	//
+	// Example: plain
+	Template *string `json:"template,omitempty"`
+
+	// Type The type of the message
+	//
+	// Example: user_message
+	Type string `json:"type"`
+
+	// WhatsappMessageId The id WhatsApp gave the message. Only present for `whatsapp` messages that WhatsApp accepted.
+	//
+	// Example: wamid.EXAMPLE123
+	WhatsappMessageId *string `json:"whatsapp_message_id,omitempty"`
+}
+
+// MessageMessageType The type of message that was sent. Can be email, inapp, facebook, twitter or whatsapp.
+//
+// Example: inapp
+type MessageMessageType string
+
+// MultipleFilterSearchRequest Search using Intercoms Search APIs with more than one filter.
+type MultipleFilterSearchRequest struct {
+	// Operator An operator to allow boolean inspection between multiple fields.
+	//
+	// Example: AND
+	Operator *MultipleFilterSearchRequestOperator `json:"operator,omitempty"`
+	Value    *MultipleFilterSearchRequest_Value   `json:"value,omitempty"`
+}
+
+// MultipleFilterSearchRequestOperator An operator to allow boolean inspection between multiple fields.
+//
+// Example: AND
+type MultipleFilterSearchRequestOperator string
+
+// MultipleFilterSearchRequestValue0 Add mutiple filters.
+type MultipleFilterSearchRequestValue0 = []MultipleFilterSearchRequest
+
+// MultipleFilterSearchRequestValue1 Add a single filter field.
+type MultipleFilterSearchRequestValue1 = []SingleFilterSearchRequest
+
+// MultipleFilterSearchRequest_Value defines model for MultipleFilterSearchRequest.Value.
+type MultipleFilterSearchRequest_Value struct {
+	union json.RawMessage
+}
+
 // NewsItem A News Item is a content type in Intercom enabling you to announce product updates, company news, promotions, events and more with your customers.
 type NewsItem struct {
 	// Body The news item body, which may contain HTML.
@@ -4934,6 +5020,18 @@ type SearchConversationsParams struct {
 	IntercomVersion   *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
+// RevokeConversationStreamTokensParams defines parameters for RevokeConversationStreamTokens.
+type RevokeConversationStreamTokensParams struct {
+	// ExternalId The external ID of the contact whose tokens to revoke.
+	ExternalId      string           `form:"external_id" json:"external_id"`
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// CreateConversationStreamTokenParams defines parameters for CreateConversationStreamToken.
+type CreateConversationStreamTokenParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
 // DeleteConversationParams defines parameters for DeleteConversation.
 type DeleteConversationParams struct {
 	// RetainMetrics If true (default), deletes the conversation while retaining reporting data. If false, deletes the conversation and all associated reporting data. Setting to false requires the `delete_conversations_and_metrics` OAuth scope.
@@ -6649,6 +6747,9 @@ type RedactConversationJSONRequestBody = RedactConversationRequest
 
 // SearchConversationsJSONRequestBody defines body for SearchConversations for application/json ContentType.
 type SearchConversationsJSONRequestBody = SearchRequest
+
+// CreateConversationStreamTokenJSONRequestBody defines body for CreateConversationStreamToken for application/json ContentType.
+type CreateConversationStreamTokenJSONRequestBody = CreateConversationStreamTokenRequest
 
 // UpdateConversationJSONRequestBody defines body for UpdateConversation for application/json ContentType.
 type UpdateConversationJSONRequestBody = UpdateConversationRequest
@@ -17441,6 +17542,47 @@ type ClientInterface interface {
 	//
 	// Corresponds with POST /conversations/search (the `SearchConversations` operationId).
 	SearchConversations(ctx context.Context, params *SearchConversationsParams, body SearchConversationsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RevokeConversationStreamTokens Revoke conversation stream tokens
+	//
+	// Realtime streaming of conversation events uses Server-Sent Events (SSE). It is an opt-in feature, enabled per workspace. Contact Intercom to turn it on.
+	//
+	// Revoke every active conversation stream token for a contact. Call this when the contact signs out or you suspect a token has been exposed.
+	//
+	// Requires the `read_conversations` permission.
+	//
+	// Corresponds with DELETE /conversations/stream/token (the `RevokeConversationStreamTokens` operationId).
+	RevokeConversationStreamTokens(ctx context.Context, params *RevokeConversationStreamTokensParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateConversationStreamTokenWithBody Create a conversation stream token
+	//
+	// Realtime streaming of conversation events uses Server-Sent Events (SSE). It is an opt-in feature, enabled per workspace. Contact Intercom to turn it on.
+	//
+	// Issue a token that a contact's client uses to subscribe to a realtime stream of that contact's conversation events.
+	//
+	// Tokens are short-lived, so call this endpoint again before `expires_at` to get a fresh one. Use the `revoke` link in the response to end every active token for the contact.
+	//
+	// Requires the `read_conversations` permission.
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with POST /conversations/stream/token (the `CreateConversationStreamToken` operationId).
+	CreateConversationStreamTokenWithBody(ctx context.Context, params *CreateConversationStreamTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateConversationStreamToken Create a conversation stream token
+	//
+	// Realtime streaming of conversation events uses Server-Sent Events (SSE). It is an opt-in feature, enabled per workspace. Contact Intercom to turn it on.
+	//
+	// Issue a token that a contact's client uses to subscribe to a realtime stream of that contact's conversation events.
+	//
+	// Tokens are short-lived, so call this endpoint again before `expires_at` to get a fresh one. Use the `revoke` link in the response to end every active token for the contact.
+	//
+	// Requires the `read_conversations` permission.
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with POST /conversations/stream/token (the `CreateConversationStreamToken` operationId).
+	CreateConversationStreamToken(ctx context.Context, params *CreateConversationStreamTokenParams, body CreateConversationStreamTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteConversation Delete a conversation
 	//

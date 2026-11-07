@@ -2,6 +2,15 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.8.2, 2026-11-07
+
+- Added `Client.CreateConversationStreamToken` and `CreateConversationStreamTokenWithBody`, which issue a conversation stream token for a contact by `external_id`. The request body is `CreateConversationStreamTokenRequest`, also available as `CreateConversationStreamTokenJSONRequestBody`.
+- Added `Client.RevokeConversationStreamTokens`, which revokes every active stream token for a contact. It takes `RevokeConversationStreamTokensParams` with a required `ExternalId`.
+- Added the matching `ClientWithResponses` methods `CreateConversationStreamTokenWithResponse`, `CreateConversationStreamTokenWithBodyWithResponse` and `RevokeConversationStreamTokensWithResponse`, the `New...Request` builders, the `Parse...Response` functions, `CreateConversationStreamTokenParams` and the response types.
+- Added `ConversationStreamToken`, with `ExpiresAt` and `Links`, and the `ConversationStreamTokenType` type with the constant `ConversationStreamTokenTypeConversationStreamToken`.
+- `ClientInterface` and `ClientWithResponsesInterface` gain the three new methods and their `WithBody` and `WithResponse` variants. Custom implementations of these interfaces must add them.
+- Generated code in `client_001.gen.go` to `client_006.gen.go` is reordered, which makes the diff large. Behavior is the same.
+
 ## v0.8.1, 2026-11-05
 
 - Download the official specification repository archive and select its highest stable numeric version without using GitHub's unauthenticated API quota.
