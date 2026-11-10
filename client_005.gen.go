@@ -5,12 +5,2150 @@ package intercom
 
 import (
 	"context"
-	"encoding/json"
 	"io"
 	"net/http"
-	"strings"
 	"time"
 )
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r MergeContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r MergeContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type PreviewMergeContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *MergePreviewResponse
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r PreviewMergeContactResponse) GetJSON200() *MergePreviewResponse {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r PreviewMergeContactResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r PreviewMergeContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r PreviewMergeContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r PreviewMergeContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PreviewMergeContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r PreviewMergeContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type SearchContactsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ContactList
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r SearchContactsResponse) GetJSON200() *ContactList {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r SearchContactsResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r SearchContactsResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r SearchContactsResponse) GetJSON422() *Error {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r SearchContactsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r SearchContactsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SearchContactsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SearchContactsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ContactDeleted
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r DeleteContactResponse) GetJSON200() *ContactDeleted {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r DeleteContactResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r DeleteContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r DeleteContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// ShowContactResponse410Headers the declared response headers of an HTTP 410 response for ShowContact
+type ShowContactResponse410Headers struct {
+	Link *string
+}
+
+type ShowContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// AndroidAppName The name of the Android app which the contact is using.
+		//
+		// Example: Intercom
+		AndroidAppName *string `json:"android_app_name,omitempty"`
+
+		// AndroidAppVersion The version of the Android app which the contact is using.
+		//
+		// Example: 5.0.0
+		AndroidAppVersion *string `json:"android_app_version,omitempty"`
+
+		// AndroidDevice The Android device which the contact is using.
+		//
+		// Example: Pixel 3
+		AndroidDevice *string `json:"android_device,omitempty"`
+
+		// AndroidLastSeenAt (Unix timestamp in seconds) The time when the contact was last seen on an Android device.
+		//
+		// Example: 1571672154
+		AndroidLastSeenAt *int `json:"android_last_seen_at,omitempty"`
+
+		// AndroidOsVersion The version of the Android OS which the contact is using.
+		//
+		// Example: 10
+		AndroidOsVersion *string `json:"android_os_version,omitempty"`
+
+		// AndroidSdkVersion The version of the Android SDK which the contact is using.
+		//
+		// Example: 28
+		AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
+
+		// Avatar An image URL containing the avatar of a contact.
+		//
+		// Example: https://example.org/128Wash.jpg
+		Avatar *string `json:"avatar,omitempty"`
+
+		// Browser The name of the browser which the contact is using.
+		//
+		// Example: Chrome
+		Browser *string `json:"browser,omitempty"`
+
+		// BrowserLanguage The language set by the browser which the contact is using.
+		//
+		// Example: en-US
+		BrowserLanguage *string `json:"browser_language,omitempty"`
+
+		// BrowserVersion The version of the browser which the contact is using.
+		//
+		// Example: 80.0.3987.132
+		BrowserVersion *string `json:"browser_version,omitempty"`
+
+		// Companies An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
+		Companies *ContactCompanies `json:"companies,omitempty"`
+
+		// CreatedAt (Unix timestamp in seconds) The time when the contact was created.
+		//
+		// Example: 1571672154
+		CreatedAt *int `json:"created_at,omitempty"`
+
+		// CustomAttributes The custom attributes which are set for the contact.
+		CustomAttributes *map[string]interface{} `json:"custom_attributes,omitempty"`
+
+		// Email The contact's email.
+		//
+		// Example: joe@example.com
+		Email *string `json:"email,omitempty"`
+
+		// EmailDomain The contact's email domain.
+		//
+		// Example: example.com
+		EmailDomain *string `json:"email_domain,omitempty"`
+
+		// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
+		//
+		// Example: true
+		EmailVerified *bool `json:"email_verified,omitempty"`
+
+		// EnabledPushMessaging If the user has enabled push messaging.
+		//
+		// Example: true
+		EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
+
+		// ExternalId The unique identifier for the contact which is provided by the Client.
+		//
+		// Example: f3b87a2e09d514c6c2e79b9a
+		ExternalId *string `json:"external_id,omitempty"`
+
+		// HasHardBounced Whether the contact has had an email sent to them hard bounce.
+		//
+		// Example: true
+		HasHardBounced *bool `json:"has_hard_bounced,omitempty"`
+
+		// Id The unique identifier for the contact which is given by Intercom.
+		//
+		// Example: 5ba682d23d7cf92bef87bfd4
+		Id *string `json:"id,omitempty"`
+
+		// IosAppName The name of the iOS app which the contact is using.
+		//
+		// Example: Intercom
+		IosAppName *string `json:"ios_app_name,omitempty"`
+
+		// IosAppVersion The version of the iOS app which the contact is using.
+		//
+		// Example: 5.0.0
+		IosAppVersion *string `json:"ios_app_version,omitempty"`
+
+		// IosDevice The iOS device which the contact is using.
+		//
+		// Example: iPhone 11
+		IosDevice *string `json:"ios_device,omitempty"`
+
+		// IosLastSeenAt (Unix timestamp in seconds) The last time the contact used the iOS app.
+		//
+		// Example: 1571672154
+		IosLastSeenAt *int `json:"ios_last_seen_at,omitempty"`
+
+		// IosOsVersion The version of iOS which the contact is using.
+		//
+		// Example: 13.3.1
+		IosOsVersion *string `json:"ios_os_version,omitempty"`
+
+		// IosSdkVersion The version of the iOS SDK which the contact is using.
+		//
+		// Example: 13.3.1
+		IosSdkVersion *string `json:"ios_sdk_version,omitempty"`
+
+		// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
+		//
+		// Example: en
+		LanguageOverride *string `json:"language_override,omitempty"`
+
+		// LastContactedAt (Unix timestamp in seconds) The time when the contact was last messaged.
+		//
+		// Example: 1571672154
+		LastContactedAt *int `json:"last_contacted_at,omitempty"`
+
+		// LastEmailClickedAt (Unix timestamp in seconds) The time when the contact last clicked a link in an email.
+		//
+		// Example: 1571672154
+		LastEmailClickedAt *int `json:"last_email_clicked_at,omitempty"`
+
+		// LastEmailOpenedAt (Unix timestamp in seconds) The time when the contact last opened an email.
+		//
+		// Example: 1571672154
+		LastEmailOpenedAt *int `json:"last_email_opened_at,omitempty"`
+
+		// LastRepliedAt (Unix timestamp in seconds) The time when the contact last messaged in.
+		//
+		// Example: 1571672154
+		LastRepliedAt *int `json:"last_replied_at,omitempty"`
+
+		// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
+		//
+		// Example: 1571672154
+		LastSeenAt *int `json:"last_seen_at,omitempty"`
+
+		// Location An object containing location meta data about a Intercom contact.
+		Location *ContactLocation `json:"location,omitempty"`
+
+		// MarkedEmailAsSpam Whether the contact has marked an email sent to them as spam.
+		//
+		// Example: true
+		MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
+
+		// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
+		MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
+
+		// Name The contacts name.
+		//
+		// Example: John Doe
+		Name *string `json:"name,omitempty"`
+
+		// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
+		Notes *ContactNotes `json:"notes,omitempty"`
+
+		// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+		OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
+
+		// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+		OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
+
+		// Os The operating system which the contact is using.
+		//
+		// Example: Mac OS X
+		Os *string `json:"os,omitempty"`
+
+		// OwnerId The id of an admin that has been assigned account ownership of the contact.
+		//
+		// Example: 321
+		OwnerId *string `json:"owner_id,omitempty"`
+
+		// Phone The contacts phone.
+		//
+		// Example: +1123456789
+		Phone *string `json:"phone,omitempty"`
+
+		// Referrer The URL of the page the contact came from, as recorded by the Messenger.
+		//
+		// Example: https://example.com/pricing
+		Referrer *string `json:"referrer,omitempty"`
+
+		// Role The role of the contact.
+		//
+		// Example: user
+		Role *string `json:"role,omitempty"`
+
+		// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
+		//
+		// Example: 1571672154
+		SignedUpAt *int `json:"signed_up_at,omitempty"`
+
+		// SmsConsent Whether the contact has consented to receive SMS messages.
+		//
+		// Example: false
+		SmsConsent *bool `json:"sms_consent,omitempty"`
+
+		// SocialProfiles An object containing social profiles that a contact has.
+		SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
+
+		// Tags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
+		Tags *ContactTags `json:"tags,omitempty"`
+
+		// Type The type of object.
+		//
+		// Example: contact
+		Type *string `json:"type,omitempty"`
+
+		// UnsubscribedFromEmails Whether the contact is unsubscribed from emails.
+		//
+		// Example: true
+		UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
+
+		// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
+		//
+		// Example: false
+		UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
+
+		// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
+		//
+		// Example: 1571672154
+		UpdatedAt *int `json:"updated_at,omitempty"`
+
+		// UtmCampaign The `utm_campaign` value recorded for the contact.
+		//
+		// Example: spring_launch
+		UtmCampaign *string `json:"utm_campaign,omitempty"`
+
+		// UtmContent The `utm_content` value recorded for the contact.
+		//
+		// Example: banner_ad
+		UtmContent *string `json:"utm_content,omitempty"`
+
+		// UtmMedium The `utm_medium` value recorded for the contact.
+		//
+		// Example: email
+		UtmMedium *string `json:"utm_medium,omitempty"`
+
+		// UtmSource The `utm_source` value recorded for the contact.
+		//
+		// Example: newsletter
+		UtmSource *string `json:"utm_source,omitempty"`
+
+		// UtmTerm The `utm_term` value recorded for the contact.
+		//
+		// Example: support_software
+		UtmTerm *string `json:"utm_term,omitempty"`
+
+		// WhatsappNumber The contact's WhatsApp number. It is read-only; sending it when creating or updating a contact has no effect.
+		//
+		// Example: +34666666666
+		WhatsappNumber *string `json:"whatsapp_number,omitempty"`
+
+		// WorkspaceId The id of the workspace which the contact belongs to.
+		//
+		// Example: ecahpwf5
+		WorkspaceId *string `json:"workspace_id,omitempty"`
+	}
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON410 the response for an HTTP 410 `application/json` response
+	JSON410 *Error
+	// Headers410 the parsed response headers for an HTTP 410 response
+	Headers410 *ShowContactResponse410Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ShowContactResponse) GetJSON200() *struct {
+	// AndroidAppName The name of the Android app which the contact is using.
+	//
+	// Example: Intercom
+	AndroidAppName *string `json:"android_app_name,omitempty"`
+
+	// AndroidAppVersion The version of the Android app which the contact is using.
+	//
+	// Example: 5.0.0
+	AndroidAppVersion *string `json:"android_app_version,omitempty"`
+
+	// AndroidDevice The Android device which the contact is using.
+	//
+	// Example: Pixel 3
+	AndroidDevice *string `json:"android_device,omitempty"`
+
+	// AndroidLastSeenAt (Unix timestamp in seconds) The time when the contact was last seen on an Android device.
+	//
+	// Example: 1571672154
+	AndroidLastSeenAt *int `json:"android_last_seen_at,omitempty"`
+
+	// AndroidOsVersion The version of the Android OS which the contact is using.
+	//
+	// Example: 10
+	AndroidOsVersion *string `json:"android_os_version,omitempty"`
+
+	// AndroidSdkVersion The version of the Android SDK which the contact is using.
+	//
+	// Example: 28
+	AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
+
+	// Avatar An image URL containing the avatar of a contact.
+	//
+	// Example: https://example.org/128Wash.jpg
+	Avatar *string `json:"avatar,omitempty"`
+
+	// Browser The name of the browser which the contact is using.
+	//
+	// Example: Chrome
+	Browser *string `json:"browser,omitempty"`
+
+	// BrowserLanguage The language set by the browser which the contact is using.
+	//
+	// Example: en-US
+	BrowserLanguage *string `json:"browser_language,omitempty"`
+
+	// BrowserVersion The version of the browser which the contact is using.
+	//
+	// Example: 80.0.3987.132
+	BrowserVersion *string `json:"browser_version,omitempty"`
+
+	// Companies An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
+	Companies *ContactCompanies `json:"companies,omitempty"`
+
+	// CreatedAt (Unix timestamp in seconds) The time when the contact was created.
+	//
+	// Example: 1571672154
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// CustomAttributes The custom attributes which are set for the contact.
+	CustomAttributes *map[string]interface{} `json:"custom_attributes,omitempty"`
+
+	// Email The contact's email.
+	//
+	// Example: joe@example.com
+	Email *string `json:"email,omitempty"`
+
+	// EmailDomain The contact's email domain.
+	//
+	// Example: example.com
+	EmailDomain *string `json:"email_domain,omitempty"`
+
+	// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
+	//
+	// Example: true
+	EmailVerified *bool `json:"email_verified,omitempty"`
+
+	// EnabledPushMessaging If the user has enabled push messaging.
+	//
+	// Example: true
+	EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
+
+	// ExternalId The unique identifier for the contact which is provided by the Client.
+	//
+	// Example: f3b87a2e09d514c6c2e79b9a
+	ExternalId *string `json:"external_id,omitempty"`
+
+	// HasHardBounced Whether the contact has had an email sent to them hard bounce.
+	//
+	// Example: true
+	HasHardBounced *bool `json:"has_hard_bounced,omitempty"`
+
+	// Id The unique identifier for the contact which is given by Intercom.
+	//
+	// Example: 5ba682d23d7cf92bef87bfd4
+	Id *string `json:"id,omitempty"`
+
+	// IosAppName The name of the iOS app which the contact is using.
+	//
+	// Example: Intercom
+	IosAppName *string `json:"ios_app_name,omitempty"`
+
+	// IosAppVersion The version of the iOS app which the contact is using.
+	//
+	// Example: 5.0.0
+	IosAppVersion *string `json:"ios_app_version,omitempty"`
+
+	// IosDevice The iOS device which the contact is using.
+	//
+	// Example: iPhone 11
+	IosDevice *string `json:"ios_device,omitempty"`
+
+	// IosLastSeenAt (Unix timestamp in seconds) The last time the contact used the iOS app.
+	//
+	// Example: 1571672154
+	IosLastSeenAt *int `json:"ios_last_seen_at,omitempty"`
+
+	// IosOsVersion The version of iOS which the contact is using.
+	//
+	// Example: 13.3.1
+	IosOsVersion *string `json:"ios_os_version,omitempty"`
+
+	// IosSdkVersion The version of the iOS SDK which the contact is using.
+	//
+	// Example: 13.3.1
+	IosSdkVersion *string `json:"ios_sdk_version,omitempty"`
+
+	// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
+	//
+	// Example: en
+	LanguageOverride *string `json:"language_override,omitempty"`
+
+	// LastContactedAt (Unix timestamp in seconds) The time when the contact was last messaged.
+	//
+	// Example: 1571672154
+	LastContactedAt *int `json:"last_contacted_at,omitempty"`
+
+	// LastEmailClickedAt (Unix timestamp in seconds) The time when the contact last clicked a link in an email.
+	//
+	// Example: 1571672154
+	LastEmailClickedAt *int `json:"last_email_clicked_at,omitempty"`
+
+	// LastEmailOpenedAt (Unix timestamp in seconds) The time when the contact last opened an email.
+	//
+	// Example: 1571672154
+	LastEmailOpenedAt *int `json:"last_email_opened_at,omitempty"`
+
+	// LastRepliedAt (Unix timestamp in seconds) The time when the contact last messaged in.
+	//
+	// Example: 1571672154
+	LastRepliedAt *int `json:"last_replied_at,omitempty"`
+
+	// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
+	//
+	// Example: 1571672154
+	LastSeenAt *int `json:"last_seen_at,omitempty"`
+
+	// Location An object containing location meta data about a Intercom contact.
+	Location *ContactLocation `json:"location,omitempty"`
+
+	// MarkedEmailAsSpam Whether the contact has marked an email sent to them as spam.
+	//
+	// Example: true
+	MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
+
+	// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
+	MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
+
+	// Name The contacts name.
+	//
+	// Example: John Doe
+	Name *string `json:"name,omitempty"`
+
+	// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
+	Notes *ContactNotes `json:"notes,omitempty"`
+
+	// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+	OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
+
+	// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+	OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
+
+	// Os The operating system which the contact is using.
+	//
+	// Example: Mac OS X
+	Os *string `json:"os,omitempty"`
+
+	// OwnerId The id of an admin that has been assigned account ownership of the contact.
+	//
+	// Example: 321
+	OwnerId *string `json:"owner_id,omitempty"`
+
+	// Phone The contacts phone.
+	//
+	// Example: +1123456789
+	Phone *string `json:"phone,omitempty"`
+
+	// Referrer The URL of the page the contact came from, as recorded by the Messenger.
+	//
+	// Example: https://example.com/pricing
+	Referrer *string `json:"referrer,omitempty"`
+
+	// Role The role of the contact.
+	//
+	// Example: user
+	Role *string `json:"role,omitempty"`
+
+	// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
+	//
+	// Example: 1571672154
+	SignedUpAt *int `json:"signed_up_at,omitempty"`
+
+	// SmsConsent Whether the contact has consented to receive SMS messages.
+	//
+	// Example: false
+	SmsConsent *bool `json:"sms_consent,omitempty"`
+
+	// SocialProfiles An object containing social profiles that a contact has.
+	SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
+
+	// Tags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
+	Tags *ContactTags `json:"tags,omitempty"`
+
+	// Type The type of object.
+	//
+	// Example: contact
+	Type *string `json:"type,omitempty"`
+
+	// UnsubscribedFromEmails Whether the contact is unsubscribed from emails.
+	//
+	// Example: true
+	UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
+
+	// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
+	//
+	// Example: false
+	UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
+
+	// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
+	//
+	// Example: 1571672154
+	UpdatedAt *int `json:"updated_at,omitempty"`
+
+	// UtmCampaign The `utm_campaign` value recorded for the contact.
+	//
+	// Example: spring_launch
+	UtmCampaign *string `json:"utm_campaign,omitempty"`
+
+	// UtmContent The `utm_content` value recorded for the contact.
+	//
+	// Example: banner_ad
+	UtmContent *string `json:"utm_content,omitempty"`
+
+	// UtmMedium The `utm_medium` value recorded for the contact.
+	//
+	// Example: email
+	UtmMedium *string `json:"utm_medium,omitempty"`
+
+	// UtmSource The `utm_source` value recorded for the contact.
+	//
+	// Example: newsletter
+	UtmSource *string `json:"utm_source,omitempty"`
+
+	// UtmTerm The `utm_term` value recorded for the contact.
+	//
+	// Example: support_software
+	UtmTerm *string `json:"utm_term,omitempty"`
+
+	// WhatsappNumber The contact's WhatsApp number. It is read-only; sending it when creating or updating a contact has no effect.
+	//
+	// Example: +34666666666
+	WhatsappNumber *string `json:"whatsapp_number,omitempty"`
+
+	// WorkspaceId The id of the workspace which the contact belongs to.
+	//
+	// Example: ecahpwf5
+	WorkspaceId *string `json:"workspace_id,omitempty"`
+} {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ShowContactResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ShowContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON410 returns the response for an HTTP 410 `application/json` response
+func (r ShowContactResponse) GetJSON410() *Error {
+	return r.JSON410
+}
+
+// GetBody returns the raw response body bytes
+func (r ShowContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ShowContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ShowContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ShowContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// AndroidAppName The name of the Android app which the contact is using.
+		//
+		// Example: Intercom
+		AndroidAppName *string `json:"android_app_name,omitempty"`
+
+		// AndroidAppVersion The version of the Android app which the contact is using.
+		//
+		// Example: 5.0.0
+		AndroidAppVersion *string `json:"android_app_version,omitempty"`
+
+		// AndroidDevice The Android device which the contact is using.
+		//
+		// Example: Pixel 3
+		AndroidDevice *string `json:"android_device,omitempty"`
+
+		// AndroidLastSeenAt (Unix timestamp in seconds) The time when the contact was last seen on an Android device.
+		//
+		// Example: 1571672154
+		AndroidLastSeenAt *int `json:"android_last_seen_at,omitempty"`
+
+		// AndroidOsVersion The version of the Android OS which the contact is using.
+		//
+		// Example: 10
+		AndroidOsVersion *string `json:"android_os_version,omitempty"`
+
+		// AndroidSdkVersion The version of the Android SDK which the contact is using.
+		//
+		// Example: 28
+		AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
+
+		// Avatar An image URL containing the avatar of a contact.
+		//
+		// Example: https://example.org/128Wash.jpg
+		Avatar *string `json:"avatar,omitempty"`
+
+		// Browser The name of the browser which the contact is using.
+		//
+		// Example: Chrome
+		Browser *string `json:"browser,omitempty"`
+
+		// BrowserLanguage The language set by the browser which the contact is using.
+		//
+		// Example: en-US
+		BrowserLanguage *string `json:"browser_language,omitempty"`
+
+		// BrowserVersion The version of the browser which the contact is using.
+		//
+		// Example: 80.0.3987.132
+		BrowserVersion *string `json:"browser_version,omitempty"`
+
+		// Companies An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
+		Companies *ContactCompanies `json:"companies,omitempty"`
+
+		// CreatedAt (Unix timestamp in seconds) The time when the contact was created.
+		//
+		// Example: 1571672154
+		CreatedAt *int `json:"created_at,omitempty"`
+
+		// CustomAttributes The custom attributes which are set for the contact.
+		CustomAttributes *map[string]interface{} `json:"custom_attributes,omitempty"`
+
+		// Email The contact's email.
+		//
+		// Example: joe@example.com
+		Email *string `json:"email,omitempty"`
+
+		// EmailDomain The contact's email domain.
+		//
+		// Example: example.com
+		EmailDomain *string `json:"email_domain,omitempty"`
+
+		// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
+		//
+		// Example: true
+		EmailVerified *bool `json:"email_verified,omitempty"`
+
+		// EnabledPushMessaging If the user has enabled push messaging.
+		//
+		// Example: true
+		EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
+
+		// ExternalId The unique identifier for the contact which is provided by the Client.
+		//
+		// Example: f3b87a2e09d514c6c2e79b9a
+		ExternalId *string `json:"external_id,omitempty"`
+
+		// HasHardBounced Whether the contact has had an email sent to them hard bounce.
+		//
+		// Example: true
+		HasHardBounced *bool `json:"has_hard_bounced,omitempty"`
+
+		// Id The unique identifier for the contact which is given by Intercom.
+		//
+		// Example: 5ba682d23d7cf92bef87bfd4
+		Id *string `json:"id,omitempty"`
+
+		// IosAppName The name of the iOS app which the contact is using.
+		//
+		// Example: Intercom
+		IosAppName *string `json:"ios_app_name,omitempty"`
+
+		// IosAppVersion The version of the iOS app which the contact is using.
+		//
+		// Example: 5.0.0
+		IosAppVersion *string `json:"ios_app_version,omitempty"`
+
+		// IosDevice The iOS device which the contact is using.
+		//
+		// Example: iPhone 11
+		IosDevice *string `json:"ios_device,omitempty"`
+
+		// IosLastSeenAt (Unix timestamp in seconds) The last time the contact used the iOS app.
+		//
+		// Example: 1571672154
+		IosLastSeenAt *int `json:"ios_last_seen_at,omitempty"`
+
+		// IosOsVersion The version of iOS which the contact is using.
+		//
+		// Example: 13.3.1
+		IosOsVersion *string `json:"ios_os_version,omitempty"`
+
+		// IosSdkVersion The version of the iOS SDK which the contact is using.
+		//
+		// Example: 13.3.1
+		IosSdkVersion *string `json:"ios_sdk_version,omitempty"`
+
+		// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
+		//
+		// Example: en
+		LanguageOverride *string `json:"language_override,omitempty"`
+
+		// LastContactedAt (Unix timestamp in seconds) The time when the contact was last messaged.
+		//
+		// Example: 1571672154
+		LastContactedAt *int `json:"last_contacted_at,omitempty"`
+
+		// LastEmailClickedAt (Unix timestamp in seconds) The time when the contact last clicked a link in an email.
+		//
+		// Example: 1571672154
+		LastEmailClickedAt *int `json:"last_email_clicked_at,omitempty"`
+
+		// LastEmailOpenedAt (Unix timestamp in seconds) The time when the contact last opened an email.
+		//
+		// Example: 1571672154
+		LastEmailOpenedAt *int `json:"last_email_opened_at,omitempty"`
+
+		// LastRepliedAt (Unix timestamp in seconds) The time when the contact last messaged in.
+		//
+		// Example: 1571672154
+		LastRepliedAt *int `json:"last_replied_at,omitempty"`
+
+		// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
+		//
+		// Example: 1571672154
+		LastSeenAt *int `json:"last_seen_at,omitempty"`
+
+		// Location An object containing location meta data about a Intercom contact.
+		Location *ContactLocation `json:"location,omitempty"`
+
+		// MarkedEmailAsSpam Whether the contact has marked an email sent to them as spam.
+		//
+		// Example: true
+		MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
+
+		// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
+		MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
+
+		// Name The contacts name.
+		//
+		// Example: John Doe
+		Name *string `json:"name,omitempty"`
+
+		// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
+		Notes *ContactNotes `json:"notes,omitempty"`
+
+		// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+		OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
+
+		// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+		OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
+
+		// Os The operating system which the contact is using.
+		//
+		// Example: Mac OS X
+		Os *string `json:"os,omitempty"`
+
+		// OwnerId The id of an admin that has been assigned account ownership of the contact.
+		//
+		// Example: 321
+		OwnerId *string `json:"owner_id,omitempty"`
+
+		// Phone The contacts phone.
+		//
+		// Example: +1123456789
+		Phone *string `json:"phone,omitempty"`
+
+		// Referrer The URL of the page the contact came from, as recorded by the Messenger.
+		//
+		// Example: https://example.com/pricing
+		Referrer *string `json:"referrer,omitempty"`
+
+		// Role The role of the contact.
+		//
+		// Example: user
+		Role *string `json:"role,omitempty"`
+
+		// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
+		//
+		// Example: 1571672154
+		SignedUpAt *int `json:"signed_up_at,omitempty"`
+
+		// SmsConsent Whether the contact has consented to receive SMS messages.
+		//
+		// Example: false
+		SmsConsent *bool `json:"sms_consent,omitempty"`
+
+		// SocialProfiles An object containing social profiles that a contact has.
+		SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
+
+		// Tags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
+		Tags *ContactTags `json:"tags,omitempty"`
+
+		// Type The type of object.
+		//
+		// Example: contact
+		Type *string `json:"type,omitempty"`
+
+		// UnsubscribedFromEmails Whether the contact is unsubscribed from emails.
+		//
+		// Example: true
+		UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
+
+		// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
+		//
+		// Example: false
+		UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
+
+		// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
+		//
+		// Example: 1571672154
+		UpdatedAt *int `json:"updated_at,omitempty"`
+
+		// UtmCampaign The `utm_campaign` value recorded for the contact.
+		//
+		// Example: spring_launch
+		UtmCampaign *string `json:"utm_campaign,omitempty"`
+
+		// UtmContent The `utm_content` value recorded for the contact.
+		//
+		// Example: banner_ad
+		UtmContent *string `json:"utm_content,omitempty"`
+
+		// UtmMedium The `utm_medium` value recorded for the contact.
+		//
+		// Example: email
+		UtmMedium *string `json:"utm_medium,omitempty"`
+
+		// UtmSource The `utm_source` value recorded for the contact.
+		//
+		// Example: newsletter
+		UtmSource *string `json:"utm_source,omitempty"`
+
+		// UtmTerm The `utm_term` value recorded for the contact.
+		//
+		// Example: support_software
+		UtmTerm *string `json:"utm_term,omitempty"`
+
+		// WhatsappNumber The contact's WhatsApp number. It is read-only; sending it when creating or updating a contact has no effect.
+		//
+		// Example: +34666666666
+		WhatsappNumber *string `json:"whatsapp_number,omitempty"`
+
+		// WorkspaceId The id of the workspace which the contact belongs to.
+		//
+		// Example: ecahpwf5
+		WorkspaceId *string `json:"workspace_id,omitempty"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r UpdateContactResponse) GetJSON200() *struct {
+	// AndroidAppName The name of the Android app which the contact is using.
+	//
+	// Example: Intercom
+	AndroidAppName *string `json:"android_app_name,omitempty"`
+
+	// AndroidAppVersion The version of the Android app which the contact is using.
+	//
+	// Example: 5.0.0
+	AndroidAppVersion *string `json:"android_app_version,omitempty"`
+
+	// AndroidDevice The Android device which the contact is using.
+	//
+	// Example: Pixel 3
+	AndroidDevice *string `json:"android_device,omitempty"`
+
+	// AndroidLastSeenAt (Unix timestamp in seconds) The time when the contact was last seen on an Android device.
+	//
+	// Example: 1571672154
+	AndroidLastSeenAt *int `json:"android_last_seen_at,omitempty"`
+
+	// AndroidOsVersion The version of the Android OS which the contact is using.
+	//
+	// Example: 10
+	AndroidOsVersion *string `json:"android_os_version,omitempty"`
+
+	// AndroidSdkVersion The version of the Android SDK which the contact is using.
+	//
+	// Example: 28
+	AndroidSdkVersion *string `json:"android_sdk_version,omitempty"`
+
+	// Avatar An image URL containing the avatar of a contact.
+	//
+	// Example: https://example.org/128Wash.jpg
+	Avatar *string `json:"avatar,omitempty"`
+
+	// Browser The name of the browser which the contact is using.
+	//
+	// Example: Chrome
+	Browser *string `json:"browser,omitempty"`
+
+	// BrowserLanguage The language set by the browser which the contact is using.
+	//
+	// Example: en-US
+	BrowserLanguage *string `json:"browser_language,omitempty"`
+
+	// BrowserVersion The version of the browser which the contact is using.
+	//
+	// Example: 80.0.3987.132
+	BrowserVersion *string `json:"browser_version,omitempty"`
+
+	// Companies An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
+	Companies *ContactCompanies `json:"companies,omitempty"`
+
+	// CreatedAt (Unix timestamp in seconds) The time when the contact was created.
+	//
+	// Example: 1571672154
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// CustomAttributes The custom attributes which are set for the contact.
+	CustomAttributes *map[string]interface{} `json:"custom_attributes,omitempty"`
+
+	// Email The contact's email.
+	//
+	// Example: joe@example.com
+	Email *string `json:"email,omitempty"`
+
+	// EmailDomain The contact's email domain.
+	//
+	// Example: example.com
+	EmailDomain *string `json:"email_domain,omitempty"`
+
+	// EmailVerified Whether the contact has proved they own their current email address. `true` only when this address was marked verified through the Contacts API (`email_verified: true` on create or update) and has not changed since; it becomes `false` again if the contact's email changes, until the new address is verified. Intercom reuses a lead with a verified email when it later matches an inbound email, or an outbound conversation or ticket, to that address, instead of creating a new lead. In List contacts and Search contacts responses it is left out only if the contact can't be loaded, for example when it is deleted while the request runs.
+	//
+	// Example: true
+	EmailVerified *bool `json:"email_verified,omitempty"`
+
+	// EnabledPushMessaging If the user has enabled push messaging.
+	//
+	// Example: true
+	EnabledPushMessaging *bool `json:"enabled_push_messaging,omitempty"`
+
+	// ExternalId The unique identifier for the contact which is provided by the Client.
+	//
+	// Example: f3b87a2e09d514c6c2e79b9a
+	ExternalId *string `json:"external_id,omitempty"`
+
+	// HasHardBounced Whether the contact has had an email sent to them hard bounce.
+	//
+	// Example: true
+	HasHardBounced *bool `json:"has_hard_bounced,omitempty"`
+
+	// Id The unique identifier for the contact which is given by Intercom.
+	//
+	// Example: 5ba682d23d7cf92bef87bfd4
+	Id *string `json:"id,omitempty"`
+
+	// IosAppName The name of the iOS app which the contact is using.
+	//
+	// Example: Intercom
+	IosAppName *string `json:"ios_app_name,omitempty"`
+
+	// IosAppVersion The version of the iOS app which the contact is using.
+	//
+	// Example: 5.0.0
+	IosAppVersion *string `json:"ios_app_version,omitempty"`
+
+	// IosDevice The iOS device which the contact is using.
+	//
+	// Example: iPhone 11
+	IosDevice *string `json:"ios_device,omitempty"`
+
+	// IosLastSeenAt (Unix timestamp in seconds) The last time the contact used the iOS app.
+	//
+	// Example: 1571672154
+	IosLastSeenAt *int `json:"ios_last_seen_at,omitempty"`
+
+	// IosOsVersion The version of iOS which the contact is using.
+	//
+	// Example: 13.3.1
+	IosOsVersion *string `json:"ios_os_version,omitempty"`
+
+	// IosSdkVersion The version of the iOS SDK which the contact is using.
+	//
+	// Example: 13.3.1
+	IosSdkVersion *string `json:"ios_sdk_version,omitempty"`
+
+	// LanguageOverride A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
+	//
+	// Example: en
+	LanguageOverride *string `json:"language_override,omitempty"`
+
+	// LastContactedAt (Unix timestamp in seconds) The time when the contact was last messaged.
+	//
+	// Example: 1571672154
+	LastContactedAt *int `json:"last_contacted_at,omitempty"`
+
+	// LastEmailClickedAt (Unix timestamp in seconds) The time when the contact last clicked a link in an email.
+	//
+	// Example: 1571672154
+	LastEmailClickedAt *int `json:"last_email_clicked_at,omitempty"`
+
+	// LastEmailOpenedAt (Unix timestamp in seconds) The time when the contact last opened an email.
+	//
+	// Example: 1571672154
+	LastEmailOpenedAt *int `json:"last_email_opened_at,omitempty"`
+
+	// LastRepliedAt (Unix timestamp in seconds) The time when the contact last messaged in.
+	//
+	// Example: 1571672154
+	LastRepliedAt *int `json:"last_replied_at,omitempty"`
+
+	// LastSeenAt (Unix timestamp in seconds) The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
+	//
+	// Example: 1571672154
+	LastSeenAt *int `json:"last_seen_at,omitempty"`
+
+	// Location An object containing location meta data about a Intercom contact.
+	Location *ContactLocation `json:"location,omitempty"`
+
+	// MarkedEmailAsSpam Whether the contact has marked an email sent to them as spam.
+	//
+	// Example: true
+	MarkedEmailAsSpam *bool `json:"marked_email_as_spam,omitempty"`
+
+	// MergeHistory A list of contacts that were merged into this contact, most recent first, capped at 10. Only included in the response when `include_merge_history=true` is passed as a query parameter.
+	MergeHistory *[]MergeHistoryItem `json:"merge_history,omitempty"`
+
+	// Name The contacts name.
+	//
+	// Example: John Doe
+	Name *string `json:"name,omitempty"`
+
+	// Notes An object containing notes meta data about the notes that a contact has. Up to 10 will be displayed here. Use the url to get more.
+	Notes *ContactNotes `json:"notes,omitempty"`
+
+	// OptedInSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+	OptedInSubscriptionTypes *ContactSubscriptionTypes `json:"opted_in_subscription_types,omitempty"`
+
+	// OptedOutSubscriptionTypes An object containing Subscription Types meta data about the SubscriptionTypes that a contact has.
+	OptedOutSubscriptionTypes *ContactSubscriptionTypes `json:"opted_out_subscription_types,omitempty"`
+
+	// Os The operating system which the contact is using.
+	//
+	// Example: Mac OS X
+	Os *string `json:"os,omitempty"`
+
+	// OwnerId The id of an admin that has been assigned account ownership of the contact.
+	//
+	// Example: 321
+	OwnerId *string `json:"owner_id,omitempty"`
+
+	// Phone The contacts phone.
+	//
+	// Example: +1123456789
+	Phone *string `json:"phone,omitempty"`
+
+	// Referrer The URL of the page the contact came from, as recorded by the Messenger.
+	//
+	// Example: https://example.com/pricing
+	Referrer *string `json:"referrer,omitempty"`
+
+	// Role The role of the contact.
+	//
+	// Example: user
+	Role *string `json:"role,omitempty"`
+
+	// SignedUpAt (Unix timestamp in seconds) The time specified for when a contact signed up.
+	//
+	// Example: 1571672154
+	SignedUpAt *int `json:"signed_up_at,omitempty"`
+
+	// SmsConsent Whether the contact has consented to receive SMS messages.
+	//
+	// Example: false
+	SmsConsent *bool `json:"sms_consent,omitempty"`
+
+	// SocialProfiles An object containing social profiles that a contact has.
+	SocialProfiles *ContactSocialProfiles `json:"social_profiles,omitempty"`
+
+	// Tags An object containing tags meta data about the tags that a contact has. Up to 10 will be displayed here. Use the url to get more.
+	Tags *ContactTags `json:"tags,omitempty"`
+
+	// Type The type of object.
+	//
+	// Example: contact
+	Type *string `json:"type,omitempty"`
+
+	// UnsubscribedFromEmails Whether the contact is unsubscribed from emails.
+	//
+	// Example: true
+	UnsubscribedFromEmails *bool `json:"unsubscribed_from_emails,omitempty"`
+
+	// UnsubscribedFromSms Whether the contact is unsubscribed from SMS messages.
+	//
+	// Example: false
+	UnsubscribedFromSms *bool `json:"unsubscribed_from_sms,omitempty"`
+
+	// UpdatedAt (Unix timestamp in seconds) The time when the contact was last updated.
+	//
+	// Example: 1571672154
+	UpdatedAt *int `json:"updated_at,omitempty"`
+
+	// UtmCampaign The `utm_campaign` value recorded for the contact.
+	//
+	// Example: spring_launch
+	UtmCampaign *string `json:"utm_campaign,omitempty"`
+
+	// UtmContent The `utm_content` value recorded for the contact.
+	//
+	// Example: banner_ad
+	UtmContent *string `json:"utm_content,omitempty"`
+
+	// UtmMedium The `utm_medium` value recorded for the contact.
+	//
+	// Example: email
+	UtmMedium *string `json:"utm_medium,omitempty"`
+
+	// UtmSource The `utm_source` value recorded for the contact.
+	//
+	// Example: newsletter
+	UtmSource *string `json:"utm_source,omitempty"`
+
+	// UtmTerm The `utm_term` value recorded for the contact.
+	//
+	// Example: support_software
+	UtmTerm *string `json:"utm_term,omitempty"`
+
+	// WhatsappNumber The contact's WhatsApp number. It is read-only; sending it when creating or updating a contact has no effect.
+	//
+	// Example: +34666666666
+	WhatsappNumber *string `json:"whatsapp_number,omitempty"`
+
+	// WorkspaceId The id of the workspace which the contact belongs to.
+	//
+	// Example: ecahpwf5
+	WorkspaceId *string `json:"workspace_id,omitempty"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r UpdateContactResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r UpdateContactResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r UpdateContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r UpdateContactResponse) GetJSON422() *Error {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r UpdateContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ArchiveContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ContactArchived
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ArchiveContactResponse) GetJSON200() *ContactArchived {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ArchiveContactResponse) GetJSON401() *Unauthorized {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ArchiveContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ArchiveContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ArchiveContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ArchiveContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ArchiveContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type BlockContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ContactBlocked
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r BlockContactResponse) GetJSON200() *ContactBlocked {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r BlockContactResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r BlockContactResponse) GetJSON401() *Unauthorized {
+	return r.JSON401
+}
+
+// GetBody returns the raw response body bytes
+func (r BlockContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r BlockContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r BlockContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r BlockContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListCompaniesForAContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ContactAttachedCompanies
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListCompaniesForAContactResponse) GetJSON200() *ContactAttachedCompanies {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListCompaniesForAContactResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListCompaniesForAContactResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListCompaniesForAContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ListCompaniesForAContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListCompaniesForAContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListCompaniesForAContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListCompaniesForAContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type AttachContactToACompanyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Company
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r AttachContactToACompanyResponse) GetJSON200() *Company {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r AttachContactToACompanyResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r AttachContactToACompanyResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r AttachContactToACompanyResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r AttachContactToACompanyResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r AttachContactToACompanyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r AttachContactToACompanyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r AttachContactToACompanyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DetachContactFromACompanyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Company
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r DetachContactFromACompanyResponse) GetJSON200() *Company {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r DetachContactFromACompanyResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r DetachContactFromACompanyResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r DetachContactFromACompanyResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DetachContactFromACompanyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DetachContactFromACompanyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DetachContactFromACompanyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListGrantedCompaniesForAContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *GrantedCompanyList
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListGrantedCompaniesForAContactResponse) GetJSON200() *GrantedCompanyList {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListGrantedCompaniesForAContactResponse) GetJSON401() *Unauthorized {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListGrantedCompaniesForAContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ListGrantedCompaniesForAContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListGrantedCompaniesForAContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListGrantedCompaniesForAContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListGrantedCompaniesForAContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ReplaceGrantedCompaniesForAContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *GrantedCompanyList
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ReplaceGrantedCompaniesForAContactResponse) GetJSON200() *GrantedCompanyList {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ReplaceGrantedCompaniesForAContactResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ReplaceGrantedCompaniesForAContactResponse) GetJSON401() *Unauthorized {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ReplaceGrantedCompaniesForAContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r ReplaceGrantedCompaniesForAContactResponse) GetJSON503() *Error {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r ReplaceGrantedCompaniesForAContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ReplaceGrantedCompaniesForAContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReplaceGrantedCompaniesForAContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ReplaceGrantedCompaniesForAContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RemoveGrantedCompanyFromAContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r RemoveGrantedCompanyFromAContactResponse) GetJSON401() *Unauthorized {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r RemoveGrantedCompanyFromAContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r RemoveGrantedCompanyFromAContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RemoveGrantedCompanyFromAContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RemoveGrantedCompanyFromAContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RemoveGrantedCompanyFromAContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListNotesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *NoteList
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListNotesResponse) GetJSON200() *NoteList {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListNotesResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListNotesResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListNotesResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ListNotesResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListNotesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListNotesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListNotesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateNoteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Note
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CreateNoteResponse) GetJSON200() *Note {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CreateNoteResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r CreateNoteResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r CreateNoteResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r CreateNoteResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateNoteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateNoteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateNoteResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListSegmentsForAContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *ContactSegments
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListSegmentsForAContactResponse) GetJSON200() *ContactSegments {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListSegmentsForAContactResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListSegmentsForAContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ListSegmentsForAContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSegmentsForAContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSegmentsForAContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSegmentsForAContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListSubscriptionsForAContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *SubscriptionTypeList
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListSubscriptionsForAContactResponse) GetJSON200() *SubscriptionTypeList {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListSubscriptionsForAContactResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListSubscriptionsForAContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ListSubscriptionsForAContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSubscriptionsForAContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSubscriptionsForAContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSubscriptionsForAContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type AttachSubscriptionTypeToContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *SubscriptionType
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r AttachSubscriptionTypeToContactResponse) GetJSON200() *SubscriptionType {
@@ -2093,6 +4231,8 @@ type RetrieveConversationResponse struct {
 	JSON403 *Error
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -2113,6 +4253,11 @@ func (r RetrieveConversationResponse) GetJSON403() *Error {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r RetrieveConversationResponse) GetJSON404() *Error {
 	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r RetrieveConversationResponse) GetJSON422() *Error {
+	return r.JSON422
 }
 
 // GetBody returns the raw response body bytes
@@ -2896,6 +5041,75 @@ func (r ListSideConversationsResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r ListSideConversationsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListTeamHandlingSegmentsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *TeamHandlingSegmentList
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListTeamHandlingSegmentsResponse) GetJSON200() *TeamHandlingSegmentList {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListTeamHandlingSegmentsResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListTeamHandlingSegmentsResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r ListTeamHandlingSegmentsResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListTeamHandlingSegmentsResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r ListTeamHandlingSegmentsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListTeamHandlingSegmentsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListTeamHandlingSegmentsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListTeamHandlingSegmentsResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -4431,6 +6645,165 @@ func (r UpdateDynamicContentResponse) ContentType() string {
 	return ""
 }
 
+type UploadEcommerceCatalogResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *EcommerceCatalogUploadPartResponse
+	// JSON202 the response for an HTTP 202 `application/json` response
+	JSON202 *EcommerceCatalogUploadResponse
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON409 the response for an HTTP 409 `application/json` response
+	JSON409 *EcommerceCatalogUploadConflictError
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r UploadEcommerceCatalogResponse) GetJSON200() *EcommerceCatalogUploadPartResponse {
+	return r.JSON200
+}
+
+// GetJSON202 returns the response for an HTTP 202 `application/json` response
+func (r UploadEcommerceCatalogResponse) GetJSON202() *EcommerceCatalogUploadResponse {
+	return r.JSON202
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r UploadEcommerceCatalogResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r UploadEcommerceCatalogResponse) GetJSON401() *Unauthorized {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r UploadEcommerceCatalogResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON409 returns the response for an HTTP 409 `application/json` response
+func (r UploadEcommerceCatalogResponse) GetJSON409() *EcommerceCatalogUploadConflictError {
+	return r.JSON409
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r UploadEcommerceCatalogResponse) GetJSON422() *Error {
+	return r.JSON422
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r UploadEcommerceCatalogResponse) GetJSON503() *Error {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r UploadEcommerceCatalogResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r UploadEcommerceCatalogResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UploadEcommerceCatalogResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UploadEcommerceCatalogResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type SubmitEcommerceProductEventResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON202 the response for an HTTP 202 `application/json` response
+	JSON202 *EcommerceProductEventResponse
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Unauthorized
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON409 the response for an HTTP 409 `application/json` response
+	JSON409 *Error
+}
+
+// GetJSON202 returns the response for an HTTP 202 `application/json` response
+func (r SubmitEcommerceProductEventResponse) GetJSON202() *EcommerceProductEventResponse {
+	return r.JSON202
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r SubmitEcommerceProductEventResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r SubmitEcommerceProductEventResponse) GetJSON401() *Unauthorized {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r SubmitEcommerceProductEventResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON409 returns the response for an HTTP 409 `application/json` response
+func (r SubmitEcommerceProductEventResponse) GetJSON409() *Error {
+	return r.JSON409
+}
+
+// GetBody returns the raw response body bytes
+func (r SubmitEcommerceProductEventResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r SubmitEcommerceProductEventResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SubmitEcommerceProductEventResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SubmitEcommerceProductEventResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListEmailsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -5018,7 +7391,7 @@ type GetExportReportingDataGetDatasetsResponse struct {
 				// Name Example: Conversation ID
 				Name *string `json:"name,omitempty"`
 
-				// QualifiedId A namespaced identifier that uniquely identifies the attribute across all types. Format is "prefix.name" (e.g., "people.Brand", "conversation.Brand"). Required when calling the enqueue endpoint.
+				// QualifiedId A namespaced identifier that uniquely identifies the attribute across all types. Format is "prefix.name" (e.g., "people.Brand", "conversation.Brand"). A ticket field also includes its ticket type (e.g., "ticket.Bug.Priority"). Required when calling the enqueue endpoint.
 				//
 				// Example: standard.conversation_id
 				QualifiedId *string `json:"qualified_id,omitempty"`
@@ -5058,7 +7431,7 @@ func (r GetExportReportingDataGetDatasetsResponse) GetJSON200() *struct {
 			// Name Example: Conversation ID
 			Name *string `json:"name,omitempty"`
 
-			// QualifiedId A namespaced identifier that uniquely identifies the attribute across all types. Format is "prefix.name" (e.g., "people.Brand", "conversation.Brand"). Required when calling the enqueue endpoint.
+			// QualifiedId A namespaced identifier that uniquely identifies the attribute across all types. Format is "prefix.name" (e.g., "people.Brand", "conversation.Brand"). A ticket field also includes its ticket type (e.g., "ticket.Bug.Priority"). Required when calling the enqueue endpoint.
 			//
 			// Example: standard.conversation_id
 			QualifiedId *string `json:"qualified_id,omitempty"`
@@ -9730,6 +12103,109 @@ func (r CreatePhoneSwitchResponse) ContentType() string {
 	return ""
 }
 
+type ListRolesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *RoleList
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListRolesResponse) GetJSON200() *RoleList {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListRolesResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetBody returns the raw response body bytes
+func (r ListRolesResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListRolesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListRolesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListRolesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RetrieveRoleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *Role
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r RetrieveRoleResponse) GetJSON200() *Role {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r RetrieveRoleResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r RetrieveRoleResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetBody returns the raw response body bytes
+func (r RetrieveRoleResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RetrieveRoleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RetrieveRoleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RetrieveRoleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListSegmentsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -12585,6 +15061,96 @@ func (c *ClientWithResponses) UpdateAudienceWithResponse(ctx context.Context, id
 	return ParseUpdateAudienceResponse(rsp)
 }
 
+// ListAuthTokensWithResponse List all auth tokens
+//
+// Returns a paginated list of the workspace's stored third-party credentials. Use this to discover the id of a credential you want a data connector to authenticate with — that id is not otherwise available over REST. Only metadata is returned; credential values are never exposed. The list is not exhaustive: credentials a teammate created are listed, as are those created by some Intercom integrations, but credentials installed by an app package, those created by most other integrations, and those minted for an individual teammate's MCP access are not.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /auth_tokens (the `ListAuthTokens` operationId).
+func (c *ClientWithResponses) ListAuthTokensWithResponse(ctx context.Context, params *ListAuthTokensParams, reqEditors ...RequestEditorFn) (*ListAuthTokensResponse, error) {
+	rsp, err := c.ListAuthTokens(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAuthTokensResponse(rsp)
+}
+
+// CreateAuthTokenWithBodyWithResponse Create an auth token
+//
+// Stores a third-party credential in your workspace so a data connector can authenticate outbound requests with it. Set `token_type` to `text` (the default) to send the credential value as a request header yourself, or to `oauth` to have Intercom exchange OAuth client credentials for an access token and keep it refreshed. The value you supply is stored encrypted and is never returned by any endpoint, including this one.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /auth_tokens (the `CreateAuthToken` operationId).
+func (c *ClientWithResponses) CreateAuthTokenWithBodyWithResponse(ctx context.Context, params *CreateAuthTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAuthTokenResponse, error) {
+	rsp, err := c.CreateAuthTokenWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAuthTokenResponse(rsp)
+}
+
+// CreateAuthTokenWithResponse Create an auth token
+//
+// Stores a third-party credential in your workspace so a data connector can authenticate outbound requests with it. Set `token_type` to `text` (the default) to send the credential value as a request header yourself, or to `oauth` to have Intercom exchange OAuth client credentials for an access token and keep it refreshed. The value you supply is stored encrypted and is never returned by any endpoint, including this one.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /auth_tokens (the `CreateAuthToken` operationId).
+func (c *ClientWithResponses) CreateAuthTokenWithResponse(ctx context.Context, params *CreateAuthTokenParams, body CreateAuthTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAuthTokenResponse, error) {
+	rsp, err := c.CreateAuthToken(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAuthTokenResponse(rsp)
+}
+
+// RetrieveAuthTokenWithResponse Retrieve an auth token
+//
+// Returns the metadata for a single stored third-party credential. A credential that the list endpoint does not return is also not retrievable here, and responds with 404.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /auth_tokens/{id} (the `RetrieveAuthToken` operationId).
+func (c *ClientWithResponses) RetrieveAuthTokenWithResponse(ctx context.Context, id string, params *RetrieveAuthTokenParams, reqEditors ...RequestEditorFn) (*RetrieveAuthTokenResponse, error) {
+	rsp, err := c.RetrieveAuthToken(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveAuthTokenResponse(rsp)
+}
+
+// UpdateAuthTokenWithBodyWithResponse Update an auth token
+//
+// Updates the metadata of a stored third-party credential. A field you omit keeps its current value. The credential value itself cannot be changed here and is never returned. The `domain` is read-only, and `request_header_key` cannot be changed on a credential that has a domain. Only credentials with a `token_type` of `text` can be updated; any other type responds with `400`. A credential the list endpoint does not return is also not updatable, and responds with `404`.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PATCH /auth_tokens/{id} (the `UpdateAuthToken` operationId).
+func (c *ClientWithResponses) UpdateAuthTokenWithBodyWithResponse(ctx context.Context, id string, params *UpdateAuthTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAuthTokenResponse, error) {
+	rsp, err := c.UpdateAuthTokenWithBody(ctx, id, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAuthTokenResponse(rsp)
+}
+
+// UpdateAuthTokenWithResponse Update an auth token
+//
+// Updates the metadata of a stored third-party credential. A field you omit keeps its current value. The credential value itself cannot be changed here and is never returned. The `domain` is read-only, and `request_header_key` cannot be changed on a credential that has a domain. Only credentials with a `token_type` of `text` can be updated; any other type responds with `400`. A credential the list endpoint does not return is also not updatable, and responds with `404`.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PATCH /auth_tokens/{id} (the `UpdateAuthToken` operationId).
+func (c *ClientWithResponses) UpdateAuthTokenWithResponse(ctx context.Context, id string, params *UpdateAuthTokenParams, body UpdateAuthTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAuthTokenResponse, error) {
+	rsp, err := c.UpdateAuthToken(ctx, id, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAuthTokenResponse(rsp)
+}
+
 // ListAwayStatusReasonsWithResponse List all away status reasons
 //
 // Returns a list of all away status reasons configured for the workspace, including deleted ones.
@@ -12724,7 +15290,7 @@ func (c *ClientWithResponses) ShowCallRecordingWithResponse(ctx context.Context,
 
 // ShowCallTranscriptWithResponse Get call transcript by call id
 //
-// Returns the transcript for the specified call as a JSON array of turns.
+// Returns the transcript for the specified call as a JSON array of turns. Each turn carries a `speaker_name` when the speaker could be resolved. Clients should fall back to `speaker_label` when `speaker_name` is absent.
 //
 // Requires the `read_conversations` OAuth scope.
 //
@@ -13575,9 +16141,17 @@ func (c *ClientWithResponses) ShowContactByExternalIdWithResponse(ctx context.Co
 	return ParseShowContactByExternalIdResponse(rsp)
 }
 
-// MergeContactWithBodyWithResponse Merge a lead and a user
+// MergeContactWithBodyWithResponse Merge two contacts
 //
-// You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
+// You can merge one contact into another. Both lead-into-user and user-into-user merges are supported: the source contact (`from`) may have a `role` of `lead` or `user`, and the destination contact (`into`) must have a `role` of `user`.
+//
+// {% admonition type="warning" name="User-to-user merges" %}
+//
+//	When you merge a user into another user, the source user's attribute values (standard and custom) are discarded and are not moved onto the target user. The target user keeps its own attribute values. Records associated with the source, such as conversations, notes, and tags, are still reassigned to the target.
+//
+//	Merging a user into another user requires the `merge_users` OAuth scope on your access token, in addition to the scope required for lead-into-user merges. Tokens without this scope receive a `401 Unauthorized` when the source contact is a user.
+//
+// {% /admonition %}
 //
 // {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
 //
@@ -13603,9 +16177,17 @@ func (c *ClientWithResponses) MergeContactWithBodyWithResponse(ctx context.Conte
 	return ParseMergeContactResponse(rsp)
 }
 
-// MergeContactWithResponse Merge a lead and a user
+// MergeContactWithResponse Merge two contacts
 //
-// You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
+// You can merge one contact into another. Both lead-into-user and user-into-user merges are supported: the source contact (`from`) may have a `role` of `lead` or `user`, and the destination contact (`into`) must have a `role` of `user`.
+//
+// {% admonition type="warning" name="User-to-user merges" %}
+//
+//	When you merge a user into another user, the source user's attribute values (standard and custom) are discarded and are not moved onto the target user. The target user keeps its own attribute values. Records associated with the source, such as conversations, notes, and tags, are still reassigned to the target.
+//
+//	Merging a user into another user requires the `merge_users` OAuth scope on your access token, in addition to the scope required for lead-into-user merges. Tokens without this scope receive a `401 Unauthorized` when the source contact is a user.
+//
+// {% /admonition %}
 //
 // {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
 //
@@ -13635,7 +16217,7 @@ func (c *ClientWithResponses) MergeContactWithResponse(ctx context.Context, para
 //
 // Preview the result of merging one contact into another without applying the merge. This is a read-only dry run: it reports whether the merge is allowed and, if so, exactly what would change, **without modifying any data**.
 //
-// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
+// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). As with the merge endpoint, `from` may have a `role` of `lead` or `user`, and `into` must have a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
 //
 // - When `allowed` is `true`, the response contains a `summary`: every attribute change (with the resulting value on the surviving contact) and, for each object type, two counts — `from`, how many are on the source contact and would move to the destination, and `into`, how many the destination already has. Counts are reported for conversations, tickets, phone calls, notes, and tags. `conversations` counts non-ticket conversations only; tickets are reported separately under `tickets`, and `phone_calls` is present only for phone-channel merges.
 // - When `allowed` is `false`, the response contains `reasons`. Each reason has a stable `code` you can branch on and a human-readable `message` you can display.
@@ -13654,9 +16236,11 @@ func (c *ClientWithResponses) MergeContactWithResponse(ctx context.Context, para
 // | `facebook_user` | Facebook contacts can't be merged. |
 // | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
 // | `mailing_list` | Contacts created from a mailing list can't be merged. |
+// | `user_to_lead` | `into` is a lead or visitor. A user can only be merged into another user. |
 // | `whatsapp_data_cannot_be_merged` | The WhatsApp number on the source contact can't be reassigned to the destination. |
 // | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
 // | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
+// | `source_has_telegram_data` | The source contact has Telegram data, which user-into-user merges don't yet support moving. |
 // | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
 //
 // Requires the `read_write_users` OAuth scope.
@@ -13676,7 +16260,7 @@ func (c *ClientWithResponses) PreviewMergeContactWithBodyWithResponse(ctx contex
 //
 // Preview the result of merging one contact into another without applying the merge. This is a read-only dry run: it reports whether the merge is allowed and, if so, exactly what would change, **without modifying any data**.
 //
-// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
+// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). As with the merge endpoint, `from` may have a `role` of `lead` or `user`, and `into` must have a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
 //
 // - When `allowed` is `true`, the response contains a `summary`: every attribute change (with the resulting value on the surviving contact) and, for each object type, two counts — `from`, how many are on the source contact and would move to the destination, and `into`, how many the destination already has. Counts are reported for conversations, tickets, phone calls, notes, and tags. `conversations` counts non-ticket conversations only; tickets are reported separately under `tickets`, and `phone_calls` is present only for phone-channel merges.
 // - When `allowed` is `false`, the response contains `reasons`. Each reason has a stable `code` you can branch on and a human-readable `message` you can display.
@@ -13695,9 +16279,11 @@ func (c *ClientWithResponses) PreviewMergeContactWithBodyWithResponse(ctx contex
 // | `facebook_user` | Facebook contacts can't be merged. |
 // | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
 // | `mailing_list` | Contacts created from a mailing list can't be merged. |
+// | `user_to_lead` | `into` is a lead or visitor. A user can only be merged into another user. |
 // | `whatsapp_data_cannot_be_merged` | The WhatsApp number on the source contact can't be reassigned to the destination. |
 // | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
 // | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
+// | `source_has_telegram_data` | The source contact has Telegram data, which user-into-user merges don't yet support moving. |
 // | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
 //
 // Requires the `read_write_users` OAuth scope.
@@ -14200,6 +16786,114 @@ func (c *ClientWithResponses) DetachContactFromACompanyWithResponse(ctx context.
 		return nil, err
 	}
 	return ParseDetachContactFromACompanyResponse(rsp)
+}
+
+// ListGrantedCompaniesForAContactWithResponse List granted companies for a contact
+//
+// List the companies a contact has been granted access to.
+//
+// A granted company lets the contact read that company's tickets in the customer portal. It is separate from company membership — granting a company does not attach the contact to it, and [`GET /contacts/{id}/companies`](/docs/references/rest-api/api.intercom.io/contacts/listcompaniesforacontact) does not include grants.
+//
+// `company_ids` holds the `company_id` values you set on your companies, so the list round-trips with the `company_ids` you send to `PUT /contacts/{contact_id}/granted_companies`. The list is sorted by company id and paginated.
+//
+// Returns an empty list when granted companies are not enabled for the workspace.
+//
+// Requires the `read_users_companies` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /contacts/{contact_id}/granted_companies (the `ListGrantedCompaniesForAContact` operationId).
+func (c *ClientWithResponses) ListGrantedCompaniesForAContactWithResponse(ctx context.Context, contactId string, params *ListGrantedCompaniesForAContactParams, reqEditors ...RequestEditorFn) (*ListGrantedCompaniesForAContactResponse, error) {
+	rsp, err := c.ListGrantedCompaniesForAContact(ctx, contactId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListGrantedCompaniesForAContactResponse(rsp)
+}
+
+// ReplaceGrantedCompaniesForAContactWithBodyWithResponse Replace granted companies for a contact
+//
+// Replace the full set of companies a contact has been granted access to.
+//
+// This is a replacement, not an append. The `company_ids` you send become the contact's entire granted set — any company id you leave out is dropped. To add a company, send the existing ids plus the new one; to remove one, send the existing ids minus that one; to drop every grant, send an empty array.
+//
+// Identify companies by the `company_id` you set on them, the same values [`GET /contacts/{contact_id}/granted_companies`](/docs/references/rest-api/api.intercom.io/contacts/listgrantedcompaniesforacontact) returns. Duplicates in the request are collapsed. A contact can be granted at most 100 companies.
+//
+// The response echoes the stored set, so a `200` is confirmation of exactly what the contact can now read.
+//
+// {% admonition type="info" name="Requires granted companies to be enabled" %}
+//
+//	This endpoint returns `404` with the code `granted_companies_not_enabled` unless granted companies are enabled for the workspace. Contact Intercom Support to enable it.
+//
+// {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /contacts/{contact_id}/granted_companies (the `ReplaceGrantedCompaniesForAContact` operationId).
+func (c *ClientWithResponses) ReplaceGrantedCompaniesForAContactWithBodyWithResponse(ctx context.Context, contactId string, params *ReplaceGrantedCompaniesForAContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReplaceGrantedCompaniesForAContactResponse, error) {
+	rsp, err := c.ReplaceGrantedCompaniesForAContactWithBody(ctx, contactId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReplaceGrantedCompaniesForAContactResponse(rsp)
+}
+
+// ReplaceGrantedCompaniesForAContactWithResponse Replace granted companies for a contact
+//
+// Replace the full set of companies a contact has been granted access to.
+//
+// This is a replacement, not an append. The `company_ids` you send become the contact's entire granted set — any company id you leave out is dropped. To add a company, send the existing ids plus the new one; to remove one, send the existing ids minus that one; to drop every grant, send an empty array.
+//
+// Identify companies by the `company_id` you set on them, the same values [`GET /contacts/{contact_id}/granted_companies`](/docs/references/rest-api/api.intercom.io/contacts/listgrantedcompaniesforacontact) returns. Duplicates in the request are collapsed. A contact can be granted at most 100 companies.
+//
+// The response echoes the stored set, so a `200` is confirmation of exactly what the contact can now read.
+//
+// {% admonition type="info" name="Requires granted companies to be enabled" %}
+//
+//	This endpoint returns `404` with the code `granted_companies_not_enabled` unless granted companies are enabled for the workspace. Contact Intercom Support to enable it.
+//
+// {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /contacts/{contact_id}/granted_companies (the `ReplaceGrantedCompaniesForAContact` operationId).
+func (c *ClientWithResponses) ReplaceGrantedCompaniesForAContactWithResponse(ctx context.Context, contactId string, params *ReplaceGrantedCompaniesForAContactParams, body ReplaceGrantedCompaniesForAContactJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplaceGrantedCompaniesForAContactResponse, error) {
+	rsp, err := c.ReplaceGrantedCompaniesForAContact(ctx, contactId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReplaceGrantedCompaniesForAContactResponse(rsp)
+}
+
+// RemoveGrantedCompanyFromAContactWithResponse Remove a granted company from a contact
+//
+// Remove a single company from a contact's granted set, leaving the contact's other grants in place.
+//
+// Identify the company by the `company_id` you set on it, the same value [`GET /contacts/{contact_id}/granted_companies`](/docs/references/rest-api/api.intercom.io/contacts/listgrantedcompaniesforacontact) returns. A `company_id` containing a dot or a slash is supported — URL-encode a slash as `%2F`.
+//
+// This endpoint is not idempotent. Removing a company the contact is not currently granted returns `404` with the code `company_not_found`, so repeating a successful call returns `404` rather than `204`. Treat the first `204` as the confirmation.
+//
+// {% admonition type="info" name="Requires granted companies to be enabled" %}
+//
+//	This endpoint returns `404` with the code `granted_companies_not_enabled` unless granted companies are enabled for the workspace. Contact Intercom Support to enable it.
+//
+// {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /contacts/{contact_id}/granted_companies/{company_id} (the `RemoveGrantedCompanyFromAContact` operationId).
+func (c *ClientWithResponses) RemoveGrantedCompanyFromAContactWithResponse(ctx context.Context, contactId string, companyId string, params *RemoveGrantedCompanyFromAContactParams, reqEditors ...RequestEditorFn) (*RemoveGrantedCompanyFromAContactResponse, error) {
+	rsp, err := c.RemoveGrantedCompanyFromAContact(ctx, contactId, companyId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRemoveGrantedCompanyFromAContactResponse(rsp)
 }
 
 // ListNotesWithResponse List all notes
@@ -15425,8 +18119,8 @@ func (c *ClientWithResponses) DeleteConversationWithResponse(ctx context.Context
 //
 // This will return a single Conversation model with all its conversation parts.
 //
-// {% admonition type="warning" name="Hard limit of 500 parts" %}
-// The maximum number of conversation parts that can be returned via the API is 500. If you have more than that we will return the 500 most recent conversation parts.
+// {% admonition type="info" name="Conversation parts limit" %}
+// Without `page`, the response returns the 500 most recent conversation parts. If you need more than the 500 most recent parts, send `page` (and optionally `per_page`) to page through every part, oldest first, following `conversation_parts.pages.next`. Part type and `parts_created_after`/`parts_created_before` filters are applied first. `conversation_parts.total_count` counts the parts in this response after filtering, not the conversation's total part count.
 // {% /admonition %}
 //
 // For AI agent conversation metadata, please note that you need to have the agent enabled in your workspace, which is a [paid feature](https://www.intercom.com/help/en/articles/8205718-fin-resolutions#h_97f8c2e671).
@@ -15879,6 +18573,27 @@ func (c *ClientWithResponses) ListSideConversationsWithResponse(ctx context.Cont
 		return nil, err
 	}
 	return ParseListSideConversationsResponse(rsp)
+}
+
+// ListTeamHandlingSegmentsWithResponse List team handling segments
+//
+// Shows the time teammates spent actively working on a conversation, and which team the conversation was assigned to while they did. Each period covers a single team assignment, and never continues across a team change. `team` is `null` for time when no team was assigned. The response doesn't say which teammate did the work.
+//
+// Moving a conversation to another team usually unassigns the teammate as well. Their period then ends with an `end_reason` of `assignment`, and the next period starts, with a `start_reason` of `null`, when a teammate picks the conversation up again. You'll only see `team_change` when the team changes and the same teammate keeps working without a break, for example when round robin assigns the conversation back to the teammate who already had it.
+//
+// Periods with no team assigned are returned with `team` set to `null`. `ended_at` is `null` while a period is still open.
+//
+// Requires the `read_conversations` OAuth scope, and the caller must be able to access the conversation.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /conversations/{id}/team_handling_segments (the `ListTeamHandlingSegments` operationId).
+func (c *ClientWithResponses) ListTeamHandlingSegmentsWithResponse(ctx context.Context, id string, params *ListTeamHandlingSegmentsParams, reqEditors ...RequestEditorFn) (*ListTeamHandlingSegmentsResponse, error) {
+	rsp, err := c.ListTeamHandlingSegments(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListTeamHandlingSegmentsResponse(rsp)
 }
 
 // DeleteCustomObjectInstancesByExternalIdWithResponse Delete a Custom Object Instance by External ID
@@ -16487,6 +19202,229 @@ func (c *ClientWithResponses) UpdateDynamicContentWithResponse(ctx context.Conte
 		return nil, err
 	}
 	return ParseUpdateDynamicContentResponse(rsp)
+}
+
+// UploadEcommerceCatalogWithBodyWithResponse Upload a product catalog
+//
+// Upload a product catalog to an ecommerce connector. The catalog must be a JSON
+// array of product objects. There are two upload modes:
+//
+// **Single-file upload** — POST a single catalog file (up to 99 MB per request).
+// Omit `finalize` and `import_job_id`. Returns `202 Accepted` when sync has started.
+//
+// **Multipart upload** — For catalogs that must be split across multiple requests:
+//
+//  1. POST the first part with `finalize=false` (no `import_job_id`). The response
+//     returns an `import_job_id` and `next_part_number`.
+//  2. POST each subsequent part with `finalize=false`, the `import_job_id` from step 1,
+//     and the `part_number` from the previous response. Each part must be ≤ 99 MB.
+//  3. POST with `finalize=true` and the `import_job_id` to complete the upload and
+//     start the sync. No catalog file is required in the finalization request.
+//
+// Part uploads are idempotent — retrying the same `part_number` does not create
+// a duplicate. If a response is lost, retry with the same `part_number`.
+//
+// ## Limits
+//
+//   - **Request size:** each request, whether a single-file upload or one part of a multipart
+//     upload, can carry a catalog file of up to 99 MB. A larger file is rejected with
+//     `422 Unprocessable Content` and the `payload_too_large` error code.
+//   - **Part order:** parts must be uploaded in order, starting at `part_number` 1. A part that
+//     is out of sequence is rejected with `422` and the `invalid_part_number` error code.
+//   - **Session expiry:** a multipart upload session expires 7 days after its first part is
+//     uploaded. An expired session cannot be continued or finalized. Start a new upload instead.
+//   - **One upload at a time:** a connector accepts one catalog upload at a time. A new upload
+//     while another is in progress is rejected with `409 Conflict`.
+//
+// ## Product object structure
+//
+// The catalog file must be a JSON array where each element is a product object.
+// Only `id`, `title`, and `url` are required — all other fields are optional.
+//
+// | Field | Type | Required | Description |
+// |---|---|---|---|
+// | `id` | string | ✓ | Your unique product identifier. Used to match products on re-upload so only changed products are re-indexed. Also the delete key — any product ID absent from a new upload is removed from Fin's knowledge. Must be stable across uploads. |
+// | `title` | string | ✓ | Product name. Used by Fin when searching for and recommending products. |
+// | `url` | string | ✓ | Canonical product page URL shown in Fin's product recommendations. Must be a valid `https://` URL. |
+// | `description` | string | | Product description that Fin reads to understand what the product is. HTML formatting is supported and safely sanitized (`description_html` takes precedence if both are provided). This is the primary field Fin uses to match products to shopper questions — a richer description leads to better recommendations. |
+// | `featured_image_url` | string | | Primary product image shown in Fin's recommendation cards. Falls back to the first entry of `image_urls` if not provided. If no valid image can be resolved for a variant, that variant's card is not shown to the shopper. |
+// | `image_urls` | string[] | | Additional product images. Used as a fallback when `featured_image_url` is absent or when a variant has no specific image. |
+// | `price_min` | number | | Lowest price across all variants. If omitted, derived automatically from variant prices. Fin uses this to filter products when a shopper mentions a budget (e.g. "under $100"). Displayed as a range alongside `price_max`, or as a single value if both are equal. |
+// | `price_max` | number | | Highest price across all variants. If omitted, derived from variant prices. Used alongside `price_min` for budget filtering and price display. |
+// | `currency` | string | | ISO 4217 currency code (e.g. `"USD"`, `"EUR"`, `"GBP"`). Defaults to USD if omitted. Used to format prices with the correct symbol in Fin's responses and product cards. |
+// | `in_stock` | boolean | | Whether the product is available to purchase. If omitted, derived from variant stock — the product is in stock if at least one variant has `in_stock: true`. Products with no in-stock variants are hidden from Fin entirely. |
+// | `category_path` | string or string[] | Strongly recommended | Hierarchical category breadcrumb (e.g. `["Clothing", "Outerwear", "Jackets"]`). Fin understands the hierarchy — a shopper asking about "Clothing" sees products from all subcategories underneath it. The most specific category is shown in search results. |
+// | `collections` | string[] | Strongly recommended | Collections or groupings this product belongs to in your store. Fin uses collections to understand your catalog's structure and answer questions like "what's in the sale collection?". |
+// | `tags` | string[] | | Free-form keywords matching how shoppers phrase needs in chat (e.g. `["waterproof", "gift", "plus-size"]`). Complements `category_path` and `collections`. |
+// | `available_options` | object[] | | Option types and their possible values (e.g. `{"name": "Size", "values": ["S", "M", "L"]}`). Fin uses these to understand what choices a shopper can make and to correctly filter variants when asked for a specific size, colour, or other attribute. |
+// | `additional_data` | object | | Custom attributes for your business. Fin uses these to show each customer only relevant products. All keys must be consistent across all products in your catalog — the attribute schema is read from the first product in the file. |
+// | `variants` | object[] | | Individual purchasable variants. Fin recommends specific variants (not just products), so populating variants with accurate stock, price, and option data leads to more precise recommendations. See the variant table below. |
+//
+// ### Variant object structure
+//
+// Each object in the `variants` array may contain:
+//
+// | Field | Type | Required | Description |
+// |---|---|---|---|
+// | `id` | string | ✓ | Unique identifier for this variant within the product. |
+// | `title` | string | | Variant display name shown to shoppers (e.g. `"Small / Blue"`). |
+// | `price` | number | | Price of this specific variant. Fin uses variant prices for precise budget filtering and displays the variant price in recommendation cards. |
+// | `compare_at_price` | number | | Original price before a discount. When provided, Fin will naturally mention the saving (e.g. "down from $129 to $99"). |
+// | `in_stock` | boolean | | Whether this variant is currently available. Out-of-stock variants are not shown in Fin's recommendation cards and Fin will not suggest them to shoppers. |
+// | `image_url` | string | | Image specific to this variant. Takes precedence over the product's `featured_image_url`. Falls back to `featured_image_url`, then `image_urls`. If no valid image can be resolved, this variant's recommendation card will not be shown. |
+// | `selected_options` | object[] | | The specific option values that define this variant (e.g. `[{"name": "Size", "value": "Small"}, {"name": "Color", "value": "Blue"}]`). Fin uses these to match shopper requests like "do you have this in medium?" to the correct variant. |
+// | `url` | string | | Direct link to this variant's page. Takes precedence over the product URL in recommendation cards. If omitted, constructed automatically as `{product_url}?variant={id}`. |
+//
+// ### Example catalog file
+//
+// ```json
+// [
+//
+//	{
+//	  "id": "prod-12345",
+//	  "title": "Classic Cotton T-Shirt",
+//	  "url": "https://example.com/products/classic-cotton-t-shirt",
+//	  "description": "A comfortable everyday t-shirt.",
+//	  "featured_image_url": "https://cdn.example.com/images/t-shirt.jpg",
+//	  "price_min": 19.99,
+//	  "price_max": 29.99,
+//	  "currency": "USD",
+//	  "in_stock": true,
+//	  "tags": ["organic", "bestseller"],
+//	  "collections": ["Summer Collection"],
+//	  "category_path": "Clothing > T-Shirts",
+//	  "available_options": [
+//	    {"name": "Size", "values": ["S", "M", "L"]},
+//	    {"name": "Color", "values": ["White", "Blue"]}
+//	  ],
+//	  "variants": [
+//	    {
+//	      "id": "var-001",
+//	      "title": "S / White",
+//	      "price": 19.99,
+//	      "in_stock": true,
+//	      "selected_options": [
+//	        {"name": "Size", "value": "S"},
+//	        {"name": "Color", "value": "White"}
+//	      ]
+//	    },
+//	    {
+//	      "id": "var-002",
+//	      "title": "M / Blue",
+//	      "price": 29.99,
+//	      "in_stock": true,
+//	      "selected_options": [
+//	        {"name": "Size", "value": "M"},
+//	        {"name": "Color", "value": "Blue"}
+//	      ]
+//	    }
+//	  ],
+//	  "additional_data": {
+//	    "sku": "TSHIRT-WHT-S",
+//	    "vendor": "Acme Apparel"
+//	  }
+//	}
+//
+// ]
+// ```
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /ecommerce/connectors/{import_source_id}/catalog (the `UploadEcommerceCatalog` operationId).
+func (c *ClientWithResponses) UploadEcommerceCatalogWithBodyWithResponse(ctx context.Context, importSourceId string, params *UploadEcommerceCatalogParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UploadEcommerceCatalogResponse, error) {
+	rsp, err := c.UploadEcommerceCatalogWithBody(ctx, importSourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUploadEcommerceCatalogResponse(rsp)
+}
+
+// SubmitEcommerceProductEventWithBodyWithResponse Submit a product event
+//
+// Send a single product change to an ecommerce connector. Use product events to keep
+// Fin's product knowledge current between full catalog uploads. Each request carries
+// one event.
+//
+// A full catalog must be uploaded with
+// [Upload a product catalog](/docs/references/rest-api/api.intercom.io/ecommerce-connectors/uploadecommercecatalog)
+// before you send events. Until then, this endpoint returns `409 Conflict`.
+//
+// ## Event types
+//
+// | `type` | `data` | Effect |
+// |---|---|---|
+// | `product.created` | `product` | Adds the product, or updates it if a product with the same `id` already exists. |
+// | `product.updated` | `product` | Updates the product with the same `id`, or adds it if it does not exist yet. |
+// | `product.deleted` | `product_id` | Removes the product from Fin's knowledge. |
+//
+// For `product.created` and `product.updated`, send the full product object, not only the
+// fields that changed. It uses the same fields as a catalog product
+// ([`ecommerce_catalog_product`](/docs/references/rest-api/api.intercom.io/models/ecommerce_catalog_product)),
+// plus a required `updated_at` timestamp. The product is matched by `id`. The serialized
+// product must be 60 KB or smaller.
+//
+// For `product.deleted`, send only `data.product_id`.
+//
+// `occurred_at` is required on every event and must be an ISO 8601 timestamp.
+//
+// ## Processing
+//
+// The endpoint returns `202 Accepted` with an `event_id` once the event is queued.
+// Processing is asynchronous, so the change may take a short time to reach Fin.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /ecommerce/connectors/{import_source_id}/events (the `SubmitEcommerceProductEvent` operationId).
+func (c *ClientWithResponses) SubmitEcommerceProductEventWithBodyWithResponse(ctx context.Context, importSourceId string, params *SubmitEcommerceProductEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SubmitEcommerceProductEventResponse, error) {
+	rsp, err := c.SubmitEcommerceProductEventWithBody(ctx, importSourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSubmitEcommerceProductEventResponse(rsp)
+}
+
+// SubmitEcommerceProductEventWithResponse Submit a product event
+//
+// Send a single product change to an ecommerce connector. Use product events to keep
+// Fin's product knowledge current between full catalog uploads. Each request carries
+// one event.
+//
+// A full catalog must be uploaded with
+// [Upload a product catalog](/docs/references/rest-api/api.intercom.io/ecommerce-connectors/uploadecommercecatalog)
+// before you send events. Until then, this endpoint returns `409 Conflict`.
+//
+// ## Event types
+//
+// | `type` | `data` | Effect |
+// |---|---|---|
+// | `product.created` | `product` | Adds the product, or updates it if a product with the same `id` already exists. |
+// | `product.updated` | `product` | Updates the product with the same `id`, or adds it if it does not exist yet. |
+// | `product.deleted` | `product_id` | Removes the product from Fin's knowledge. |
+//
+// For `product.created` and `product.updated`, send the full product object, not only the
+// fields that changed. It uses the same fields as a catalog product
+// ([`ecommerce_catalog_product`](/docs/references/rest-api/api.intercom.io/models/ecommerce_catalog_product)),
+// plus a required `updated_at` timestamp. The product is matched by `id`. The serialized
+// product must be 60 KB or smaller.
+//
+// For `product.deleted`, send only `data.product_id`.
+//
+// `occurred_at` is required on every event and must be an ISO 8601 timestamp.
+//
+// ## Processing
+//
+// The endpoint returns `202 Accepted` with an `event_id` once the event is queued.
+// Processing is asynchronous, so the change may take a short time to reach Fin.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /ecommerce/connectors/{import_source_id}/events (the `SubmitEcommerceProductEvent` operationId).
+func (c *ClientWithResponses) SubmitEcommerceProductEventWithResponse(ctx context.Context, importSourceId string, params *SubmitEcommerceProductEventParams, body SubmitEcommerceProductEventJSONRequestBody, reqEditors ...RequestEditorFn) (*SubmitEcommerceProductEventResponse, error) {
+	rsp, err := c.SubmitEcommerceProductEvent(ctx, importSourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSubmitEcommerceProductEventResponse(rsp)
 }
 
 // ListEmailsWithResponse List all email settings
@@ -17113,2954 +20051,4 @@ func (c *ClientWithResponses) EscalateFinConversationWithBodyWithResponse(ctx co
 		return nil, err
 	}
 	return ParseEscalateFinConversationResponse(rsp)
-}
-
-// EscalateFinConversationWithResponse Escalate to a human
-//
-// Hand a conversation off to a human teammate. If you use the Intercom Helpdesk, the
-// handoff lands in your team inbox.
-//
-// Provide either `conversation_id` or `user`:
-//
-//   - `conversation_id` — escalate an existing agent conversation, including one started
-//     with `/fin/ask`. On the Intercom Helpdesk, Fin by default summarises the conversation
-//     and opens a new Helpdesk conversation that carries the summary as an internal note.
-//     Configure an escalation Operator Workflow to change this default. Escalation closes the
-//     original agent conversation if it is open.
-//   - `user` — escalate on behalf of a user with no prior agent conversation. Fin creates an
-//     agent conversation for the escalation and closes it once the handoff completes. On the
-//     Intercom Helpdesk, the teammate works in a separate new Helpdesk conversation. Not
-//     supported on Fin for Platforms — see below.
-//
-// In both cases, pass the optional `context` to give the receiving teammate background your
-// orchestrating agent has and Fin does not. On the Intercom Helpdesk, it appears above the
-// summary in the internal note of the new conversation the teammate picks up. It is never
-// shown to the end user.
-//
-// Escalating an existing conversation also sets its AI Agent resolution state to
-// `escalated`, readable as `ai_agent.resolution_state` on the Conversations API. This is a
-// resolution state, not a billable resolution.
-//
-// On Fin for Platforms, `conversation_id` is required — `user` is not supported and is
-// rejected, because there is no Intercom Helpdesk in which to create a conversation. There
-// is no Intercom inbox either, so an escalation that no workflow handles does not open a
-// Helpdesk conversation for a teammate. `context` is not surfaced. The conversation is closed,
-// as on the Intercom Helpdesk, and your platform hands the user off to a human.
-//
-// You are notified via webhooks with an `escalated` status
-// followed by `complete`. The `complete` status signals that Fin is done. By then the
-// original agent conversation has been closed. An escalation Operator Workflow may act
-// on it afterwards, but it is closed again once the workflow's first steps have run, so
-// only steps that run later (for example after a wait) can reopen it. On the Intercom
-// Helpdesk, the new human conversation remains open.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/escalate (the `EscalateFinConversation` operationId).
-func (c *ClientWithResponses) EscalateFinConversationWithResponse(ctx context.Context, params *EscalateFinConversationParams, body EscalateFinConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*EscalateFinConversationResponse, error) {
-	rsp, err := c.EscalateFinConversation(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseEscalateFinConversationResponse(rsp)
-}
-
-// RunFinProcedureWithBodyWithResponse Run a Fin procedure
-//
-// Deterministically run a specific procedure on a new conversation. Calling this endpoint
-// guarantees that the named procedure runs — there is no non-deterministic routing.
-//
-// Fin's progress is delivered asynchronously via events. If the
-// procedure pauses for user input, the conversation status becomes `awaiting_user_reply` —
-// send the user's response with [`/fin/reply`](/docs/references/rest-api/api.intercom.io/fin-agent/replytofin).
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/procedures/{procedure_id}/run (the `RunFinProcedure` operationId).
-func (c *ClientWithResponses) RunFinProcedureWithBodyWithResponse(ctx context.Context, procedureId string, params *RunFinProcedureParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RunFinProcedureResponse, error) {
-	rsp, err := c.RunFinProcedureWithBody(ctx, procedureId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRunFinProcedureResponse(rsp)
-}
-
-// RunFinProcedureWithResponse Run a Fin procedure
-//
-// Deterministically run a specific procedure on a new conversation. Calling this endpoint
-// guarantees that the named procedure runs — there is no non-deterministic routing.
-//
-// Fin's progress is delivered asynchronously via events. If the
-// procedure pauses for user input, the conversation status becomes `awaiting_user_reply` —
-// send the user's response with [`/fin/reply`](/docs/references/rest-api/api.intercom.io/fin-agent/replytofin).
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/procedures/{procedure_id}/run (the `RunFinProcedure` operationId).
-func (c *ClientWithResponses) RunFinProcedureWithResponse(ctx context.Context, procedureId string, params *RunFinProcedureParams, body RunFinProcedureJSONRequestBody, reqEditors ...RequestEditorFn) (*RunFinProcedureResponse, error) {
-	rsp, err := c.RunFinProcedure(ctx, procedureId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRunFinProcedureResponse(rsp)
-}
-
-// ReplyToFinWithBodyWithResponse Reply to Fin
-//
-// Once Fin has returned a response to a user's message, its status will be `awaiting_user_reply`.
-//
-// If a user replies, use this endpoint to send this response to Fin.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/reply (the `ReplyToFin` operationId).
-func (c *ClientWithResponses) ReplyToFinWithBodyWithResponse(ctx context.Context, params *ReplyToFinParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReplyToFinResponse, error) {
-	rsp, err := c.ReplyToFinWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseReplyToFinResponse(rsp)
-}
-
-// ReplyToFinWithResponse Reply to Fin
-//
-// Once Fin has returned a response to a user's message, its status will be `awaiting_user_reply`.
-//
-// If a user replies, use this endpoint to send this response to Fin.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/reply (the `ReplyToFin` operationId).
-func (c *ClientWithResponses) ReplyToFinWithResponse(ctx context.Context, params *ReplyToFinParams, body ReplyToFinJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplyToFinResponse, error) {
-	rsp, err := c.ReplyToFin(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseReplyToFinResponse(rsp)
-}
-
-// StartFinConversationWithBodyWithResponse Start a conversation with Fin
-//
-// Initialize Fin by passing it the user's message along with conversation history and user details.
-//
-// These additional pieces of context will be used by Fin to provide a better and more contextual answer to the user.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Once Fin is initialized, it progresses through a series of statuses such as *thinking*, *replying*, *awaiting_user_reply*, or *resolved* before ending with a status of *complete*.
-//
-// During this workflow, the client should allow Fin to continue uninterrupted until a final *complete* status is returned via webhook, at which point control of the conversation passes back to the client.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/start (the `StartFinConversation` operationId).
-func (c *ClientWithResponses) StartFinConversationWithBodyWithResponse(ctx context.Context, params *StartFinConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*StartFinConversationResponse, error) {
-	rsp, err := c.StartFinConversationWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseStartFinConversationResponse(rsp)
-}
-
-// StartFinConversationWithResponse Start a conversation with Fin
-//
-// Initialize Fin by passing it the user's message along with conversation history and user details.
-//
-// These additional pieces of context will be used by Fin to provide a better and more contextual answer to the user.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Once Fin is initialized, it progresses through a series of statuses such as *thinking*, *replying*, *awaiting_user_reply*, or *resolved* before ending with a status of *complete*.
-//
-// During this workflow, the client should allow Fin to continue uninterrupted until a final *complete* status is returned via webhook, at which point control of the conversation passes back to the client.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/start (the `StartFinConversation` operationId).
-func (c *ClientWithResponses) StartFinConversationWithResponse(ctx context.Context, params *StartFinConversationParams, body StartFinConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*StartFinConversationResponse, error) {
-	rsp, err := c.StartFinConversation(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseStartFinConversationResponse(rsp)
-}
-
-// CollectFinVoiceCallByIdWithResponse Collect Fin Voice call by ID
-//
-// Retrieve information about a Fin Voice call using the external reference ID.
-//
-// Requires the `read_conversations` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /fin_voice/collect/{id} (the `CollectFinVoiceCallById` operationId).
-func (c *ClientWithResponses) CollectFinVoiceCallByIdWithResponse(ctx context.Context, id int, params *CollectFinVoiceCallByIdParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByIdResponse, error) {
-	rsp, err := c.CollectFinVoiceCallById(ctx, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCollectFinVoiceCallByIdResponse(rsp)
-}
-
-// CollectFinVoiceCallsByConversationIdWithResponse Collect Fin Voice calls by conversation ID
-//
-// Retrieve information about Fin Voice calls associated with a conversation.
-//
-// Returns all matched calls for the given conversation ID. A conversation may have multiple associated calls.
-//
-// Requires the `read_conversations` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /fin_voice/conversation/{conversation_id} (the `CollectFinVoiceCallsByConversationId` operationId).
-func (c *ClientWithResponses) CollectFinVoiceCallsByConversationIdWithResponse(ctx context.Context, conversationId string, params *CollectFinVoiceCallsByConversationIdParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallsByConversationIdResponse, error) {
-	rsp, err := c.CollectFinVoiceCallsByConversationId(ctx, conversationId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCollectFinVoiceCallsByConversationIdResponse(rsp)
-}
-
-// CollectFinVoiceCallByExternalIdWithResponse Collect Fin Voice call by external ID
-//
-// Retrieve information about a Fin Voice call using the external call identifier.
-//
-// Requires the `read_conversations` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /fin_voice/external_id/{external_id} (the `CollectFinVoiceCallByExternalId` operationId).
-func (c *ClientWithResponses) CollectFinVoiceCallByExternalIdWithResponse(ctx context.Context, externalId string, params *CollectFinVoiceCallByExternalIdParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByExternalIdResponse, error) {
-	rsp, err := c.CollectFinVoiceCallByExternalId(ctx, externalId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCollectFinVoiceCallByExternalIdResponse(rsp)
-}
-
-// CollectFinVoiceCallByPhoneNumberWithResponse Collect Fin Voice call by phone number
-//
-// Retrieve information about a Fin Voice call using the phone number.
-//
-// Returns the most recent matched call for the given phone number, ordered by creation date.
-//
-// Requires the `read_conversations` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /fin_voice/phone_number/{phone_number} (the `CollectFinVoiceCallByPhoneNumber` operationId).
-func (c *ClientWithResponses) CollectFinVoiceCallByPhoneNumberWithResponse(ctx context.Context, phoneNumber string, params *CollectFinVoiceCallByPhoneNumberParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByPhoneNumberResponse, error) {
-	rsp, err := c.CollectFinVoiceCallByPhoneNumber(ctx, phoneNumber, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCollectFinVoiceCallByPhoneNumberResponse(rsp)
-}
-
-// RegisterFinVoiceCallWithBodyWithResponse Register a Fin Voice call
-//
-// Register a Fin Voice call with Intercom. This endpoint creates an external reference
-// that links an external call identifier to an Intercom call and conversation.
-//
-// The call can be from different sources:
-// - AWS Connect (default)
-// - Five9
-// - Zoom Phone
-// - NICE CXone
-// - Dialpad
-// - Generic
-//
-// Requires the `read_conversations` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin_voice/register (the `RegisterFinVoiceCall` operationId).
-func (c *ClientWithResponses) RegisterFinVoiceCallWithBodyWithResponse(ctx context.Context, params *RegisterFinVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegisterFinVoiceCallResponse, error) {
-	rsp, err := c.RegisterFinVoiceCallWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegisterFinVoiceCallResponse(rsp)
-}
-
-// RegisterFinVoiceCallWithResponse Register a Fin Voice call
-//
-// Register a Fin Voice call with Intercom. This endpoint creates an external reference
-// that links an external call identifier to an Intercom call and conversation.
-//
-// The call can be from different sources:
-// - AWS Connect (default)
-// - Five9
-// - Zoom Phone
-// - NICE CXone
-// - Dialpad
-// - Generic
-//
-// Requires the `read_conversations` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin_voice/register (the `RegisterFinVoiceCall` operationId).
-func (c *ClientWithResponses) RegisterFinVoiceCallWithResponse(ctx context.Context, params *RegisterFinVoiceCallParams, body RegisterFinVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*RegisterFinVoiceCallResponse, error) {
-	rsp, err := c.RegisterFinVoiceCall(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegisterFinVoiceCallResponse(rsp)
-}
-
-// ListFoldersWithResponse List all folders
-//
-// You can fetch a list of all folders for organizing content by making a GET request to `https://api.intercom.io/folders`.
-//
-// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /folders (the `ListFolders` operationId).
-func (c *ClientWithResponses) ListFoldersWithResponse(ctx context.Context, params *ListFoldersParams, reqEditors ...RequestEditorFn) (*ListFoldersResponse, error) {
-	rsp, err := c.ListFolders(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListFoldersResponse(rsp)
-}
-
-// CreateFolderWithBodyWithResponse Create a folder
-//
-// You can create a new folder for organizing content by making a POST request to `https://api.intercom.io/folders`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /folders (the `CreateFolder` operationId).
-func (c *ClientWithResponses) CreateFolderWithBodyWithResponse(ctx context.Context, params *CreateFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateFolderResponse, error) {
-	rsp, err := c.CreateFolderWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateFolderResponse(rsp)
-}
-
-// CreateFolderWithResponse Create a folder
-//
-// You can create a new folder for organizing content by making a POST request to `https://api.intercom.io/folders`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /folders (the `CreateFolder` operationId).
-func (c *ClientWithResponses) CreateFolderWithResponse(ctx context.Context, params *CreateFolderParams, body CreateFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateFolderResponse, error) {
-	rsp, err := c.CreateFolder(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateFolderResponse(rsp)
-}
-
-// DeleteFolderWithResponse Delete a folder
-//
-// You can delete a folder (if it contains no content) by making a DELETE request to `https://api.intercom.io/folders/<id>`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /folders/{id} (the `DeleteFolder` operationId).
-func (c *ClientWithResponses) DeleteFolderWithResponse(ctx context.Context, id int, params *DeleteFolderParams, reqEditors ...RequestEditorFn) (*DeleteFolderResponse, error) {
-	rsp, err := c.DeleteFolder(ctx, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteFolderResponse(rsp)
-}
-
-// RetrieveFolderWithResponse Retrieve a folder
-//
-// You can fetch the details of a single folder by making a GET request to `https://api.intercom.io/folders/<id>`.
-//
-// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /folders/{id} (the `RetrieveFolder` operationId).
-func (c *ClientWithResponses) RetrieveFolderWithResponse(ctx context.Context, id int, params *RetrieveFolderParams, reqEditors ...RequestEditorFn) (*RetrieveFolderResponse, error) {
-	rsp, err := c.RetrieveFolder(ctx, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveFolderResponse(rsp)
-}
-
-// UpdateFolderWithBodyWithResponse Update a folder
-//
-// You can update a folder by making a PUT request to `https://api.intercom.io/folders/<id>`.
-//
-// Fields you leave out keep their current values. Send `parent_folder_id` as `null` to move the folder to the top level. Folder names longer than 191 characters are truncated.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /folders/{id} (the `UpdateFolder` operationId).
-func (c *ClientWithResponses) UpdateFolderWithBodyWithResponse(ctx context.Context, id int, params *UpdateFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateFolderResponse, error) {
-	rsp, err := c.UpdateFolderWithBody(ctx, id, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateFolderResponse(rsp)
-}
-
-// UpdateFolderWithResponse Update a folder
-//
-// You can update a folder by making a PUT request to `https://api.intercom.io/folders/<id>`.
-//
-// Fields you leave out keep their current values. Send `parent_folder_id` as `null` to move the folder to the top level. Folder names longer than 191 characters are truncated.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /folders/{id} (the `UpdateFolder` operationId).
-func (c *ClientWithResponses) UpdateFolderWithResponse(ctx context.Context, id int, params *UpdateFolderParams, body UpdateFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateFolderResponse, error) {
-	rsp, err := c.UpdateFolder(ctx, id, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateFolderResponse(rsp)
-}
-
-// ListAllCollectionsWithResponse List all collections
-//
-// You can fetch a list of all collections by making a GET request to `https://api.intercom.io/help_center/collections`.
-//
-// Requires the `read_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /help_center/collections (the `ListAllCollections` operationId).
-func (c *ClientWithResponses) ListAllCollectionsWithResponse(ctx context.Context, params *ListAllCollectionsParams, reqEditors ...RequestEditorFn) (*ListAllCollectionsResponse, error) {
-	rsp, err := c.ListAllCollections(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListAllCollectionsResponse(rsp)
-}
-
-// CreateCollectionWithBodyWithResponse Create a collection
-//
-// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /help_center/collections (the `CreateCollection` operationId).
-func (c *ClientWithResponses) CreateCollectionWithBodyWithResponse(ctx context.Context, params *CreateCollectionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateCollectionResponse, error) {
-	rsp, err := c.CreateCollectionWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateCollectionResponse(rsp)
-}
-
-// CreateCollectionWithResponse Create a collection
-//
-// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /help_center/collections (the `CreateCollection` operationId).
-func (c *ClientWithResponses) CreateCollectionWithResponse(ctx context.Context, params *CreateCollectionParams, body CreateCollectionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateCollectionResponse, error) {
-	rsp, err := c.CreateCollection(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateCollectionResponse(rsp)
-}
-
-// DeleteCollectionWithResponse Delete a collection
-//
-// You can delete a single collection by making a DELETE request to `https://api.intercom.io/help_center/collections/<id>`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /help_center/collections/{collection_id} (the `DeleteCollection` operationId).
-func (c *ClientWithResponses) DeleteCollectionWithResponse(ctx context.Context, collectionId int, params *DeleteCollectionParams, reqEditors ...RequestEditorFn) (*DeleteCollectionResponse, error) {
-	rsp, err := c.DeleteCollection(ctx, collectionId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteCollectionResponse(rsp)
-}
-
-// RetrieveCollectionWithResponse Retrieve a collection
-//
-// You can fetch the details of a single collection by making a GET request to `https://api.intercom.io/help_center/collections/<id>`.
-//
-// Requires the `read_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /help_center/collections/{collection_id} (the `RetrieveCollection` operationId).
-func (c *ClientWithResponses) RetrieveCollectionWithResponse(ctx context.Context, collectionId int, params *RetrieveCollectionParams, reqEditors ...RequestEditorFn) (*RetrieveCollectionResponse, error) {
-	rsp, err := c.RetrieveCollection(ctx, collectionId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveCollectionResponse(rsp)
-}
-
-// UpdateCollectionWithBodyWithResponse Update a collection
-//
-// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
-//
-// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /help_center/collections/{collection_id} (the `UpdateCollection` operationId).
-func (c *ClientWithResponses) UpdateCollectionWithBodyWithResponse(ctx context.Context, collectionId int, params *UpdateCollectionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateCollectionResponse, error) {
-	rsp, err := c.UpdateCollectionWithBody(ctx, collectionId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateCollectionResponse(rsp)
-}
-
-// UpdateCollectionWithResponse Update a collection
-//
-// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
-//
-// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /help_center/collections/{collection_id} (the `UpdateCollection` operationId).
-func (c *ClientWithResponses) UpdateCollectionWithResponse(ctx context.Context, collectionId int, params *UpdateCollectionParams, body UpdateCollectionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateCollectionResponse, error) {
-	rsp, err := c.UpdateCollection(ctx, collectionId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateCollectionResponse(rsp)
-}
-
-// ListHelpCentersWithResponse List all Help Centers
-//
-// You can list all Help Centers by making a GET request to `https://api.intercom.io/help_center/help_centers`.
-//
-// Requires the `read_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /help_center/help_centers (the `ListHelpCenters` operationId).
-func (c *ClientWithResponses) ListHelpCentersWithResponse(ctx context.Context, params *ListHelpCentersParams, reqEditors ...RequestEditorFn) (*ListHelpCentersResponse, error) {
-	rsp, err := c.ListHelpCenters(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListHelpCentersResponse(rsp)
-}
-
-// RetrieveHelpCenterWithResponse Retrieve a Help Center
-//
-// You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_centers/<id>`.
-//
-// Requires the `read_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /help_center/help_centers/{help_center_id} (the `RetrieveHelpCenter` operationId).
-func (c *ClientWithResponses) RetrieveHelpCenterWithResponse(ctx context.Context, helpCenterId int, params *RetrieveHelpCenterParams, reqEditors ...RequestEditorFn) (*RetrieveHelpCenterResponse, error) {
-	rsp, err := c.RetrieveHelpCenter(ctx, helpCenterId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveHelpCenterResponse(rsp)
-}
-
-// ListHelpCenterRedirectsWithResponse List all redirects for a help center
-//
-// You can fetch a list of all URL redirects for a help center by making a GET request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects`.
-//
-// Redirects are returned in ascending alphabetical order of `from_url`.
-//
-// Requires the `read_help_center_redirects_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /help_center/help_centers/{help_center_id}/redirects (the `ListHelpCenterRedirects` operationId).
-func (c *ClientWithResponses) ListHelpCenterRedirectsWithResponse(ctx context.Context, helpCenterId string, params *ListHelpCenterRedirectsParams, reqEditors ...RequestEditorFn) (*ListHelpCenterRedirectsResponse, error) {
-	rsp, err := c.ListHelpCenterRedirects(ctx, helpCenterId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListHelpCenterRedirectsResponse(rsp)
-}
-
-// CreateHelpCenterRedirectWithBodyWithResponse Create a redirect
-//
-// You can create a new URL redirect by making a POST request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects`.
-//
-// Requires the `read_write_help_center_redirects_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /help_center/help_centers/{help_center_id}/redirects (the `CreateHelpCenterRedirect` operationId).
-func (c *ClientWithResponses) CreateHelpCenterRedirectWithBodyWithResponse(ctx context.Context, helpCenterId string, params *CreateHelpCenterRedirectParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateHelpCenterRedirectResponse, error) {
-	rsp, err := c.CreateHelpCenterRedirectWithBody(ctx, helpCenterId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateHelpCenterRedirectResponse(rsp)
-}
-
-// CreateHelpCenterRedirectWithResponse Create a redirect
-//
-// You can create a new URL redirect by making a POST request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects`.
-//
-// Requires the `read_write_help_center_redirects_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /help_center/help_centers/{help_center_id}/redirects (the `CreateHelpCenterRedirect` operationId).
-func (c *ClientWithResponses) CreateHelpCenterRedirectWithResponse(ctx context.Context, helpCenterId string, params *CreateHelpCenterRedirectParams, body CreateHelpCenterRedirectJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateHelpCenterRedirectResponse, error) {
-	rsp, err := c.CreateHelpCenterRedirect(ctx, helpCenterId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateHelpCenterRedirectResponse(rsp)
-}
-
-// DeleteHelpCenterRedirectWithResponse Delete a redirect
-//
-// You can delete a single redirect by making a DELETE request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects/{id}`.
-//
-// Requires the `read_write_help_center_redirects_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /help_center/help_centers/{help_center_id}/redirects/{id} (the `DeleteHelpCenterRedirect` operationId).
-func (c *ClientWithResponses) DeleteHelpCenterRedirectWithResponse(ctx context.Context, helpCenterId string, id string, params *DeleteHelpCenterRedirectParams, reqEditors ...RequestEditorFn) (*DeleteHelpCenterRedirectResponse, error) {
-	rsp, err := c.DeleteHelpCenterRedirect(ctx, helpCenterId, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteHelpCenterRedirectResponse(rsp)
-}
-
-// RetrieveHelpCenterRedirectWithResponse Retrieve a redirect
-//
-// You can fetch the details of a single redirect by making a GET request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects/{id}`.
-//
-// Requires the `read_help_center_redirects_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /help_center/help_centers/{help_center_id}/redirects/{id} (the `RetrieveHelpCenterRedirect` operationId).
-func (c *ClientWithResponses) RetrieveHelpCenterRedirectWithResponse(ctx context.Context, helpCenterId string, id string, params *RetrieveHelpCenterRedirectParams, reqEditors ...RequestEditorFn) (*RetrieveHelpCenterRedirectResponse, error) {
-	rsp, err := c.RetrieveHelpCenterRedirect(ctx, helpCenterId, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveHelpCenterRedirectResponse(rsp)
-}
-
-// ListInternalArticlesWithResponse List all articles
-//
-// You can fetch a list of all internal articles by making a GET request to `https://api.intercom.io/internal_articles`.
-//
-// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /internal_articles (the `ListInternalArticles` operationId).
-func (c *ClientWithResponses) ListInternalArticlesWithResponse(ctx context.Context, params *ListInternalArticlesParams, reqEditors ...RequestEditorFn) (*ListInternalArticlesResponse, error) {
-	rsp, err := c.ListInternalArticles(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListInternalArticlesResponse(rsp)
-}
-
-// CreateInternalArticleWithBodyWithResponse Create an internal article
-//
-// You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /internal_articles (the `CreateInternalArticle` operationId).
-func (c *ClientWithResponses) CreateInternalArticleWithBodyWithResponse(ctx context.Context, params *CreateInternalArticleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateInternalArticleResponse, error) {
-	rsp, err := c.CreateInternalArticleWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateInternalArticleResponse(rsp)
-}
-
-// CreateInternalArticleWithResponse Create an internal article
-//
-// You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /internal_articles (the `CreateInternalArticle` operationId).
-func (c *ClientWithResponses) CreateInternalArticleWithResponse(ctx context.Context, params *CreateInternalArticleParams, body CreateInternalArticleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateInternalArticleResponse, error) {
-	rsp, err := c.CreateInternalArticle(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateInternalArticleResponse(rsp)
-}
-
-// SearchInternalArticlesWithResponse Search for internal articles
-//
-// You can search for internal articles by making a GET request to `https://api.intercom.io/internal_articles/search`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /internal_articles/search (the `SearchInternalArticles` operationId).
-func (c *ClientWithResponses) SearchInternalArticlesWithResponse(ctx context.Context, params *SearchInternalArticlesParams, reqEditors ...RequestEditorFn) (*SearchInternalArticlesResponse, error) {
-	rsp, err := c.SearchInternalArticles(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSearchInternalArticlesResponse(rsp)
-}
-
-// DeleteInternalArticleWithResponse Delete an internal article
-//
-// You can delete a single internal article by making a DELETE request to `https://api.intercom.io/internal_articles/<id>`.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /internal_articles/{internal_article_id} (the `DeleteInternalArticle` operationId).
-func (c *ClientWithResponses) DeleteInternalArticleWithResponse(ctx context.Context, internalArticleId int, params *DeleteInternalArticleParams, reqEditors ...RequestEditorFn) (*DeleteInternalArticleResponse, error) {
-	rsp, err := c.DeleteInternalArticle(ctx, internalArticleId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteInternalArticleResponse(rsp)
-}
-
-// RetrieveInternalArticleWithResponse Retrieve an internal article
-//
-// You can fetch the details of a single internal article by making a GET request to `https://api.intercom.io/internal_articles/<id>`.
-//
-// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /internal_articles/{internal_article_id} (the `RetrieveInternalArticle` operationId).
-func (c *ClientWithResponses) RetrieveInternalArticleWithResponse(ctx context.Context, internalArticleId int, params *RetrieveInternalArticleParams, reqEditors ...RequestEditorFn) (*RetrieveInternalArticleResponse, error) {
-	rsp, err := c.RetrieveInternalArticle(ctx, internalArticleId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveInternalArticleResponse(rsp)
-}
-
-// UpdateInternalArticleWithBodyWithResponse Update an internal article
-//
-// You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
-//
-// Fields you leave out keep their current values.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /internal_articles/{internal_article_id} (the `UpdateInternalArticle` operationId).
-func (c *ClientWithResponses) UpdateInternalArticleWithBodyWithResponse(ctx context.Context, internalArticleId int, params *UpdateInternalArticleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateInternalArticleResponse, error) {
-	rsp, err := c.UpdateInternalArticleWithBody(ctx, internalArticleId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateInternalArticleResponse(rsp)
-}
-
-// UpdateInternalArticleWithResponse Update an internal article
-//
-// You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
-//
-// Fields you leave out keep their current values.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /internal_articles/{internal_article_id} (the `UpdateInternalArticle` operationId).
-func (c *ClientWithResponses) UpdateInternalArticleWithResponse(ctx context.Context, internalArticleId int, params *UpdateInternalArticleParams, body UpdateInternalArticleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateInternalArticleResponse, error) {
-	rsp, err := c.UpdateInternalArticle(ctx, internalArticleId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateInternalArticleResponse(rsp)
-}
-
-// AttachTagToInternalArticleWithBodyWithResponse Add a tag to an internal article
-//
-// Apply an existing tag to an internal article. Returns the tag that was applied.
-//
-// The tag must already exist in the workspace (create tags with the Tags API),
-// and the authenticating teammate must have the `manage_knowledge_base_content`
-// permission.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /internal_articles/{internal_article_id}/tags (the `AttachTagToInternalArticle` operationId).
-func (c *ClientWithResponses) AttachTagToInternalArticleWithBodyWithResponse(ctx context.Context, internalArticleId int, params *AttachTagToInternalArticleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AttachTagToInternalArticleResponse, error) {
-	rsp, err := c.AttachTagToInternalArticleWithBody(ctx, internalArticleId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseAttachTagToInternalArticleResponse(rsp)
-}
-
-// AttachTagToInternalArticleWithResponse Add a tag to an internal article
-//
-// Apply an existing tag to an internal article. Returns the tag that was applied.
-//
-// The tag must already exist in the workspace (create tags with the Tags API),
-// and the authenticating teammate must have the `manage_knowledge_base_content`
-// permission.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /internal_articles/{internal_article_id}/tags (the `AttachTagToInternalArticle` operationId).
-func (c *ClientWithResponses) AttachTagToInternalArticleWithResponse(ctx context.Context, internalArticleId int, params *AttachTagToInternalArticleParams, body AttachTagToInternalArticleJSONRequestBody, reqEditors ...RequestEditorFn) (*AttachTagToInternalArticleResponse, error) {
-	rsp, err := c.AttachTagToInternalArticle(ctx, internalArticleId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseAttachTagToInternalArticleResponse(rsp)
-}
-
-// DetachTagFromInternalArticleWithResponse Remove a tag from an internal article
-//
-// Remove a tag from an internal article. Returns the tag that was removed, with
-// null `applied_at` and `applied_by`.
-//
-// The authenticating teammate must have the `manage_knowledge_base_content`
-// permission.
-//
-// Requires the `read_write_articles_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /internal_articles/{internal_article_id}/tags/{id} (the `DetachTagFromInternalArticle` operationId).
-func (c *ClientWithResponses) DetachTagFromInternalArticleWithResponse(ctx context.Context, internalArticleId int, id string, params *DetachTagFromInternalArticleParams, reqEditors ...RequestEditorFn) (*DetachTagFromInternalArticleResponse, error) {
-	rsp, err := c.DetachTagFromInternalArticle(ctx, internalArticleId, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDetachTagFromInternalArticleResponse(rsp)
-}
-
-// GetIpAllowlistWithResponse Get IP allowlist settings
-//
-// Retrieve the current IP allowlist configuration for the workspace.
-//
-// Requires the `manage_ip_allowlist` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /ip_allowlist (the `GetIpAllowlist` operationId).
-func (c *ClientWithResponses) GetIpAllowlistWithResponse(ctx context.Context, params *GetIpAllowlistParams, reqEditors ...RequestEditorFn) (*GetIpAllowlistResponse, error) {
-	rsp, err := c.GetIpAllowlist(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetIpAllowlistResponse(rsp)
-}
-
-// UpdateIpAllowlistWithBodyWithResponse Update IP allowlist settings
-//
-// Update the IP allowlist configuration for the workspace.
-//
-// Both `enabled` and `ip_allowlist` are optional. A field you omit is left unchanged, and a request with neither returns the current settings without changing anything. Sending `null` for a field is the same as omitting it.
-//
-// Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
-//
-// When the update leaves the allowlist enabled with at least one entry, the request must come from an IPv4 address that is on the list. A request from an IPv6 address can never match an IPv4 allowlist, so it returns the lockout 422 below.
-//
-// Requires the `manage_ip_allowlist` OAuth scope.
-//
-// {% admonition type="warning" name="Lockout Protection" %}
-//
-//	The API will reject updates that would lock out the caller's IP address. Ensure your current IP is included in the allowlist when enabling the feature.
-//
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /ip_allowlist (the `UpdateIpAllowlist` operationId).
-func (c *ClientWithResponses) UpdateIpAllowlistWithBodyWithResponse(ctx context.Context, params *UpdateIpAllowlistParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateIpAllowlistResponse, error) {
-	rsp, err := c.UpdateIpAllowlistWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateIpAllowlistResponse(rsp)
-}
-
-// UpdateIpAllowlistWithResponse Update IP allowlist settings
-//
-// Update the IP allowlist configuration for the workspace.
-//
-// Both `enabled` and `ip_allowlist` are optional. A field you omit is left unchanged, and a request with neither returns the current settings without changing anything. Sending `null` for a field is the same as omitting it.
-//
-// Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
-//
-// When the update leaves the allowlist enabled with at least one entry, the request must come from an IPv4 address that is on the list. A request from an IPv6 address can never match an IPv4 allowlist, so it returns the lockout 422 below.
-//
-// Requires the `manage_ip_allowlist` OAuth scope.
-//
-// {% admonition type="warning" name="Lockout Protection" %}
-//
-//	The API will reject updates that would lock out the caller's IP address. Ensure your current IP is included in the allowlist when enabling the feature.
-//
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /ip_allowlist (the `UpdateIpAllowlist` operationId).
-func (c *ClientWithResponses) UpdateIpAllowlistWithResponse(ctx context.Context, params *UpdateIpAllowlistParams, body UpdateIpAllowlistJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateIpAllowlistResponse, error) {
-	rsp, err := c.UpdateIpAllowlist(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateIpAllowlistResponse(rsp)
-}
-
-// JobsStatusWithResponse Retrieve job status
-//
-// Retrieve the status of job execution.
-//
-// `resource_id` and `resource_url` are returned only once `status` is `success`. While the job is `pending` or `failed` both keys are left out of the response rather than returned as `null`.
-//
-// Requires the `read_jobs` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /jobs/status/{job_id} (the `JobsStatus` operationId).
-func (c *ClientWithResponses) JobsStatusWithResponse(ctx context.Context, jobId string, params *JobsStatusParams, reqEditors ...RequestEditorFn) (*JobsStatusResponse, error) {
-	rsp, err := c.JobsStatus(ctx, jobId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseJobsStatusResponse(rsp)
-}
-
-// ListMacrosWithResponse List all macros
-//
-// You can fetch a list of all macros (saved replies) in your workspace for use in automating responses.
-//
-// The macros are returned in descending order by updated_at.
-//
-// **Pagination**
-//
-// This endpoint uses cursor-based pagination via the `starting_after` parameter. The cursor is a Base64-encoded JSON array containing `[updated_at, id]` of the last item from the previous page.
-//
-// **Placeholder Transformation**
-//
-// The API transforms Intercom placeholders to a more standard XML-like format:
-// - From: `{{user.name | fallback: 'there'}}`
-// - To: `<attribute key="user.name" default="there"/>`
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /macros (the `ListMacros` operationId).
-func (c *ClientWithResponses) ListMacrosWithResponse(ctx context.Context, params *ListMacrosParams, reqEditors ...RequestEditorFn) (*ListMacrosResponse, error) {
-	rsp, err := c.ListMacros(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListMacrosResponse(rsp)
-}
-
-// GetMacroWithResponse Retrieve a macro
-//
-// You can fetch a single macro (saved reply) by its ID. The macro will only be returned if it is visible to the authenticated user based on its visibility settings.
-//
-// **Visibility Rules**
-//
-// A macro is returned based on its `visible_to` setting:
-// - `everyone`: Always visible to all team members
-// - `specific_teams`: Only visible if the authenticated user belongs to one of the teams specified in `visible_to_team_ids`
-//
-// If a macro exists but is not visible to the authenticated user, a 404 error is returned.
-//
-// **Placeholder Transformation**
-//
-// The API transforms Intercom placeholders to a more standard XML-like format in the `body` field:
-// - From: `{{user.name | fallback: 'there'}}`
-// - To: `<attribute key="user.name" default="there"/>`
-//
-// Default values in placeholders are HTML-escaped for security.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /macros/{id} (the `GetMacro` operationId).
-func (c *ClientWithResponses) GetMacroWithResponse(ctx context.Context, id string, params *GetMacroParams, reqEditors ...RequestEditorFn) (*GetMacroResponse, error) {
-	rsp, err := c.GetMacro(ctx, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetMacroResponse(rsp)
-}
-
-// IdentifyAdminWithResponse Identify an admin
-//
-// You can view the currently authorised admin along with the embedded app object (a "workspace" in legacy terminology).
-//
-// > 🚧 Single Sign On
-// >
-// > If you are building a custom "Log in with Intercom" flow for your site, and you call the `/me` endpoint to identify the logged-in user, you should not accept any sign-ins from users with unverified email addresses as it poses a potential impersonation security risk.
-//
-// Requires the `read_single_admin` or `read_admins` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /me (the `IdentifyAdmin` operationId).
-func (c *ClientWithResponses) IdentifyAdminWithResponse(ctx context.Context, params *IdentifyAdminParams, reqEditors ...RequestEditorFn) (*IdentifyAdminResponse, error) {
-	rsp, err := c.IdentifyAdmin(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseIdentifyAdminResponse(rsp)
-}
-
-// CreateMessageWithBodyWithResponse Create a message
-//
-// You can create a message that has been initiated by an admin. The conversation can be either an in-app message, an email or whatsapp.
-//
-// > 🚧 Sending for visitors
-// >
-// > There can be a short delay between when a contact is created and when a contact becomes available to be messaged through the API. A 404 Not Found error will be returned in this case.
-//
-// This will return the Message model that has been created.
-//
-// > 🚧 Retrieving Associated Conversations
-// >
-// > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
-//
-// {% admonition type="warning" name="Messages from contacts" %}
-// `from` should be an admin. A request with a user or lead as `from` is not rejected: it creates a conversation initiated by that contact, as the Create a conversation endpoint (`POST /conversations`) does, and the `to`, `cc` and `bcc` fields are ignored. To create a conversation initiated by a contact, use `POST /conversations`.
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /messages (the `CreateMessage` operationId).
-func (c *ClientWithResponses) CreateMessageWithBodyWithResponse(ctx context.Context, params *CreateMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMessageResponse, error) {
-	rsp, err := c.CreateMessageWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateMessageResponse(rsp)
-}
-
-// CreateMessageWithResponse Create a message
-//
-// You can create a message that has been initiated by an admin. The conversation can be either an in-app message, an email or whatsapp.
-//
-// > 🚧 Sending for visitors
-// >
-// > There can be a short delay between when a contact is created and when a contact becomes available to be messaged through the API. A 404 Not Found error will be returned in this case.
-//
-// This will return the Message model that has been created.
-//
-// > 🚧 Retrieving Associated Conversations
-// >
-// > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
-//
-// {% admonition type="warning" name="Messages from contacts" %}
-// `from` should be an admin. A request with a user or lead as `from` is not rejected: it creates a conversation initiated by that contact, as the Create a conversation endpoint (`POST /conversations`) does, and the `to`, `cc` and `bcc` fields are ignored. To create a conversation initiated by a contact, use `POST /conversations`.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /messages (the `CreateMessage` operationId).
-func (c *ClientWithResponses) CreateMessageWithResponse(ctx context.Context, params *CreateMessageParams, body CreateMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMessageResponse, error) {
-	rsp, err := c.CreateMessage(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateMessageResponse(rsp)
-}
-
-// GetWhatsAppMessageStatusWithResponse Get statuses of all messages sent based on the specified ruleset_id
-//
-// Retrieves statuses of messages sent from the Outbound module. Currently, this API only supports WhatsApp messages.
-//
-// This endpoint returns paginated status events for WhatsApp messages sent via the Outbound module, providing
-// information about delivery state and related message details.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /messages/status (the `GetWhatsAppMessageStatus` operationId).
-func (c *ClientWithResponses) GetWhatsAppMessageStatusWithResponse(ctx context.Context, params *GetWhatsAppMessageStatusParams, reqEditors ...RequestEditorFn) (*GetWhatsAppMessageStatusResponse, error) {
-	rsp, err := c.GetWhatsAppMessageStatus(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetWhatsAppMessageStatusResponse(rsp)
-}
-
-// RetrieveWhatsAppMessageStatusWithResponse Retrieve WhatsApp message delivery status
-//
-// Retrieves the delivery status of a specific WhatsApp message by its message ID.
-//
-// Returns the current status, conversation details, and any error information if the message failed to deliver.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /messages/whatsapp/status (the `RetrieveWhatsAppMessageStatus` operationId).
-func (c *ClientWithResponses) RetrieveWhatsAppMessageStatusWithResponse(ctx context.Context, params *RetrieveWhatsAppMessageStatusParams, reqEditors ...RequestEditorFn) (*RetrieveWhatsAppMessageStatusResponse, error) {
-	rsp, err := c.RetrieveWhatsAppMessageStatus(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveWhatsAppMessageStatusResponse(rsp)
-}
-
-// ListNewsItemsWithResponse List all news items
-//
-// # You can fetch a list of all news items
-//
-// News items are returned newest first, by creation date.
-//
-// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /news/news_items (the `ListNewsItems` operationId).
-func (c *ClientWithResponses) ListNewsItemsWithResponse(ctx context.Context, params *ListNewsItemsParams, reqEditors ...RequestEditorFn) (*ListNewsItemsResponse, error) {
-	rsp, err := c.ListNewsItems(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListNewsItemsResponse(rsp)
-}
-
-// CreateNewsItemWithBodyWithResponse Create a news item
-//
-// # You can create a news item
-//
-// Requires the `read_write_news_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /news/news_items (the `CreateNewsItem` operationId).
-func (c *ClientWithResponses) CreateNewsItemWithBodyWithResponse(ctx context.Context, params *CreateNewsItemParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNewsItemResponse, error) {
-	rsp, err := c.CreateNewsItemWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateNewsItemResponse(rsp)
-}
-
-// CreateNewsItemWithResponse Create a news item
-//
-// # You can create a news item
-//
-// Requires the `read_write_news_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /news/news_items (the `CreateNewsItem` operationId).
-func (c *ClientWithResponses) CreateNewsItemWithResponse(ctx context.Context, params *CreateNewsItemParams, body CreateNewsItemJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNewsItemResponse, error) {
-	rsp, err := c.CreateNewsItem(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateNewsItemResponse(rsp)
-}
-
-// DeleteNewsItemWithResponse Delete a news item
-//
-// You can delete a single news item.
-//
-// Requires the `read_write_news_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /news/news_items/{news_item_id} (the `DeleteNewsItem` operationId).
-func (c *ClientWithResponses) DeleteNewsItemWithResponse(ctx context.Context, newsItemId int, params *DeleteNewsItemParams, reqEditors ...RequestEditorFn) (*DeleteNewsItemResponse, error) {
-	rsp, err := c.DeleteNewsItem(ctx, newsItemId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteNewsItemResponse(rsp)
-}
-
-// RetrieveNewsItemWithResponse Retrieve a news item
-//
-// You can fetch the details of a single news item.
-//
-// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /news/news_items/{news_item_id} (the `RetrieveNewsItem` operationId).
-func (c *ClientWithResponses) RetrieveNewsItemWithResponse(ctx context.Context, newsItemId int, params *RetrieveNewsItemParams, reqEditors ...RequestEditorFn) (*RetrieveNewsItemResponse, error) {
-	rsp, err := c.RetrieveNewsItem(ctx, newsItemId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveNewsItemResponse(rsp)
-}
-
-// UpdateNewsItemWithBodyWithResponse Update a news item
-//
-// You can update a news item.
-//
-// You can also send this request with `PATCH`; it behaves the same as `PUT`.
-//
-// `title`, `body`, `state`, `deliver_silently` and `cover_image_url` keep their current values when you leave them out. `labels` and `newsfeed_assignments` do not: leaving either out clears it, so send the full list on every update. Leaving `reactions` out disables reactions, although the list in the response does not change.
-//
-// Requires the `read_write_news_scope` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /news/news_items/{news_item_id} (the `UpdateNewsItem` operationId).
-func (c *ClientWithResponses) UpdateNewsItemWithBodyWithResponse(ctx context.Context, newsItemId int, params *UpdateNewsItemParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateNewsItemResponse, error) {
-	rsp, err := c.UpdateNewsItemWithBody(ctx, newsItemId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateNewsItemResponse(rsp)
-}
-
-// UpdateNewsItemWithResponse Update a news item
-//
-// You can update a news item.
-//
-// You can also send this request with `PATCH`; it behaves the same as `PUT`.
-//
-// `title`, `body`, `state`, `deliver_silently` and `cover_image_url` keep their current values when you leave them out. `labels` and `newsfeed_assignments` do not: leaving either out clears it, so send the full list on every update. Leaving `reactions` out disables reactions, although the list in the response does not change.
-//
-// Requires the `read_write_news_scope` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /news/news_items/{news_item_id} (the `UpdateNewsItem` operationId).
-func (c *ClientWithResponses) UpdateNewsItemWithResponse(ctx context.Context, newsItemId int, params *UpdateNewsItemParams, body UpdateNewsItemJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateNewsItemResponse, error) {
-	rsp, err := c.UpdateNewsItem(ctx, newsItemId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateNewsItemResponse(rsp)
-}
-
-// ListNewsfeedsWithResponse List all newsfeeds
-//
-// # You can fetch a list of all newsfeeds
-//
-// Newsfeeds are returned newest first, by creation date.
-//
-// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /news/newsfeeds (the `ListNewsfeeds` operationId).
-func (c *ClientWithResponses) ListNewsfeedsWithResponse(ctx context.Context, params *ListNewsfeedsParams, reqEditors ...RequestEditorFn) (*ListNewsfeedsResponse, error) {
-	rsp, err := c.ListNewsfeeds(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListNewsfeedsResponse(rsp)
-}
-
-// RetrieveNewsfeedWithResponse Retrieve a newsfeed
-//
-// # You can fetch the details of a single newsfeed
-//
-// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /news/newsfeeds/{newsfeed_id} (the `RetrieveNewsfeed` operationId).
-func (c *ClientWithResponses) RetrieveNewsfeedWithResponse(ctx context.Context, newsfeedId string, params *RetrieveNewsfeedParams, reqEditors ...RequestEditorFn) (*RetrieveNewsfeedResponse, error) {
-	rsp, err := c.RetrieveNewsfeed(ctx, newsfeedId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveNewsfeedResponse(rsp)
-}
-
-// ListLiveNewsfeedItemsWithResponse List all live newsfeed items
-//
-// # You can fetch a list of all news items that are live on a given newsfeed
-//
-// News items are returned most recently published first.
-//
-// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /news/newsfeeds/{newsfeed_id}/items (the `ListLiveNewsfeedItems` operationId).
-func (c *ClientWithResponses) ListLiveNewsfeedItemsWithResponse(ctx context.Context, newsfeedId string, params *ListLiveNewsfeedItemsParams, reqEditors ...RequestEditorFn) (*ListLiveNewsfeedItemsResponse, error) {
-	rsp, err := c.ListLiveNewsfeedItems(ctx, newsfeedId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListLiveNewsfeedItemsResponse(rsp)
-}
-
-// DeleteNoteWithResponse Delete a note
-//
-// You can delete a single contact or company note. Notes of other kinds cannot be deleted through the API.
-//
-// Requires the `write_users_companies` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /notes/{note_id} (the `DeleteNote` operationId).
-func (c *ClientWithResponses) DeleteNoteWithResponse(ctx context.Context, noteId string, params *DeleteNoteParams, reqEditors ...RequestEditorFn) (*DeleteNoteResponse, error) {
-	rsp, err := c.DeleteNote(ctx, noteId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteNoteResponse(rsp)
-}
-
-// RetrieveNoteWithResponse Retrieve a note
-//
-// You can fetch the details of a single note.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /notes/{note_id} (the `RetrieveNote` operationId).
-func (c *ClientWithResponses) RetrieveNoteWithResponse(ctx context.Context, noteId string, params *RetrieveNoteParams, reqEditors ...RequestEditorFn) (*RetrieveNoteResponse, error) {
-	rsp, err := c.RetrieveNote(ctx, noteId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveNoteResponse(rsp)
-}
-
-// ListOfficeHoursSchedulesWithResponse List all office hours schedules
-//
-// You can fetch a list of all office hours schedules for the workspace.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /office_hours_schedules (the `ListOfficeHoursSchedules` operationId).
-func (c *ClientWithResponses) ListOfficeHoursSchedulesWithResponse(ctx context.Context, params *ListOfficeHoursSchedulesParams, reqEditors ...RequestEditorFn) (*ListOfficeHoursSchedulesResponse, error) {
-	rsp, err := c.ListOfficeHoursSchedules(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListOfficeHoursSchedulesResponse(rsp)
-}
-
-// CreateOfficeHoursScheduleWithBodyWithResponse Create an office hours schedule
-//
-// You can create a new office hours schedule for the workspace.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /office_hours_schedules (the `CreateOfficeHoursSchedule` operationId).
-func (c *ClientWithResponses) CreateOfficeHoursScheduleWithBodyWithResponse(ctx context.Context, params *CreateOfficeHoursScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateOfficeHoursScheduleResponse, error) {
-	rsp, err := c.CreateOfficeHoursScheduleWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateOfficeHoursScheduleResponse(rsp)
-}
-
-// CreateOfficeHoursScheduleWithResponse Create an office hours schedule
-//
-// You can create a new office hours schedule for the workspace.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /office_hours_schedules (the `CreateOfficeHoursSchedule` operationId).
-func (c *ClientWithResponses) CreateOfficeHoursScheduleWithResponse(ctx context.Context, params *CreateOfficeHoursScheduleParams, body CreateOfficeHoursScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateOfficeHoursScheduleResponse, error) {
-	rsp, err := c.CreateOfficeHoursSchedule(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateOfficeHoursScheduleResponse(rsp)
-}
-
-// DeleteOfficeHoursScheduleWithResponse Delete an office hours schedule
-//
-// You can delete a single office hours schedule. The workspace's default schedule can't be deleted.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /office_hours_schedules/{id} (the `DeleteOfficeHoursSchedule` operationId).
-func (c *ClientWithResponses) DeleteOfficeHoursScheduleWithResponse(ctx context.Context, id string, params *DeleteOfficeHoursScheduleParams, reqEditors ...RequestEditorFn) (*DeleteOfficeHoursScheduleResponse, error) {
-	rsp, err := c.DeleteOfficeHoursSchedule(ctx, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteOfficeHoursScheduleResponse(rsp)
-}
-
-// GetOfficeHoursScheduleWithResponse Retrieve an office hours schedule
-//
-// You can fetch the details of a single office hours schedule.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /office_hours_schedules/{id} (the `GetOfficeHoursSchedule` operationId).
-func (c *ClientWithResponses) GetOfficeHoursScheduleWithResponse(ctx context.Context, id string, params *GetOfficeHoursScheduleParams, reqEditors ...RequestEditorFn) (*GetOfficeHoursScheduleResponse, error) {
-	rsp, err := c.GetOfficeHoursSchedule(ctx, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetOfficeHoursScheduleResponse(rsp)
-}
-
-// UpdateOfficeHoursScheduleWithBodyWithResponse Update an office hours schedule
-//
-// You can update an existing office hours schedule.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /office_hours_schedules/{id} (the `UpdateOfficeHoursSchedule` operationId).
-func (c *ClientWithResponses) UpdateOfficeHoursScheduleWithBodyWithResponse(ctx context.Context, id string, params *UpdateOfficeHoursScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateOfficeHoursScheduleResponse, error) {
-	rsp, err := c.UpdateOfficeHoursScheduleWithBody(ctx, id, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateOfficeHoursScheduleResponse(rsp)
-}
-
-// UpdateOfficeHoursScheduleWithResponse Update an office hours schedule
-//
-// You can update an existing office hours schedule.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /office_hours_schedules/{id} (the `UpdateOfficeHoursSchedule` operationId).
-func (c *ClientWithResponses) UpdateOfficeHoursScheduleWithResponse(ctx context.Context, id string, params *UpdateOfficeHoursScheduleParams, body UpdateOfficeHoursScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateOfficeHoursScheduleResponse, error) {
-	rsp, err := c.UpdateOfficeHoursSchedule(ctx, id, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateOfficeHoursScheduleResponse(rsp)
-}
-
-// ListOfficeHoursExceptionsWithResponse List all office hours exceptions
-//
-// You can fetch a list of all exceptions for an office hours schedule, ordered by date with the earliest first.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions (the `ListOfficeHoursExceptions` operationId).
-func (c *ClientWithResponses) ListOfficeHoursExceptionsWithResponse(ctx context.Context, officeHoursScheduleId string, params *ListOfficeHoursExceptionsParams, reqEditors ...RequestEditorFn) (*ListOfficeHoursExceptionsResponse, error) {
-	rsp, err := c.ListOfficeHoursExceptions(ctx, officeHoursScheduleId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListOfficeHoursExceptionsResponse(rsp)
-}
-
-// CreateOfficeHoursExceptionWithBodyWithResponse Create an office hours exception
-//
-// You can create an exception for an office hours schedule. Use `closed` to mark the day closed (omit `time_intervals`) or `custom_hours` to supply replacement intervals.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions (the `CreateOfficeHoursException` operationId).
-func (c *ClientWithResponses) CreateOfficeHoursExceptionWithBodyWithResponse(ctx context.Context, officeHoursScheduleId string, params *CreateOfficeHoursExceptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateOfficeHoursExceptionResponse, error) {
-	rsp, err := c.CreateOfficeHoursExceptionWithBody(ctx, officeHoursScheduleId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateOfficeHoursExceptionResponse(rsp)
-}
-
-// CreateOfficeHoursExceptionWithResponse Create an office hours exception
-//
-// You can create an exception for an office hours schedule. Use `closed` to mark the day closed (omit `time_intervals`) or `custom_hours` to supply replacement intervals.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions (the `CreateOfficeHoursException` operationId).
-func (c *ClientWithResponses) CreateOfficeHoursExceptionWithResponse(ctx context.Context, officeHoursScheduleId string, params *CreateOfficeHoursExceptionParams, body CreateOfficeHoursExceptionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateOfficeHoursExceptionResponse, error) {
-	rsp, err := c.CreateOfficeHoursException(ctx, officeHoursScheduleId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateOfficeHoursExceptionResponse(rsp)
-}
-
-// DeleteOfficeHoursExceptionWithResponse Delete an office hours exception
-//
-// You can delete a single office hours exception.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions/{id} (the `DeleteOfficeHoursException` operationId).
-func (c *ClientWithResponses) DeleteOfficeHoursExceptionWithResponse(ctx context.Context, officeHoursScheduleId string, id string, params *DeleteOfficeHoursExceptionParams, reqEditors ...RequestEditorFn) (*DeleteOfficeHoursExceptionResponse, error) {
-	rsp, err := c.DeleteOfficeHoursException(ctx, officeHoursScheduleId, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteOfficeHoursExceptionResponse(rsp)
-}
-
-// GetOfficeHoursExceptionWithResponse Retrieve an office hours exception
-//
-// You can fetch the details of a single office hours exception.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions/{id} (the `GetOfficeHoursException` operationId).
-func (c *ClientWithResponses) GetOfficeHoursExceptionWithResponse(ctx context.Context, officeHoursScheduleId string, id string, params *GetOfficeHoursExceptionParams, reqEditors ...RequestEditorFn) (*GetOfficeHoursExceptionResponse, error) {
-	rsp, err := c.GetOfficeHoursException(ctx, officeHoursScheduleId, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetOfficeHoursExceptionResponse(rsp)
-}
-
-// UpdateOfficeHoursExceptionWithBodyWithResponse Update an office hours exception
-//
-// You can update an existing office hours exception.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions/{id} (the `UpdateOfficeHoursException` operationId).
-func (c *ClientWithResponses) UpdateOfficeHoursExceptionWithBodyWithResponse(ctx context.Context, officeHoursScheduleId string, id string, params *UpdateOfficeHoursExceptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateOfficeHoursExceptionResponse, error) {
-	rsp, err := c.UpdateOfficeHoursExceptionWithBody(ctx, officeHoursScheduleId, id, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateOfficeHoursExceptionResponse(rsp)
-}
-
-// UpdateOfficeHoursExceptionWithResponse Update an office hours exception
-//
-// You can update an existing office hours exception.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions/{id} (the `UpdateOfficeHoursException` operationId).
-func (c *ClientWithResponses) UpdateOfficeHoursExceptionWithResponse(ctx context.Context, officeHoursScheduleId string, id string, params *UpdateOfficeHoursExceptionParams, body UpdateOfficeHoursExceptionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateOfficeHoursExceptionResponse, error) {
-	rsp, err := c.UpdateOfficeHoursException(ctx, officeHoursScheduleId, id, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateOfficeHoursExceptionResponse(rsp)
-}
-
-// CreatePhoneSwitchWithBodyWithResponse Create a phone Switch
-//
-// You can use the API to deflect phone calls to the Intercom Messenger.
-// Calling this endpoint will send an SMS with a link to the Messenger to the phone number specified.
-//
-// If custom attributes are specified, they will be added to the user or lead's custom data attributes.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /phone_call_redirects (the `CreatePhoneSwitch` operationId).
-func (c *ClientWithResponses) CreatePhoneSwitchWithBodyWithResponse(ctx context.Context, params *CreatePhoneSwitchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePhoneSwitchResponse, error) {
-	rsp, err := c.CreatePhoneSwitchWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreatePhoneSwitchResponse(rsp)
-}
-
-// CreatePhoneSwitchWithResponse Create a phone Switch
-//
-// You can use the API to deflect phone calls to the Intercom Messenger.
-// Calling this endpoint will send an SMS with a link to the Messenger to the phone number specified.
-//
-// If custom attributes are specified, they will be added to the user or lead's custom data attributes.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /phone_call_redirects (the `CreatePhoneSwitch` operationId).
-func (c *ClientWithResponses) CreatePhoneSwitchWithResponse(ctx context.Context, params *CreatePhoneSwitchParams, body CreatePhoneSwitchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePhoneSwitchResponse, error) {
-	rsp, err := c.CreatePhoneSwitch(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreatePhoneSwitchResponse(rsp)
-}
-
-// ListSegmentsWithResponse List all segments
-//
-// You can fetch a list of all segments.
-//
-// Segment names are returned HTML-escaped, for example `&` as `&amp;`.
-//
-// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /segments (the `ListSegments` operationId).
-func (c *ClientWithResponses) ListSegmentsWithResponse(ctx context.Context, params *ListSegmentsParams, reqEditors ...RequestEditorFn) (*ListSegmentsResponse, error) {
-	rsp, err := c.ListSegments(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListSegmentsResponse(rsp)
-}
-
-// RetrieveSegmentWithResponse Retrieve a segment
-//
-// You can fetch the details of a single segment.
-//
-// The segment name is returned HTML-escaped, for example `&` as `&amp;`.
-//
-// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /segments/{segment_id} (the `RetrieveSegment` operationId).
-func (c *ClientWithResponses) RetrieveSegmentWithResponse(ctx context.Context, segmentId string, params *RetrieveSegmentParams, reqEditors ...RequestEditorFn) (*RetrieveSegmentResponse, error) {
-	rsp, err := c.RetrieveSegment(ctx, segmentId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveSegmentResponse(rsp)
-}
-
-// ListSubscriptionTypesWithResponse List subscription types
-//
-// You can list all subscription types. A list of subscription type objects will be returned.
-//
-// Requires the `read_users_companies` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /subscription_types (the `ListSubscriptionTypes` operationId).
-func (c *ClientWithResponses) ListSubscriptionTypesWithResponse(ctx context.Context, params *ListSubscriptionTypesParams, reqEditors ...RequestEditorFn) (*ListSubscriptionTypesResponse, error) {
-	rsp, err := c.ListSubscriptionTypes(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListSubscriptionTypesResponse(rsp)
-}
-
-// GetSubscriptionTypeWithResponse Retrieve a subscription type
-//
-// You can fetch the details of a single subscription type by making a GET request to `https://api.intercom.io/subscription_types/<id>`.
-//
-// Requires the `read_users_companies` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /subscription_types/{id} (the `GetSubscriptionType` operationId).
-func (c *ClientWithResponses) GetSubscriptionTypeWithResponse(ctx context.Context, id string, params *GetSubscriptionTypeParams, reqEditors ...RequestEditorFn) (*GetSubscriptionTypeResponse, error) {
-	rsp, err := c.GetSubscriptionType(ctx, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetSubscriptionTypeResponse(rsp)
-}
-
-// ListTagsWithResponse List all tags
-//
-// You can fetch a list of all tags for a given workspace.
-//
-// Passing `id` returns that one tag object instead of a list. Passing `taggable_type` returns a list of the tags applied to a single contact or company.
-//
-// Requires the `read_tags` or `read_users_companies` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /tags (the `ListTags` operationId).
-func (c *ClientWithResponses) ListTagsWithResponse(ctx context.Context, params *ListTagsParams, reqEditors ...RequestEditorFn) (*ListTagsResponse, error) {
-	rsp, err := c.ListTags(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListTagsResponse(rsp)
-}
-
-// CreateTagWithBodyWithResponse Create or update a tag, Tag or untag companies, Tag contacts
-//
-// You can use this endpoint to perform the following operations:
-//
-//	**1. Create a new tag:** You can create a new tag by passing in the tag name as specified in "Create or Update Tag Request Payload" described below.
-//
-//	**2. Update an existing tag:** You can update an existing tag by passing the id of the tag as specified in "Create or Update Tag Request Payload" described below.
-//
-//	**3. Tag Companies:** You can tag single company or a list of companies. You can tag a company by passing in the tag name and the company details as specified in "Tag Company Request Payload" described below. Also, if the tag doesn't exist then a new one will be created automatically.
-//
-//	**4. Untag Companies:** You can untag a single company or a list of companies. You can untag a company by passing in the tag id and the company details as specified in "Untag Company Request Payload" described below.
-//
-//	**5. Tag Multiple Users:** You can tag a list of users. You can tag the users by passing in the tag name and the user details as specified in "Tag Users Request Payload" described below.
-//
-// Each operation will return a tag object.
-//
-// Contacts and companies listed in `users` or `companies` that do not exist are skipped: they are left out of the `users` and `companies` arrays in the response and the request still succeeds. With `ids_to_add` it depends on `taggable_type`: a contact id that does not exist returns a 404, while a company id that does not exist is skipped. With `ids_to_add`, the `users` and `companies` arrays in the response are always empty, and a 404 still leaves the tag created or renamed.
-//
-// Requires the `write_tags` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tags (the `CreateTag` operationId).
-func (c *ClientWithResponses) CreateTagWithBodyWithResponse(ctx context.Context, params *CreateTagParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateTagResponse, error) {
-	rsp, err := c.CreateTagWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateTagResponse(rsp)
-}
-
-// CreateTagWithResponse Create or update a tag, Tag or untag companies, Tag contacts
-//
-// You can use this endpoint to perform the following operations:
-//
-//	**1. Create a new tag:** You can create a new tag by passing in the tag name as specified in "Create or Update Tag Request Payload" described below.
-//
-//	**2. Update an existing tag:** You can update an existing tag by passing the id of the tag as specified in "Create or Update Tag Request Payload" described below.
-//
-//	**3. Tag Companies:** You can tag single company or a list of companies. You can tag a company by passing in the tag name and the company details as specified in "Tag Company Request Payload" described below. Also, if the tag doesn't exist then a new one will be created automatically.
-//
-//	**4. Untag Companies:** You can untag a single company or a list of companies. You can untag a company by passing in the tag id and the company details as specified in "Untag Company Request Payload" described below.
-//
-//	**5. Tag Multiple Users:** You can tag a list of users. You can tag the users by passing in the tag name and the user details as specified in "Tag Users Request Payload" described below.
-//
-// Each operation will return a tag object.
-//
-// Contacts and companies listed in `users` or `companies` that do not exist are skipped: they are left out of the `users` and `companies` arrays in the response and the request still succeeds. With `ids_to_add` it depends on `taggable_type`: a contact id that does not exist returns a 404, while a company id that does not exist is skipped. With `ids_to_add`, the `users` and `companies` arrays in the response are always empty, and a 404 still leaves the tag created or renamed.
-//
-// Requires the `write_tags` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tags (the `CreateTag` operationId).
-func (c *ClientWithResponses) CreateTagWithResponse(ctx context.Context, params *CreateTagParams, body CreateTagJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTagResponse, error) {
-	rsp, err := c.CreateTag(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateTagResponse(rsp)
-}
-
-// DeleteTagWithResponse Delete tag
-//
-// You can delete the details of tags that are on the workspace by passing in the id.
-//
-// Requires the `write_tags` or `write_users_companies` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /tags/{tag_id} (the `DeleteTag` operationId).
-func (c *ClientWithResponses) DeleteTagWithResponse(ctx context.Context, tagId string, params *DeleteTagParams, reqEditors ...RequestEditorFn) (*DeleteTagResponse, error) {
-	rsp, err := c.DeleteTag(ctx, tagId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteTagResponse(rsp)
-}
-
-// FindTagWithResponse Find a specific tag
-//
-// You can fetch the details of tags that are on the workspace by their id.
-// This will return a tag object.
-//
-// Requires the `read_tags` or `read_users_companies` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /tags/{tag_id} (the `FindTag` operationId).
-func (c *ClientWithResponses) FindTagWithResponse(ctx context.Context, tagId string, params *FindTagParams, reqEditors ...RequestEditorFn) (*FindTagResponse, error) {
-	rsp, err := c.FindTag(ctx, tagId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseFindTagResponse(rsp)
-}
-
-// ListTeamsWithResponse List all teams
-//
-// This will return a list of team objects for the App.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /teams (the `ListTeams` operationId).
-func (c *ClientWithResponses) ListTeamsWithResponse(ctx context.Context, params *ListTeamsParams, reqEditors ...RequestEditorFn) (*ListTeamsResponse, error) {
-	rsp, err := c.ListTeams(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListTeamsResponse(rsp)
-}
-
-// RetrieveTeamWithResponse Retrieve a team
-//
-// You can fetch the details of a single team, containing an array of admins that belong to this team.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /teams/{team_id} (the `RetrieveTeam` operationId).
-func (c *ClientWithResponses) RetrieveTeamWithResponse(ctx context.Context, teamId string, params *RetrieveTeamParams, reqEditors ...RequestEditorFn) (*RetrieveTeamResponse, error) {
-	rsp, err := c.RetrieveTeam(ctx, teamId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveTeamResponse(rsp)
-}
-
-// GetTeamMetricsWithResponse Retrieve team metrics
-//
-// Returns real-time activity metrics for admins in the specified team. For each admin, the response includes counts of open, idle, and snoozed conversations.
-//
-// This endpoint requires the `realtime_monitoring` feature to be enabled for your workspace.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /teams/{team_id}/metrics (the `GetTeamMetrics` operationId).
-func (c *ClientWithResponses) GetTeamMetricsWithResponse(ctx context.Context, teamId string, params *GetTeamMetricsParams, reqEditors ...RequestEditorFn) (*GetTeamMetricsResponse, error) {
-	rsp, err := c.GetTeamMetrics(ctx, teamId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetTeamMetricsResponse(rsp)
-}
-
-// ListTicketStatesWithResponse List all ticket states
-//
-// You can get a list of all ticket states for a workspace. The list includes archived ticket states; check `archived` on each one.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /ticket_states (the `ListTicketStates` operationId).
-func (c *ClientWithResponses) ListTicketStatesWithResponse(ctx context.Context, params *ListTicketStatesParams, reqEditors ...RequestEditorFn) (*ListTicketStatesResponse, error) {
-	rsp, err := c.ListTicketStates(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListTicketStatesResponse(rsp)
-}
-
-// ListTicketTypesWithResponse List all ticket types
-//
-// You can get a list of all ticket types for a workspace. The list includes archived ticket types and ticket types that Intercom creates itself.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /ticket_types (the `ListTicketTypes` operationId).
-func (c *ClientWithResponses) ListTicketTypesWithResponse(ctx context.Context, params *ListTicketTypesParams, reqEditors ...RequestEditorFn) (*ListTicketTypesResponse, error) {
-	rsp, err := c.ListTicketTypes(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListTicketTypesResponse(rsp)
-}
-
-// CreateTicketTypeWithBodyWithResponse Create a ticket type
-//
-// You can create a new ticket type.
-// > 📘 Creating ticket types.
-// >
-// > Every ticket type will be created with two default attributes: _default_title_ and _default_description_.
-// > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /ticket_types (the `CreateTicketType` operationId).
-func (c *ClientWithResponses) CreateTicketTypeWithBodyWithResponse(ctx context.Context, params *CreateTicketTypeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateTicketTypeResponse, error) {
-	rsp, err := c.CreateTicketTypeWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateTicketTypeResponse(rsp)
-}
-
-// CreateTicketTypeWithResponse Create a ticket type
-//
-// You can create a new ticket type.
-// > 📘 Creating ticket types.
-// >
-// > Every ticket type will be created with two default attributes: _default_title_ and _default_description_.
-// > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /ticket_types (the `CreateTicketType` operationId).
-func (c *ClientWithResponses) CreateTicketTypeWithResponse(ctx context.Context, params *CreateTicketTypeParams, body CreateTicketTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTicketTypeResponse, error) {
-	rsp, err := c.CreateTicketType(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateTicketTypeResponse(rsp)
-}
-
-// GetTicketTypeWithResponse Retrieve a ticket type
-//
-// You can fetch the details of a single ticket type. Archived ticket types are returned as well.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /ticket_types/{ticket_type_id} (the `GetTicketType` operationId).
-func (c *ClientWithResponses) GetTicketTypeWithResponse(ctx context.Context, ticketTypeId string, params *GetTicketTypeParams, reqEditors ...RequestEditorFn) (*GetTicketTypeResponse, error) {
-	rsp, err := c.GetTicketType(ctx, ticketTypeId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetTicketTypeResponse(rsp)
-}
-
-// UpdateTicketTypeWithBodyWithResponse Update a ticket type
-//
-// You can update a ticket type.
-//
-// > 📘 Updating a ticket type.
-// >
-// > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /ticket_types/{ticket_type_id} (the `UpdateTicketType` operationId).
-func (c *ClientWithResponses) UpdateTicketTypeWithBodyWithResponse(ctx context.Context, ticketTypeId string, params *UpdateTicketTypeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateTicketTypeResponse, error) {
-	rsp, err := c.UpdateTicketTypeWithBody(ctx, ticketTypeId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateTicketTypeResponse(rsp)
-}
-
-// UpdateTicketTypeWithResponse Update a ticket type
-//
-// You can update a ticket type.
-//
-// > 📘 Updating a ticket type.
-// >
-// > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /ticket_types/{ticket_type_id} (the `UpdateTicketType` operationId).
-func (c *ClientWithResponses) UpdateTicketTypeWithResponse(ctx context.Context, ticketTypeId string, params *UpdateTicketTypeParams, body UpdateTicketTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateTicketTypeResponse, error) {
-	rsp, err := c.UpdateTicketType(ctx, ticketTypeId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateTicketTypeResponse(rsp)
-}
-
-// CreateTicketTypeAttributeWithBodyWithResponse Create a new attribute for a ticket type
-//
-// You can create a new attribute for a ticket type.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /ticket_types/{ticket_type_id}/attributes (the `CreateTicketTypeAttribute` operationId).
-func (c *ClientWithResponses) CreateTicketTypeAttributeWithBodyWithResponse(ctx context.Context, ticketTypeId string, params *CreateTicketTypeAttributeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateTicketTypeAttributeResponse, error) {
-	rsp, err := c.CreateTicketTypeAttributeWithBody(ctx, ticketTypeId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateTicketTypeAttributeResponse(rsp)
-}
-
-// CreateTicketTypeAttributeWithResponse Create a new attribute for a ticket type
-//
-// You can create a new attribute for a ticket type.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /ticket_types/{ticket_type_id}/attributes (the `CreateTicketTypeAttribute` operationId).
-func (c *ClientWithResponses) CreateTicketTypeAttributeWithResponse(ctx context.Context, ticketTypeId string, params *CreateTicketTypeAttributeParams, body CreateTicketTypeAttributeJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTicketTypeAttributeResponse, error) {
-	rsp, err := c.CreateTicketTypeAttribute(ctx, ticketTypeId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateTicketTypeAttributeResponse(rsp)
-}
-
-// UpdateTicketTypeAttributeWithBodyWithResponse Update an existing attribute for a ticket type
-//
-// You can update an existing attribute for a ticket type.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /ticket_types/{ticket_type_id}/attributes/{attribute_id} (the `UpdateTicketTypeAttribute` operationId).
-func (c *ClientWithResponses) UpdateTicketTypeAttributeWithBodyWithResponse(ctx context.Context, ticketTypeId string, attributeId string, params *UpdateTicketTypeAttributeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateTicketTypeAttributeResponse, error) {
-	rsp, err := c.UpdateTicketTypeAttributeWithBody(ctx, ticketTypeId, attributeId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateTicketTypeAttributeResponse(rsp)
-}
-
-// UpdateTicketTypeAttributeWithResponse Update an existing attribute for a ticket type
-//
-// You can update an existing attribute for a ticket type.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /ticket_types/{ticket_type_id}/attributes/{attribute_id} (the `UpdateTicketTypeAttribute` operationId).
-func (c *ClientWithResponses) UpdateTicketTypeAttributeWithResponse(ctx context.Context, ticketTypeId string, attributeId string, params *UpdateTicketTypeAttributeParams, body UpdateTicketTypeAttributeJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateTicketTypeAttributeResponse, error) {
-	rsp, err := c.UpdateTicketTypeAttribute(ctx, ticketTypeId, attributeId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateTicketTypeAttributeResponse(rsp)
-}
-
-// CreateTicketWithBodyWithResponse Create a ticket
-//
-// You can create a new ticket.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets (the `CreateTicket` operationId).
-func (c *ClientWithResponses) CreateTicketWithBodyWithResponse(ctx context.Context, params *CreateTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateTicketResponse, error) {
-	rsp, err := c.CreateTicketWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateTicketResponse(rsp)
-}
-
-// CreateTicketWithResponse Create a ticket
-//
-// You can create a new ticket.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets (the `CreateTicket` operationId).
-func (c *ClientWithResponses) CreateTicketWithResponse(ctx context.Context, params *CreateTicketParams, body CreateTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTicketResponse, error) {
-	rsp, err := c.CreateTicket(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateTicketResponse(rsp)
-}
-
-// EnqueueCreateTicketWithBodyWithResponse Enqueue create ticket
-//
-// Enqueues ticket creation for asynchronous processing, returning if the job was enqueued successfully to be processed. We attempt to perform a best-effort validation on inputs before tasks are enqueued. If the given parameters are incorrect, we won't enqueue the job.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/enqueue (the `EnqueueCreateTicket` operationId).
-func (c *ClientWithResponses) EnqueueCreateTicketWithBodyWithResponse(ctx context.Context, params *EnqueueCreateTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnqueueCreateTicketResponse, error) {
-	rsp, err := c.EnqueueCreateTicketWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseEnqueueCreateTicketResponse(rsp)
-}
-
-// EnqueueCreateTicketWithResponse Enqueue create ticket
-//
-// Enqueues ticket creation for asynchronous processing, returning if the job was enqueued successfully to be processed. We attempt to perform a best-effort validation on inputs before tasks are enqueued. If the given parameters are incorrect, we won't enqueue the job.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/enqueue (the `EnqueueCreateTicket` operationId).
-func (c *ClientWithResponses) EnqueueCreateTicketWithResponse(ctx context.Context, params *EnqueueCreateTicketParams, body EnqueueCreateTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*EnqueueCreateTicketResponse, error) {
-	rsp, err := c.EnqueueCreateTicket(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseEnqueueCreateTicketResponse(rsp)
-}
-
-// SearchTicketsWithBodyWithResponse Search tickets
-//
-// You can search for multiple tickets by the value of their attributes in order to fetch exactly which ones you want.
-//
-// To search for tickets, you send a `POST` request to `https://api.intercom.io/tickets/search`.
-//
-// This will accept a query object in the body which will define your filters.
-// {% admonition type="warning" name="Optimizing search queries" %}
-//
-//	Search queries can be complex, so optimizing them can help the performance of your search.
-//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-//
-// ### Nesting & Limitations
-//
-// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
-// There are some limitations to the amount of multiples there can be:
-// - There's a limit of max 2 nested filters
-// - There's a limit of max 15 filters for each AND or OR group
-//
-// ### Accepted Fields
-//
-// Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
-// Fields not in the table below, such as `source.body`, are rejected with a `400` error.
-//
-// | Field                                     | Type                                                                                     |
-// | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
-// | id                                        | Integer                                                                                  |
-// | created_at                                | Date (UNIX timestamp)                                                                    |
-// | updated_at                                | Date (UNIX timestamp)                                                                    |
-// | title                           | String                                                                                   |
-// | description                     | String                                                                                   |
-// | category                                  | String                                                                                   |
-// | ticket_type_id                            | Integer                                                                                  |
-// | contact_ids                               | String                                                                                   |
-// | admin_assignee_id                         | Integer                                                                                  |
-// | team_assignee_id                          | Integer                                                                                  |
-// | open                                      | Boolean                                                                                  |
-// | state                                     | String                                                                                   |
-// | snoozed_until                             | Date (UNIX timestamp)                                                                    |
-// | ticket_attribute.{id}                     | String or Boolean or Date (UNIX timestamp) or Float or Integer                           |
-//
-// {% admonition type="info" name="Searching by Category" %}
-// When searching for tickets by the **`category`** field, specific terms must be used instead of the category names:
-// * For **Customer** category tickets, use the term `request`.
-// * For **Back-office** category tickets, use the term `task`.
-// * For **Tracker** category tickets, use the term `tracker`.
-// {% /admonition %}
-//
-// ### Sorting
-//
-// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
-//
-// ### Accepted Operators
-//
-// {% admonition type="info" name="Searching based on `created_at`" %}
-//
-//	You may use the `<=` or `>=` operators to search by `created_at`.
-//
-// {% /admonition %}
-//
-// The table below shows the operators you can use to define how you want to search for the value.  The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type  (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates).
-//
-// | Operator | Valid Types                    | Description                                                  |
-// | :------- | :----------------------------- | :----------------------------------------------------------- |
-// | =        | All                            | Equals                                                       |
-// | !=       | All                            | Doesn't Equal                                                |
-// | IN       | All                            | In  Shortcut for `OR` queries  Values most be in Array       |
-// | NIN      | All                            | Not In  Shortcut for `OR !` queries  Values must be in Array |
-// | >        | Integer  Date (UNIX Timestamp) | Greater (or equal) than                                      |
-// | <       | Integer  Date (UNIX Timestamp) | Lower (or equal) than                                        |
-// | ~        | String                         | Contains                                                     |
-// | !~       | String                         | Doesn't Contain                                              |
-// | ^        | String                         | Starts With                                                  |
-// | $        | String                         | Ends With                                                    |
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/search (the `SearchTickets` operationId).
-func (c *ClientWithResponses) SearchTicketsWithBodyWithResponse(ctx context.Context, params *SearchTicketsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SearchTicketsResponse, error) {
-	rsp, err := c.SearchTicketsWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSearchTicketsResponse(rsp)
-}
-
-// SearchTicketsWithResponse Search tickets
-//
-// You can search for multiple tickets by the value of their attributes in order to fetch exactly which ones you want.
-//
-// To search for tickets, you send a `POST` request to `https://api.intercom.io/tickets/search`.
-//
-// This will accept a query object in the body which will define your filters.
-// {% admonition type="warning" name="Optimizing search queries" %}
-//
-//	Search queries can be complex, so optimizing them can help the performance of your search.
-//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
-//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
-//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
-//
-// {% /admonition %}
-//
-// ### Nesting & Limitations
-//
-// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
-// There are some limitations to the amount of multiples there can be:
-// - There's a limit of max 2 nested filters
-// - There's a limit of max 15 filters for each AND or OR group
-//
-// ### Accepted Fields
-//
-// Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
-// Fields not in the table below, such as `source.body`, are rejected with a `400` error.
-//
-// | Field                                     | Type                                                                                     |
-// | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
-// | id                                        | Integer                                                                                  |
-// | created_at                                | Date (UNIX timestamp)                                                                    |
-// | updated_at                                | Date (UNIX timestamp)                                                                    |
-// | title                           | String                                                                                   |
-// | description                     | String                                                                                   |
-// | category                                  | String                                                                                   |
-// | ticket_type_id                            | Integer                                                                                  |
-// | contact_ids                               | String                                                                                   |
-// | admin_assignee_id                         | Integer                                                                                  |
-// | team_assignee_id                          | Integer                                                                                  |
-// | open                                      | Boolean                                                                                  |
-// | state                                     | String                                                                                   |
-// | snoozed_until                             | Date (UNIX timestamp)                                                                    |
-// | ticket_attribute.{id}                     | String or Boolean or Date (UNIX timestamp) or Float or Integer                           |
-//
-// {% admonition type="info" name="Searching by Category" %}
-// When searching for tickets by the **`category`** field, specific terms must be used instead of the category names:
-// * For **Customer** category tickets, use the term `request`.
-// * For **Back-office** category tickets, use the term `task`.
-// * For **Tracker** category tickets, use the term `tracker`.
-// {% /admonition %}
-//
-// ### Sorting
-//
-// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
-//
-// ### Accepted Operators
-//
-// {% admonition type="info" name="Searching based on `created_at`" %}
-//
-//	You may use the `<=` or `>=` operators to search by `created_at`.
-//
-// {% /admonition %}
-//
-// The table below shows the operators you can use to define how you want to search for the value.  The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type  (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates).
-//
-// | Operator | Valid Types                    | Description                                                  |
-// | :------- | :----------------------------- | :----------------------------------------------------------- |
-// | =        | All                            | Equals                                                       |
-// | !=       | All                            | Doesn't Equal                                                |
-// | IN       | All                            | In  Shortcut for `OR` queries  Values most be in Array       |
-// | NIN      | All                            | Not In  Shortcut for `OR !` queries  Values must be in Array |
-// | >        | Integer  Date (UNIX Timestamp) | Greater (or equal) than                                      |
-// | <       | Integer  Date (UNIX Timestamp) | Lower (or equal) than                                        |
-// | ~        | String                         | Contains                                                     |
-// | !~       | String                         | Doesn't Contain                                              |
-// | ^        | String                         | Starts With                                                  |
-// | $        | String                         | Ends With                                                    |
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/search (the `SearchTickets` operationId).
-func (c *ClientWithResponses) SearchTicketsWithResponse(ctx context.Context, params *SearchTicketsParams, body SearchTicketsJSONRequestBody, reqEditors ...RequestEditorFn) (*SearchTicketsResponse, error) {
-	rsp, err := c.SearchTickets(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSearchTicketsResponse(rsp)
-}
-
-// DeleteTicketWithResponse Delete a ticket
-//
-// {% admonition type="warning" name="Irreversible operation" %}
-// Deleting a ticket is permanent and cannot be reversed.
-// {% /admonition %}
-//
-// Deleting a ticket permanently removes it from the inbox. All sensitive data is deleted, including admin and user replies, ticket attributes, uploads, and related content. The ticket will still appear in reporting, though some data may be incomplete due to the deletion.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /tickets/{ticket_id} (the `DeleteTicket` operationId).
-func (c *ClientWithResponses) DeleteTicketWithResponse(ctx context.Context, ticketId string, params *DeleteTicketParams, reqEditors ...RequestEditorFn) (*DeleteTicketResponse, error) {
-	rsp, err := c.DeleteTicket(ctx, ticketId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDeleteTicketResponse(rsp)
-}
-
-// GetTicketWithResponse Retrieve a ticket
-//
-// You can fetch the details of a single ticket.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /tickets/{ticket_id} (the `GetTicket` operationId).
-func (c *ClientWithResponses) GetTicketWithResponse(ctx context.Context, ticketId string, params *GetTicketParams, reqEditors ...RequestEditorFn) (*GetTicketResponse, error) {
-	rsp, err := c.GetTicket(ctx, ticketId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetTicketResponse(rsp)
-}
-
-// UpdateTicketWithBodyWithResponse Update a ticket
-//
-// You can update a ticket.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /tickets/{ticket_id} (the `UpdateTicket` operationId).
-func (c *ClientWithResponses) UpdateTicketWithBodyWithResponse(ctx context.Context, ticketId string, params *UpdateTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateTicketResponse, error) {
-	rsp, err := c.UpdateTicketWithBody(ctx, ticketId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateTicketResponse(rsp)
-}
-
-// UpdateTicketWithResponse Update a ticket
-//
-// You can update a ticket.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /tickets/{ticket_id} (the `UpdateTicket` operationId).
-func (c *ClientWithResponses) UpdateTicketWithResponse(ctx context.Context, ticketId string, params *UpdateTicketParams, body UpdateTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateTicketResponse, error) {
-	rsp, err := c.UpdateTicket(ctx, ticketId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateTicketResponse(rsp)
-}
-
-// ChangeTicketTypeWithBodyWithResponse Change ticket type
-//
-// You can change the type of a ticket. The new ticket type must be in the same category as the current type. Attributes matching by name and type are automatically transferred from the old type; values provided in ticket_attributes override transferred values.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/{ticket_id}/change_type (the `ChangeTicketType` operationId).
-func (c *ClientWithResponses) ChangeTicketTypeWithBodyWithResponse(ctx context.Context, ticketId string, params *ChangeTicketTypeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ChangeTicketTypeResponse, error) {
-	rsp, err := c.ChangeTicketTypeWithBody(ctx, ticketId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseChangeTicketTypeResponse(rsp)
-}
-
-// ChangeTicketTypeWithResponse Change ticket type
-//
-// You can change the type of a ticket. The new ticket type must be in the same category as the current type. Attributes matching by name and type are automatically transferred from the old type; values provided in ticket_attributes override transferred values.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/{ticket_id}/change_type (the `ChangeTicketType` operationId).
-func (c *ClientWithResponses) ChangeTicketTypeWithResponse(ctx context.Context, ticketId string, params *ChangeTicketTypeParams, body ChangeTicketTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*ChangeTicketTypeResponse, error) {
-	rsp, err := c.ChangeTicketType(ctx, ticketId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseChangeTicketTypeResponse(rsp)
-}
-
-// LinkConversationToTicketWithBodyWithResponse Link a conversation to a ticket
-//
-// Link a conversation to an existing tracker ticket. The conversation can be
-// a regular conversation or one that has been converted into a customer ticket.
-//
-// Use this when related conversations surface after a tracker ticket has
-// already been created. The ticket in the path must be a tracker ticket, and
-// `conversation_id` in the body is the conversation (or customer ticket) to
-// link to it. This returns the linked conversation.
-//
-// A tracker ticket can have up to 2,500 linked conversations; once that
-// limit is reached, further requests return `linked_conversation_limit_exceeded`.
-//
-// Requires the `write_tickets` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/{ticket_id}/linked_conversations (the `LinkConversationToTicket` operationId).
-func (c *ClientWithResponses) LinkConversationToTicketWithBodyWithResponse(ctx context.Context, ticketId string, params *LinkConversationToTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkConversationToTicketResponse, error) {
-	rsp, err := c.LinkConversationToTicketWithBody(ctx, ticketId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseLinkConversationToTicketResponse(rsp)
-}
-
-// LinkConversationToTicketWithResponse Link a conversation to a ticket
-//
-// Link a conversation to an existing tracker ticket. The conversation can be
-// a regular conversation or one that has been converted into a customer ticket.
-//
-// Use this when related conversations surface after a tracker ticket has
-// already been created. The ticket in the path must be a tracker ticket, and
-// `conversation_id` in the body is the conversation (or customer ticket) to
-// link to it. This returns the linked conversation.
-//
-// A tracker ticket can have up to 2,500 linked conversations; once that
-// limit is reached, further requests return `linked_conversation_limit_exceeded`.
-//
-// Requires the `write_tickets` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/{ticket_id}/linked_conversations (the `LinkConversationToTicket` operationId).
-func (c *ClientWithResponses) LinkConversationToTicketWithResponse(ctx context.Context, ticketId string, params *LinkConversationToTicketParams, body LinkConversationToTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkConversationToTicketResponse, error) {
-	rsp, err := c.LinkConversationToTicket(ctx, ticketId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseLinkConversationToTicketResponse(rsp)
-}
-
-// UnlinkConversationFromTicketWithResponse Unlink a conversation from a ticket
-//
-// Unlink a conversation (or converted customer ticket) from a tracker ticket
-// it is currently linked to. The ticket in the path must be a tracker ticket.
-// This returns the conversation that was unlinked.
-//
-// Requires the `write_tickets` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /tickets/{ticket_id}/linked_conversations/{id} (the `UnlinkConversationFromTicket` operationId).
-func (c *ClientWithResponses) UnlinkConversationFromTicketWithResponse(ctx context.Context, ticketId string, id string, params *UnlinkConversationFromTicketParams, reqEditors ...RequestEditorFn) (*UnlinkConversationFromTicketResponse, error) {
-	rsp, err := c.UnlinkConversationFromTicket(ctx, ticketId, id, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUnlinkConversationFromTicketResponse(rsp)
-}
-
-// ReplyTicketWithBodyWithResponse Reply to a ticket
-//
-// You can reply to a ticket with a message from an admin or on behalf of a contact, or with a note for admins.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/{ticket_id}/reply (the `ReplyTicket` operationId).
-func (c *ClientWithResponses) ReplyTicketWithBodyWithResponse(ctx context.Context, ticketId string, params *ReplyTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReplyTicketResponse, error) {
-	rsp, err := c.ReplyTicketWithBody(ctx, ticketId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseReplyTicketResponse(rsp)
-}
-
-// ReplyTicketWithResponse Reply to a ticket
-//
-// You can reply to a ticket with a message from an admin or on behalf of a contact, or with a note for admins.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/{ticket_id}/reply (the `ReplyTicket` operationId).
-func (c *ClientWithResponses) ReplyTicketWithResponse(ctx context.Context, ticketId string, params *ReplyTicketParams, body ReplyTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplyTicketResponse, error) {
-	rsp, err := c.ReplyTicket(ctx, ticketId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseReplyTicketResponse(rsp)
-}
-
-// AttachTagToTicketWithBodyWithResponse Add tag to a ticket
-//
-// You can tag a specific ticket. This will return a tag object for the tag that was added to the ticket.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/{ticket_id}/tags (the `AttachTagToTicket` operationId).
-func (c *ClientWithResponses) AttachTagToTicketWithBodyWithResponse(ctx context.Context, ticketId string, params *AttachTagToTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AttachTagToTicketResponse, error) {
-	rsp, err := c.AttachTagToTicketWithBody(ctx, ticketId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseAttachTagToTicketResponse(rsp)
-}
-
-// AttachTagToTicketWithResponse Add tag to a ticket
-//
-// You can tag a specific ticket. This will return a tag object for the tag that was added to the ticket.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /tickets/{ticket_id}/tags (the `AttachTagToTicket` operationId).
-func (c *ClientWithResponses) AttachTagToTicketWithResponse(ctx context.Context, ticketId string, params *AttachTagToTicketParams, body AttachTagToTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*AttachTagToTicketResponse, error) {
-	rsp, err := c.AttachTagToTicket(ctx, ticketId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseAttachTagToTicketResponse(rsp)
-}
-
-// DetachTagFromTicketWithBodyWithResponse Remove tag from a ticket
-//
-// You can remove tag from a specific ticket. This will return a tag object for the tag that was removed from the ticket.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /tickets/{ticket_id}/tags/{tag_id} (the `DetachTagFromTicket` operationId).
-func (c *ClientWithResponses) DetachTagFromTicketWithBodyWithResponse(ctx context.Context, ticketId string, tagId string, params *DetachTagFromTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DetachTagFromTicketResponse, error) {
-	rsp, err := c.DetachTagFromTicketWithBody(ctx, ticketId, tagId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDetachTagFromTicketResponse(rsp)
-}
-
-// DetachTagFromTicketWithResponse Remove tag from a ticket
-//
-// You can remove tag from a specific ticket. This will return a tag object for the tag that was removed from the ticket.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with DELETE /tickets/{ticket_id}/tags/{tag_id} (the `DetachTagFromTicket` operationId).
-func (c *ClientWithResponses) DetachTagFromTicketWithResponse(ctx context.Context, ticketId string, tagId string, params *DetachTagFromTicketParams, body DetachTagFromTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*DetachTagFromTicketResponse, error) {
-	rsp, err := c.DetachTagFromTicket(ctx, ticketId, tagId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseDetachTagFromTicketResponse(rsp)
-}
-
-// RetrieveVisitorWithUserIdWithResponse Retrieve a visitor with User ID
-//
-// You can fetch the details of a single visitor.
-//
-// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /visitors (the `RetrieveVisitorWithUserId` operationId).
-func (c *ClientWithResponses) RetrieveVisitorWithUserIdWithResponse(ctx context.Context, params *RetrieveVisitorWithUserIdParams, reqEditors ...RequestEditorFn) (*RetrieveVisitorWithUserIdResponse, error) {
-	rsp, err := c.RetrieveVisitorWithUserId(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRetrieveVisitorWithUserIdResponse(rsp)
-}
-
-// UpdateVisitorWithBodyWithResponse Update a visitor
-//
-// Sending a PUT request to `/visitors` will result in an update of an existing Visitor.
-//
-// **Option 1.** You can update a visitor by passing in the `user_id` of the visitor in the Request body.
-//
-// **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
-//
-// Sending an `email` promotes the visitor to a lead. When that happens the response is a contact object with a `role` of `lead`, not a visitor object.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /visitors (the `UpdateVisitor` operationId).
-func (c *ClientWithResponses) UpdateVisitorWithBodyWithResponse(ctx context.Context, params *UpdateVisitorParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVisitorResponse, error) {
-	rsp, err := c.UpdateVisitorWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateVisitorResponse(rsp)
-}
-
-// UpdateVisitorWithResponse Update a visitor
-//
-// Sending a PUT request to `/visitors` will result in an update of an existing Visitor.
-//
-// **Option 1.** You can update a visitor by passing in the `user_id` of the visitor in the Request body.
-//
-// **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
-//
-// Sending an `email` promotes the visitor to a lead. When that happens the response is a contact object with a `role` of `lead`, not a visitor object.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with PUT /visitors (the `UpdateVisitor` operationId).
-func (c *ClientWithResponses) UpdateVisitorWithResponse(ctx context.Context, params *UpdateVisitorParams, body UpdateVisitorJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVisitorResponse, error) {
-	rsp, err := c.UpdateVisitor(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateVisitorResponse(rsp)
-}
-
-// ConvertVisitorWithBodyWithResponse Convert a visitor
-//
-// You can merge a Visitor to a Contact of role type `lead` or `user`.
-//
-// > 📘 What happens upon a visitor being converted?
-// >
-// > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
-//
-// Identify the visitor with `visitor.id` or `visitor.user_id`. The `user` object is required when `type` is `user`, and is not read when `type` is `lead`.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /visitors/convert (the `ConvertVisitor` operationId).
-func (c *ClientWithResponses) ConvertVisitorWithBodyWithResponse(ctx context.Context, params *ConvertVisitorParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ConvertVisitorResponse, error) {
-	rsp, err := c.ConvertVisitorWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseConvertVisitorResponse(rsp)
-}
-
-// ConvertVisitorWithResponse Convert a visitor
-//
-// You can merge a Visitor to a Contact of role type `lead` or `user`.
-//
-// > 📘 What happens upon a visitor being converted?
-// >
-// > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
-//
-// Identify the visitor with `visitor.id` or `visitor.user_id`. The `user` object is required when `type` is `user`, and is not read when `type` is `lead`.
-//
-// Requires the `read_write_users` or `write_users_companies` OAuth scope.
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /visitors/convert (the `ConvertVisitor` operationId).
-func (c *ClientWithResponses) ConvertVisitorWithResponse(ctx context.Context, params *ConvertVisitorParams, body ConvertVisitorJSONRequestBody, reqEditors ...RequestEditorFn) (*ConvertVisitorResponse, error) {
-	rsp, err := c.ConvertVisitor(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseConvertVisitorResponse(rsp)
-}
-
-// ParseListAdminsResponse parses an HTTP response from a ListAdminsWithResponse call
-func ParseListAdminsResponse(rsp *http.Response) (*ListAdminsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListAdminsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest AdminList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListActivityLogEventTypesResponse parses an HTTP response from a ListActivityLogEventTypesWithResponse call
-func ParseListActivityLogEventTypesResponse(rsp *http.Response) (*ListActivityLogEventTypesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListActivityLogEventTypesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ActivityLogEventTypeList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListActivityLogsResponse parses an HTTP response from a ListActivityLogsWithResponse call
-func ParseListActivityLogsResponse(rsp *http.Response) (*ListActivityLogsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListActivityLogsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ActivityLogList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseSearchActivityLogsResponse parses an HTTP response from a SearchActivityLogsWithResponse call
-func ParseSearchActivityLogsResponse(rsp *http.Response) (*SearchActivityLogsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &SearchActivityLogsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ActivityLogList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseRemoveAdminResponse parses an HTTP response from a RemoveAdminWithResponse call
-func ParseRemoveAdminResponse(rsp *http.Response) (*RemoveAdminResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RemoveAdminResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest struct {
-			// Id The unique identifier of the removed admin.
-			//
-			// Example: 123
-			Id *string `json:"id,omitempty"`
-
-			// Object Example: admin
-			Object *RemoveAdmin200JSONResponseBodyObject `json:"object,omitempty"`
-
-			// Removed Whether the admin was removed. Returned as the string `"true"`.
-			//
-			// Example: true
-			Removed *RemoveAdmin200JSONResponseBodyRemoved `json:"removed,omitempty"`
-		}
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 405:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON405 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseRetrieveAdminResponse parses an HTTP response from a RetrieveAdminWithResponse call
-func ParseRetrieveAdminResponse(rsp *http.Response) (*RetrieveAdminResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RetrieveAdminResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest Admin
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseSetAwayAdminResponse parses an HTTP response from a SetAwayAdminWithResponse call
-func ParseSetAwayAdminResponse(rsp *http.Response) (*SetAwayAdminResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &SetAwayAdminResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest Admin
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 405:
-		var dest Error
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON405 = &dest
-
-	}
-
-	return response, nil
 }

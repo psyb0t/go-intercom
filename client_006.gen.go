@@ -4,6 +4,7 @@
 package intercom
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -12,6 +13,2992 @@ import (
 
 	"github.com/oapi-codegen/runtime"
 )
+
+// EscalateFinConversationWithResponse Escalate to a human
+//
+// Hand a conversation off to a human teammate. If you use the Intercom Helpdesk, the
+// handoff lands in your team inbox.
+//
+// Provide either `conversation_id` or `user`:
+//
+//   - `conversation_id` — escalate an existing agent conversation, including one started
+//     with `/fin/ask`. On the Intercom Helpdesk, Fin by default summarises the conversation
+//     and opens a new Helpdesk conversation that carries the summary as an internal note.
+//     Configure an escalation Operator Workflow to change this default. Escalation closes the
+//     original agent conversation if it is open.
+//   - `user` — escalate on behalf of a user with no prior agent conversation. Fin creates an
+//     agent conversation for the escalation and closes it once the handoff completes. On the
+//     Intercom Helpdesk, the teammate works in a separate new Helpdesk conversation. Not
+//     supported on Fin for Platforms — see below.
+//
+// In both cases, pass the optional `context` to give the receiving teammate background your
+// orchestrating agent has and Fin does not. On the Intercom Helpdesk, it appears above the
+// summary in the internal note of the new conversation the teammate picks up. It is never
+// shown to the end user.
+//
+// Escalating an existing conversation also sets its AI Agent resolution state to
+// `escalated`, readable as `ai_agent.resolution_state` on the Conversations API. This is a
+// resolution state, not a billable resolution.
+//
+// On Fin for Platforms, `conversation_id` is required — `user` is not supported and is
+// rejected, because there is no Intercom Helpdesk in which to create a conversation. There
+// is no Intercom inbox either, so an escalation that no workflow handles does not open a
+// Helpdesk conversation for a teammate. `context` is not surfaced. The conversation is closed,
+// as on the Intercom Helpdesk, and your platform hands the user off to a human.
+//
+// You are notified via webhooks with an `escalated` status
+// followed by `complete`. The `complete` status signals that Fin is done. By then the
+// original agent conversation has been closed. An escalation Operator Workflow may act
+// on it afterwards, but it is closed again once the workflow's first steps have run, so
+// only steps that run later (for example after a wait) can reopen it. On the Intercom
+// Helpdesk, the new human conversation remains open.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/escalate (the `EscalateFinConversation` operationId).
+func (c *ClientWithResponses) EscalateFinConversationWithResponse(ctx context.Context, params *EscalateFinConversationParams, body EscalateFinConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*EscalateFinConversationResponse, error) {
+	rsp, err := c.EscalateFinConversation(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseEscalateFinConversationResponse(rsp)
+}
+
+// RunFinProcedureWithBodyWithResponse Run a Fin procedure
+//
+// Deterministically run a specific procedure on a new conversation. Calling this endpoint
+// guarantees that the named procedure runs — there is no non-deterministic routing.
+//
+// Fin's progress is delivered asynchronously via events. If the
+// procedure pauses for user input, the conversation status becomes `awaiting_user_reply` —
+// send the user's response with [`/fin/reply`](/docs/references/rest-api/api.intercom.io/fin-agent/replytofin).
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/procedures/{procedure_id}/run (the `RunFinProcedure` operationId).
+func (c *ClientWithResponses) RunFinProcedureWithBodyWithResponse(ctx context.Context, procedureId string, params *RunFinProcedureParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RunFinProcedureResponse, error) {
+	rsp, err := c.RunFinProcedureWithBody(ctx, procedureId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRunFinProcedureResponse(rsp)
+}
+
+// RunFinProcedureWithResponse Run a Fin procedure
+//
+// Deterministically run a specific procedure on a new conversation. Calling this endpoint
+// guarantees that the named procedure runs — there is no non-deterministic routing.
+//
+// Fin's progress is delivered asynchronously via events. If the
+// procedure pauses for user input, the conversation status becomes `awaiting_user_reply` —
+// send the user's response with [`/fin/reply`](/docs/references/rest-api/api.intercom.io/fin-agent/replytofin).
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/procedures/{procedure_id}/run (the `RunFinProcedure` operationId).
+func (c *ClientWithResponses) RunFinProcedureWithResponse(ctx context.Context, procedureId string, params *RunFinProcedureParams, body RunFinProcedureJSONRequestBody, reqEditors ...RequestEditorFn) (*RunFinProcedureResponse, error) {
+	rsp, err := c.RunFinProcedure(ctx, procedureId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRunFinProcedureResponse(rsp)
+}
+
+// ReplyToFinWithBodyWithResponse Reply to Fin
+//
+// Once Fin has returned a response to a user's message, its status will be `awaiting_user_reply`.
+//
+// If a user replies, use this endpoint to send this response to Fin.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/reply (the `ReplyToFin` operationId).
+func (c *ClientWithResponses) ReplyToFinWithBodyWithResponse(ctx context.Context, params *ReplyToFinParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReplyToFinResponse, error) {
+	rsp, err := c.ReplyToFinWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReplyToFinResponse(rsp)
+}
+
+// ReplyToFinWithResponse Reply to Fin
+//
+// Once Fin has returned a response to a user's message, its status will be `awaiting_user_reply`.
+//
+// If a user replies, use this endpoint to send this response to Fin.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/reply (the `ReplyToFin` operationId).
+func (c *ClientWithResponses) ReplyToFinWithResponse(ctx context.Context, params *ReplyToFinParams, body ReplyToFinJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplyToFinResponse, error) {
+	rsp, err := c.ReplyToFin(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReplyToFinResponse(rsp)
+}
+
+// StartFinConversationWithBodyWithResponse Start a conversation with Fin
+//
+// Initialize Fin by passing it the user's message along with conversation history and user details.
+//
+// These additional pieces of context will be used by Fin to provide a better and more contextual answer to the user.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Once Fin is initialized, it progresses through a series of statuses such as *thinking*, *replying*, *awaiting_user_reply*, or *resolved* before ending with a status of *complete*.
+//
+// During this workflow, the client should allow Fin to continue uninterrupted until a final *complete* status is returned via webhook, at which point control of the conversation passes back to the client.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/start (the `StartFinConversation` operationId).
+func (c *ClientWithResponses) StartFinConversationWithBodyWithResponse(ctx context.Context, params *StartFinConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*StartFinConversationResponse, error) {
+	rsp, err := c.StartFinConversationWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseStartFinConversationResponse(rsp)
+}
+
+// StartFinConversationWithResponse Start a conversation with Fin
+//
+// Initialize Fin by passing it the user's message along with conversation history and user details.
+//
+// These additional pieces of context will be used by Fin to provide a better and more contextual answer to the user.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Once Fin is initialized, it progresses through a series of statuses such as *thinking*, *replying*, *awaiting_user_reply*, or *resolved* before ending with a status of *complete*.
+//
+// During this workflow, the client should allow Fin to continue uninterrupted until a final *complete* status is returned via webhook, at which point control of the conversation passes back to the client.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/start (the `StartFinConversation` operationId).
+func (c *ClientWithResponses) StartFinConversationWithResponse(ctx context.Context, params *StartFinConversationParams, body StartFinConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*StartFinConversationResponse, error) {
+	rsp, err := c.StartFinConversation(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseStartFinConversationResponse(rsp)
+}
+
+// CollectFinVoiceCallByIdWithResponse Collect Fin Voice call by ID
+//
+// Retrieve information about a Fin Voice call using the external reference ID.
+//
+// Requires the `read_conversations` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /fin_voice/collect/{id} (the `CollectFinVoiceCallById` operationId).
+func (c *ClientWithResponses) CollectFinVoiceCallByIdWithResponse(ctx context.Context, id int, params *CollectFinVoiceCallByIdParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByIdResponse, error) {
+	rsp, err := c.CollectFinVoiceCallById(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCollectFinVoiceCallByIdResponse(rsp)
+}
+
+// CollectFinVoiceCallsByConversationIdWithResponse Collect Fin Voice calls by conversation ID
+//
+// Retrieve information about Fin Voice calls associated with a conversation.
+//
+// Returns all matched calls for the given conversation ID. A conversation may have multiple associated calls.
+//
+// Requires the `read_conversations` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /fin_voice/conversation/{conversation_id} (the `CollectFinVoiceCallsByConversationId` operationId).
+func (c *ClientWithResponses) CollectFinVoiceCallsByConversationIdWithResponse(ctx context.Context, conversationId string, params *CollectFinVoiceCallsByConversationIdParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallsByConversationIdResponse, error) {
+	rsp, err := c.CollectFinVoiceCallsByConversationId(ctx, conversationId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCollectFinVoiceCallsByConversationIdResponse(rsp)
+}
+
+// CollectFinVoiceCallByExternalIdWithResponse Collect Fin Voice call by external ID
+//
+// Retrieve information about a Fin Voice call using the external call identifier.
+//
+// Requires the `read_conversations` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /fin_voice/external_id/{external_id} (the `CollectFinVoiceCallByExternalId` operationId).
+func (c *ClientWithResponses) CollectFinVoiceCallByExternalIdWithResponse(ctx context.Context, externalId string, params *CollectFinVoiceCallByExternalIdParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByExternalIdResponse, error) {
+	rsp, err := c.CollectFinVoiceCallByExternalId(ctx, externalId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCollectFinVoiceCallByExternalIdResponse(rsp)
+}
+
+// CollectFinVoiceCallByPhoneNumberWithResponse Collect Fin Voice call by phone number
+//
+// Retrieve information about a Fin Voice call using the phone number.
+//
+// Returns the most recent matched call for the given phone number, ordered by creation date.
+//
+// Requires the `read_conversations` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /fin_voice/phone_number/{phone_number} (the `CollectFinVoiceCallByPhoneNumber` operationId).
+func (c *ClientWithResponses) CollectFinVoiceCallByPhoneNumberWithResponse(ctx context.Context, phoneNumber string, params *CollectFinVoiceCallByPhoneNumberParams, reqEditors ...RequestEditorFn) (*CollectFinVoiceCallByPhoneNumberResponse, error) {
+	rsp, err := c.CollectFinVoiceCallByPhoneNumber(ctx, phoneNumber, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCollectFinVoiceCallByPhoneNumberResponse(rsp)
+}
+
+// RegisterFinVoiceCallWithBodyWithResponse Register a Fin Voice call
+//
+// Register a Fin Voice call with Intercom. This endpoint creates an external reference
+// that links an external call identifier to an Intercom call and conversation.
+//
+// The call can be from different sources:
+// - AWS Connect (default)
+// - Five9
+// - Zoom Phone
+// - NICE CXone
+// - Dialpad
+// - Generic
+//
+// Requires the `read_conversations` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin_voice/register (the `RegisterFinVoiceCall` operationId).
+func (c *ClientWithResponses) RegisterFinVoiceCallWithBodyWithResponse(ctx context.Context, params *RegisterFinVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegisterFinVoiceCallResponse, error) {
+	rsp, err := c.RegisterFinVoiceCallWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegisterFinVoiceCallResponse(rsp)
+}
+
+// RegisterFinVoiceCallWithResponse Register a Fin Voice call
+//
+// Register a Fin Voice call with Intercom. This endpoint creates an external reference
+// that links an external call identifier to an Intercom call and conversation.
+//
+// The call can be from different sources:
+// - AWS Connect (default)
+// - Five9
+// - Zoom Phone
+// - NICE CXone
+// - Dialpad
+// - Generic
+//
+// Requires the `read_conversations` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin_voice/register (the `RegisterFinVoiceCall` operationId).
+func (c *ClientWithResponses) RegisterFinVoiceCallWithResponse(ctx context.Context, params *RegisterFinVoiceCallParams, body RegisterFinVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*RegisterFinVoiceCallResponse, error) {
+	rsp, err := c.RegisterFinVoiceCall(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegisterFinVoiceCallResponse(rsp)
+}
+
+// ListFoldersWithResponse List all folders
+//
+// You can fetch a list of all folders for organizing content by making a GET request to `https://api.intercom.io/folders`.
+//
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /folders (the `ListFolders` operationId).
+func (c *ClientWithResponses) ListFoldersWithResponse(ctx context.Context, params *ListFoldersParams, reqEditors ...RequestEditorFn) (*ListFoldersResponse, error) {
+	rsp, err := c.ListFolders(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListFoldersResponse(rsp)
+}
+
+// CreateFolderWithBodyWithResponse Create a folder
+//
+// You can create a new folder for organizing content by making a POST request to `https://api.intercom.io/folders`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /folders (the `CreateFolder` operationId).
+func (c *ClientWithResponses) CreateFolderWithBodyWithResponse(ctx context.Context, params *CreateFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateFolderResponse, error) {
+	rsp, err := c.CreateFolderWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateFolderResponse(rsp)
+}
+
+// CreateFolderWithResponse Create a folder
+//
+// You can create a new folder for organizing content by making a POST request to `https://api.intercom.io/folders`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /folders (the `CreateFolder` operationId).
+func (c *ClientWithResponses) CreateFolderWithResponse(ctx context.Context, params *CreateFolderParams, body CreateFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateFolderResponse, error) {
+	rsp, err := c.CreateFolder(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateFolderResponse(rsp)
+}
+
+// DeleteFolderWithResponse Delete a folder
+//
+// You can delete a folder (if it contains no content) by making a DELETE request to `https://api.intercom.io/folders/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /folders/{id} (the `DeleteFolder` operationId).
+func (c *ClientWithResponses) DeleteFolderWithResponse(ctx context.Context, id int, params *DeleteFolderParams, reqEditors ...RequestEditorFn) (*DeleteFolderResponse, error) {
+	rsp, err := c.DeleteFolder(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteFolderResponse(rsp)
+}
+
+// RetrieveFolderWithResponse Retrieve a folder
+//
+// You can fetch the details of a single folder by making a GET request to `https://api.intercom.io/folders/<id>`.
+//
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /folders/{id} (the `RetrieveFolder` operationId).
+func (c *ClientWithResponses) RetrieveFolderWithResponse(ctx context.Context, id int, params *RetrieveFolderParams, reqEditors ...RequestEditorFn) (*RetrieveFolderResponse, error) {
+	rsp, err := c.RetrieveFolder(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveFolderResponse(rsp)
+}
+
+// UpdateFolderWithBodyWithResponse Update a folder
+//
+// You can update a folder by making a PUT request to `https://api.intercom.io/folders/<id>`.
+//
+// Fields you leave out keep their current values. Send `parent_folder_id` as `null` to move the folder to the top level. Folder names longer than 191 characters are truncated.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /folders/{id} (the `UpdateFolder` operationId).
+func (c *ClientWithResponses) UpdateFolderWithBodyWithResponse(ctx context.Context, id int, params *UpdateFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateFolderResponse, error) {
+	rsp, err := c.UpdateFolderWithBody(ctx, id, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateFolderResponse(rsp)
+}
+
+// UpdateFolderWithResponse Update a folder
+//
+// You can update a folder by making a PUT request to `https://api.intercom.io/folders/<id>`.
+//
+// Fields you leave out keep their current values. Send `parent_folder_id` as `null` to move the folder to the top level. Folder names longer than 191 characters are truncated.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /folders/{id} (the `UpdateFolder` operationId).
+func (c *ClientWithResponses) UpdateFolderWithResponse(ctx context.Context, id int, params *UpdateFolderParams, body UpdateFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateFolderResponse, error) {
+	rsp, err := c.UpdateFolder(ctx, id, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateFolderResponse(rsp)
+}
+
+// ListAllCollectionsWithResponse List all collections
+//
+// You can fetch a list of all collections by making a GET request to `https://api.intercom.io/help_center/collections`.
+//
+// Requires the `read_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /help_center/collections (the `ListAllCollections` operationId).
+func (c *ClientWithResponses) ListAllCollectionsWithResponse(ctx context.Context, params *ListAllCollectionsParams, reqEditors ...RequestEditorFn) (*ListAllCollectionsResponse, error) {
+	rsp, err := c.ListAllCollections(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAllCollectionsResponse(rsp)
+}
+
+// CreateCollectionWithBodyWithResponse Create a collection
+//
+// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /help_center/collections (the `CreateCollection` operationId).
+func (c *ClientWithResponses) CreateCollectionWithBodyWithResponse(ctx context.Context, params *CreateCollectionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateCollectionResponse, error) {
+	rsp, err := c.CreateCollectionWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateCollectionResponse(rsp)
+}
+
+// CreateCollectionWithResponse Create a collection
+//
+// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /help_center/collections (the `CreateCollection` operationId).
+func (c *ClientWithResponses) CreateCollectionWithResponse(ctx context.Context, params *CreateCollectionParams, body CreateCollectionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateCollectionResponse, error) {
+	rsp, err := c.CreateCollection(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateCollectionResponse(rsp)
+}
+
+// DeleteCollectionWithResponse Delete a collection
+//
+// You can delete a single collection by making a DELETE request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /help_center/collections/{collection_id} (the `DeleteCollection` operationId).
+func (c *ClientWithResponses) DeleteCollectionWithResponse(ctx context.Context, collectionId int, params *DeleteCollectionParams, reqEditors ...RequestEditorFn) (*DeleteCollectionResponse, error) {
+	rsp, err := c.DeleteCollection(ctx, collectionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteCollectionResponse(rsp)
+}
+
+// RetrieveCollectionWithResponse Retrieve a collection
+//
+// You can fetch the details of a single collection by making a GET request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// Requires the `read_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /help_center/collections/{collection_id} (the `RetrieveCollection` operationId).
+func (c *ClientWithResponses) RetrieveCollectionWithResponse(ctx context.Context, collectionId int, params *RetrieveCollectionParams, reqEditors ...RequestEditorFn) (*RetrieveCollectionResponse, error) {
+	rsp, err := c.RetrieveCollection(ctx, collectionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveCollectionResponse(rsp)
+}
+
+// UpdateCollectionWithBodyWithResponse Update a collection
+//
+// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /help_center/collections/{collection_id} (the `UpdateCollection` operationId).
+func (c *ClientWithResponses) UpdateCollectionWithBodyWithResponse(ctx context.Context, collectionId int, params *UpdateCollectionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateCollectionResponse, error) {
+	rsp, err := c.UpdateCollectionWithBody(ctx, collectionId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateCollectionResponse(rsp)
+}
+
+// UpdateCollectionWithResponse Update a collection
+//
+// You can update the details of a single collection by making a PUT request to `https://api.intercom.io/help_center/collections/<id>`.
+//
+// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /help_center/collections/{collection_id} (the `UpdateCollection` operationId).
+func (c *ClientWithResponses) UpdateCollectionWithResponse(ctx context.Context, collectionId int, params *UpdateCollectionParams, body UpdateCollectionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateCollectionResponse, error) {
+	rsp, err := c.UpdateCollection(ctx, collectionId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateCollectionResponse(rsp)
+}
+
+// ListHelpCentersWithResponse List all Help Centers
+//
+// You can list all Help Centers by making a GET request to `https://api.intercom.io/help_center/help_centers`.
+//
+// Requires the `read_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /help_center/help_centers (the `ListHelpCenters` operationId).
+func (c *ClientWithResponses) ListHelpCentersWithResponse(ctx context.Context, params *ListHelpCentersParams, reqEditors ...RequestEditorFn) (*ListHelpCentersResponse, error) {
+	rsp, err := c.ListHelpCenters(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListHelpCentersResponse(rsp)
+}
+
+// RetrieveHelpCenterWithResponse Retrieve a Help Center
+//
+// You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_centers/<id>`.
+//
+// Requires the `read_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /help_center/help_centers/{help_center_id} (the `RetrieveHelpCenter` operationId).
+func (c *ClientWithResponses) RetrieveHelpCenterWithResponse(ctx context.Context, helpCenterId int, params *RetrieveHelpCenterParams, reqEditors ...RequestEditorFn) (*RetrieveHelpCenterResponse, error) {
+	rsp, err := c.RetrieveHelpCenter(ctx, helpCenterId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveHelpCenterResponse(rsp)
+}
+
+// ListHelpCenterRedirectsWithResponse List all redirects for a help center
+//
+// You can fetch a list of all URL redirects for a help center by making a GET request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects`.
+//
+// Redirects are returned in ascending alphabetical order of `from_url`.
+//
+// Requires the `read_help_center_redirects_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /help_center/help_centers/{help_center_id}/redirects (the `ListHelpCenterRedirects` operationId).
+func (c *ClientWithResponses) ListHelpCenterRedirectsWithResponse(ctx context.Context, helpCenterId string, params *ListHelpCenterRedirectsParams, reqEditors ...RequestEditorFn) (*ListHelpCenterRedirectsResponse, error) {
+	rsp, err := c.ListHelpCenterRedirects(ctx, helpCenterId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListHelpCenterRedirectsResponse(rsp)
+}
+
+// CreateHelpCenterRedirectWithBodyWithResponse Create a redirect
+//
+// You can create a new URL redirect by making a POST request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects`.
+//
+// Requires the `read_write_help_center_redirects_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /help_center/help_centers/{help_center_id}/redirects (the `CreateHelpCenterRedirect` operationId).
+func (c *ClientWithResponses) CreateHelpCenterRedirectWithBodyWithResponse(ctx context.Context, helpCenterId string, params *CreateHelpCenterRedirectParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateHelpCenterRedirectResponse, error) {
+	rsp, err := c.CreateHelpCenterRedirectWithBody(ctx, helpCenterId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateHelpCenterRedirectResponse(rsp)
+}
+
+// CreateHelpCenterRedirectWithResponse Create a redirect
+//
+// You can create a new URL redirect by making a POST request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects`.
+//
+// Requires the `read_write_help_center_redirects_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /help_center/help_centers/{help_center_id}/redirects (the `CreateHelpCenterRedirect` operationId).
+func (c *ClientWithResponses) CreateHelpCenterRedirectWithResponse(ctx context.Context, helpCenterId string, params *CreateHelpCenterRedirectParams, body CreateHelpCenterRedirectJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateHelpCenterRedirectResponse, error) {
+	rsp, err := c.CreateHelpCenterRedirect(ctx, helpCenterId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateHelpCenterRedirectResponse(rsp)
+}
+
+// DeleteHelpCenterRedirectWithResponse Delete a redirect
+//
+// You can delete a single redirect by making a DELETE request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects/{id}`.
+//
+// Requires the `read_write_help_center_redirects_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /help_center/help_centers/{help_center_id}/redirects/{id} (the `DeleteHelpCenterRedirect` operationId).
+func (c *ClientWithResponses) DeleteHelpCenterRedirectWithResponse(ctx context.Context, helpCenterId string, id string, params *DeleteHelpCenterRedirectParams, reqEditors ...RequestEditorFn) (*DeleteHelpCenterRedirectResponse, error) {
+	rsp, err := c.DeleteHelpCenterRedirect(ctx, helpCenterId, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteHelpCenterRedirectResponse(rsp)
+}
+
+// RetrieveHelpCenterRedirectWithResponse Retrieve a redirect
+//
+// You can fetch the details of a single redirect by making a GET request to `https://api.intercom.io/help_center/help_centers/{help_center_id}/redirects/{id}`.
+//
+// Requires the `read_help_center_redirects_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /help_center/help_centers/{help_center_id}/redirects/{id} (the `RetrieveHelpCenterRedirect` operationId).
+func (c *ClientWithResponses) RetrieveHelpCenterRedirectWithResponse(ctx context.Context, helpCenterId string, id string, params *RetrieveHelpCenterRedirectParams, reqEditors ...RequestEditorFn) (*RetrieveHelpCenterRedirectResponse, error) {
+	rsp, err := c.RetrieveHelpCenterRedirect(ctx, helpCenterId, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveHelpCenterRedirectResponse(rsp)
+}
+
+// ListInternalArticlesWithResponse List all articles
+//
+// You can fetch a list of all internal articles by making a GET request to `https://api.intercom.io/internal_articles`.
+//
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /internal_articles (the `ListInternalArticles` operationId).
+func (c *ClientWithResponses) ListInternalArticlesWithResponse(ctx context.Context, params *ListInternalArticlesParams, reqEditors ...RequestEditorFn) (*ListInternalArticlesResponse, error) {
+	rsp, err := c.ListInternalArticles(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListInternalArticlesResponse(rsp)
+}
+
+// CreateInternalArticleWithBodyWithResponse Create an internal article
+//
+// You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /internal_articles (the `CreateInternalArticle` operationId).
+func (c *ClientWithResponses) CreateInternalArticleWithBodyWithResponse(ctx context.Context, params *CreateInternalArticleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateInternalArticleResponse, error) {
+	rsp, err := c.CreateInternalArticleWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateInternalArticleResponse(rsp)
+}
+
+// CreateInternalArticleWithResponse Create an internal article
+//
+// You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /internal_articles (the `CreateInternalArticle` operationId).
+func (c *ClientWithResponses) CreateInternalArticleWithResponse(ctx context.Context, params *CreateInternalArticleParams, body CreateInternalArticleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateInternalArticleResponse, error) {
+	rsp, err := c.CreateInternalArticle(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateInternalArticleResponse(rsp)
+}
+
+// SearchInternalArticlesWithResponse Search for internal articles
+//
+// You can search for internal articles by making a GET request to `https://api.intercom.io/internal_articles/search`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /internal_articles/search (the `SearchInternalArticles` operationId).
+func (c *ClientWithResponses) SearchInternalArticlesWithResponse(ctx context.Context, params *SearchInternalArticlesParams, reqEditors ...RequestEditorFn) (*SearchInternalArticlesResponse, error) {
+	rsp, err := c.SearchInternalArticles(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSearchInternalArticlesResponse(rsp)
+}
+
+// DeleteInternalArticleWithResponse Delete an internal article
+//
+// You can delete a single internal article by making a DELETE request to `https://api.intercom.io/internal_articles/<id>`.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /internal_articles/{internal_article_id} (the `DeleteInternalArticle` operationId).
+func (c *ClientWithResponses) DeleteInternalArticleWithResponse(ctx context.Context, internalArticleId int, params *DeleteInternalArticleParams, reqEditors ...RequestEditorFn) (*DeleteInternalArticleResponse, error) {
+	rsp, err := c.DeleteInternalArticle(ctx, internalArticleId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteInternalArticleResponse(rsp)
+}
+
+// RetrieveInternalArticleWithResponse Retrieve an internal article
+//
+// You can fetch the details of a single internal article by making a GET request to `https://api.intercom.io/internal_articles/<id>`.
+//
+// Requires the `read_articles_scope` or `read_write_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /internal_articles/{internal_article_id} (the `RetrieveInternalArticle` operationId).
+func (c *ClientWithResponses) RetrieveInternalArticleWithResponse(ctx context.Context, internalArticleId int, params *RetrieveInternalArticleParams, reqEditors ...RequestEditorFn) (*RetrieveInternalArticleResponse, error) {
+	rsp, err := c.RetrieveInternalArticle(ctx, internalArticleId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveInternalArticleResponse(rsp)
+}
+
+// UpdateInternalArticleWithBodyWithResponse Update an internal article
+//
+// You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
+//
+// Fields you leave out keep their current values.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /internal_articles/{internal_article_id} (the `UpdateInternalArticle` operationId).
+func (c *ClientWithResponses) UpdateInternalArticleWithBodyWithResponse(ctx context.Context, internalArticleId int, params *UpdateInternalArticleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateInternalArticleResponse, error) {
+	rsp, err := c.UpdateInternalArticleWithBody(ctx, internalArticleId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateInternalArticleResponse(rsp)
+}
+
+// UpdateInternalArticleWithResponse Update an internal article
+//
+// You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
+//
+// Fields you leave out keep their current values.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /internal_articles/{internal_article_id} (the `UpdateInternalArticle` operationId).
+func (c *ClientWithResponses) UpdateInternalArticleWithResponse(ctx context.Context, internalArticleId int, params *UpdateInternalArticleParams, body UpdateInternalArticleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateInternalArticleResponse, error) {
+	rsp, err := c.UpdateInternalArticle(ctx, internalArticleId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateInternalArticleResponse(rsp)
+}
+
+// AttachTagToInternalArticleWithBodyWithResponse Add a tag to an internal article
+//
+// Apply an existing tag to an internal article. Returns the tag that was applied.
+//
+// The tag must already exist in the workspace (create tags with the Tags API),
+// and the authenticating teammate must have the `manage_knowledge_base_content`
+// permission.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /internal_articles/{internal_article_id}/tags (the `AttachTagToInternalArticle` operationId).
+func (c *ClientWithResponses) AttachTagToInternalArticleWithBodyWithResponse(ctx context.Context, internalArticleId int, params *AttachTagToInternalArticleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AttachTagToInternalArticleResponse, error) {
+	rsp, err := c.AttachTagToInternalArticleWithBody(ctx, internalArticleId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseAttachTagToInternalArticleResponse(rsp)
+}
+
+// AttachTagToInternalArticleWithResponse Add a tag to an internal article
+//
+// Apply an existing tag to an internal article. Returns the tag that was applied.
+//
+// The tag must already exist in the workspace (create tags with the Tags API),
+// and the authenticating teammate must have the `manage_knowledge_base_content`
+// permission.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /internal_articles/{internal_article_id}/tags (the `AttachTagToInternalArticle` operationId).
+func (c *ClientWithResponses) AttachTagToInternalArticleWithResponse(ctx context.Context, internalArticleId int, params *AttachTagToInternalArticleParams, body AttachTagToInternalArticleJSONRequestBody, reqEditors ...RequestEditorFn) (*AttachTagToInternalArticleResponse, error) {
+	rsp, err := c.AttachTagToInternalArticle(ctx, internalArticleId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseAttachTagToInternalArticleResponse(rsp)
+}
+
+// DetachTagFromInternalArticleWithResponse Remove a tag from an internal article
+//
+// Remove a tag from an internal article. Returns the tag that was removed, with
+// null `applied_at` and `applied_by`.
+//
+// The authenticating teammate must have the `manage_knowledge_base_content`
+// permission.
+//
+// Requires the `read_write_articles_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /internal_articles/{internal_article_id}/tags/{id} (the `DetachTagFromInternalArticle` operationId).
+func (c *ClientWithResponses) DetachTagFromInternalArticleWithResponse(ctx context.Context, internalArticleId int, id string, params *DetachTagFromInternalArticleParams, reqEditors ...RequestEditorFn) (*DetachTagFromInternalArticleResponse, error) {
+	rsp, err := c.DetachTagFromInternalArticle(ctx, internalArticleId, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDetachTagFromInternalArticleResponse(rsp)
+}
+
+// GetIpAllowlistWithResponse Get IP allowlist settings
+//
+// Retrieve the current IP allowlist configuration for the workspace.
+//
+// Requires the `manage_ip_allowlist` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /ip_allowlist (the `GetIpAllowlist` operationId).
+func (c *ClientWithResponses) GetIpAllowlistWithResponse(ctx context.Context, params *GetIpAllowlistParams, reqEditors ...RequestEditorFn) (*GetIpAllowlistResponse, error) {
+	rsp, err := c.GetIpAllowlist(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetIpAllowlistResponse(rsp)
+}
+
+// UpdateIpAllowlistWithBodyWithResponse Update IP allowlist settings
+//
+// Update the IP allowlist configuration for the workspace.
+//
+// Both `enabled` and `ip_allowlist` are optional. A field you omit is left unchanged, and a request with neither returns the current settings without changing anything. Sending `null` for a field is the same as omitting it.
+//
+// Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
+//
+// When the update leaves the allowlist enabled with at least one entry, the request must come from an IPv4 address that is on the list. A request from an IPv6 address can never match an IPv4 allowlist, so it returns the lockout 422 below.
+//
+// Requires the `manage_ip_allowlist` OAuth scope.
+//
+// {% admonition type="warning" name="Lockout Protection" %}
+//
+//	The API will reject updates that would lock out the caller's IP address. Ensure your current IP is included in the allowlist when enabling the feature.
+//
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /ip_allowlist (the `UpdateIpAllowlist` operationId).
+func (c *ClientWithResponses) UpdateIpAllowlistWithBodyWithResponse(ctx context.Context, params *UpdateIpAllowlistParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateIpAllowlistResponse, error) {
+	rsp, err := c.UpdateIpAllowlistWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateIpAllowlistResponse(rsp)
+}
+
+// UpdateIpAllowlistWithResponse Update IP allowlist settings
+//
+// Update the IP allowlist configuration for the workspace.
+//
+// Both `enabled` and `ip_allowlist` are optional. A field you omit is left unchanged, and a request with neither returns the current settings without changing anything. Sending `null` for a field is the same as omitting it.
+//
+// Every non-blank `ip_allowlist` entry must be an IPv4 address or an IPv4 range in CIDR notation. Blank entries are ignored and surrounding whitespace is trimmed. Any other entry, including an IPv6 address, returns a 422 `parameter_invalid` error.
+//
+// When the update leaves the allowlist enabled with at least one entry, the request must come from an IPv4 address that is on the list. A request from an IPv6 address can never match an IPv4 allowlist, so it returns the lockout 422 below.
+//
+// Requires the `manage_ip_allowlist` OAuth scope.
+//
+// {% admonition type="warning" name="Lockout Protection" %}
+//
+//	The API will reject updates that would lock out the caller's IP address. Ensure your current IP is included in the allowlist when enabling the feature.
+//
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /ip_allowlist (the `UpdateIpAllowlist` operationId).
+func (c *ClientWithResponses) UpdateIpAllowlistWithResponse(ctx context.Context, params *UpdateIpAllowlistParams, body UpdateIpAllowlistJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateIpAllowlistResponse, error) {
+	rsp, err := c.UpdateIpAllowlist(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateIpAllowlistResponse(rsp)
+}
+
+// JobsStatusWithResponse Retrieve job status
+//
+// Retrieve the status of job execution.
+//
+// `resource_id` and `resource_url` are returned only once `status` is `success`. While the job is `pending` or `failed` both keys are left out of the response rather than returned as `null`.
+//
+// Requires the `read_jobs` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /jobs/status/{job_id} (the `JobsStatus` operationId).
+func (c *ClientWithResponses) JobsStatusWithResponse(ctx context.Context, jobId string, params *JobsStatusParams, reqEditors ...RequestEditorFn) (*JobsStatusResponse, error) {
+	rsp, err := c.JobsStatus(ctx, jobId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseJobsStatusResponse(rsp)
+}
+
+// ListMacrosWithResponse List all macros
+//
+// You can fetch a list of all macros (saved replies) in your workspace for use in automating responses.
+//
+// The macros are returned in descending order by updated_at.
+//
+// **Pagination**
+//
+// This endpoint uses cursor-based pagination via the `starting_after` parameter. The cursor is a Base64-encoded JSON array containing `[updated_at, id]` of the last item from the previous page.
+//
+// **Placeholder Transformation**
+//
+// The API transforms Intercom placeholders to a more standard XML-like format:
+// - From: `{{user.name | fallback: 'there'}}`
+// - To: `<attribute key="user.name" default="there"/>`
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /macros (the `ListMacros` operationId).
+func (c *ClientWithResponses) ListMacrosWithResponse(ctx context.Context, params *ListMacrosParams, reqEditors ...RequestEditorFn) (*ListMacrosResponse, error) {
+	rsp, err := c.ListMacros(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListMacrosResponse(rsp)
+}
+
+// GetMacroWithResponse Retrieve a macro
+//
+// You can fetch a single macro (saved reply) by its ID. The macro will only be returned if it is visible to the authenticated user based on its visibility settings.
+//
+// **Visibility Rules**
+//
+// A macro is returned based on its `visible_to` setting:
+// - `everyone`: Always visible to all team members
+// - `specific_teams`: Only visible if the authenticated user belongs to one of the teams specified in `visible_to_team_ids`
+//
+// If a macro exists but is not visible to the authenticated user, a 404 error is returned.
+//
+// **Placeholder Transformation**
+//
+// The API transforms Intercom placeholders to a more standard XML-like format in the `body` field:
+// - From: `{{user.name | fallback: 'there'}}`
+// - To: `<attribute key="user.name" default="there"/>`
+//
+// Default values in placeholders are HTML-escaped for security.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /macros/{id} (the `GetMacro` operationId).
+func (c *ClientWithResponses) GetMacroWithResponse(ctx context.Context, id string, params *GetMacroParams, reqEditors ...RequestEditorFn) (*GetMacroResponse, error) {
+	rsp, err := c.GetMacro(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetMacroResponse(rsp)
+}
+
+// IdentifyAdminWithResponse Identify an admin
+//
+// You can view the currently authorised admin along with the embedded app object (a "workspace" in legacy terminology).
+//
+// > 🚧 Single Sign On
+// >
+// > If you are building a custom "Log in with Intercom" flow for your site, and you call the `/me` endpoint to identify the logged-in user, you should not accept any sign-ins from users with unverified email addresses as it poses a potential impersonation security risk.
+//
+// Requires the `read_single_admin` or `read_admins` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /me (the `IdentifyAdmin` operationId).
+func (c *ClientWithResponses) IdentifyAdminWithResponse(ctx context.Context, params *IdentifyAdminParams, reqEditors ...RequestEditorFn) (*IdentifyAdminResponse, error) {
+	rsp, err := c.IdentifyAdmin(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseIdentifyAdminResponse(rsp)
+}
+
+// CreateMessageWithBodyWithResponse Create a message
+//
+// You can create a message that has been initiated by an admin. The conversation can be either an in-app message, an email or whatsapp.
+//
+// > 🚧 Sending for visitors
+// >
+// > There can be a short delay between when a contact is created and when a contact becomes available to be messaged through the API. A 404 Not Found error will be returned in this case.
+//
+// This will return the Message model that has been created.
+//
+// > 🚧 Retrieving Associated Conversations
+// >
+// > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
+//
+// {% admonition type="warning" name="Messages from contacts" %}
+// `from` should be an admin. A request with a user or lead as `from` is not rejected: it creates a conversation initiated by that contact, as the Create a conversation endpoint (`POST /conversations`) does, and the `to`, `cc` and `bcc` fields are ignored. To create a conversation initiated by a contact, use `POST /conversations`.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /messages (the `CreateMessage` operationId).
+func (c *ClientWithResponses) CreateMessageWithBodyWithResponse(ctx context.Context, params *CreateMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMessageResponse, error) {
+	rsp, err := c.CreateMessageWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateMessageResponse(rsp)
+}
+
+// CreateMessageWithResponse Create a message
+//
+// You can create a message that has been initiated by an admin. The conversation can be either an in-app message, an email or whatsapp.
+//
+// > 🚧 Sending for visitors
+// >
+// > There can be a short delay between when a contact is created and when a contact becomes available to be messaged through the API. A 404 Not Found error will be returned in this case.
+//
+// This will return the Message model that has been created.
+//
+// > 🚧 Retrieving Associated Conversations
+// >
+// > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
+//
+// {% admonition type="warning" name="Messages from contacts" %}
+// `from` should be an admin. A request with a user or lead as `from` is not rejected: it creates a conversation initiated by that contact, as the Create a conversation endpoint (`POST /conversations`) does, and the `to`, `cc` and `bcc` fields are ignored. To create a conversation initiated by a contact, use `POST /conversations`.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /messages (the `CreateMessage` operationId).
+func (c *ClientWithResponses) CreateMessageWithResponse(ctx context.Context, params *CreateMessageParams, body CreateMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMessageResponse, error) {
+	rsp, err := c.CreateMessage(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateMessageResponse(rsp)
+}
+
+// GetWhatsAppMessageStatusWithResponse Get statuses of all messages sent based on the specified ruleset_id
+//
+// Retrieves statuses of messages sent from the Outbound module. Currently, this API only supports WhatsApp messages.
+//
+// This endpoint returns paginated status events for WhatsApp messages sent via the Outbound module, providing
+// information about delivery state and related message details.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /messages/status (the `GetWhatsAppMessageStatus` operationId).
+func (c *ClientWithResponses) GetWhatsAppMessageStatusWithResponse(ctx context.Context, params *GetWhatsAppMessageStatusParams, reqEditors ...RequestEditorFn) (*GetWhatsAppMessageStatusResponse, error) {
+	rsp, err := c.GetWhatsAppMessageStatus(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppMessageStatusResponse(rsp)
+}
+
+// RetrieveWhatsAppMessageStatusWithResponse Retrieve WhatsApp message delivery status
+//
+// Retrieves the delivery status of a specific WhatsApp message by its message ID.
+//
+// Returns the current status, conversation details, and any error information if the message failed to deliver.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /messages/whatsapp/status (the `RetrieveWhatsAppMessageStatus` operationId).
+func (c *ClientWithResponses) RetrieveWhatsAppMessageStatusWithResponse(ctx context.Context, params *RetrieveWhatsAppMessageStatusParams, reqEditors ...RequestEditorFn) (*RetrieveWhatsAppMessageStatusResponse, error) {
+	rsp, err := c.RetrieveWhatsAppMessageStatus(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveWhatsAppMessageStatusResponse(rsp)
+}
+
+// ListNewsItemsWithResponse List all news items
+//
+// # You can fetch a list of all news items
+//
+// News items are returned newest first, by creation date.
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /news/news_items (the `ListNewsItems` operationId).
+func (c *ClientWithResponses) ListNewsItemsWithResponse(ctx context.Context, params *ListNewsItemsParams, reqEditors ...RequestEditorFn) (*ListNewsItemsResponse, error) {
+	rsp, err := c.ListNewsItems(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListNewsItemsResponse(rsp)
+}
+
+// CreateNewsItemWithBodyWithResponse Create a news item
+//
+// # You can create a news item
+//
+// Requires the `read_write_news_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /news/news_items (the `CreateNewsItem` operationId).
+func (c *ClientWithResponses) CreateNewsItemWithBodyWithResponse(ctx context.Context, params *CreateNewsItemParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNewsItemResponse, error) {
+	rsp, err := c.CreateNewsItemWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateNewsItemResponse(rsp)
+}
+
+// CreateNewsItemWithResponse Create a news item
+//
+// # You can create a news item
+//
+// Requires the `read_write_news_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /news/news_items (the `CreateNewsItem` operationId).
+func (c *ClientWithResponses) CreateNewsItemWithResponse(ctx context.Context, params *CreateNewsItemParams, body CreateNewsItemJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNewsItemResponse, error) {
+	rsp, err := c.CreateNewsItem(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateNewsItemResponse(rsp)
+}
+
+// DeleteNewsItemWithResponse Delete a news item
+//
+// You can delete a single news item.
+//
+// Requires the `read_write_news_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /news/news_items/{news_item_id} (the `DeleteNewsItem` operationId).
+func (c *ClientWithResponses) DeleteNewsItemWithResponse(ctx context.Context, newsItemId int, params *DeleteNewsItemParams, reqEditors ...RequestEditorFn) (*DeleteNewsItemResponse, error) {
+	rsp, err := c.DeleteNewsItem(ctx, newsItemId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteNewsItemResponse(rsp)
+}
+
+// RetrieveNewsItemWithResponse Retrieve a news item
+//
+// You can fetch the details of a single news item.
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /news/news_items/{news_item_id} (the `RetrieveNewsItem` operationId).
+func (c *ClientWithResponses) RetrieveNewsItemWithResponse(ctx context.Context, newsItemId int, params *RetrieveNewsItemParams, reqEditors ...RequestEditorFn) (*RetrieveNewsItemResponse, error) {
+	rsp, err := c.RetrieveNewsItem(ctx, newsItemId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveNewsItemResponse(rsp)
+}
+
+// UpdateNewsItemWithBodyWithResponse Update a news item
+//
+// You can update a news item.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// `title`, `body`, `state`, `deliver_silently` and `cover_image_url` keep their current values when you leave them out. `labels` and `newsfeed_assignments` do not: leaving either out clears it, so send the full list on every update. Leaving `reactions` out disables reactions, although the list in the response does not change.
+//
+// Requires the `read_write_news_scope` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /news/news_items/{news_item_id} (the `UpdateNewsItem` operationId).
+func (c *ClientWithResponses) UpdateNewsItemWithBodyWithResponse(ctx context.Context, newsItemId int, params *UpdateNewsItemParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateNewsItemResponse, error) {
+	rsp, err := c.UpdateNewsItemWithBody(ctx, newsItemId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateNewsItemResponse(rsp)
+}
+
+// UpdateNewsItemWithResponse Update a news item
+//
+// You can update a news item.
+//
+// You can also send this request with `PATCH`; it behaves the same as `PUT`.
+//
+// `title`, `body`, `state`, `deliver_silently` and `cover_image_url` keep their current values when you leave them out. `labels` and `newsfeed_assignments` do not: leaving either out clears it, so send the full list on every update. Leaving `reactions` out disables reactions, although the list in the response does not change.
+//
+// Requires the `read_write_news_scope` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /news/news_items/{news_item_id} (the `UpdateNewsItem` operationId).
+func (c *ClientWithResponses) UpdateNewsItemWithResponse(ctx context.Context, newsItemId int, params *UpdateNewsItemParams, body UpdateNewsItemJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateNewsItemResponse, error) {
+	rsp, err := c.UpdateNewsItem(ctx, newsItemId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateNewsItemResponse(rsp)
+}
+
+// ListNewsfeedsWithResponse List all newsfeeds
+//
+// # You can fetch a list of all newsfeeds
+//
+// Newsfeeds are returned newest first, by creation date.
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /news/newsfeeds (the `ListNewsfeeds` operationId).
+func (c *ClientWithResponses) ListNewsfeedsWithResponse(ctx context.Context, params *ListNewsfeedsParams, reqEditors ...RequestEditorFn) (*ListNewsfeedsResponse, error) {
+	rsp, err := c.ListNewsfeeds(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListNewsfeedsResponse(rsp)
+}
+
+// RetrieveNewsfeedWithResponse Retrieve a newsfeed
+//
+// # You can fetch the details of a single newsfeed
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /news/newsfeeds/{newsfeed_id} (the `RetrieveNewsfeed` operationId).
+func (c *ClientWithResponses) RetrieveNewsfeedWithResponse(ctx context.Context, newsfeedId string, params *RetrieveNewsfeedParams, reqEditors ...RequestEditorFn) (*RetrieveNewsfeedResponse, error) {
+	rsp, err := c.RetrieveNewsfeed(ctx, newsfeedId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveNewsfeedResponse(rsp)
+}
+
+// ListLiveNewsfeedItemsWithResponse List all live newsfeed items
+//
+// # You can fetch a list of all news items that are live on a given newsfeed
+//
+// News items are returned most recently published first.
+//
+// Requires the `read_news_scope` or `read_write_news_scope` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /news/newsfeeds/{newsfeed_id}/items (the `ListLiveNewsfeedItems` operationId).
+func (c *ClientWithResponses) ListLiveNewsfeedItemsWithResponse(ctx context.Context, newsfeedId string, params *ListLiveNewsfeedItemsParams, reqEditors ...RequestEditorFn) (*ListLiveNewsfeedItemsResponse, error) {
+	rsp, err := c.ListLiveNewsfeedItems(ctx, newsfeedId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListLiveNewsfeedItemsResponse(rsp)
+}
+
+// DeleteNoteWithResponse Delete a note
+//
+// You can delete a single contact or company note. Notes of other kinds cannot be deleted through the API.
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /notes/{note_id} (the `DeleteNote` operationId).
+func (c *ClientWithResponses) DeleteNoteWithResponse(ctx context.Context, noteId string, params *DeleteNoteParams, reqEditors ...RequestEditorFn) (*DeleteNoteResponse, error) {
+	rsp, err := c.DeleteNote(ctx, noteId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteNoteResponse(rsp)
+}
+
+// RetrieveNoteWithResponse Retrieve a note
+//
+// You can fetch the details of a single note.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /notes/{note_id} (the `RetrieveNote` operationId).
+func (c *ClientWithResponses) RetrieveNoteWithResponse(ctx context.Context, noteId string, params *RetrieveNoteParams, reqEditors ...RequestEditorFn) (*RetrieveNoteResponse, error) {
+	rsp, err := c.RetrieveNote(ctx, noteId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveNoteResponse(rsp)
+}
+
+// ListOfficeHoursSchedulesWithResponse List all office hours schedules
+//
+// You can fetch a list of all office hours schedules for the workspace.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /office_hours_schedules (the `ListOfficeHoursSchedules` operationId).
+func (c *ClientWithResponses) ListOfficeHoursSchedulesWithResponse(ctx context.Context, params *ListOfficeHoursSchedulesParams, reqEditors ...RequestEditorFn) (*ListOfficeHoursSchedulesResponse, error) {
+	rsp, err := c.ListOfficeHoursSchedules(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListOfficeHoursSchedulesResponse(rsp)
+}
+
+// CreateOfficeHoursScheduleWithBodyWithResponse Create an office hours schedule
+//
+// You can create a new office hours schedule for the workspace.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /office_hours_schedules (the `CreateOfficeHoursSchedule` operationId).
+func (c *ClientWithResponses) CreateOfficeHoursScheduleWithBodyWithResponse(ctx context.Context, params *CreateOfficeHoursScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateOfficeHoursScheduleResponse, error) {
+	rsp, err := c.CreateOfficeHoursScheduleWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateOfficeHoursScheduleResponse(rsp)
+}
+
+// CreateOfficeHoursScheduleWithResponse Create an office hours schedule
+//
+// You can create a new office hours schedule for the workspace.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /office_hours_schedules (the `CreateOfficeHoursSchedule` operationId).
+func (c *ClientWithResponses) CreateOfficeHoursScheduleWithResponse(ctx context.Context, params *CreateOfficeHoursScheduleParams, body CreateOfficeHoursScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateOfficeHoursScheduleResponse, error) {
+	rsp, err := c.CreateOfficeHoursSchedule(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateOfficeHoursScheduleResponse(rsp)
+}
+
+// DeleteOfficeHoursScheduleWithResponse Delete an office hours schedule
+//
+// You can delete a single office hours schedule. The workspace's default schedule can't be deleted.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /office_hours_schedules/{id} (the `DeleteOfficeHoursSchedule` operationId).
+func (c *ClientWithResponses) DeleteOfficeHoursScheduleWithResponse(ctx context.Context, id string, params *DeleteOfficeHoursScheduleParams, reqEditors ...RequestEditorFn) (*DeleteOfficeHoursScheduleResponse, error) {
+	rsp, err := c.DeleteOfficeHoursSchedule(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteOfficeHoursScheduleResponse(rsp)
+}
+
+// GetOfficeHoursScheduleWithResponse Retrieve an office hours schedule
+//
+// You can fetch the details of a single office hours schedule.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /office_hours_schedules/{id} (the `GetOfficeHoursSchedule` operationId).
+func (c *ClientWithResponses) GetOfficeHoursScheduleWithResponse(ctx context.Context, id string, params *GetOfficeHoursScheduleParams, reqEditors ...RequestEditorFn) (*GetOfficeHoursScheduleResponse, error) {
+	rsp, err := c.GetOfficeHoursSchedule(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetOfficeHoursScheduleResponse(rsp)
+}
+
+// UpdateOfficeHoursScheduleWithBodyWithResponse Update an office hours schedule
+//
+// You can update an existing office hours schedule.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /office_hours_schedules/{id} (the `UpdateOfficeHoursSchedule` operationId).
+func (c *ClientWithResponses) UpdateOfficeHoursScheduleWithBodyWithResponse(ctx context.Context, id string, params *UpdateOfficeHoursScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateOfficeHoursScheduleResponse, error) {
+	rsp, err := c.UpdateOfficeHoursScheduleWithBody(ctx, id, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateOfficeHoursScheduleResponse(rsp)
+}
+
+// UpdateOfficeHoursScheduleWithResponse Update an office hours schedule
+//
+// You can update an existing office hours schedule.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /office_hours_schedules/{id} (the `UpdateOfficeHoursSchedule` operationId).
+func (c *ClientWithResponses) UpdateOfficeHoursScheduleWithResponse(ctx context.Context, id string, params *UpdateOfficeHoursScheduleParams, body UpdateOfficeHoursScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateOfficeHoursScheduleResponse, error) {
+	rsp, err := c.UpdateOfficeHoursSchedule(ctx, id, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateOfficeHoursScheduleResponse(rsp)
+}
+
+// ListOfficeHoursExceptionsWithResponse List all office hours exceptions
+//
+// You can fetch a list of all exceptions for an office hours schedule, ordered by date with the earliest first.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions (the `ListOfficeHoursExceptions` operationId).
+func (c *ClientWithResponses) ListOfficeHoursExceptionsWithResponse(ctx context.Context, officeHoursScheduleId string, params *ListOfficeHoursExceptionsParams, reqEditors ...RequestEditorFn) (*ListOfficeHoursExceptionsResponse, error) {
+	rsp, err := c.ListOfficeHoursExceptions(ctx, officeHoursScheduleId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListOfficeHoursExceptionsResponse(rsp)
+}
+
+// CreateOfficeHoursExceptionWithBodyWithResponse Create an office hours exception
+//
+// You can create an exception for an office hours schedule. Use `closed` to mark the day closed (omit `time_intervals`) or `custom_hours` to supply replacement intervals.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions (the `CreateOfficeHoursException` operationId).
+func (c *ClientWithResponses) CreateOfficeHoursExceptionWithBodyWithResponse(ctx context.Context, officeHoursScheduleId string, params *CreateOfficeHoursExceptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateOfficeHoursExceptionResponse, error) {
+	rsp, err := c.CreateOfficeHoursExceptionWithBody(ctx, officeHoursScheduleId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateOfficeHoursExceptionResponse(rsp)
+}
+
+// CreateOfficeHoursExceptionWithResponse Create an office hours exception
+//
+// You can create an exception for an office hours schedule. Use `closed` to mark the day closed (omit `time_intervals`) or `custom_hours` to supply replacement intervals.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions (the `CreateOfficeHoursException` operationId).
+func (c *ClientWithResponses) CreateOfficeHoursExceptionWithResponse(ctx context.Context, officeHoursScheduleId string, params *CreateOfficeHoursExceptionParams, body CreateOfficeHoursExceptionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateOfficeHoursExceptionResponse, error) {
+	rsp, err := c.CreateOfficeHoursException(ctx, officeHoursScheduleId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateOfficeHoursExceptionResponse(rsp)
+}
+
+// DeleteOfficeHoursExceptionWithResponse Delete an office hours exception
+//
+// You can delete a single office hours exception.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions/{id} (the `DeleteOfficeHoursException` operationId).
+func (c *ClientWithResponses) DeleteOfficeHoursExceptionWithResponse(ctx context.Context, officeHoursScheduleId string, id string, params *DeleteOfficeHoursExceptionParams, reqEditors ...RequestEditorFn) (*DeleteOfficeHoursExceptionResponse, error) {
+	rsp, err := c.DeleteOfficeHoursException(ctx, officeHoursScheduleId, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteOfficeHoursExceptionResponse(rsp)
+}
+
+// GetOfficeHoursExceptionWithResponse Retrieve an office hours exception
+//
+// You can fetch the details of a single office hours exception.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions/{id} (the `GetOfficeHoursException` operationId).
+func (c *ClientWithResponses) GetOfficeHoursExceptionWithResponse(ctx context.Context, officeHoursScheduleId string, id string, params *GetOfficeHoursExceptionParams, reqEditors ...RequestEditorFn) (*GetOfficeHoursExceptionResponse, error) {
+	rsp, err := c.GetOfficeHoursException(ctx, officeHoursScheduleId, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetOfficeHoursExceptionResponse(rsp)
+}
+
+// UpdateOfficeHoursExceptionWithBodyWithResponse Update an office hours exception
+//
+// You can update an existing office hours exception.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions/{id} (the `UpdateOfficeHoursException` operationId).
+func (c *ClientWithResponses) UpdateOfficeHoursExceptionWithBodyWithResponse(ctx context.Context, officeHoursScheduleId string, id string, params *UpdateOfficeHoursExceptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateOfficeHoursExceptionResponse, error) {
+	rsp, err := c.UpdateOfficeHoursExceptionWithBody(ctx, officeHoursScheduleId, id, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateOfficeHoursExceptionResponse(rsp)
+}
+
+// UpdateOfficeHoursExceptionWithResponse Update an office hours exception
+//
+// You can update an existing office hours exception.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /office_hours_schedules/{office_hours_schedule_id}/office_hours_exceptions/{id} (the `UpdateOfficeHoursException` operationId).
+func (c *ClientWithResponses) UpdateOfficeHoursExceptionWithResponse(ctx context.Context, officeHoursScheduleId string, id string, params *UpdateOfficeHoursExceptionParams, body UpdateOfficeHoursExceptionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateOfficeHoursExceptionResponse, error) {
+	rsp, err := c.UpdateOfficeHoursException(ctx, officeHoursScheduleId, id, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateOfficeHoursExceptionResponse(rsp)
+}
+
+// CreatePhoneSwitchWithBodyWithResponse Create a phone Switch
+//
+// You can use the API to deflect phone calls to the Intercom Messenger.
+// Calling this endpoint will send an SMS with a link to the Messenger to the phone number specified.
+//
+// If custom attributes are specified, they will be added to the user or lead's custom data attributes.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /phone_call_redirects (the `CreatePhoneSwitch` operationId).
+func (c *ClientWithResponses) CreatePhoneSwitchWithBodyWithResponse(ctx context.Context, params *CreatePhoneSwitchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePhoneSwitchResponse, error) {
+	rsp, err := c.CreatePhoneSwitchWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreatePhoneSwitchResponse(rsp)
+}
+
+// CreatePhoneSwitchWithResponse Create a phone Switch
+//
+// You can use the API to deflect phone calls to the Intercom Messenger.
+// Calling this endpoint will send an SMS with a link to the Messenger to the phone number specified.
+//
+// If custom attributes are specified, they will be added to the user or lead's custom data attributes.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /phone_call_redirects (the `CreatePhoneSwitch` operationId).
+func (c *ClientWithResponses) CreatePhoneSwitchWithResponse(ctx context.Context, params *CreatePhoneSwitchParams, body CreatePhoneSwitchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePhoneSwitchResponse, error) {
+	rsp, err := c.CreatePhoneSwitch(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreatePhoneSwitchResponse(rsp)
+}
+
+// ListRolesWithResponse List all roles
+//
+// You can fetch a list of all roles in the workspace.
+//
+// Roles define what a teammate can do in a workspace. The teammates endpoint
+// returns the role a teammate holds, but only the roles that are currently
+// assigned, and only their id and name. This endpoint lists every role in the
+// workspace, each with its description.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /roles (the `ListRoles` operationId).
+func (c *ClientWithResponses) ListRolesWithResponse(ctx context.Context, params *ListRolesParams, reqEditors ...RequestEditorFn) (*ListRolesResponse, error) {
+	rsp, err := c.ListRoles(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListRolesResponse(rsp)
+}
+
+// RetrieveRoleWithResponse Retrieve a role
+//
+// You can fetch the details of a single role by its id, including its
+// description, which the teammates endpoint does not return.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /roles/{id} (the `RetrieveRole` operationId).
+func (c *ClientWithResponses) RetrieveRoleWithResponse(ctx context.Context, id string, params *RetrieveRoleParams, reqEditors ...RequestEditorFn) (*RetrieveRoleResponse, error) {
+	rsp, err := c.RetrieveRole(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveRoleResponse(rsp)
+}
+
+// ListSegmentsWithResponse List all segments
+//
+// You can fetch a list of all segments.
+//
+// Segment names are returned HTML-escaped, for example `&` as `&amp;`.
+//
+// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /segments (the `ListSegments` operationId).
+func (c *ClientWithResponses) ListSegmentsWithResponse(ctx context.Context, params *ListSegmentsParams, reqEditors ...RequestEditorFn) (*ListSegmentsResponse, error) {
+	rsp, err := c.ListSegments(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSegmentsResponse(rsp)
+}
+
+// RetrieveSegmentWithResponse Retrieve a segment
+//
+// You can fetch the details of a single segment.
+//
+// The segment name is returned HTML-escaped, for example `&` as `&amp;`.
+//
+// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /segments/{segment_id} (the `RetrieveSegment` operationId).
+func (c *ClientWithResponses) RetrieveSegmentWithResponse(ctx context.Context, segmentId string, params *RetrieveSegmentParams, reqEditors ...RequestEditorFn) (*RetrieveSegmentResponse, error) {
+	rsp, err := c.RetrieveSegment(ctx, segmentId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveSegmentResponse(rsp)
+}
+
+// ListSubscriptionTypesWithResponse List subscription types
+//
+// You can list all subscription types. A list of subscription type objects will be returned.
+//
+// Requires the `read_users_companies` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /subscription_types (the `ListSubscriptionTypes` operationId).
+func (c *ClientWithResponses) ListSubscriptionTypesWithResponse(ctx context.Context, params *ListSubscriptionTypesParams, reqEditors ...RequestEditorFn) (*ListSubscriptionTypesResponse, error) {
+	rsp, err := c.ListSubscriptionTypes(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSubscriptionTypesResponse(rsp)
+}
+
+// GetSubscriptionTypeWithResponse Retrieve a subscription type
+//
+// You can fetch the details of a single subscription type by making a GET request to `https://api.intercom.io/subscription_types/<id>`.
+//
+// Requires the `read_users_companies` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /subscription_types/{id} (the `GetSubscriptionType` operationId).
+func (c *ClientWithResponses) GetSubscriptionTypeWithResponse(ctx context.Context, id string, params *GetSubscriptionTypeParams, reqEditors ...RequestEditorFn) (*GetSubscriptionTypeResponse, error) {
+	rsp, err := c.GetSubscriptionType(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSubscriptionTypeResponse(rsp)
+}
+
+// ListTagsWithResponse List all tags
+//
+// You can fetch a list of all tags for a given workspace.
+//
+// Passing `id` returns that one tag object instead of a list. Passing `taggable_type` returns a list of the tags applied to a single contact or company.
+//
+// Requires the `read_tags` or `read_users_companies` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /tags (the `ListTags` operationId).
+func (c *ClientWithResponses) ListTagsWithResponse(ctx context.Context, params *ListTagsParams, reqEditors ...RequestEditorFn) (*ListTagsResponse, error) {
+	rsp, err := c.ListTags(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListTagsResponse(rsp)
+}
+
+// CreateTagWithBodyWithResponse Create or update a tag, Tag or untag companies, Tag contacts
+//
+// You can use this endpoint to perform the following operations:
+//
+//	**1. Create a new tag:** You can create a new tag by passing in the tag name as specified in "Create or Update Tag Request Payload" described below.
+//
+//	**2. Update an existing tag:** You can update an existing tag by passing the id of the tag as specified in "Create or Update Tag Request Payload" described below.
+//
+//	**3. Tag Companies:** You can tag single company or a list of companies. You can tag a company by passing in the tag name and the company details as specified in "Tag Company Request Payload" described below. Also, if the tag doesn't exist then a new one will be created automatically.
+//
+//	**4. Untag Companies:** You can untag a single company or a list of companies. You can untag a company by passing in the tag id and the company details as specified in "Untag Company Request Payload" described below.
+//
+//	**5. Tag Multiple Users:** You can tag a list of users. You can tag the users by passing in the tag name and the user details as specified in "Tag Users Request Payload" described below.
+//
+// Each operation will return a tag object.
+//
+// Contacts and companies listed in `users` or `companies` that do not exist are skipped: they are left out of the `users` and `companies` arrays in the response and the request still succeeds. With `ids_to_add` it depends on `taggable_type`: a contact id that does not exist returns a 404, while a company id that does not exist is skipped. With `ids_to_add`, the `users` and `companies` arrays in the response are always empty, and a 404 still leaves the tag created or renamed.
+//
+// Requires the `write_tags` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tags (the `CreateTag` operationId).
+func (c *ClientWithResponses) CreateTagWithBodyWithResponse(ctx context.Context, params *CreateTagParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateTagResponse, error) {
+	rsp, err := c.CreateTagWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateTagResponse(rsp)
+}
+
+// CreateTagWithResponse Create or update a tag, Tag or untag companies, Tag contacts
+//
+// You can use this endpoint to perform the following operations:
+//
+//	**1. Create a new tag:** You can create a new tag by passing in the tag name as specified in "Create or Update Tag Request Payload" described below.
+//
+//	**2. Update an existing tag:** You can update an existing tag by passing the id of the tag as specified in "Create or Update Tag Request Payload" described below.
+//
+//	**3. Tag Companies:** You can tag single company or a list of companies. You can tag a company by passing in the tag name and the company details as specified in "Tag Company Request Payload" described below. Also, if the tag doesn't exist then a new one will be created automatically.
+//
+//	**4. Untag Companies:** You can untag a single company or a list of companies. You can untag a company by passing in the tag id and the company details as specified in "Untag Company Request Payload" described below.
+//
+//	**5. Tag Multiple Users:** You can tag a list of users. You can tag the users by passing in the tag name and the user details as specified in "Tag Users Request Payload" described below.
+//
+// Each operation will return a tag object.
+//
+// Contacts and companies listed in `users` or `companies` that do not exist are skipped: they are left out of the `users` and `companies` arrays in the response and the request still succeeds. With `ids_to_add` it depends on `taggable_type`: a contact id that does not exist returns a 404, while a company id that does not exist is skipped. With `ids_to_add`, the `users` and `companies` arrays in the response are always empty, and a 404 still leaves the tag created or renamed.
+//
+// Requires the `write_tags` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tags (the `CreateTag` operationId).
+func (c *ClientWithResponses) CreateTagWithResponse(ctx context.Context, params *CreateTagParams, body CreateTagJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTagResponse, error) {
+	rsp, err := c.CreateTag(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateTagResponse(rsp)
+}
+
+// DeleteTagWithResponse Delete tag
+//
+// You can delete the details of tags that are on the workspace by passing in the id.
+//
+// Requires the `write_tags` or `write_users_companies` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /tags/{tag_id} (the `DeleteTag` operationId).
+func (c *ClientWithResponses) DeleteTagWithResponse(ctx context.Context, tagId string, params *DeleteTagParams, reqEditors ...RequestEditorFn) (*DeleteTagResponse, error) {
+	rsp, err := c.DeleteTag(ctx, tagId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteTagResponse(rsp)
+}
+
+// FindTagWithResponse Find a specific tag
+//
+// You can fetch the details of tags that are on the workspace by their id.
+// This will return a tag object.
+//
+// Requires the `read_tags` or `read_users_companies` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /tags/{tag_id} (the `FindTag` operationId).
+func (c *ClientWithResponses) FindTagWithResponse(ctx context.Context, tagId string, params *FindTagParams, reqEditors ...RequestEditorFn) (*FindTagResponse, error) {
+	rsp, err := c.FindTag(ctx, tagId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseFindTagResponse(rsp)
+}
+
+// ListTeamsWithResponse List all teams
+//
+// This will return a list of team objects for the App.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /teams (the `ListTeams` operationId).
+func (c *ClientWithResponses) ListTeamsWithResponse(ctx context.Context, params *ListTeamsParams, reqEditors ...RequestEditorFn) (*ListTeamsResponse, error) {
+	rsp, err := c.ListTeams(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListTeamsResponse(rsp)
+}
+
+// RetrieveTeamWithResponse Retrieve a team
+//
+// You can fetch the details of a single team, containing an array of admins that belong to this team.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /teams/{team_id} (the `RetrieveTeam` operationId).
+func (c *ClientWithResponses) RetrieveTeamWithResponse(ctx context.Context, teamId string, params *RetrieveTeamParams, reqEditors ...RequestEditorFn) (*RetrieveTeamResponse, error) {
+	rsp, err := c.RetrieveTeam(ctx, teamId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveTeamResponse(rsp)
+}
+
+// GetTeamMetricsWithResponse Retrieve team metrics
+//
+// Returns real-time activity metrics for admins in the specified team. For each admin, the response includes counts of open, idle, and snoozed conversations.
+//
+// This endpoint requires the `realtime_monitoring` feature to be enabled for your workspace.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /teams/{team_id}/metrics (the `GetTeamMetrics` operationId).
+func (c *ClientWithResponses) GetTeamMetricsWithResponse(ctx context.Context, teamId string, params *GetTeamMetricsParams, reqEditors ...RequestEditorFn) (*GetTeamMetricsResponse, error) {
+	rsp, err := c.GetTeamMetrics(ctx, teamId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetTeamMetricsResponse(rsp)
+}
+
+// ListTicketStatesWithResponse List all ticket states
+//
+// You can get a list of all ticket states for a workspace. The list includes archived ticket states; check `archived` on each one.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /ticket_states (the `ListTicketStates` operationId).
+func (c *ClientWithResponses) ListTicketStatesWithResponse(ctx context.Context, params *ListTicketStatesParams, reqEditors ...RequestEditorFn) (*ListTicketStatesResponse, error) {
+	rsp, err := c.ListTicketStates(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListTicketStatesResponse(rsp)
+}
+
+// ListTicketTypesWithResponse List all ticket types
+//
+// You can get a list of all ticket types for a workspace. The list includes archived ticket types and ticket types that Intercom creates itself.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /ticket_types (the `ListTicketTypes` operationId).
+func (c *ClientWithResponses) ListTicketTypesWithResponse(ctx context.Context, params *ListTicketTypesParams, reqEditors ...RequestEditorFn) (*ListTicketTypesResponse, error) {
+	rsp, err := c.ListTicketTypes(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListTicketTypesResponse(rsp)
+}
+
+// CreateTicketTypeWithBodyWithResponse Create a ticket type
+//
+// You can create a new ticket type.
+// > 📘 Creating ticket types.
+// >
+// > Every ticket type will be created with two default attributes: _default_title_ and _default_description_.
+// > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /ticket_types (the `CreateTicketType` operationId).
+func (c *ClientWithResponses) CreateTicketTypeWithBodyWithResponse(ctx context.Context, params *CreateTicketTypeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateTicketTypeResponse, error) {
+	rsp, err := c.CreateTicketTypeWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateTicketTypeResponse(rsp)
+}
+
+// CreateTicketTypeWithResponse Create a ticket type
+//
+// You can create a new ticket type.
+// > 📘 Creating ticket types.
+// >
+// > Every ticket type will be created with two default attributes: _default_title_ and _default_description_.
+// > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /ticket_types (the `CreateTicketType` operationId).
+func (c *ClientWithResponses) CreateTicketTypeWithResponse(ctx context.Context, params *CreateTicketTypeParams, body CreateTicketTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTicketTypeResponse, error) {
+	rsp, err := c.CreateTicketType(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateTicketTypeResponse(rsp)
+}
+
+// GetTicketTypeWithResponse Retrieve a ticket type
+//
+// You can fetch the details of a single ticket type. Archived ticket types are returned as well.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /ticket_types/{ticket_type_id} (the `GetTicketType` operationId).
+func (c *ClientWithResponses) GetTicketTypeWithResponse(ctx context.Context, ticketTypeId string, params *GetTicketTypeParams, reqEditors ...RequestEditorFn) (*GetTicketTypeResponse, error) {
+	rsp, err := c.GetTicketType(ctx, ticketTypeId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetTicketTypeResponse(rsp)
+}
+
+// UpdateTicketTypeWithBodyWithResponse Update a ticket type
+//
+// You can update a ticket type.
+//
+// > 📘 Updating a ticket type.
+// >
+// > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /ticket_types/{ticket_type_id} (the `UpdateTicketType` operationId).
+func (c *ClientWithResponses) UpdateTicketTypeWithBodyWithResponse(ctx context.Context, ticketTypeId string, params *UpdateTicketTypeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateTicketTypeResponse, error) {
+	rsp, err := c.UpdateTicketTypeWithBody(ctx, ticketTypeId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateTicketTypeResponse(rsp)
+}
+
+// UpdateTicketTypeWithResponse Update a ticket type
+//
+// You can update a ticket type.
+//
+// > 📘 Updating a ticket type.
+// >
+// > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /ticket_types/{ticket_type_id} (the `UpdateTicketType` operationId).
+func (c *ClientWithResponses) UpdateTicketTypeWithResponse(ctx context.Context, ticketTypeId string, params *UpdateTicketTypeParams, body UpdateTicketTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateTicketTypeResponse, error) {
+	rsp, err := c.UpdateTicketType(ctx, ticketTypeId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateTicketTypeResponse(rsp)
+}
+
+// CreateTicketTypeAttributeWithBodyWithResponse Create a new attribute for a ticket type
+//
+// You can create a new attribute for a ticket type.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /ticket_types/{ticket_type_id}/attributes (the `CreateTicketTypeAttribute` operationId).
+func (c *ClientWithResponses) CreateTicketTypeAttributeWithBodyWithResponse(ctx context.Context, ticketTypeId string, params *CreateTicketTypeAttributeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateTicketTypeAttributeResponse, error) {
+	rsp, err := c.CreateTicketTypeAttributeWithBody(ctx, ticketTypeId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateTicketTypeAttributeResponse(rsp)
+}
+
+// CreateTicketTypeAttributeWithResponse Create a new attribute for a ticket type
+//
+// You can create a new attribute for a ticket type.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /ticket_types/{ticket_type_id}/attributes (the `CreateTicketTypeAttribute` operationId).
+func (c *ClientWithResponses) CreateTicketTypeAttributeWithResponse(ctx context.Context, ticketTypeId string, params *CreateTicketTypeAttributeParams, body CreateTicketTypeAttributeJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTicketTypeAttributeResponse, error) {
+	rsp, err := c.CreateTicketTypeAttribute(ctx, ticketTypeId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateTicketTypeAttributeResponse(rsp)
+}
+
+// UpdateTicketTypeAttributeWithBodyWithResponse Update an existing attribute for a ticket type
+//
+// You can update an existing attribute for a ticket type.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /ticket_types/{ticket_type_id}/attributes/{attribute_id} (the `UpdateTicketTypeAttribute` operationId).
+func (c *ClientWithResponses) UpdateTicketTypeAttributeWithBodyWithResponse(ctx context.Context, ticketTypeId string, attributeId string, params *UpdateTicketTypeAttributeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateTicketTypeAttributeResponse, error) {
+	rsp, err := c.UpdateTicketTypeAttributeWithBody(ctx, ticketTypeId, attributeId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateTicketTypeAttributeResponse(rsp)
+}
+
+// UpdateTicketTypeAttributeWithResponse Update an existing attribute for a ticket type
+//
+// You can update an existing attribute for a ticket type.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /ticket_types/{ticket_type_id}/attributes/{attribute_id} (the `UpdateTicketTypeAttribute` operationId).
+func (c *ClientWithResponses) UpdateTicketTypeAttributeWithResponse(ctx context.Context, ticketTypeId string, attributeId string, params *UpdateTicketTypeAttributeParams, body UpdateTicketTypeAttributeJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateTicketTypeAttributeResponse, error) {
+	rsp, err := c.UpdateTicketTypeAttribute(ctx, ticketTypeId, attributeId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateTicketTypeAttributeResponse(rsp)
+}
+
+// CreateTicketWithBodyWithResponse Create a ticket
+//
+// You can create a new ticket.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets (the `CreateTicket` operationId).
+func (c *ClientWithResponses) CreateTicketWithBodyWithResponse(ctx context.Context, params *CreateTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateTicketResponse, error) {
+	rsp, err := c.CreateTicketWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateTicketResponse(rsp)
+}
+
+// CreateTicketWithResponse Create a ticket
+//
+// You can create a new ticket.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets (the `CreateTicket` operationId).
+func (c *ClientWithResponses) CreateTicketWithResponse(ctx context.Context, params *CreateTicketParams, body CreateTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTicketResponse, error) {
+	rsp, err := c.CreateTicket(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateTicketResponse(rsp)
+}
+
+// EnqueueCreateTicketWithBodyWithResponse Enqueue create ticket
+//
+// Enqueues ticket creation for asynchronous processing, returning if the job was enqueued successfully to be processed. We attempt to perform a best-effort validation on inputs before tasks are enqueued. If the given parameters are incorrect, we won't enqueue the job.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/enqueue (the `EnqueueCreateTicket` operationId).
+func (c *ClientWithResponses) EnqueueCreateTicketWithBodyWithResponse(ctx context.Context, params *EnqueueCreateTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EnqueueCreateTicketResponse, error) {
+	rsp, err := c.EnqueueCreateTicketWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseEnqueueCreateTicketResponse(rsp)
+}
+
+// EnqueueCreateTicketWithResponse Enqueue create ticket
+//
+// Enqueues ticket creation for asynchronous processing, returning if the job was enqueued successfully to be processed. We attempt to perform a best-effort validation on inputs before tasks are enqueued. If the given parameters are incorrect, we won't enqueue the job.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/enqueue (the `EnqueueCreateTicket` operationId).
+func (c *ClientWithResponses) EnqueueCreateTicketWithResponse(ctx context.Context, params *EnqueueCreateTicketParams, body EnqueueCreateTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*EnqueueCreateTicketResponse, error) {
+	rsp, err := c.EnqueueCreateTicket(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseEnqueueCreateTicketResponse(rsp)
+}
+
+// SearchTicketsWithBodyWithResponse Search tickets
+//
+// You can search for multiple tickets by the value of their attributes in order to fetch exactly which ones you want.
+//
+// To search for tickets, you send a `POST` request to `https://api.intercom.io/tickets/search`.
+//
+// This will accept a query object in the body which will define your filters.
+// {% admonition type="warning" name="Optimizing search queries" %}
+//
+//	Search queries can be complex, so optimizing them can help the performance of your search.
+//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
+//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
+//
+// {% /admonition %}
+//
+// ### Nesting & Limitations
+//
+// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
+// There are some limitations to the amount of multiples there can be:
+// - There's a limit of max 2 nested filters
+// - There's a limit of max 15 filters for each AND or OR group
+//
+// ### Accepted Fields
+//
+// Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
+// Fields not in the table below, such as `source.body`, are rejected with a `400` error.
+//
+// | Field                                     | Type                                                                                     |
+// | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
+// | id                                        | Integer                                                                                  |
+// | created_at                                | Date (UNIX timestamp)                                                                    |
+// | updated_at                                | Date (UNIX timestamp)                                                                    |
+// | title                           | String                                                                                   |
+// | description                     | String                                                                                   |
+// | category                                  | String                                                                                   |
+// | ticket_type_id                            | Integer                                                                                  |
+// | contact_ids                               | String                                                                                   |
+// | admin_assignee_id                         | Integer                                                                                  |
+// | team_assignee_id                          | Integer                                                                                  |
+// | open                                      | Boolean                                                                                  |
+// | state                                     | String                                                                                   |
+// | snoozed_until                             | Date (UNIX timestamp)                                                                    |
+// | ticket_attribute.{id}                     | String or Boolean or Date (UNIX timestamp) or Float or Integer                           |
+//
+// {% admonition type="info" name="Searching by Category" %}
+// When searching for tickets by the **`category`** field, specific terms must be used instead of the category names:
+// * For **Customer** category tickets, use the term `request`.
+// * For **Back-office** category tickets, use the term `task`.
+// * For **Tracker** category tickets, use the term `tracker`.
+// {% /admonition %}
+//
+// ### Sorting
+//
+// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
+//
+// ### Accepted Operators
+//
+// {% admonition type="info" name="Searching based on `created_at`" %}
+//
+//	You may use the `<=` or `>=` operators to search by `created_at`.
+//
+// {% /admonition %}
+//
+// The table below shows the operators you can use to define how you want to search for the value.  The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type  (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates).
+//
+// | Operator | Valid Types                    | Description                                                  |
+// | :------- | :----------------------------- | :----------------------------------------------------------- |
+// | =        | All                            | Equals                                                       |
+// | !=       | All                            | Doesn't Equal                                                |
+// | IN       | All                            | In  Shortcut for `OR` queries  Values most be in Array       |
+// | NIN      | All                            | Not In  Shortcut for `OR !` queries  Values must be in Array |
+// | >        | Integer  Date (UNIX Timestamp) | Greater (or equal) than                                      |
+// | <       | Integer  Date (UNIX Timestamp) | Lower (or equal) than                                        |
+// | ~        | String                         | Contains                                                     |
+// | !~       | String                         | Doesn't Contain                                              |
+// | ^        | String                         | Starts With                                                  |
+// | $        | String                         | Ends With                                                    |
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/search (the `SearchTickets` operationId).
+func (c *ClientWithResponses) SearchTicketsWithBodyWithResponse(ctx context.Context, params *SearchTicketsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SearchTicketsResponse, error) {
+	rsp, err := c.SearchTicketsWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSearchTicketsResponse(rsp)
+}
+
+// SearchTicketsWithResponse Search tickets
+//
+// You can search for multiple tickets by the value of their attributes in order to fetch exactly which ones you want.
+//
+// To search for tickets, you send a `POST` request to `https://api.intercom.io/tickets/search`.
+//
+// This will accept a query object in the body which will define your filters.
+// {% admonition type="warning" name="Optimizing search queries" %}
+//
+//	Search queries can be complex, so optimizing them can help the performance of your search.
+//	Use the `AND` and `OR` operators to combine multiple filters to get the exact results you need and utilize
+//	pagination to limit the number of results returned. The default is `20` results per page and maximum is `150`.
+//	See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#example-search-conversations-request) for more details on how to use the `starting_after` param.
+//
+// {% /admonition %}
+//
+// ### Nesting & Limitations
+//
+// You can nest these filters in order to get even more granular insights that pinpoint exactly what you need. Example: (1 OR 2) AND (3 OR 4).
+// There are some limitations to the amount of multiples there can be:
+// - There's a limit of max 2 nested filters
+// - There's a limit of max 15 filters for each AND or OR group
+//
+// ### Accepted Fields
+//
+// Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
+// Fields not in the table below, such as `source.body`, are rejected with a `400` error.
+//
+// | Field                                     | Type                                                                                     |
+// | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
+// | id                                        | Integer                                                                                  |
+// | created_at                                | Date (UNIX timestamp)                                                                    |
+// | updated_at                                | Date (UNIX timestamp)                                                                    |
+// | title                           | String                                                                                   |
+// | description                     | String                                                                                   |
+// | category                                  | String                                                                                   |
+// | ticket_type_id                            | Integer                                                                                  |
+// | contact_ids                               | String                                                                                   |
+// | admin_assignee_id                         | Integer                                                                                  |
+// | team_assignee_id                          | Integer                                                                                  |
+// | open                                      | Boolean                                                                                  |
+// | state                                     | String                                                                                   |
+// | snoozed_until                             | Date (UNIX timestamp)                                                                    |
+// | ticket_attribute.{id}                     | String or Boolean or Date (UNIX timestamp) or Float or Integer                           |
+//
+// {% admonition type="info" name="Searching by Category" %}
+// When searching for tickets by the **`category`** field, specific terms must be used instead of the category names:
+// * For **Customer** category tickets, use the term `request`.
+// * For **Back-office** category tickets, use the term `task`.
+// * For **Tracker** category tickets, use the term `tracker`.
+// {% /admonition %}
+//
+// ### Sorting
+//
+// You can sort the results with a `sort` object, for example `{"field": "created_at", "order": "ascending"}`. `field` must be one of the fields in the table above, other than `ticket_attribute.{id}`, `title` and `description`. `order` is `ascending` or `descending`. Without `sort`, results are sorted by `updated_at`, newest first.
+//
+// ### Accepted Operators
+//
+// {% admonition type="info" name="Searching based on `created_at`" %}
+//
+//	You may use the `<=` or `>=` operators to search by `created_at`.
+//
+// {% /admonition %}
+//
+// The table below shows the operators you can use to define how you want to search for the value.  The operator should be put in as a string (`"="`). The operator has to be compatible with the field's type  (eg. you cannot search with `>` for a given string value as it's only compatible for integer's and dates).
+//
+// | Operator | Valid Types                    | Description                                                  |
+// | :------- | :----------------------------- | :----------------------------------------------------------- |
+// | =        | All                            | Equals                                                       |
+// | !=       | All                            | Doesn't Equal                                                |
+// | IN       | All                            | In  Shortcut for `OR` queries  Values most be in Array       |
+// | NIN      | All                            | Not In  Shortcut for `OR !` queries  Values must be in Array |
+// | >        | Integer  Date (UNIX Timestamp) | Greater (or equal) than                                      |
+// | <       | Integer  Date (UNIX Timestamp) | Lower (or equal) than                                        |
+// | ~        | String                         | Contains                                                     |
+// | !~       | String                         | Doesn't Contain                                              |
+// | ^        | String                         | Starts With                                                  |
+// | $        | String                         | Ends With                                                    |
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/search (the `SearchTickets` operationId).
+func (c *ClientWithResponses) SearchTicketsWithResponse(ctx context.Context, params *SearchTicketsParams, body SearchTicketsJSONRequestBody, reqEditors ...RequestEditorFn) (*SearchTicketsResponse, error) {
+	rsp, err := c.SearchTickets(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSearchTicketsResponse(rsp)
+}
+
+// DeleteTicketWithResponse Delete a ticket
+//
+// {% admonition type="warning" name="Irreversible operation" %}
+// Deleting a ticket is permanent and cannot be reversed.
+// {% /admonition %}
+//
+// Deleting a ticket permanently removes it from the inbox. All sensitive data is deleted, including admin and user replies, ticket attributes, uploads, and related content. The ticket will still appear in reporting, though some data may be incomplete due to the deletion.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /tickets/{ticket_id} (the `DeleteTicket` operationId).
+func (c *ClientWithResponses) DeleteTicketWithResponse(ctx context.Context, ticketId string, params *DeleteTicketParams, reqEditors ...RequestEditorFn) (*DeleteTicketResponse, error) {
+	rsp, err := c.DeleteTicket(ctx, ticketId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteTicketResponse(rsp)
+}
+
+// GetTicketWithResponse Retrieve a ticket
+//
+// You can fetch the details of a single ticket.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /tickets/{ticket_id} (the `GetTicket` operationId).
+func (c *ClientWithResponses) GetTicketWithResponse(ctx context.Context, ticketId string, params *GetTicketParams, reqEditors ...RequestEditorFn) (*GetTicketResponse, error) {
+	rsp, err := c.GetTicket(ctx, ticketId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetTicketResponse(rsp)
+}
+
+// UpdateTicketWithBodyWithResponse Update a ticket
+//
+// You can update a ticket.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /tickets/{ticket_id} (the `UpdateTicket` operationId).
+func (c *ClientWithResponses) UpdateTicketWithBodyWithResponse(ctx context.Context, ticketId string, params *UpdateTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateTicketResponse, error) {
+	rsp, err := c.UpdateTicketWithBody(ctx, ticketId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateTicketResponse(rsp)
+}
+
+// UpdateTicketWithResponse Update a ticket
+//
+// You can update a ticket.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /tickets/{ticket_id} (the `UpdateTicket` operationId).
+func (c *ClientWithResponses) UpdateTicketWithResponse(ctx context.Context, ticketId string, params *UpdateTicketParams, body UpdateTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateTicketResponse, error) {
+	rsp, err := c.UpdateTicket(ctx, ticketId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateTicketResponse(rsp)
+}
+
+// ChangeTicketTypeWithBodyWithResponse Change ticket type
+//
+// You can change the type of a ticket. The new ticket type must be in the same category as the current type. Attributes matching by name and type are automatically transferred from the old type; values provided in ticket_attributes override transferred values.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/{ticket_id}/change_type (the `ChangeTicketType` operationId).
+func (c *ClientWithResponses) ChangeTicketTypeWithBodyWithResponse(ctx context.Context, ticketId string, params *ChangeTicketTypeParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ChangeTicketTypeResponse, error) {
+	rsp, err := c.ChangeTicketTypeWithBody(ctx, ticketId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseChangeTicketTypeResponse(rsp)
+}
+
+// ChangeTicketTypeWithResponse Change ticket type
+//
+// You can change the type of a ticket. The new ticket type must be in the same category as the current type. Attributes matching by name and type are automatically transferred from the old type; values provided in ticket_attributes override transferred values.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/{ticket_id}/change_type (the `ChangeTicketType` operationId).
+func (c *ClientWithResponses) ChangeTicketTypeWithResponse(ctx context.Context, ticketId string, params *ChangeTicketTypeParams, body ChangeTicketTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*ChangeTicketTypeResponse, error) {
+	rsp, err := c.ChangeTicketType(ctx, ticketId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseChangeTicketTypeResponse(rsp)
+}
+
+// LinkConversationToTicketWithBodyWithResponse Link a conversation to a ticket
+//
+// Link a conversation to an existing tracker ticket. The conversation can be
+// a regular conversation or one that has been converted into a customer ticket.
+//
+// Use this when related conversations surface after a tracker ticket has
+// already been created. The ticket in the path must be a tracker ticket, and
+// `conversation_id` in the body is the conversation (or customer ticket) to
+// link to it. This returns the linked conversation.
+//
+// A tracker ticket can have up to 2,500 linked conversations; once that
+// limit is reached, further requests return `linked_conversation_limit_exceeded`.
+//
+// Requires the `write_tickets` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/{ticket_id}/linked_conversations (the `LinkConversationToTicket` operationId).
+func (c *ClientWithResponses) LinkConversationToTicketWithBodyWithResponse(ctx context.Context, ticketId string, params *LinkConversationToTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LinkConversationToTicketResponse, error) {
+	rsp, err := c.LinkConversationToTicketWithBody(ctx, ticketId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLinkConversationToTicketResponse(rsp)
+}
+
+// LinkConversationToTicketWithResponse Link a conversation to a ticket
+//
+// Link a conversation to an existing tracker ticket. The conversation can be
+// a regular conversation or one that has been converted into a customer ticket.
+//
+// Use this when related conversations surface after a tracker ticket has
+// already been created. The ticket in the path must be a tracker ticket, and
+// `conversation_id` in the body is the conversation (or customer ticket) to
+// link to it. This returns the linked conversation.
+//
+// A tracker ticket can have up to 2,500 linked conversations; once that
+// limit is reached, further requests return `linked_conversation_limit_exceeded`.
+//
+// Requires the `write_tickets` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/{ticket_id}/linked_conversations (the `LinkConversationToTicket` operationId).
+func (c *ClientWithResponses) LinkConversationToTicketWithResponse(ctx context.Context, ticketId string, params *LinkConversationToTicketParams, body LinkConversationToTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*LinkConversationToTicketResponse, error) {
+	rsp, err := c.LinkConversationToTicket(ctx, ticketId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLinkConversationToTicketResponse(rsp)
+}
+
+// UnlinkConversationFromTicketWithResponse Unlink a conversation from a ticket
+//
+// Unlink a conversation (or converted customer ticket) from a tracker ticket
+// it is currently linked to. The ticket in the path must be a tracker ticket.
+// This returns the conversation that was unlinked.
+//
+// Requires the `write_tickets` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /tickets/{ticket_id}/linked_conversations/{id} (the `UnlinkConversationFromTicket` operationId).
+func (c *ClientWithResponses) UnlinkConversationFromTicketWithResponse(ctx context.Context, ticketId string, id string, params *UnlinkConversationFromTicketParams, reqEditors ...RequestEditorFn) (*UnlinkConversationFromTicketResponse, error) {
+	rsp, err := c.UnlinkConversationFromTicket(ctx, ticketId, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUnlinkConversationFromTicketResponse(rsp)
+}
+
+// ReplyTicketWithBodyWithResponse Reply to a ticket
+//
+// You can reply to a ticket with a message from an admin or on behalf of a contact, or with a note for admins.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/{ticket_id}/reply (the `ReplyTicket` operationId).
+func (c *ClientWithResponses) ReplyTicketWithBodyWithResponse(ctx context.Context, ticketId string, params *ReplyTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReplyTicketResponse, error) {
+	rsp, err := c.ReplyTicketWithBody(ctx, ticketId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReplyTicketResponse(rsp)
+}
+
+// ReplyTicketWithResponse Reply to a ticket
+//
+// You can reply to a ticket with a message from an admin or on behalf of a contact, or with a note for admins.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/{ticket_id}/reply (the `ReplyTicket` operationId).
+func (c *ClientWithResponses) ReplyTicketWithResponse(ctx context.Context, ticketId string, params *ReplyTicketParams, body ReplyTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplyTicketResponse, error) {
+	rsp, err := c.ReplyTicket(ctx, ticketId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReplyTicketResponse(rsp)
+}
+
+// AttachTagToTicketWithBodyWithResponse Add tag to a ticket
+//
+// You can tag a specific ticket. This will return a tag object for the tag that was added to the ticket.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/{ticket_id}/tags (the `AttachTagToTicket` operationId).
+func (c *ClientWithResponses) AttachTagToTicketWithBodyWithResponse(ctx context.Context, ticketId string, params *AttachTagToTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AttachTagToTicketResponse, error) {
+	rsp, err := c.AttachTagToTicketWithBody(ctx, ticketId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseAttachTagToTicketResponse(rsp)
+}
+
+// AttachTagToTicketWithResponse Add tag to a ticket
+//
+// You can tag a specific ticket. This will return a tag object for the tag that was added to the ticket.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /tickets/{ticket_id}/tags (the `AttachTagToTicket` operationId).
+func (c *ClientWithResponses) AttachTagToTicketWithResponse(ctx context.Context, ticketId string, params *AttachTagToTicketParams, body AttachTagToTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*AttachTagToTicketResponse, error) {
+	rsp, err := c.AttachTagToTicket(ctx, ticketId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseAttachTagToTicketResponse(rsp)
+}
+
+// DetachTagFromTicketWithBodyWithResponse Remove tag from a ticket
+//
+// You can remove tag from a specific ticket. This will return a tag object for the tag that was removed from the ticket.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /tickets/{ticket_id}/tags/{tag_id} (the `DetachTagFromTicket` operationId).
+func (c *ClientWithResponses) DetachTagFromTicketWithBodyWithResponse(ctx context.Context, ticketId string, tagId string, params *DetachTagFromTicketParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DetachTagFromTicketResponse, error) {
+	rsp, err := c.DetachTagFromTicketWithBody(ctx, ticketId, tagId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDetachTagFromTicketResponse(rsp)
+}
+
+// DetachTagFromTicketWithResponse Remove tag from a ticket
+//
+// You can remove tag from a specific ticket. This will return a tag object for the tag that was removed from the ticket.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /tickets/{ticket_id}/tags/{tag_id} (the `DetachTagFromTicket` operationId).
+func (c *ClientWithResponses) DetachTagFromTicketWithResponse(ctx context.Context, ticketId string, tagId string, params *DetachTagFromTicketParams, body DetachTagFromTicketJSONRequestBody, reqEditors ...RequestEditorFn) (*DetachTagFromTicketResponse, error) {
+	rsp, err := c.DetachTagFromTicket(ctx, ticketId, tagId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDetachTagFromTicketResponse(rsp)
+}
+
+// RetrieveVisitorWithUserIdWithResponse Retrieve a visitor with User ID
+//
+// You can fetch the details of a single visitor.
+//
+// Requires the `read_single_user`, `read_users_companies` or `read_write_users` OAuth scope.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /visitors (the `RetrieveVisitorWithUserId` operationId).
+func (c *ClientWithResponses) RetrieveVisitorWithUserIdWithResponse(ctx context.Context, params *RetrieveVisitorWithUserIdParams, reqEditors ...RequestEditorFn) (*RetrieveVisitorWithUserIdResponse, error) {
+	rsp, err := c.RetrieveVisitorWithUserId(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetrieveVisitorWithUserIdResponse(rsp)
+}
+
+// UpdateVisitorWithBodyWithResponse Update a visitor
+//
+// Sending a PUT request to `/visitors` will result in an update of an existing Visitor.
+//
+// **Option 1.** You can update a visitor by passing in the `user_id` of the visitor in the Request body.
+//
+// **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
+//
+// Sending an `email` promotes the visitor to a lead. When that happens the response is a contact object with a `role` of `lead`, not a visitor object.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /visitors (the `UpdateVisitor` operationId).
+func (c *ClientWithResponses) UpdateVisitorWithBodyWithResponse(ctx context.Context, params *UpdateVisitorParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVisitorResponse, error) {
+	rsp, err := c.UpdateVisitorWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVisitorResponse(rsp)
+}
+
+// UpdateVisitorWithResponse Update a visitor
+//
+// Sending a PUT request to `/visitors` will result in an update of an existing Visitor.
+//
+// **Option 1.** You can update a visitor by passing in the `user_id` of the visitor in the Request body.
+//
+// **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
+//
+// Sending an `email` promotes the visitor to a lead. When that happens the response is a contact object with a `role` of `lead`, not a visitor object.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PUT /visitors (the `UpdateVisitor` operationId).
+func (c *ClientWithResponses) UpdateVisitorWithResponse(ctx context.Context, params *UpdateVisitorParams, body UpdateVisitorJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVisitorResponse, error) {
+	rsp, err := c.UpdateVisitor(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVisitorResponse(rsp)
+}
+
+// ConvertVisitorWithBodyWithResponse Convert a visitor
+//
+// You can merge a Visitor to a Contact of role type `lead` or `user`.
+//
+// > 📘 What happens upon a visitor being converted?
+// >
+// > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
+//
+// Identify the visitor with `visitor.id` or `visitor.user_id`. The `user` object is required when `type` is `user`, and is not read when `type` is `lead`.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /visitors/convert (the `ConvertVisitor` operationId).
+func (c *ClientWithResponses) ConvertVisitorWithBodyWithResponse(ctx context.Context, params *ConvertVisitorParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ConvertVisitorResponse, error) {
+	rsp, err := c.ConvertVisitorWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseConvertVisitorResponse(rsp)
+}
+
+// ConvertVisitorWithResponse Convert a visitor
+//
+// You can merge a Visitor to a Contact of role type `lead` or `user`.
+//
+// > 📘 What happens upon a visitor being converted?
+// >
+// > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
+//
+// Identify the visitor with `visitor.id` or `visitor.user_id`. The `user` object is required when `type` is `user`, and is not read when `type` is `lead`.
+//
+// Requires the `read_write_users` or `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /visitors/convert (the `ConvertVisitor` operationId).
+func (c *ClientWithResponses) ConvertVisitorWithResponse(ctx context.Context, params *ConvertVisitorParams, body ConvertVisitorJSONRequestBody, reqEditors ...RequestEditorFn) (*ConvertVisitorResponse, error) {
+	rsp, err := c.ConvertVisitor(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseConvertVisitorResponse(rsp)
+}
+
+// ParseListAdminsResponse parses an HTTP response from a ListAdminsWithResponse call
+func ParseListAdminsResponse(rsp *http.Response) (*ListAdminsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAdminsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AdminList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListActivityLogEventTypesResponse parses an HTTP response from a ListActivityLogEventTypesWithResponse call
+func ParseListActivityLogEventTypesResponse(rsp *http.Response) (*ListActivityLogEventTypesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListActivityLogEventTypesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ActivityLogEventTypeList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListActivityLogsResponse parses an HTTP response from a ListActivityLogsWithResponse call
+func ParseListActivityLogsResponse(rsp *http.Response) (*ListActivityLogsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListActivityLogsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ActivityLogList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSearchActivityLogsResponse parses an HTTP response from a SearchActivityLogsWithResponse call
+func ParseSearchActivityLogsResponse(rsp *http.Response) (*SearchActivityLogsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SearchActivityLogsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ActivityLogList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRemoveAdminResponse parses an HTTP response from a RemoveAdminWithResponse call
+func ParseRemoveAdminResponse(rsp *http.Response) (*RemoveAdminResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RemoveAdminResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			// Id The unique identifier of the removed admin.
+			//
+			// Example: 123
+			Id *string `json:"id,omitempty"`
+
+			// Object Example: admin
+			Object *RemoveAdmin200JSONResponseBodyObject `json:"object,omitempty"`
+
+			// Removed Whether the admin was removed. Returned as the string `"true"`.
+			//
+			// Example: true
+			Removed *RemoveAdmin200JSONResponseBodyRemoved `json:"removed,omitempty"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 405:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON405 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRetrieveAdminResponse parses an HTTP response from a RetrieveAdminWithResponse call
+func ParseRetrieveAdminResponse(rsp *http.Response) (*RetrieveAdminResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RetrieveAdminResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Admin
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSetAwayAdminResponse parses an HTTP response from a SetAwayAdminWithResponse call
+func ParseSetAwayAdminResponse(rsp *http.Response) (*SetAwayAdminResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SetAwayAdminResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Admin
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 405:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON405 = &dest
+
+	}
+
+	return response, nil
+}
 
 // ParseListContentImportSourcesResponse parses an HTTP response from a ListContentImportSourcesWithResponse call
 func ParseListContentImportSourcesResponse(rsp *http.Response) (*ListContentImportSourcesResponse, error) {
@@ -1324,6 +4311,194 @@ func ParseUpdateAudienceResponse(rsp *http.Response) (*UpdateAudienceResponse, e
 	return response, nil
 }
 
+// ParseListAuthTokensResponse parses an HTTP response from a ListAuthTokensWithResponse call
+func ParseListAuthTokensResponse(rsp *http.Response) (*ListAuthTokensResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAuthTokensResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AuthTokenList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAuthTokenResponse parses an HTTP response from a CreateAuthTokenWithResponse call
+func ParseCreateAuthTokenResponse(rsp *http.Response) (*CreateAuthTokenResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAuthTokenResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest AuthToken
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRetrieveAuthTokenResponse parses an HTTP response from a RetrieveAuthTokenWithResponse call
+func ParseRetrieveAuthTokenResponse(rsp *http.Response) (*RetrieveAuthTokenResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RetrieveAuthTokenResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AuthToken
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateAuthTokenResponse parses an HTTP response from a UpdateAuthTokenWithResponse call
+func ParseUpdateAuthTokenResponse(rsp *http.Response) (*UpdateAuthTokenResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateAuthTokenResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AuthToken
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListAwayStatusReasonsResponse parses an HTTP response from a ListAwayStatusReasonsWithResponse call
 func ParseListAwayStatusReasonsResponse(rsp *http.Response) (*ListAwayStatusReasonsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -1568,7 +4743,7 @@ func ParseListCallsWithTranscriptsResponse(rsp *http.Response) (*ListCallsWithTr
 				TalkTime *int `json:"talk_time,omitempty"`
 
 				// Transcript The call transcript if available, otherwise an empty array.
-				Transcript *[]map[string]interface{} `json:"transcript,omitempty"`
+				Transcript *[]CallTranscriptTurn `json:"transcript,omitempty"`
 
 				// TranscriptStatus The status of the transcript if available.
 				TranscriptStatus *string `json:"transcript_status,omitempty"`
@@ -2628,6 +5803,11 @@ func ParseCreateContactResponse(rsp *http.Response) (*CreateContactResponse, err
 			// Example: support_software
 			UtmTerm *string `json:"utm_term,omitempty"`
 
+			// WhatsappNumber The contact's WhatsApp number. It is read-only; sending it when creating or updating a contact has no effect.
+			//
+			// Example: +34666666666
+			WhatsappNumber *string `json:"whatsapp_number,omitempty"`
+
 			// WorkspaceId The id of the workspace which the contact belongs to.
 			//
 			// Example: ecahpwf5
@@ -3236,6 +6416,11 @@ func ParseShowContactByExternalIdResponse(rsp *http.Response) (*ShowContactByExt
 			// Example: support_software
 			UtmTerm *string `json:"utm_term,omitempty"`
 
+			// WhatsappNumber The contact's WhatsApp number. It is read-only; sending it when creating or updating a contact has no effect.
+			//
+			// Example: +34666666666
+			WhatsappNumber *string `json:"whatsapp_number,omitempty"`
+
 			// WorkspaceId The id of the workspace which the contact belongs to.
 			//
 			// Example: ecahpwf5
@@ -3567,6 +6752,11 @@ func ParseMergeContactResponse(rsp *http.Response) (*MergeContactResponse, error
 			//
 			// Example: support_software
 			UtmTerm *string `json:"utm_term,omitempty"`
+
+			// WhatsappNumber The contact's WhatsApp number. It is read-only; sending it when creating or updating a contact has no effect.
+			//
+			// Example: +34666666666
+			WhatsappNumber *string `json:"whatsapp_number,omitempty"`
 
 			// WorkspaceId The id of the workspace which the contact belongs to.
 			//
@@ -4021,6 +7211,11 @@ func ParseShowContactResponse(rsp *http.Response) (*ShowContactResponse, error) 
 			// Example: support_software
 			UtmTerm *string `json:"utm_term,omitempty"`
 
+			// WhatsappNumber The contact's WhatsApp number. It is read-only; sending it when creating or updating a contact has no effect.
+			//
+			// Example: +34666666666
+			WhatsappNumber *string `json:"whatsapp_number,omitempty"`
+
 			// WorkspaceId The id of the workspace which the contact belongs to.
 			//
 			// Example: ecahpwf5
@@ -4353,6 +7548,11 @@ func ParseUpdateContactResponse(rsp *http.Response) (*UpdateContactResponse, err
 			// Example: support_software
 			UtmTerm *string `json:"utm_term,omitempty"`
 
+			// WhatsappNumber The contact's WhatsApp number. It is read-only; sending it when creating or updating a contact has no effect.
+			//
+			// Example: +34666666666
+			WhatsappNumber *string `json:"whatsapp_number,omitempty"`
+
 			// WorkspaceId The id of the workspace which the contact belongs to.
 			//
 			// Example: ecahpwf5
@@ -4593,6 +7793,136 @@ func ParseDetachContactFromACompanyResponse(rsp *http.Response) (*DetachContactF
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
 		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListGrantedCompaniesForAContactResponse parses an HTTP response from a ListGrantedCompaniesForAContactWithResponse call
+func ParseListGrantedCompaniesForAContactResponse(rsp *http.Response) (*ListGrantedCompaniesForAContactResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListGrantedCompaniesForAContactResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest GrantedCompanyList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseReplaceGrantedCompaniesForAContactResponse parses an HTTP response from a ReplaceGrantedCompaniesForAContactWithResponse call
+func ParseReplaceGrantedCompaniesForAContactResponse(rsp *http.Response) (*ReplaceGrantedCompaniesForAContactResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ReplaceGrantedCompaniesForAContactResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest GrantedCompanyList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRemoveGrantedCompanyFromAContactResponse parses an HTTP response from a RemoveGrantedCompanyFromAContactWithResponse call
+func ParseRemoveGrantedCompanyFromAContactResponse(rsp *http.Response) (*RemoveGrantedCompanyFromAContactResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RemoveGrantedCompanyFromAContactResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case rsp.StatusCode == 204:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -6371,6 +9701,13 @@ func ParseRetrieveConversationResponse(rsp *http.Response) (*RetrieveConversatio
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	}
 
 	return response, nil
@@ -6941,6 +10278,60 @@ func ParseListSideConversationsResponse(rsp *http.Response) (*ListSideConversati
 			return nil, err
 		}
 		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListTeamHandlingSegmentsResponse parses an HTTP response from a ListTeamHandlingSegmentsWithResponse call
+func ParseListTeamHandlingSegmentsResponse(rsp *http.Response) (*ListTeamHandlingSegmentsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListTeamHandlingSegmentsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TeamHandlingSegmentList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
 		var dest Error
@@ -8120,6 +11511,135 @@ func ParseUpdateDynamicContentResponse(rsp *http.Response) (*UpdateDynamicConten
 	return response, nil
 }
 
+// ParseUploadEcommerceCatalogResponse parses an HTTP response from a UploadEcommerceCatalogWithResponse call
+func ParseUploadEcommerceCatalogResponse(rsp *http.Response) (*UploadEcommerceCatalogResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UploadEcommerceCatalogResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EcommerceCatalogUploadPartResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EcommerceCatalogUploadResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest EcommerceCatalogUploadConflictError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSubmitEcommerceProductEventResponse parses an HTTP response from a SubmitEcommerceProductEventWithResponse call
+func ParseSubmitEcommerceProductEventResponse(rsp *http.Response) (*SubmitEcommerceProductEventResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SubmitEcommerceProductEventResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EcommerceProductEventResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListEmailsResponse parses an HTTP response from a ListEmailsWithResponse call
 func ParseListEmailsResponse(rsp *http.Response) (*ListEmailsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -8575,7 +12095,7 @@ func ParseGetExportReportingDataGetDatasetsResponse(rsp *http.Response) (*GetExp
 					// Name Example: Conversation ID
 					Name *string `json:"name,omitempty"`
 
-					// QualifiedId A namespaced identifier that uniquely identifies the attribute across all types. Format is "prefix.name" (e.g., "people.Brand", "conversation.Brand"). Required when calling the enqueue endpoint.
+					// QualifiedId A namespaced identifier that uniquely identifies the attribute across all types. Format is "prefix.name" (e.g., "people.Brand", "conversation.Brand"). A ticket field also includes its ticket type (e.g., "ticket.Bug.Priority"). Required when calling the enqueue endpoint.
 					//
 					// Example: standard.conversation_id
 					QualifiedId *string `json:"qualified_id,omitempty"`
@@ -11943,6 +15463,79 @@ func ParseCreatePhoneSwitchResponse(rsp *http.Response) (*CreatePhoneSwitchRespo
 			return nil, err
 		}
 		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListRolesResponse parses an HTTP response from a ListRolesWithResponse call
+func ParseListRolesResponse(rsp *http.Response) (*ListRolesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListRolesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RoleList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRetrieveRoleResponse parses an HTTP response from a RetrieveRoleWithResponse call
+func ParseRetrieveRoleResponse(rsp *http.Response) (*RetrieveRoleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RetrieveRoleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Role
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
 
 	}
 

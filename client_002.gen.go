@@ -17,6 +17,984 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// GroupTranslatedContentType The type of object - group_translated_content.
+//
+// Example: group_translated_content
+type GroupTranslatedContentType string
+
+// HandlingEvent A pause or resume event for a conversation
+type HandlingEvent struct {
+	// Reason Optional reason for the event (e.g., "Paused", "Away")
+	//
+	// Example: Paused
+	Reason *string `json:"reason,omitempty"`
+
+	// Teammate A reference to a teammate
+	Teammate TeammateReference `json:"teammate"`
+
+	// Timestamp ISO8601 timestamp when the event occurred
+	//
+	// Example: 2026-01-09T09:00:00Z
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type The type of handling event
+	//
+	// Example: paused
+	Type HandlingEventType `json:"type"`
+}
+
+// HandlingEventType The type of handling event
+//
+// Example: paused
+type HandlingEventType string
+
+// HandlingEventList A list of handling events for a conversation
+type HandlingEventList struct {
+	// HandlingEvents Array of handling events
+	HandlingEvents *[]HandlingEvent `json:"handling_events,omitempty"`
+}
+
+// HelpCenter Help Centers contain collections
+type HelpCenter struct {
+	// CreatedAt The time when the Help Center was created.
+	//
+	// Example: 1672928359
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// CustomDomain Custom domain configured for the help center
+	//
+	// Example: help.mycompany.com
+	CustomDomain *string `json:"custom_domain,omitempty"`
+
+	// Default Whether this help center is the default for the workspace.
+	//
+	// Example: false
+	Default *bool `json:"default,omitempty"`
+
+	// DisplayName The display name of the Help Center only seen by teammates.
+	//
+	// Example: Intercom Help Center
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Id The unique identifier for the Help Center which is given by Intercom.
+	//
+	// Example: 123
+	Id *string `json:"id,omitempty"`
+
+	// Identifier The identifier of the Help Center. This is used in the URL of the Help Center.
+	//
+	// Example: intercom
+	Identifier *string `json:"identifier,omitempty"`
+
+	// Locales The locales in which the help center is available.
+	//
+	// Example: ["en","fr"]
+	Locales *[]string `json:"locales,omitempty"`
+
+	// UpdatedAt The time when the Help Center was last updated.
+	//
+	// Example: 1672928610
+	UpdatedAt *int `json:"updated_at,omitempty"`
+
+	// Url The URL for the help center, if you have a custom domain then this will show the URL using the custom domain.
+	//
+	// Example: https://help.mycompany.com
+	Url *string `json:"url,omitempty"`
+
+	// WebsiteTurnedOn Whether the Help Center is turned on or not. This is controlled in your Help Center settings.
+	//
+	// Example: true
+	WebsiteTurnedOn *bool `json:"website_turned_on,omitempty"`
+
+	// WorkspaceId The id of the workspace which the Help Center belongs to.
+	//
+	// Example: hfi1bx4l
+	WorkspaceId *string `json:"workspace_id,omitempty"`
+}
+
+// HelpCenterList A list of Help Centers belonging to the App
+type HelpCenterList struct {
+	// Data An array of Help Center objects
+	Data *[]HelpCenter `json:"data,omitempty"`
+
+	// Type The type of the object - `list`.
+	//
+	// Example: list
+	Type *HelpCenterListType `json:"type,omitempty"`
+}
+
+// HelpCenterListType The type of the object - `list`.
+//
+// Example: list
+type HelpCenterListType string
+
+// HelpCenterRedirect A redirect maps a source URL (`from_url`) to an article, a collection or the
+// home page of a help center, so that links to old or external URLs resolve to
+// live content.
+type HelpCenterRedirect struct {
+	// CreatedAt The time the redirect was created as a UTC Unix timestamp.
+	//
+	// Example: 1781619405
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// FromUrl The source URL that is redirected. This is an absolute URL within the help center's URL space, or a relative path such as `/old-page` for some existing redirects.
+	//
+	// Example: http://help-center.test/lovelyhelpcenter/old-page
+	FromUrl *string `json:"from_url,omitempty"`
+
+	// HelpCenterId The unique identifier for the help center the redirect belongs to.
+	//
+	// Example: 7
+	HelpCenterId *string `json:"help_center_id,omitempty"`
+
+	// Id The unique identifier for the redirect.
+	//
+	// Example: 26
+	Id *string `json:"id,omitempty"`
+
+	// Locale The locale of the redirect's target. For article targets this is the bound translation's locale, which may differ from the requested locale if no translation exists in that locale.
+	//
+	// Example: en
+	Locale *string `json:"locale,omitempty"`
+
+	// TargetId The unique identifier of the target article, collection or help center. For article targets this is the Article ID.
+	//
+	// Example: 11
+	TargetId *string `json:"target_id,omitempty"`
+
+	// TargetType The type of the redirect target. `help_center` targets the help center's home page.
+	//
+	// Example: article
+	TargetType *HelpCenterRedirectTargetType `json:"target_type,omitempty"`
+
+	// Type The type of the object - `help_center_redirect`.
+	//
+	// Example: help_center_redirect
+	Type *HelpCenterRedirectType `json:"type,omitempty"`
+
+	// UpdatedAt The time the redirect was last updated as a UTC Unix timestamp.
+	//
+	// Example: 1781619405
+	UpdatedAt *int `json:"updated_at,omitempty"`
+}
+
+// HelpCenterRedirectTargetType The type of the redirect target. `help_center` targets the help center's home page.
+//
+// Example: article
+type HelpCenterRedirectTargetType string
+
+// HelpCenterRedirectType The type of the object - `help_center_redirect`.
+//
+// Example: help_center_redirect
+type HelpCenterRedirectType string
+
+// HelpCenterRedirectList This will return a list of redirects for the help center.
+type HelpCenterRedirectList struct {
+	// Data An array of help center redirect objects.
+	Data *[]HelpCenterRedirect `json:"data,omitempty"`
+
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
+
+	// TotalCount A count of the total number of redirects.
+	//
+	// Example: 1
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type The type of the object - `list`.
+	//
+	// Example: list
+	Type *HelpCenterRedirectListType `json:"type,omitempty"`
+}
+
+// HelpCenterRedirectListType The type of the object - `list`.
+//
+// Example: list
+type HelpCenterRedirectListType string
+
+// HitlEvent A single event in a Fin human-in-the-loop consultation on a conversation.
+type HitlEvent struct {
+	// ConversationPartId The conversation part this event relates to, where one exists.
+	//
+	// Example: 4471002
+	ConversationPartId *string `json:"conversation_part_id,omitempty"`
+
+	// CreatedAt Unix timestamp for when the event occurred. Approximate on `fin_draft_proposed`.
+	//
+	// Example: 1767225600
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// Data Fields specific to this event. Which are present depends on `event_type` — see the endpoint description for the full mapping.
+	Data *struct {
+		// ApprovedDraftType Whether the teammate approved Fin's original draft or the one it revised after their feedback.
+		//
+		// Example: revised
+		ApprovedDraftType *HitlEventDataApprovedDraftType `json:"approved_draft_type,omitempty"`
+
+		// AskRationale Why Fin needed to ask.
+		//
+		// Example: No article covers refund timelines.
+		AskRationale *string `json:"ask_rationale,omitempty"`
+
+		// Channel The channel the conversation was on when Fin consulted a teammate.
+		//
+		// Example: email
+		Channel *HitlEventDataChannel `json:"channel,omitempty"`
+
+		// ConfidencePercent How confident Fin was in its answer, as a percentage. Compare against `rule_threshold_percent`.
+		//
+		// Example: 42
+		ConfidencePercent *int `json:"confidence_percent,omitempty"`
+
+		// CustomerQuestion The customer's message that prompted the consultation.
+		//
+		// Example: Where is my refund?
+		CustomerQuestion *string `json:"customer_question,omitempty"`
+
+		// Draft The reply Fin proposed to the teammate.
+		//
+		// Example: Refunds are processed within 30 days.
+		Draft *string `json:"draft,omitempty"`
+
+		// DurationSeconds How long the consultation took, in seconds.
+		//
+		// Example: 180
+		DurationSeconds *int `json:"duration_seconds,omitempty"`
+
+		// FinalDraft The reply as it stood when the consultation ended.
+		//
+		// Example: Refunds take 5 business days.
+		FinalDraft *string `json:"final_draft,omitempty"`
+
+		// IssueSummary Fin's summary of what the customer needs.
+		//
+		// Example: Customer chasing a refund.
+		IssueSummary *string `json:"issue_summary,omitempty"`
+
+		// Outcome How the consultation ended.
+		//
+		// Example: approved
+		Outcome *HitlEventDataOutcome `json:"outcome,omitempty"`
+
+		// PayloadTruncated Whether any text on this consultation was too long to store in full and was cut.
+		//
+		// Example: false
+		PayloadTruncated *bool `json:"payload_truncated,omitempty"`
+
+		// RegenerationOutcome How Fin responded to the feedback. `answer` means it produced a revised draft, and is the only value accompanied by a `fin_draft_revised` event. `no_answer` means it had nothing to send, `failed` that regeneration failed, `consult_teammate` that it asked the teammate again, and `pending` that the consultation ended before Fin responded.
+		//
+		// Example: answer
+		RegenerationOutcome *string `json:"regeneration_outcome,omitempty"`
+
+		// ReviewerAdminId The teammate involved in this event — who gave the feedback, or who approved the draft or took over.
+		//
+		// Example: 4001
+		ReviewerAdminId *string `json:"reviewer_admin_id,omitempty"`
+
+		// RevisedDraft The reply Fin produced after the teammate's feedback.
+		//
+		// Example: Refunds take 5 business days.
+		RevisedDraft *string `json:"revised_draft,omitempty"`
+
+		// RoundIndex Which round of teammate feedback this event belongs to, starting at 1.
+		//
+		// Example: 1
+		RoundIndex *int `json:"round_index,omitempty"`
+
+		// RoundsCount How many rounds of teammate feedback the consultation had. Only the ten most recent are returned as events, so this can exceed the number of `fin_teammate_input_received` events.
+		//
+		// Example: 1
+		RoundsCount *int `json:"rounds_count,omitempty"`
+
+		// RuleThresholdPercent The confidence threshold the rule required, as a percentage.
+		//
+		// Example: 60
+		RuleThresholdPercent *int `json:"rule_threshold_percent,omitempty"`
+
+		// SentText What was sent to the customer. Null when nothing was sent.
+		//
+		// Example: Refunds take 5 business days.
+		SentText *string `json:"sent_text,omitempty"`
+
+		// SharpAsk The question Fin put to the teammate.
+		//
+		// Example: How long do refunds take?
+		SharpAsk *string `json:"sharp_ask,omitempty"`
+
+		// TeammateInput The feedback the teammate gave Fin.
+		//
+		// Example: Tell them 5 business days.
+		TeammateInput *string `json:"teammate_input,omitempty"`
+	} `json:"data,omitempty"`
+
+	// EventType What happened.
+	//
+	// Example: fin_consultation_started
+	EventType *HitlEventEventType `json:"event_type,omitempty"`
+
+	// HitlCycleId Identifies the consultation this event belongs to. The same on every event of one consultation, so it is not unique per event.
+	//
+	// Example: 3f2a91c4-8e77-4d61-9a2b-0c5d7e1f4a80
+	HitlCycleId *string `json:"hitl_cycle_id,omitempty"`
+
+	// RuleId The escalation rule that triggered the consultation, as recorded when it began. Null if no rule triggered it.
+	//
+	// Example: 88
+	RuleId *string `json:"rule_id,omitempty"`
+
+	// RuleName The rule's name as recorded when the consultation began, which may differ from its current name.
+	//
+	// Example: Refunds over $100
+	RuleName *string `json:"rule_name,omitempty"`
+}
+
+// HitlEventDataApprovedDraftType Whether the teammate approved Fin's original draft or the one it revised after their feedback.
+//
+// Example: revised
+type HitlEventDataApprovedDraftType string
+
+// HitlEventDataChannel The channel the conversation was on when Fin consulted a teammate.
+//
+// Example: email
+type HitlEventDataChannel string
+
+// HitlEventDataOutcome How the consultation ended.
+//
+// Example: approved
+type HitlEventDataOutcome string
+
+// HitlEventEventType What happened.
+//
+// Example: fin_consultation_started
+type HitlEventEventType string
+
+// HitlEventList A list of human-in-the-loop events for a conversation, oldest first.
+type HitlEventList struct {
+	// Data An array of HITL event objects.
+	Data *[]HitlEvent `json:"data,omitempty"`
+
+	// Type The type of the object.
+	//
+	// Example: list
+	Type *HitlEventListType `json:"type,omitempty"`
+}
+
+// HitlEventListType The type of the object.
+//
+// Example: list
+type HitlEventListType string
+
+// IntercomVersion Intercom API version.</br>If you omit the header, the API uses the version set in your app package, and 1.0 if none is set.
+//
+// Example: 2.18
+type IntercomVersion string
+
+// InternalArticle The Internal Articles API is a central place to gather all information and take actions on your internal articles.
+type InternalArticle = InternalArticleListItem
+
+// InternalArticleList This will return a list of internal articles for the App.
+type InternalArticleList struct {
+	// Data An array of Internal Article objects
+	Data *[]InternalArticleListItem `json:"data,omitempty"`
+
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
+
+	// TotalCount A count of the total number of internal articles.
+	//
+	// Example: 1
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type The type of the object - `list`.
+	//
+	// Example: list
+	Type *InternalArticleListType `json:"type,omitempty"`
+}
+
+// InternalArticleListType The type of the object - `list`.
+//
+// Example: list
+type InternalArticleListType string
+
+// InternalArticleListItem The data returned about your internal articles when you list them.
+type InternalArticleListItem struct {
+	// AiChatbotAvailability Whether the internal article is available for AI Chatbot (Fin).
+	//
+	// Example: true
+	AiChatbotAvailability *bool `json:"ai_chatbot_availability,omitempty"`
+
+	// AiCopilotAvailability Whether the internal article is available for AI Copilot.
+	//
+	// Example: true
+	AiCopilotAvailability *bool `json:"ai_copilot_availability,omitempty"`
+
+	// AiSalesAgentAvailability Whether the internal article is available for AI Sales Agent.
+	//
+	// Example: true
+	AiSalesAgentAvailability *bool `json:"ai_sales_agent_availability,omitempty"`
+
+	// AudienceIds The list of audience IDs this internal article is targeted to for Fin AI Agent. Empty array means no audience targeting is set.
+	//
+	// Example: [1,2]
+	AudienceIds *[]int `json:"audience_ids,omitempty"`
+
+	// AuthorId The id of the author of the article.
+	//
+	// Example: 5017691
+	AuthorId *int `json:"author_id,omitempty"`
+
+	// Body The body of the article in HTML.
+	//
+	// Example: Default language body in html
+	Body *string `json:"body,omitempty"`
+
+	// BodyMarkdown The body of the article in markdown.
+	//
+	// Example: # Internal Guide
+	//
+	// Body of the article in markdown
+	BodyMarkdown *string `json:"body_markdown,omitempty"`
+
+	// CreatedAt The time when the article was created.
+	//
+	// Example: 1672928359
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// FolderId The ID of the folder this article belongs to, or null if not in a folder.
+	//
+	// Example: 6
+	FolderId *int `json:"folder_id,omitempty"`
+
+	// Id The unique identifier for the article which is given by Intercom.
+	//
+	// Example: 6871119
+	Id *int `json:"id,omitempty"`
+
+	// Locale The default locale of the article.
+	Locale *string `json:"locale,omitempty"`
+
+	// OwnerId The id of the owner of the article.
+	//
+	// Example: 5017691
+	OwnerId *int `json:"owner_id,omitempty"`
+
+	// Tags A list of tags objects associated with a conversation, article or internal article
+	Tags *Tags `json:"tags,omitempty"`
+
+	// Title The title of the article.
+	Title *string `json:"title,omitempty"`
+
+	// UpdatedAt The time when the article was last updated.
+	//
+	// Example: 1672928610
+	UpdatedAt *int `json:"updated_at,omitempty"`
+}
+
+// InternalArticleSearchResponse The results of an Internal Article search
+type InternalArticleSearchResponse struct {
+	// InternalArticles An array of Internal Article objects
+	InternalArticles *[]InternalArticle `json:"internal_articles,omitempty"`
+
+	// Pages The majority of list resources in the API are paginated to allow clients to traverse data over multiple requests.
+	//
+	// Their responses are likely to contain a pages object that hosts pagination links which a client can use to paginate through the data without having to construct a query. The link relations for the pages field are as follows.
+	Pages *PagesLink `json:"pages,omitempty"`
+
+	// TotalCount The total number of Internal Articles matching the search query
+	//
+	// Example: 5
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type The type of the object - `list`.
+	//
+	// Example: list
+	Type *InternalArticleSearchResponseType `json:"type,omitempty"`
+}
+
+// InternalArticleSearchResponseType The type of the object - `list`.
+//
+// Example: list
+type InternalArticleSearchResponseType string
+
+// IpAllowlist IP allowlist settings for the workspace.
+type IpAllowlist struct {
+	// Enabled Whether the IP allowlist is enabled for the workspace.
+	//
+	// Example: true
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// IpAllowlist List of allowed IP addresses and/or IP ranges in CIDR notation.
+	// Examples:
+	// - Single IP: `192.168.0.1`
+	// - IP range: `192.168.0.1/24` (allows 192.168.0.0 - 192.168.0.255)
+	//
+	//
+	// Example: ["192.168.1.0/24","10.0.0.1"]
+	IpAllowlist *[]string `json:"ip_allowlist,omitempty"`
+
+	// Type String representing the object's type. Always has the value `ip_allowlist`.
+	//
+	// Example: ip_allowlist
+	Type *string `json:"type,omitempty"`
+}
+
+// Jobs Jobs are tasks that are processed asynchronously by the Intercom system after being enqueued via the API. This allows for efficient handling of operations that may take time to complete, such as data imports or exports. You can check the status of your jobs to monitor their progress and ensure they are completed successfully.
+type Jobs struct {
+	// Id The id of the job that's currently being processed or has completed.
+	//
+	// Example: 20
+	Id string `json:"id"`
+
+	// ResourceId The id of the resource created during job execution (e.g. ticket id). Only set once the job has succeeded.
+	//
+	// Example: 123
+	ResourceId *string `json:"resource_id,omitempty"`
+
+	// ResourceType The type of resource created during job execution.
+	//
+	// Example: ticket
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// ResourceUrl The url of the resource created during job execution. Use this url to fetch the resource. Only set once the job has succeeded.
+	//
+	// Example: https://api.intercom.io/tickets/123
+	ResourceUrl *string `json:"resource_url,omitempty"`
+
+	// Status The status of the job execution.
+	Status *JobsStatus `json:"status,omitempty"`
+
+	// Type The type of the object
+	Type *JobsType `json:"type,omitempty"`
+
+	// Url API endpoint URL to check the job status.
+	//
+	// Example: https://api.intercom.io/jobs/status/20
+	Url *string `json:"url,omitempty"`
+}
+
+// JobsStatus The status of the job execution.
+type JobsStatus string
+
+// JobsType The type of the object
+type JobsType string
+
+// LinkedObject A linked conversation or ticket.
+type LinkedObject struct {
+	// Category Category of the Linked Ticket Object.
+	//
+	// Example: Customer
+	Category *LinkedObjectCategory `json:"category,omitempty"`
+
+	// Id The ID of the linked object
+	//
+	// Example: 7583
+	Id *string `json:"id,omitempty"`
+
+	// Type ticket or conversation
+	//
+	// Example: ticket
+	Type *LinkedObjectType `json:"type,omitempty"`
+}
+
+// LinkedObjectCategory Category of the Linked Ticket Object.
+//
+// Example: Customer
+type LinkedObjectCategory string
+
+// LinkedObjectType ticket or conversation
+//
+// Example: ticket
+type LinkedObjectType string
+
+// LinkedObjectList An object containing metadata about linked conversations and linked tickets. Up to 1000 can be returned.
+type LinkedObjectList struct {
+	// Data An array containing the linked conversations and linked tickets.
+	Data *[]LinkedObject `json:"data,omitempty"`
+
+	// HasMore Whether or not there are more linked objects than returned.
+	//
+	// Example: false
+	HasMore *bool `json:"has_more,omitempty"`
+
+	// TotalCount The total number of linked objects.
+	//
+	// Example: 100
+	TotalCount *int `json:"total_count,omitempty"`
+
+	// Type Always list.
+	//
+	// Example: list
+	Type *LinkedObjectListType `json:"type,omitempty"`
+}
+
+// LinkedObjectListType Always list.
+//
+// Example: list
+type LinkedObjectListType string
+
+// Macro A macro is a pre-defined response template (saved reply) that can be used to quickly reply to conversations.
+type Macro struct {
+	// AvailableOn Where the macro is available for use.
+	//
+	// Example: ["inbox","messenger"]
+	AvailableOn *[]MacroAvailableOn `json:"available_on,omitempty"`
+
+	// Body The body of the macro in HTML format with placeholders transformed to XML-like format.
+	//
+	// Example: <p>Hi <attribute key="user.name" default="there"/>, your order is ready!</p>
+	Body *string `json:"body,omitempty"`
+
+	// BodyText The plain text version of the macro body with original Intercom placeholder format.
+	//
+	// Example: Hi {{user.name|fallback:"there"}}, your order is ready!
+	BodyText *string `json:"body_text,omitempty"`
+
+	// CreatedAt The time the macro was created in ISO 8601 format.
+	//
+	// Example: 2025-07-17T11:18:08.000Z
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Id The unique identifier for the macro.
+	//
+	// Example: 123
+	Id *string `json:"id,omitempty"`
+
+	// Name The name of the macro.
+	//
+	// Example: Order Status Update
+	Name *string `json:"name,omitempty"`
+
+	// Type String representing the object's type. Always has the value `macro`.
+	//
+	// Example: macro
+	Type *MacroType `json:"type,omitempty"`
+
+	// UpdatedAt The time the macro was last updated in ISO 8601 format.
+	//
+	// Example: 2025-07-17T15:30:24.000Z
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// VisibleTo Who can view this macro.
+	//
+	// Example: everyone
+	VisibleTo *MacroVisibleTo `json:"visible_to,omitempty"`
+
+	// VisibleToTeamIds The team IDs that can view this macro when visible_to is set to specific_teams.
+	//
+	// Example: ["456","789"]
+	VisibleToTeamIds *[]string `json:"visible_to_team_ids,omitempty"`
+}
+
+// MacroAvailableOn defines model for Macro.AvailableOn.
+type MacroAvailableOn string
+
+// MacroType String representing the object's type. Always has the value `macro`.
+//
+// Example: macro
+type MacroType string
+
+// MacroVisibleTo Who can view this macro.
+//
+// Example: everyone
+type MacroVisibleTo string
+
+// MacroList A paginated list of macros (saved replies) in the workspace.
+type MacroList struct {
+	// Data The list of macro objects
+	Data *[]*Macro `json:"data,omitempty"`
+
+	// Pages Pagination information
+	Pages *struct {
+		// Next Cursor for the next page
+		Next *struct {
+			// StartingAfter Base64-encoded cursor containing [updated_at, id] for pagination
+			//
+			// Example: WzE3MTk0OTM3NTcuMCwgIjEyMyJd
+			StartingAfter *string `json:"starting_after,omitempty"`
+		} `json:"next,omitempty"`
+
+		// PerPage Number of results per page
+		//
+		// Example: 50
+		PerPage *int `json:"per_page,omitempty"`
+
+		// Type The type of pagination
+		//
+		// Example: pages
+		Type *MacroListPagesType `json:"type,omitempty"`
+	} `json:"pages,omitempty"`
+
+	// Type Always list
+	//
+	// Example: list
+	Type *MacroListType `json:"type,omitempty"`
+}
+
+// MacroListPagesType The type of pagination
+//
+// Example: pages
+type MacroListPagesType string
+
+// MacroListType Always list
+//
+// Example: list
+type MacroListType string
+
+// MergeContactsRequest Merge contact data.
+type MergeContactsRequest struct {
+	// From The unique identifier for the contact to merge away from (the source contact). Can have a `role` of `lead` or `user`.
+	//
+	// Example: 5d70dd30de4efd54f42fd526
+	From string `json:"from"`
+
+	// Into The unique identifier for the contact to merge into (the destination contact). Must have a `role` of `user`.
+	//
+	// Example: 5ba682d23d7cf92bef87bfd4
+	Into string `json:"into"`
+
+	// SkipDuplicateValidation When `true`, bypasses the check that the two contacts must be duplicates (matching email or phone), allowing non-duplicate contacts to be merged. Must be a JSON boolean; the string `"true"` does not bypass the check.
+	//
+	// Example: false
+	SkipDuplicateValidation *bool `json:"skip_duplicate_validation,omitempty"`
+}
+
+// MergeConversationsRequest Payload to merge a secondary conversation into a primary conversation.
+type MergeConversationsRequest struct {
+	// MergeIntoConversationId The ID of the primary (target) conversation to merge into.
+	//
+	// Example: 456
+	MergeIntoConversationId int `json:"merge_into_conversation_id"`
+}
+
+// MergeHistoryItem A record of a contact that was merged into another contact.
+type MergeHistoryItem struct {
+	// MergedAt (Unix timestamp in seconds) The time when the merge occurred.
+	//
+	// Example: 1571672154
+	MergedAt *int `json:"merged_at,omitempty"`
+
+	// SourceContactId The Intercom ID of the contact that was merged into this contact.
+	//
+	// Example: 5ba682d23d7cf92bef87bfd3
+	SourceContactId *string `json:"source_contact_id,omitempty"`
+
+	// SourceContactRole The role of the contact that was merged in.
+	//
+	// Example: lead
+	SourceContactRole *MergeHistoryItemSourceContactRole `json:"source_contact_role,omitempty"`
+
+	// Type The type of object.
+	//
+	// Example: merge_history
+	Type *string `json:"type,omitempty"`
+}
+
+// MergeHistoryItemSourceContactRole The role of the contact that was merged in.
+//
+// Example: lead
+type MergeHistoryItemSourceContactRole string
+
+// MergeHistoryList A paginated list of merge history entries for a contact.
+type MergeHistoryList struct {
+	// Data An array of merge history entries.
+	Data *[]MergeHistoryItem `json:"data,omitempty"`
+
+	// HasMore Whether there are more results to fetch.
+	//
+	// Example: false
+	HasMore *bool `json:"has_more,omitempty"`
+
+	// NextCursor A cursor to pass as the `cursor` query parameter to fetch the next page of results. `null` when there are no more pages.
+	//
+	// Example: WyIxNjM0NTY3ODkwIl0
+	NextCursor *string `json:"next_cursor,omitempty"`
+
+	// Type The type of object.
+	//
+	// Example: list
+	Type *MergeHistoryListType `json:"type,omitempty"`
+}
+
+// MergeHistoryListType The type of object.
+//
+// Example: list
+type MergeHistoryListType string
+
+// MergePreviewAllowed Returned when the merge is allowed.
+type MergePreviewAllowed struct {
+	// Allowed Always true. The merge is allowed.
+	Allowed *MergePreviewAllowedAllowed `json:"allowed,omitempty"`
+
+	// Summary A summary of the changes the merge would make to the surviving contact.
+	Summary *MergePreviewSummary `json:"summary,omitempty"`
+}
+
+// MergePreviewAllowedAllowed Always true. The merge is allowed.
+type MergePreviewAllowedAllowed bool
+
+// MergePreviewAttributeChange A single attribute change on the surviving contact.
+type MergePreviewAttributeChange struct {
+	// Field The contact field that would change.
+	//
+	// Example: name
+	Field *string `json:"field,omitempty"`
+
+	// FromValue The source contact's value. Omitted when null. May be a string, array, or object depending on the field.
+	FromValue interface{} `json:"from_value,omitempty"`
+
+	// IntoValue The target contact's value. Omitted when null. May be a string, array, or object depending on the field.
+	IntoValue interface{} `json:"into_value,omitempty"`
+
+	// NewIntoValue The resulting value on the surviving contact. Always present; may be null. May be a string, array, or object depending on the field.
+	NewIntoValue interface{} `json:"new_into_value,omitempty"`
+
+	// Outcome How the value is resolved. adopted = the source's value is taken; discarded = the source's value is dropped and the target's kept; merged = the two values are combined.
+	Outcome *MergePreviewAttributeChangeOutcome `json:"outcome,omitempty"`
+}
+
+// MergePreviewAttributeChangeOutcome How the value is resolved. adopted = the source's value is taken; discarded = the source's value is dropped and the target's kept; merged = the two values are combined.
+type MergePreviewAttributeChangeOutcome string
+
+// MergePreviewAttributeChanges The attribute changes the merge would make to the surviving contact.
+type MergePreviewAttributeChanges struct {
+	// Attributes The individual attribute changes. At most 50 custom attribute changes are included; changes to standard fields are always included, so this array can hold more than 50 items. total_count reflects the full number of changes.
+	Attributes *[]MergePreviewAttributeChange `json:"attributes,omitempty"`
+
+	// TotalCount The total number of attribute changes detected, which may exceed the number of items in attributes.
+	//
+	// Example: 3
+	TotalCount *int `json:"total_count,omitempty"`
+}
+
+// MergePreviewBlocked Returned when the merge is not allowed.
+type MergePreviewBlocked struct {
+	// Allowed Always false. The merge is not allowed.
+	Allowed *MergePreviewBlockedAllowed `json:"allowed,omitempty"`
+
+	// Reasons One or more reasons the merge is not allowed.
+	Reasons *[]MergePreviewReason `json:"reasons,omitempty"`
+}
+
+// MergePreviewBlockedAllowed Always false. The merge is not allowed.
+type MergePreviewBlockedAllowed bool
+
+// MergePreviewReason A reason a merge is not allowed.
+type MergePreviewReason struct {
+	// Code A stable code identifying the reason. Branch on this value.
+	Code *MergePreviewReasonCode `json:"code,omitempty"`
+
+	// Message A human-readable explanation. Display this to people; do not match on it, as the wording may change.
+	Message *string `json:"message,omitempty"`
+}
+
+// MergePreviewReasonCode A stable code identifying the reason. Branch on this value.
+type MergePreviewReasonCode string
+
+// MergePreviewReassignments Two counts per object type — `from`, how many are on the lead and would move to the surviving contact, and `into`, how many the surviving contact already has. Only types with reassignments are included, and both counts are always present on a type that is included.
+type MergePreviewReassignments struct {
+	// Conversations Distinct non-ticket conversations, counting both conversations the contact owns and conversations it participates in. Tickets are excluded here and reported separately under `tickets`.
+	Conversations *struct {
+		// From The number of non-ticket conversations on the lead that would be reassigned to the surviving contact.
+		//
+		// Example: 12
+		From int `json:"from"`
+
+		// Into The number of non-ticket conversations the surviving contact already has.
+		//
+		// Example: 5
+		Into int `json:"into"`
+	} `json:"conversations,omitempty"`
+
+	// Notes Notes attached to the contact.
+	Notes *struct {
+		// From The number of notes on the lead that would be reassigned to the surviving contact.
+		//
+		// Example: 2
+		From int `json:"from"`
+
+		// Into The number of notes the surviving contact already has.
+		//
+		// Example: 6
+		Into int `json:"into"`
+	} `json:"notes,omitempty"`
+
+	// PhoneCalls Phone calls. Present only for phone-lead merges.
+	PhoneCalls *struct {
+		// From The number of phone calls on the lead that would be reassigned to the surviving contact.
+		//
+		// Example: 1
+		From int `json:"from"`
+
+		// Into The number of phone calls the surviving contact already has.
+		//
+		// Example: 0
+		Into int `json:"into"`
+	} `json:"phone_calls,omitempty"`
+
+	// Tags Tags. `from` counts only tags the surviving contact does not already have.
+	Tags *struct {
+		// From The number of tags on the lead that would be added to the surviving contact.
+		//
+		// Example: 3
+		From int `json:"from"`
+
+		// Into The number of tags the surviving contact already has.
+		//
+		// Example: 4
+		Into int `json:"into"`
+	} `json:"tags,omitempty"`
+
+	// Tickets Tickets, meaning conversations of any ticket type. Counted separately from `conversations` so a single conversation is never counted twice.
+	Tickets *struct {
+		// From The number of tickets on the lead that would be reassigned to the surviving contact.
+		//
+		// Example: 2
+		From int `json:"from"`
+
+		// Into The number of tickets the surviving contact already has.
+		//
+		// Example: 1
+		Into int `json:"into"`
+	} `json:"tickets,omitempty"`
+}
+
+// MergePreviewRequest Preview a contact merge.
+type MergePreviewRequest struct {
+	// CustomAttributeNames Custom attribute names to include in the previewed attribute changes.
+	CustomAttributeNames *[]string `json:"custom_attribute_names,omitempty"`
+
+	// From The unique identifier for the contact to merge away from (the source contact). Can have a `role` of `lead` or `user`.
+	//
+	// Example: 6762f0d51bb69f9f2193bb7f
+	From string `json:"from"`
+
+	// Into The unique identifier for the contact to merge into (the destination contact). Must have a `role` of `user`.
+	//
+	// Example: 6762f0d51bb69f9f2193bb80
+	Into string `json:"into"`
+
+	// SkipDuplicateValidation When `true`, previews the merge even if the contacts don't share a common identifier. Must be a JSON boolean; the string `"true"` does not bypass the check. Defaults to false.
+	SkipDuplicateValidation *bool `json:"skip_duplicate_validation,omitempty"`
+}
+
+// MergePreviewResponse The result of a merge preview. Either the merge is allowed (with a summary of the changes) or it is not (with reasons).
+type MergePreviewResponse struct {
+	union json.RawMessage
+}
+
+// MergePreviewSummary A summary of the changes the merge would make to the surviving contact.
+type MergePreviewSummary struct {
+	// AttributeChanges The attribute changes the merge would make to the surviving contact.
+	AttributeChanges *MergePreviewAttributeChanges `json:"attribute_changes,omitempty"`
+
+	// Reassignments Two counts per object type — `from`, how many are on the lead and would move to the surviving contact, and `into`, how many the surviving contact already has. Only types with reassignments are included, and both counts are always present on a type that is included.
+	Reassignments *MergePreviewReassignments `json:"reassignments,omitempty"`
+}
+
 // Message Message are how you reach out to contacts in Intercom. They are created when an admin sends an outbound message to a contact.
 type Message struct {
 	// Body The message body, which may contain HTML.
@@ -352,6 +1330,44 @@ type NoteList struct {
 	// Example: list
 	Type *string `json:"type,omitempty"`
 }
+
+// OauthConfiguration The OAuth client-credentials configuration Intercom uses to obtain and refresh an access token. Required when `token_type` is `oauth`. Must be omitted when `token_type` is `text`.
+type OauthConfiguration struct {
+	// Audience An optional audience to request from the token endpoint.
+	//
+	// Example: https://api.fulfilment.example.com
+	Audience *string `json:"audience,omitempty"`
+
+	// ClientId The OAuth client ID.
+	//
+	// Example: fulfilment-connector
+	ClientId string `json:"client_id"`
+
+	// ClientSecret The OAuth client secret. Stored encrypted and never returned by any endpoint.
+	//
+	// Example: 8f6e2b1a9c4d7e05
+	ClientSecret string `json:"client_secret"`
+
+	// RequestFormat The format the client credentials are sent in when requesting a token. Defaults to `json`.
+	//
+	// Example: json
+	RequestFormat *OauthConfigurationRequestFormat `json:"request_format,omitempty"`
+
+	// Scope An optional scope to request from the token endpoint.
+	//
+	// Example: orders.read
+	Scope *string `json:"scope,omitempty"`
+
+	// TokenUrl The token endpoint Intercom exchanges the client credentials with. Must be an `https` URL.
+	//
+	// Example: https://auth.fulfilment.example.com/oauth/token
+	TokenUrl string `json:"token_url"`
+}
+
+// OauthConfigurationRequestFormat The format the client credentials are sent in when requesting a token. Defaults to `json`.
+//
+// Example: json
+type OauthConfigurationRequestFormat string
 
 // OfficeHoursException An exception overrides a schedule's regular hours on a specific date, such as a public holiday.
 type OfficeHoursException struct {
@@ -809,10 +1825,59 @@ type RegisterFinVoiceCallRequest struct {
 // Example: aws_connect
 type RegisterFinVoiceCallRequestSource string
 
+// ReplaceGrantedCompaniesRequest The full set of companies to grant the contact access to. Any company id left out is dropped.
+type ReplaceGrantedCompaniesRequest struct {
+	// CompanyIds The `company_id` values of the companies to grant the contact access to. Send an empty array to drop every grant. Maximum of 100 ids.
+	//
+	// Example: ["acme-corp","1234"]
+	CompanyIds []string `json:"company_ids"`
+}
+
 // ReplyConversationRequest defines model for reply_conversation_request.
 type ReplyConversationRequest struct {
 	union json.RawMessage
 }
+
+// Role A role defines what a teammate can do in a workspace. The teammates endpoint returns the id and name of the role a teammate holds; this schema adds the role's description.
+type Role struct {
+	// Description The description of the role
+	//
+	// Example: Can view and reply to conversations
+	Description *string `json:"description,omitempty"`
+
+	// Id The id of the role
+	//
+	// Example: 991267902
+	Id *string `json:"id,omitempty"`
+
+	// Name The name of the role
+	//
+	// Example: Support Lead
+	Name *string `json:"name,omitempty"`
+
+	// Type Value is always "role"
+	//
+	// Example: role
+	Type *string `json:"type,omitempty"`
+}
+
+// RoleList A list of role objects in the workspace.
+type RoleList struct {
+	// Data A list of role objects
+	//
+	// Example: [{"description":"Can view and reply to conversations","id":"991267902","name":"Support Lead","type":"role"}]
+	Data *[]Role `json:"data,omitempty"`
+
+	// Type The type of the object
+	//
+	// Example: list
+	Type *RoleListType `json:"type,omitempty"`
+}
+
+// RoleListType The type of the object
+//
+// Example: list
+type RoleListType string
 
 // SalesAgent Data related to Sales Agent involvement in the conversation.
 type SalesAgent struct {
@@ -1144,6 +2209,39 @@ type SourceEmailMessageMetadata struct {
 	Subject *string `json:"subject,omitempty"`
 }
 
+// StandalonePlatformHandoff Contains the handoff Fin attempted to an external platform, for conversation part type <code>standalone_platform_handoff</code>.
+type StandalonePlatformHandoff struct {
+	// Handoff The handoff Fin attempted.
+	//
+	// Example: {"data":{"case_id":"500XX0000001","case_number":"00001234"},"success":true,"type":"salesforce_case"}
+	Handoff *struct {
+		// Data Details of the handoff. Always present. For a successful <code>salesforce_case</code> handoff it holds the created Case's <code>case_id</code> and <code>case_number</code>; otherwise it is an empty object.
+		//
+		// Example: {"case_id":"500XX0000001","case_number":"00001234"}
+		Data *struct {
+			// CaseId The ID of the Salesforce Case created by the handoff.
+			//
+			// Example: 500XX0000001
+			CaseId *string `json:"case_id,omitempty"`
+
+			// CaseNumber The number of the Salesforce Case created by the handoff.
+			//
+			// Example: 00001234
+			CaseNumber *string `json:"case_number,omitempty"`
+		} `json:"data,omitempty"`
+
+		// Success <code>true</code> when the handoff completed and <code>false</code> when it failed. <code>null</code> means no outcome was recorded on this part, for example a Salesforce in-app messaging handoff that was only initiated.
+		//
+		// Example: true
+		Success *bool `json:"success,omitempty"`
+
+		// Type The handoff type. One of <code>zendesk_ticket</code>, <code>zendesk_agent</code>, <code>salesforce_case</code>, <code>salesforce_in_app_messaging</code>, <code>salesforce_team</code>, <code>external_agent</code> or <code>external_ticket</code>. Older parts can also return <code>salesforce_chat</code>.
+		//
+		// Example: salesforce_case
+		Type *string `json:"type,omitempty"`
+	} `json:"handoff,omitempty"`
+}
+
 // StartingAfterPaging defines model for starting_after_paging.
 type StartingAfterPaging struct {
 	// PerPage The number of results to fetch per page.
@@ -1433,6 +2531,48 @@ type Team struct {
 	//
 	// Example: team
 	Type *string `json:"type,omitempty"`
+}
+
+// TeamHandlingSegment A period one teammate actively handled the conversation, attributed to the team assigned to it at the time. Teammate identity is not included.
+type TeamHandlingSegment struct {
+	// EndReason Why the period ended (switch, assignment, reassign, snooze, close, away, auto_away, session_drop, team_change). Null while the period is still open.
+	//
+	// Example: assignment
+	EndReason *string `json:"end_reason,omitempty"`
+
+	// EndedAt Null while the period is still open
+	//
+	// Example: 2026-09-28T10:20:00Z
+	EndedAt *time.Time `json:"ended_at"`
+
+	// StartReason team_change when the team changed while the teammate kept handling without a break, otherwise null
+	//
+	// Example: team_change
+	StartReason *string `json:"start_reason,omitempty"`
+
+	// StartedAt Example: 2026-09-28T10:10:00Z
+	StartedAt time.Time `json:"started_at"`
+
+	// Team The team assigned when the period ran, or null if no team was assigned
+	Team *struct {
+		// Id Example: 814865
+		Id string `json:"id"`
+
+		// Name Example: Billing
+		Name string `json:"name"`
+
+		// Type Example: team
+		Type TeamHandlingSegmentTeamType `json:"type"`
+	} `json:"team"`
+}
+
+// TeamHandlingSegmentTeamType Example: team
+type TeamHandlingSegmentTeamType string
+
+// TeamHandlingSegmentList defines model for team_handling_segment_list.
+type TeamHandlingSegmentList struct {
+	// TeamHandlingSegments Example: [{"end_reason":"assignment","ended_at":"2026-09-28T10:20:00Z","start_reason":null,"started_at":"2026-09-28T10:10:00Z","team":{"id":"814865","name":"Billing","type":"team"}}]
+	TeamHandlingSegments *[]TeamHandlingSegment `json:"team_handling_segments,omitempty"`
 }
 
 // TeamList This will return a list of team objects for the App.
@@ -2426,7 +3566,7 @@ type UpdateArticleRequest struct {
 	// Example: 1295
 	AuthorId *int `json:"author_id,omitempty"`
 
-	// Body The content of the article in HTML. For multilingual articles, this will be the body of the default language's content. Mutually exclusive with `body_markdown`.
+	// Body The content of the article in HTML. For multilingual articles, this will be the body of the default language's content. Mutually exclusive with `body_markdown`. Empty `<p>` tags are kept as blank paragraphs instead of being dropped.
 	//
 	// Example: <p>This is the body in html</p>
 	Body *string `json:"body,omitempty"`
@@ -2503,6 +3643,29 @@ type UpdateAudienceRequest struct {
 	//
 	// Example: [{"attribute":"role","comparison":"in","type":"role","value":["user_role","contact_role","visitor_role"]}]
 	RolePredicates *[]Predicate `json:"role_predicates,omitempty"`
+}
+
+// UpdateAuthTokenRequest The fields accepted when updating a stored third-party credential. Every field is optional, and one you omit keeps its current value. The credential value cannot be changed here.
+type UpdateAuthTokenRequest struct {
+	// Description An optional description of what the credential is used for.
+	//
+	// Example: Used by the order status connector
+	Description *string `json:"description,omitempty"`
+
+	// Name A name for the credential, so a teammate can identify it later.
+	//
+	// Example: Fulfilment API key
+	Name *string `json:"name,omitempty"`
+
+	// RequestHeaderKey The request header the credential is sent in.
+	//
+	// Example: Authorization
+	RequestHeaderKey *string `json:"request_header_key,omitempty"`
+
+	// TokenPrefix An optional prefix placed before the credential value in the header, for example `Bearer`.
+	//
+	// Example: Bearer
+	TokenPrefix *string `json:"token_prefix,omitempty"`
 }
 
 // UpdateCollectionRequest You can update a collection
@@ -4298,6 +5461,31 @@ type UpdateAudienceParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
+// ListAuthTokensParams defines parameters for ListAuthTokens.
+type ListAuthTokensParams struct {
+	// PerPage The number of results to return per page. Defaults to 20, minimum 1, maximum 50.
+	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+
+	// StartingAfter The cursor value from `pages.next.starting_after` in a previous response. Used to paginate through results.
+	StartingAfter   *string          `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// CreateAuthTokenParams defines parameters for CreateAuthToken.
+type CreateAuthTokenParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// RetrieveAuthTokenParams defines parameters for RetrieveAuthToken.
+type RetrieveAuthTokenParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// UpdateAuthTokenParams defines parameters for UpdateAuthToken.
+type UpdateAuthTokenParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
 // ListAwayStatusReasonsParams defines parameters for ListAwayStatusReasons.
 type ListAwayStatusReasonsParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
@@ -4657,6 +5845,32 @@ type AttachContactToACompanyParams struct {
 
 // DetachContactFromACompanyParams defines parameters for DetachContactFromACompany.
 type DetachContactFromACompanyParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// ListGrantedCompaniesForAContactParams defines parameters for ListGrantedCompaniesForAContact.
+type ListGrantedCompaniesForAContactParams struct {
+	// Page The page number to retrieve, starting at 1.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of company ids to return per page. Values above 150 are reduced to 150.
+	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+
+	// Order The direction to sort the company ids in. Any other value is treated as `desc`.
+	Order           *ListGrantedCompaniesForAContactParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+	IntercomVersion *IntercomVersion                            `json:"Intercom-Version,omitempty"`
+}
+
+// ListGrantedCompaniesForAContactParamsOrder defines parameters for ListGrantedCompaniesForAContact.
+type ListGrantedCompaniesForAContactParamsOrder string
+
+// ReplaceGrantedCompaniesForAContactParams defines parameters for ReplaceGrantedCompaniesForAContact.
+type ReplaceGrantedCompaniesForAContactParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// RemoveGrantedCompanyFromAContactParams defines parameters for RemoveGrantedCompanyFromAContact.
+type RemoveGrantedCompanyFromAContactParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -5041,7 +6255,7 @@ type DeleteConversationParams struct {
 
 // RetrieveConversationParams defines parameters for RetrieveConversation.
 type RetrieveConversationParams struct {
-	// DisplayAs Set to plaintext to retrieve conversation messages in plain text. This affects both the body and subject fields. Inline links are rendered as `label (url)`, preserving the link URL alongside the visible text.
+	// DisplayAs Set to plaintext to retrieve conversation messages in plain text. This affects both the body and subject fields. Inline links are rendered as `label (url)`, preserving the link URL alongside the visible text. Line breaks inside a paragraph are rendered as newlines.
 	DisplayAs *string `form:"display_as,omitempty" json:"display_as,omitempty"`
 
 	// IncludeTranslations If set to true, conversation parts will be translated to the detected language of the conversation.
@@ -5060,13 +6274,25 @@ type RetrieveConversationParams struct {
 	IncludeMonitors *bool `form:"include_monitors,omitempty" json:"include_monitors,omitempty"`
 
 	// IncludeScorecards If set to true, the response will include a `scorecards` array with any QA scorecard results for this conversation.
-	IncludeScorecards *bool            `form:"include_scorecards,omitempty" json:"include_scorecards,omitempty"`
-	IntercomVersion   *IntercomVersion `json:"Intercom-Version,omitempty"`
+	IncludeScorecards *bool `form:"include_scorecards,omitempty" json:"include_scorecards,omitempty"`
+
+	// IncludePartTypes A comma-separated list of conversation part types to return, such as `assignment`, `note` or `snoozed`. Cannot be combined with `exclude_part_types`.
+	IncludePartTypes *[]string `form:"include_part_types,omitempty" json:"include_part_types,omitempty"`
+
+	// ExcludePartTypes A comma-separated list of conversation part types to leave out, such as `assignment`, `note` or `snoozed`. Cannot be combined with `include_part_types`.
+	ExcludePartTypes *[]string `form:"exclude_part_types,omitempty" json:"exclude_part_types,omitempty"`
+
+	// Page The page of conversation parts to return. When sent, parts are paginated oldest first, so page 1 holds the oldest parts. A page past the end returns an empty list.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage The number of conversation parts per page, between 1 and 500. Only used when `page` is sent.
+	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
 // UpdateConversationParams defines parameters for UpdateConversation.
 type UpdateConversationParams struct {
-	// DisplayAs Set to plaintext to retrieve conversation messages in plain text. This affects both the body and subject fields. Inline links are rendered as `label (url)`, preserving the link URL alongside the visible text.
+	// DisplayAs Set to plaintext to retrieve conversation messages in plain text. This affects both the body and subject fields. Inline links are rendered as `label (url)`, preserving the link URL alongside the visible text. Line breaks inside a paragraph are rendered as newlines.
 	DisplayAs       *string          `form:"display_as,omitempty" json:"display_as,omitempty"`
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
@@ -5149,6 +6375,11 @@ type ListSideConversationsParams struct {
 
 	// PerPage The number of side conversations to return per page (max 50).
 	PerPage         *int             `form:"per_page,omitempty" json:"per_page,omitempty"`
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// ListTeamHandlingSegmentsParams defines parameters for ListTeamHandlingSegments.
+type ListTeamHandlingSegmentsParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -5362,6 +6593,56 @@ type GetDynamicContentParams struct {
 
 // UpdateDynamicContentParams defines parameters for UpdateDynamicContent.
 type UpdateDynamicContentParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// UploadEcommerceCatalogMultipartBody defines parameters for UploadEcommerceCatalog.
+type UploadEcommerceCatalogMultipartBody struct {
+	// Catalog The catalog JSON file. Required for all requests except finalization
+	// (`finalize=true`). Must be a valid JSON array of product objects. Max 99 MB.
+	//
+	// Each element in the array must conform to the
+	// [`ecommerce_catalog_product`](/docs/references/rest-api/api.intercom.io/models/ecommerce_catalog_product) schema.
+	// The `id`, `title`, and `url` fields are required on every product;
+	// all other fields are optional. Variants, if provided, must conform to the
+	// [`ecommerce_catalog_variant`](/docs/references/rest-api/api.intercom.io/models/ecommerce_catalog_variant) schema.
+	Catalog *openapi_types.File `json:"catalog,omitempty"`
+
+	// Finalize Set to `true` to finalize a multipart upload session and start the catalog sync.
+	// No catalog file is required when finalizing. Set to `false` to upload a part in
+	// a multipart session. Omit entirely for a single-file upload.
+	//
+	//
+	// Example: false
+	Finalize *UploadEcommerceCatalogMultipartBodyFinalize `json:"finalize,omitempty"`
+
+	// ImportJobId The import job ID returned from the first multipart upload request. Required
+	// when uploading subsequent parts (`part_number` ≥ 2) and when finalizing
+	// a multipart session (`finalize=true`).
+	//
+	//
+	// Example: 1000000471233
+	ImportJobId *int64 `json:"import_job_id,omitempty"`
+
+	// PartNumber The sequential part number for a multipart upload. Must be a positive integer.
+	// The server returns `next_part_number` in each response to guide the next request.
+	// Retrying the same `part_number` is safe and idempotent.
+	//
+	//
+	// Example: 2
+	PartNumber *int `json:"part_number,omitempty"`
+}
+
+// UploadEcommerceCatalogParams defines parameters for UploadEcommerceCatalog.
+type UploadEcommerceCatalogParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// UploadEcommerceCatalogMultipartBodyFinalize defines parameters for UploadEcommerceCatalog.
+type UploadEcommerceCatalogMultipartBodyFinalize string
+
+// SubmitEcommerceProductEventParams defines parameters for SubmitEcommerceProductEvent.
+type SubmitEcommerceProductEventParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
@@ -6171,6 +7452,16 @@ type CreatePhoneSwitchParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
+// ListRolesParams defines parameters for ListRoles.
+type ListRolesParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
+// RetrieveRoleParams defines parameters for RetrieveRole.
+type RetrieveRoleParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
 // ListSegmentsParams defines parameters for ListSegments.
 type ListSegmentsParams struct {
 	// IncludeCount Includes the count of contacts that belong to each segment. The counts are added whenever this parameter has a value in the query string, even `false` or an empty one, so omit it entirely to leave them out. A bare `include_count` with no `=` adds no counts. With `type=company`, a company segment gets no count unless a contact segment has the same name, and then it shows that contact segment's count.
@@ -6664,6 +7955,12 @@ type CreateAudienceJSONRequestBody = CreateAudienceRequest
 // UpdateAudienceJSONRequestBody defines body for UpdateAudience for application/json ContentType.
 type UpdateAudienceJSONRequestBody = UpdateAudienceRequest
 
+// CreateAuthTokenJSONRequestBody defines body for CreateAuthToken for application/json ContentType.
+type CreateAuthTokenJSONRequestBody = CreateAuthTokenRequest
+
+// UpdateAuthTokenJSONRequestBody defines body for UpdateAuthToken for application/json ContentType.
+type UpdateAuthTokenJSONRequestBody = UpdateAuthTokenRequest
+
 // ListCallsWithTranscriptsJSONRequestBody defines body for ListCallsWithTranscripts for application/json ContentType.
 type ListCallsWithTranscriptsJSONRequestBody ListCallsWithTranscriptsJSONBody
 
@@ -6705,6 +8002,9 @@ type UpdateContactJSONRequestBody = UpdateContactRequest
 
 // AttachContactToACompanyJSONRequestBody defines body for AttachContactToACompany for application/json ContentType.
 type AttachContactToACompanyJSONRequestBody AttachContactToACompanyJSONBody
+
+// ReplaceGrantedCompaniesForAContactJSONRequestBody defines body for ReplaceGrantedCompaniesForAContact for application/json ContentType.
+type ReplaceGrantedCompaniesForAContactJSONRequestBody = ReplaceGrantedCompaniesRequest
 
 // CreateNoteJSONRequestBody defines body for CreateNote for application/json ContentType.
 type CreateNoteJSONRequestBody CreateNoteJSONBody
@@ -6801,6 +8101,12 @@ type CreateDynamicContentJSONRequestBody = DynamicContentCreateRequest
 
 // UpdateDynamicContentJSONRequestBody defines body for UpdateDynamicContent for application/json ContentType.
 type UpdateDynamicContentJSONRequestBody = DynamicContentUpdateRequest
+
+// UploadEcommerceCatalogMultipartRequestBody defines body for UploadEcommerceCatalog for multipart/form-data ContentType.
+type UploadEcommerceCatalogMultipartRequestBody UploadEcommerceCatalogMultipartBody
+
+// SubmitEcommerceProductEventJSONRequestBody defines body for SubmitEcommerceProductEvent for application/json ContentType.
+type SubmitEcommerceProductEventJSONRequestBody = EcommerceProductEventRequest
 
 // CreateDataEventJSONRequestBody defines body for CreateDataEvent for application/json ContentType.
 type CreateDataEventJSONRequestBody = CreateDataEventRequest
@@ -12054,22 +13360,22 @@ func (t *Datetime) UnmarshalJSON(b []byte) error {
 	return err
 }
 
-// AsErrorErrorsCode0 returns the union data inside the Error_Errors_Code as a ErrorErrorsCode0
-func (t Error_Errors_Code) AsErrorErrorsCode0() (ErrorErrorsCode0, error) {
-	var body ErrorErrorsCode0
+// AsEcommerceCatalogProductCategoryPath0 returns the union data inside the EcommerceCatalogProduct_CategoryPath as a EcommerceCatalogProductCategoryPath0
+func (t EcommerceCatalogProduct_CategoryPath) AsEcommerceCatalogProductCategoryPath0() (EcommerceCatalogProductCategoryPath0, error) {
+	var body EcommerceCatalogProductCategoryPath0
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromErrorErrorsCode0 overwrites any union data inside the Error_Errors_Code as the provided ErrorErrorsCode0
-func (t *Error_Errors_Code) FromErrorErrorsCode0(v ErrorErrorsCode0) error {
+// FromEcommerceCatalogProductCategoryPath0 overwrites any union data inside the EcommerceCatalogProduct_CategoryPath as the provided EcommerceCatalogProductCategoryPath0
+func (t *EcommerceCatalogProduct_CategoryPath) FromEcommerceCatalogProductCategoryPath0(v EcommerceCatalogProductCategoryPath0) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeErrorErrorsCode0 performs a merge with any union data inside the Error_Errors_Code, using the provided ErrorErrorsCode0
-func (t *Error_Errors_Code) MergeErrorErrorsCode0(v ErrorErrorsCode0) error {
+// MergeEcommerceCatalogProductCategoryPath0 performs a merge with any union data inside the EcommerceCatalogProduct_CategoryPath, using the provided EcommerceCatalogProductCategoryPath0
+func (t *EcommerceCatalogProduct_CategoryPath) MergeEcommerceCatalogProductCategoryPath0(v EcommerceCatalogProductCategoryPath0) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -12080,22 +13386,22 @@ func (t *Error_Errors_Code) MergeErrorErrorsCode0(v ErrorErrorsCode0) error {
 	return err
 }
 
-// AsErrorErrorsCode1 returns the union data inside the Error_Errors_Code as a ErrorErrorsCode1
-func (t Error_Errors_Code) AsErrorErrorsCode1() (ErrorErrorsCode1, error) {
-	var body ErrorErrorsCode1
+// AsEcommerceCatalogProductCategoryPath1 returns the union data inside the EcommerceCatalogProduct_CategoryPath as a EcommerceCatalogProductCategoryPath1
+func (t EcommerceCatalogProduct_CategoryPath) AsEcommerceCatalogProductCategoryPath1() (EcommerceCatalogProductCategoryPath1, error) {
+	var body EcommerceCatalogProductCategoryPath1
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromErrorErrorsCode1 overwrites any union data inside the Error_Errors_Code as the provided ErrorErrorsCode1
-func (t *Error_Errors_Code) FromErrorErrorsCode1(v ErrorErrorsCode1) error {
+// FromEcommerceCatalogProductCategoryPath1 overwrites any union data inside the EcommerceCatalogProduct_CategoryPath as the provided EcommerceCatalogProductCategoryPath1
+func (t *EcommerceCatalogProduct_CategoryPath) FromEcommerceCatalogProductCategoryPath1(v EcommerceCatalogProductCategoryPath1) error {
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeErrorErrorsCode1 performs a merge with any union data inside the Error_Errors_Code, using the provided ErrorErrorsCode1
-func (t *Error_Errors_Code) MergeErrorErrorsCode1(v ErrorErrorsCode1) error {
+// MergeEcommerceCatalogProductCategoryPath1 performs a merge with any union data inside the EcommerceCatalogProduct_CategoryPath, using the provided EcommerceCatalogProductCategoryPath1
+func (t *EcommerceCatalogProduct_CategoryPath) MergeEcommerceCatalogProductCategoryPath1(v EcommerceCatalogProductCategoryPath1) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -12106,12 +13412,198 @@ func (t *Error_Errors_Code) MergeErrorErrorsCode1(v ErrorErrorsCode1) error {
 	return err
 }
 
-func (t Error_Errors_Code) MarshalJSON() ([]byte, error) {
+func (t EcommerceCatalogProduct_CategoryPath) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	return b, err
 }
 
-func (t *Error_Errors_Code) UnmarshalJSON(b []byte) error {
+func (t *EcommerceCatalogProduct_CategoryPath) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsEcommerceCatalogProductCollections0 returns the union data inside the EcommerceCatalogProduct_Collections_Item as a EcommerceCatalogProductCollections0
+func (t EcommerceCatalogProduct_Collections_Item) AsEcommerceCatalogProductCollections0() (EcommerceCatalogProductCollections0, error) {
+	var body EcommerceCatalogProductCollections0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEcommerceCatalogProductCollections0 overwrites any union data inside the EcommerceCatalogProduct_Collections_Item as the provided EcommerceCatalogProductCollections0
+func (t *EcommerceCatalogProduct_Collections_Item) FromEcommerceCatalogProductCollections0(v EcommerceCatalogProductCollections0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEcommerceCatalogProductCollections0 performs a merge with any union data inside the EcommerceCatalogProduct_Collections_Item, using the provided EcommerceCatalogProductCollections0
+func (t *EcommerceCatalogProduct_Collections_Item) MergeEcommerceCatalogProductCollections0(v EcommerceCatalogProductCollections0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEcommerceCatalogProductCollections1 returns the union data inside the EcommerceCatalogProduct_Collections_Item as a EcommerceCatalogProductCollections1
+func (t EcommerceCatalogProduct_Collections_Item) AsEcommerceCatalogProductCollections1() (EcommerceCatalogProductCollections1, error) {
+	var body EcommerceCatalogProductCollections1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEcommerceCatalogProductCollections1 overwrites any union data inside the EcommerceCatalogProduct_Collections_Item as the provided EcommerceCatalogProductCollections1
+func (t *EcommerceCatalogProduct_Collections_Item) FromEcommerceCatalogProductCollections1(v EcommerceCatalogProductCollections1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEcommerceCatalogProductCollections1 performs a merge with any union data inside the EcommerceCatalogProduct_Collections_Item, using the provided EcommerceCatalogProductCollections1
+func (t *EcommerceCatalogProduct_Collections_Item) MergeEcommerceCatalogProductCollections1(v EcommerceCatalogProductCollections1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EcommerceCatalogProduct_Collections_Item) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *EcommerceCatalogProduct_Collections_Item) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsEcommerceProductEventProductCategoryPath0 returns the union data inside the EcommerceProductEventProduct_CategoryPath as a EcommerceProductEventProductCategoryPath0
+func (t EcommerceProductEventProduct_CategoryPath) AsEcommerceProductEventProductCategoryPath0() (EcommerceProductEventProductCategoryPath0, error) {
+	var body EcommerceProductEventProductCategoryPath0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEcommerceProductEventProductCategoryPath0 overwrites any union data inside the EcommerceProductEventProduct_CategoryPath as the provided EcommerceProductEventProductCategoryPath0
+func (t *EcommerceProductEventProduct_CategoryPath) FromEcommerceProductEventProductCategoryPath0(v EcommerceProductEventProductCategoryPath0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEcommerceProductEventProductCategoryPath0 performs a merge with any union data inside the EcommerceProductEventProduct_CategoryPath, using the provided EcommerceProductEventProductCategoryPath0
+func (t *EcommerceProductEventProduct_CategoryPath) MergeEcommerceProductEventProductCategoryPath0(v EcommerceProductEventProductCategoryPath0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEcommerceProductEventProductCategoryPath1 returns the union data inside the EcommerceProductEventProduct_CategoryPath as a EcommerceProductEventProductCategoryPath1
+func (t EcommerceProductEventProduct_CategoryPath) AsEcommerceProductEventProductCategoryPath1() (EcommerceProductEventProductCategoryPath1, error) {
+	var body EcommerceProductEventProductCategoryPath1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEcommerceProductEventProductCategoryPath1 overwrites any union data inside the EcommerceProductEventProduct_CategoryPath as the provided EcommerceProductEventProductCategoryPath1
+func (t *EcommerceProductEventProduct_CategoryPath) FromEcommerceProductEventProductCategoryPath1(v EcommerceProductEventProductCategoryPath1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEcommerceProductEventProductCategoryPath1 performs a merge with any union data inside the EcommerceProductEventProduct_CategoryPath, using the provided EcommerceProductEventProductCategoryPath1
+func (t *EcommerceProductEventProduct_CategoryPath) MergeEcommerceProductEventProductCategoryPath1(v EcommerceProductEventProductCategoryPath1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EcommerceProductEventProduct_CategoryPath) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *EcommerceProductEventProduct_CategoryPath) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsEcommerceProductEventProductCollections0 returns the union data inside the EcommerceProductEventProduct_Collections_Item as a EcommerceProductEventProductCollections0
+func (t EcommerceProductEventProduct_Collections_Item) AsEcommerceProductEventProductCollections0() (EcommerceProductEventProductCollections0, error) {
+	var body EcommerceProductEventProductCollections0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEcommerceProductEventProductCollections0 overwrites any union data inside the EcommerceProductEventProduct_Collections_Item as the provided EcommerceProductEventProductCollections0
+func (t *EcommerceProductEventProduct_Collections_Item) FromEcommerceProductEventProductCollections0(v EcommerceProductEventProductCollections0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEcommerceProductEventProductCollections0 performs a merge with any union data inside the EcommerceProductEventProduct_Collections_Item, using the provided EcommerceProductEventProductCollections0
+func (t *EcommerceProductEventProduct_Collections_Item) MergeEcommerceProductEventProductCollections0(v EcommerceProductEventProductCollections0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEcommerceProductEventProductCollections1 returns the union data inside the EcommerceProductEventProduct_Collections_Item as a EcommerceProductEventProductCollections1
+func (t EcommerceProductEventProduct_Collections_Item) AsEcommerceProductEventProductCollections1() (EcommerceProductEventProductCollections1, error) {
+	var body EcommerceProductEventProductCollections1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEcommerceProductEventProductCollections1 overwrites any union data inside the EcommerceProductEventProduct_Collections_Item as the provided EcommerceProductEventProductCollections1
+func (t *EcommerceProductEventProduct_Collections_Item) FromEcommerceProductEventProductCollections1(v EcommerceProductEventProductCollections1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEcommerceProductEventProductCollections1 performs a merge with any union data inside the EcommerceProductEventProduct_Collections_Item, using the provided EcommerceProductEventProductCollections1
+func (t *EcommerceProductEventProduct_Collections_Item) MergeEcommerceProductEventProductCollections1(v EcommerceProductEventProductCollections1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EcommerceProductEventProduct_Collections_Item) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *EcommerceProductEventProduct_Collections_Item) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -12314,6 +13806,32 @@ func (t *EventDetails) FromAiAgentEventOtpEmailVerificationFailed(v AiAgentEvent
 
 // MergeAiAgentEventOtpEmailVerificationFailed performs a merge with any union data inside the EventDetails, using the provided AiAgentEventOtpEmailVerificationFailed
 func (t *EventDetails) MergeAiAgentEventOtpEmailVerificationFailed(v AiAgentEventOtpEmailVerificationFailed) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsStandalonePlatformHandoff returns the union data inside the EventDetails as a StandalonePlatformHandoff
+func (t EventDetails) AsStandalonePlatformHandoff() (StandalonePlatformHandoff, error) {
+	var body StandalonePlatformHandoff
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromStandalonePlatformHandoff overwrites any union data inside the EventDetails as the provided StandalonePlatformHandoff
+func (t *EventDetails) FromStandalonePlatformHandoff(v StandalonePlatformHandoff) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeStandalonePlatformHandoff performs a merge with any union data inside the EventDetails, using the provided StandalonePlatformHandoff
+func (t *EventDetails) MergeStandalonePlatformHandoff(v StandalonePlatformHandoff) error {
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -15577,6 +17095,56 @@ type ClientInterface interface {
 	// Corresponds with PUT /audiences/{id} (the `UpdateAudience` operationId).
 	UpdateAudience(ctx context.Context, id string, params *UpdateAudienceParams, body UpdateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListAuthTokens List all auth tokens
+	//
+	// Returns a paginated list of the workspace's stored third-party credentials. Use this to discover the id of a credential you want a data connector to authenticate with — that id is not otherwise available over REST. Only metadata is returned; credential values are never exposed. The list is not exhaustive: credentials a teammate created are listed, as are those created by some Intercom integrations, but credentials installed by an app package, those created by most other integrations, and those minted for an individual teammate's MCP access are not.
+	//
+	// Corresponds with GET /auth_tokens (the `ListAuthTokens` operationId).
+	ListAuthTokens(ctx context.Context, params *ListAuthTokensParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAuthTokenWithBody Create an auth token
+	//
+	// Stores a third-party credential in your workspace so a data connector can authenticate outbound requests with it. Set `token_type` to `text` (the default) to send the credential value as a request header yourself, or to `oauth` to have Intercom exchange OAuth client credentials for an access token and keep it refreshed. The value you supply is stored encrypted and is never returned by any endpoint, including this one.
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with POST /auth_tokens (the `CreateAuthToken` operationId).
+	CreateAuthTokenWithBody(ctx context.Context, params *CreateAuthTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAuthToken Create an auth token
+	//
+	// Stores a third-party credential in your workspace so a data connector can authenticate outbound requests with it. Set `token_type` to `text` (the default) to send the credential value as a request header yourself, or to `oauth` to have Intercom exchange OAuth client credentials for an access token and keep it refreshed. The value you supply is stored encrypted and is never returned by any endpoint, including this one.
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with POST /auth_tokens (the `CreateAuthToken` operationId).
+	CreateAuthToken(ctx context.Context, params *CreateAuthTokenParams, body CreateAuthTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RetrieveAuthToken Retrieve an auth token
+	//
+	// Returns the metadata for a single stored third-party credential. A credential that the list endpoint does not return is also not retrievable here, and responds with 404.
+	//
+	// Corresponds with GET /auth_tokens/{id} (the `RetrieveAuthToken` operationId).
+	RetrieveAuthToken(ctx context.Context, id string, params *RetrieveAuthTokenParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateAuthTokenWithBody Update an auth token
+	//
+	// Updates the metadata of a stored third-party credential. A field you omit keeps its current value. The credential value itself cannot be changed here and is never returned. The `domain` is read-only, and `request_header_key` cannot be changed on a credential that has a domain. Only credentials with a `token_type` of `text` can be updated; any other type responds with `400`. A credential the list endpoint does not return is also not updatable, and responds with `404`.
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with PATCH /auth_tokens/{id} (the `UpdateAuthToken` operationId).
+	UpdateAuthTokenWithBody(ctx context.Context, id string, params *UpdateAuthTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateAuthToken Update an auth token
+	//
+	// Updates the metadata of a stored third-party credential. A field you omit keeps its current value. The credential value itself cannot be changed here and is never returned. The `domain` is read-only, and `request_header_key` cannot be changed on a credential that has a domain. Only credentials with a `token_type` of `text` can be updated; any other type responds with `400`. A credential the list endpoint does not return is also not updatable, and responds with `404`.
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with PATCH /auth_tokens/{id} (the `UpdateAuthToken` operationId).
+	UpdateAuthToken(ctx context.Context, id string, params *UpdateAuthTokenParams, body UpdateAuthTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListAwayStatusReasons List all away status reasons
 	//
 	// Returns a list of all away status reasons configured for the workspace, including deleted ones.
@@ -15656,7 +17224,7 @@ type ClientInterface interface {
 
 	// ShowCallTranscript Get call transcript by call id
 	//
-	// Returns the transcript for the specified call as a JSON array of turns.
+	// Returns the transcript for the specified call as a JSON array of turns. Each turn carries a `speaker_name` when the speaker could be resolved. Clients should fall back to `speaker_label` when `speaker_name` is absent.
 	//
 	// Requires the `read_conversations` OAuth scope.
 	//
@@ -16259,9 +17827,15 @@ type ClientInterface interface {
 	// Corresponds with GET /contacts/find_by_external_id/{external_id} (the `ShowContactByExternalId` operationId).
 	ShowContactByExternalId(ctx context.Context, externalId string, params *ShowContactByExternalIdParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// MergeContactWithBody Merge a lead and a user
+	// MergeContactWithBody Merge two contacts
 	//
-	// You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
+	// You can merge one contact into another. Both lead-into-user and user-into-user merges are supported: the source contact (`from`) may have a `role` of `lead` or `user`, and the destination contact (`into`) must have a `role` of `user`.
+	//
+	// {% admonition type="warning" name="User-to-user merges" %}
+	//   When you merge a user into another user, the source user's attribute values (standard and custom) are discarded and are not moved onto the target user. The target user keeps its own attribute values. Records associated with the source, such as conversations, notes, and tags, are still reassigned to the target.
+	//
+	//   Merging a user into another user requires the `merge_users` OAuth scope on your access token, in addition to the scope required for lead-into-user merges. Tokens without this scope receive a `401 Unauthorized` when the source contact is a user.
+	// {% /admonition %}
 	//
 	// {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
 	//   Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
@@ -16279,9 +17853,15 @@ type ClientInterface interface {
 	// Corresponds with POST /contacts/merge (the `MergeContact` operationId).
 	MergeContactWithBody(ctx context.Context, params *MergeContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// MergeContact Merge a lead and a user
+	// MergeContact Merge two contacts
 	//
-	// You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
+	// You can merge one contact into another. Both lead-into-user and user-into-user merges are supported: the source contact (`from`) may have a `role` of `lead` or `user`, and the destination contact (`into`) must have a `role` of `user`.
+	//
+	// {% admonition type="warning" name="User-to-user merges" %}
+	//   When you merge a user into another user, the source user's attribute values (standard and custom) are discarded and are not moved onto the target user. The target user keeps its own attribute values. Records associated with the source, such as conversations, notes, and tags, are still reassigned to the target.
+	//
+	//   Merging a user into another user requires the `merge_users` OAuth scope on your access token, in addition to the scope required for lead-into-user merges. Tokens without this scope receive a `401 Unauthorized` when the source contact is a user.
+	// {% /admonition %}
 	//
 	// {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
 	//   Once a merge is completed, the source contact (`from`) is permanently removed from the active contact list. This means:
@@ -16303,7 +17883,7 @@ type ClientInterface interface {
 	//
 	// Preview the result of merging one contact into another without applying the merge. This is a read-only dry run: it reports whether the merge is allowed and, if so, exactly what would change, **without modifying any data**.
 	//
-	// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
+	// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). As with the merge endpoint, `from` may have a `role` of `lead` or `user`, and `into` must have a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
 	//
 	// - When `allowed` is `true`, the response contains a `summary`: every attribute change (with the resulting value on the surviving contact) and, for each object type, two counts — `from`, how many are on the source contact and would move to the destination, and `into`, how many the destination already has. Counts are reported for conversations, tickets, phone calls, notes, and tags. `conversations` counts non-ticket conversations only; tickets are reported separately under `tickets`, and `phone_calls` is present only for phone-channel merges.
 	// - When `allowed` is `false`, the response contains `reasons`. Each reason has a stable `code` you can branch on and a human-readable `message` you can display.
@@ -16322,9 +17902,11 @@ type ClientInterface interface {
 	// | `facebook_user` | Facebook contacts can't be merged. |
 	// | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
 	// | `mailing_list` | Contacts created from a mailing list can't be merged. |
+	// | `user_to_lead` | `into` is a lead or visitor. A user can only be merged into another user. |
 	// | `whatsapp_data_cannot_be_merged` | The WhatsApp number on the source contact can't be reassigned to the destination. |
 	// | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
 	// | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
+	// | `source_has_telegram_data` | The source contact has Telegram data, which user-into-user merges don't yet support moving. |
 	// | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
 	//
 	// Requires the `read_write_users` OAuth scope.
@@ -16338,7 +17920,7 @@ type ClientInterface interface {
 	//
 	// Preview the result of merging one contact into another without applying the merge. This is a read-only dry run: it reports whether the merge is allowed and, if so, exactly what would change, **without modifying any data**.
 	//
-	// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
+	// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). As with the merge endpoint, `from` may have a `role` of `lead` or `user`, and `into` must have a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
 	//
 	// - When `allowed` is `true`, the response contains a `summary`: every attribute change (with the resulting value on the surviving contact) and, for each object type, two counts — `from`, how many are on the source contact and would move to the destination, and `into`, how many the destination already has. Counts are reported for conversations, tickets, phone calls, notes, and tags. `conversations` counts non-ticket conversations only; tickets are reported separately under `tickets`, and `phone_calls` is present only for phone-channel merges.
 	// - When `allowed` is `false`, the response contains `reasons`. Each reason has a stable `code` you can branch on and a human-readable `message` you can display.
@@ -16357,9 +17939,11 @@ type ClientInterface interface {
 	// | `facebook_user` | Facebook contacts can't be merged. |
 	// | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
 	// | `mailing_list` | Contacts created from a mailing list can't be merged. |
+	// | `user_to_lead` | `into` is a lead or visitor. A user can only be merged into another user. |
 	// | `whatsapp_data_cannot_be_merged` | The WhatsApp number on the source contact can't be reassigned to the destination. |
 	// | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
 	// | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
+	// | `source_has_telegram_data` | The source contact has Telegram data, which user-into-user merges don't yet support moving. |
 	// | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
 	//
 	// Requires the `read_write_users` OAuth scope.
@@ -16759,6 +18343,80 @@ type ClientInterface interface {
 	//
 	// Corresponds with DELETE /contacts/{contact_id}/companies/{company_id} (the `DetachContactFromACompany` operationId).
 	DetachContactFromACompany(ctx context.Context, contactId string, companyId string, params *DetachContactFromACompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListGrantedCompaniesForAContact List granted companies for a contact
+	//
+	// List the companies a contact has been granted access to.
+	//
+	// A granted company lets the contact read that company's tickets in the customer portal. It is separate from company membership — granting a company does not attach the contact to it, and [`GET /contacts/{id}/companies`](/docs/references/rest-api/api.intercom.io/contacts/listcompaniesforacontact) does not include grants.
+	//
+	// `company_ids` holds the `company_id` values you set on your companies, so the list round-trips with the `company_ids` you send to `PUT /contacts/{contact_id}/granted_companies`. The list is sorted by company id and paginated.
+	//
+	// Returns an empty list when granted companies are not enabled for the workspace.
+	//
+	// Requires the `read_users_companies` OAuth scope.
+	//
+	// Corresponds with GET /contacts/{contact_id}/granted_companies (the `ListGrantedCompaniesForAContact` operationId).
+	ListGrantedCompaniesForAContact(ctx context.Context, contactId string, params *ListGrantedCompaniesForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ReplaceGrantedCompaniesForAContactWithBody Replace granted companies for a contact
+	//
+	// Replace the full set of companies a contact has been granted access to.
+	//
+	// This is a replacement, not an append. The `company_ids` you send become the contact's entire granted set — any company id you leave out is dropped. To add a company, send the existing ids plus the new one; to remove one, send the existing ids minus that one; to drop every grant, send an empty array.
+	//
+	// Identify companies by the `company_id` you set on them, the same values [`GET /contacts/{contact_id}/granted_companies`](/docs/references/rest-api/api.intercom.io/contacts/listgrantedcompaniesforacontact) returns. Duplicates in the request are collapsed. A contact can be granted at most 100 companies.
+	//
+	// The response echoes the stored set, so a `200` is confirmation of exactly what the contact can now read.
+	//
+	// {% admonition type="info" name="Requires granted companies to be enabled" %}
+	//   This endpoint returns `404` with the code `granted_companies_not_enabled` unless granted companies are enabled for the workspace. Contact Intercom Support to enable it.
+	// {% /admonition %}
+	//
+	// Requires the `write_users_companies` OAuth scope.
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with PUT /contacts/{contact_id}/granted_companies (the `ReplaceGrantedCompaniesForAContact` operationId).
+	ReplaceGrantedCompaniesForAContactWithBody(ctx context.Context, contactId string, params *ReplaceGrantedCompaniesForAContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ReplaceGrantedCompaniesForAContact Replace granted companies for a contact
+	//
+	// Replace the full set of companies a contact has been granted access to.
+	//
+	// This is a replacement, not an append. The `company_ids` you send become the contact's entire granted set — any company id you leave out is dropped. To add a company, send the existing ids plus the new one; to remove one, send the existing ids minus that one; to drop every grant, send an empty array.
+	//
+	// Identify companies by the `company_id` you set on them, the same values [`GET /contacts/{contact_id}/granted_companies`](/docs/references/rest-api/api.intercom.io/contacts/listgrantedcompaniesforacontact) returns. Duplicates in the request are collapsed. A contact can be granted at most 100 companies.
+	//
+	// The response echoes the stored set, so a `200` is confirmation of exactly what the contact can now read.
+	//
+	// {% admonition type="info" name="Requires granted companies to be enabled" %}
+	//   This endpoint returns `404` with the code `granted_companies_not_enabled` unless granted companies are enabled for the workspace. Contact Intercom Support to enable it.
+	// {% /admonition %}
+	//
+	// Requires the `write_users_companies` OAuth scope.
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with PUT /contacts/{contact_id}/granted_companies (the `ReplaceGrantedCompaniesForAContact` operationId).
+	ReplaceGrantedCompaniesForAContact(ctx context.Context, contactId string, params *ReplaceGrantedCompaniesForAContactParams, body ReplaceGrantedCompaniesForAContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RemoveGrantedCompanyFromAContact Remove a granted company from a contact
+	//
+	// Remove a single company from a contact's granted set, leaving the contact's other grants in place.
+	//
+	// Identify the company by the `company_id` you set on it, the same value [`GET /contacts/{contact_id}/granted_companies`](/docs/references/rest-api/api.intercom.io/contacts/listgrantedcompaniesforacontact) returns. A `company_id` containing a dot or a slash is supported — URL-encode a slash as `%2F`.
+	//
+	// This endpoint is not idempotent. Removing a company the contact is not currently granted returns `404` with the code `company_not_found`, so repeating a successful call returns `404` rather than `204`. Treat the first `204` as the confirmation.
+	//
+	// {% admonition type="info" name="Requires granted companies to be enabled" %}
+	//   This endpoint returns `404` with the code `granted_companies_not_enabled` unless granted companies are enabled for the workspace. Contact Intercom Support to enable it.
+	// {% /admonition %}
+	//
+	// Requires the `write_users_companies` OAuth scope.
+	//
+	// Corresponds with DELETE /contacts/{contact_id}/granted_companies/{company_id} (the `RemoveGrantedCompanyFromAContact` operationId).
+	RemoveGrantedCompanyFromAContact(ctx context.Context, contactId string, companyId string, params *RemoveGrantedCompanyFromAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListNotes List all notes
 	//
@@ -17611,8 +19269,8 @@ type ClientInterface interface {
 	//
 	// This will return a single Conversation model with all its conversation parts.
 	//
-	// {% admonition type="warning" name="Hard limit of 500 parts" %}
-	// The maximum number of conversation parts that can be returned via the API is 500. If you have more than that we will return the 500 most recent conversation parts.
+	// {% admonition type="info" name="Conversation parts limit" %}
+	// Without `page`, the response returns the 500 most recent conversation parts. If you need more than the 500 most recent parts, send `page` (and optionally `per_page`) to page through every part, oldest first, following `conversation_parts.pages.next`. Part type and `parts_created_after`/`parts_created_before` filters are applied first. `conversation_parts.total_count` counts the parts in this response after filtering, not the conversation's total part count.
 	// {% /admonition %}
 	//
 	// For AI agent conversation metadata, please note that you need to have the agent enabled in your workspace, which is a [paid feature](https://www.intercom.com/help/en/articles/8205718-fin-resolutions#h_97f8c2e671).
@@ -17922,6 +19580,19 @@ type ClientInterface interface {
 	//
 	// Corresponds with GET /conversations/{id}/side_conversations (the `ListSideConversations` operationId).
 	ListSideConversations(ctx context.Context, id string, params *ListSideConversationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListTeamHandlingSegments List team handling segments
+	//
+	// Shows the time teammates spent actively working on a conversation, and which team the conversation was assigned to while they did. Each period covers a single team assignment, and never continues across a team change. `team` is `null` for time when no team was assigned. The response doesn't say which teammate did the work.
+	//
+	// Moving a conversation to another team usually unassigns the teammate as well. Their period then ends with an `end_reason` of `assignment`, and the next period starts, with a `start_reason` of `null`, when a teammate picks the conversation up again. You'll only see `team_change` when the team changes and the same teammate keeps working without a break, for example when round robin assigns the conversation back to the teammate who already had it.
+	//
+	// Periods with no team assigned are returned with `team` set to `null`. `ended_at` is `null` while a period is still open.
+	//
+	// Requires the `read_conversations` OAuth scope, and the caller must be able to access the conversation.
+	//
+	// Corresponds with GET /conversations/{id}/team_handling_segments (the `ListTeamHandlingSegments` operationId).
+	ListTeamHandlingSegments(ctx context.Context, id string, params *ListTeamHandlingSegmentsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteCustomObjectInstancesByExternalId Delete a Custom Object Instance by External ID
 	//
@@ -18300,6 +19971,209 @@ type ClientInterface interface {
 	//
 	// Corresponds with PUT /dynamic_contents/{id} (the `UpdateDynamicContent` operationId).
 	UpdateDynamicContent(ctx context.Context, id string, params *UpdateDynamicContentParams, body UpdateDynamicContentJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UploadEcommerceCatalogWithBody Upload a product catalog
+	//
+	// Upload a product catalog to an ecommerce connector. The catalog must be a JSON
+	// array of product objects. There are two upload modes:
+	//
+	// **Single-file upload** — POST a single catalog file (up to 99 MB per request).
+	// Omit `finalize` and `import_job_id`. Returns `202 Accepted` when sync has started.
+	//
+	// **Multipart upload** — For catalogs that must be split across multiple requests:
+	//
+	// 1. POST the first part with `finalize=false` (no `import_job_id`). The response
+	//    returns an `import_job_id` and `next_part_number`.
+	// 2. POST each subsequent part with `finalize=false`, the `import_job_id` from step 1,
+	//    and the `part_number` from the previous response. Each part must be ≤ 99 MB.
+	// 3. POST with `finalize=true` and the `import_job_id` to complete the upload and
+	//    start the sync. No catalog file is required in the finalization request.
+	//
+	// Part uploads are idempotent — retrying the same `part_number` does not create
+	// a duplicate. If a response is lost, retry with the same `part_number`.
+	//
+	// ## Limits
+	//
+	// - **Request size:** each request, whether a single-file upload or one part of a multipart
+	//   upload, can carry a catalog file of up to 99 MB. A larger file is rejected with
+	//   `422 Unprocessable Content` and the `payload_too_large` error code.
+	// - **Part order:** parts must be uploaded in order, starting at `part_number` 1. A part that
+	//   is out of sequence is rejected with `422` and the `invalid_part_number` error code.
+	// - **Session expiry:** a multipart upload session expires 7 days after its first part is
+	//   uploaded. An expired session cannot be continued or finalized. Start a new upload instead.
+	// - **One upload at a time:** a connector accepts one catalog upload at a time. A new upload
+	//   while another is in progress is rejected with `409 Conflict`.
+	//
+	// ## Product object structure
+	//
+	// The catalog file must be a JSON array where each element is a product object.
+	// Only `id`, `title`, and `url` are required — all other fields are optional.
+	//
+	// | Field | Type | Required | Description |
+	// |---|---|---|---|
+	// | `id` | string | ✓ | Your unique product identifier. Used to match products on re-upload so only changed products are re-indexed. Also the delete key — any product ID absent from a new upload is removed from Fin's knowledge. Must be stable across uploads. |
+	// | `title` | string | ✓ | Product name. Used by Fin when searching for and recommending products. |
+	// | `url` | string | ✓ | Canonical product page URL shown in Fin's product recommendations. Must be a valid `https://` URL. |
+	// | `description` | string | | Product description that Fin reads to understand what the product is. HTML formatting is supported and safely sanitized (`description_html` takes precedence if both are provided). This is the primary field Fin uses to match products to shopper questions — a richer description leads to better recommendations. |
+	// | `featured_image_url` | string | | Primary product image shown in Fin's recommendation cards. Falls back to the first entry of `image_urls` if not provided. If no valid image can be resolved for a variant, that variant's card is not shown to the shopper. |
+	// | `image_urls` | string[] | | Additional product images. Used as a fallback when `featured_image_url` is absent or when a variant has no specific image. |
+	// | `price_min` | number | | Lowest price across all variants. If omitted, derived automatically from variant prices. Fin uses this to filter products when a shopper mentions a budget (e.g. "under $100"). Displayed as a range alongside `price_max`, or as a single value if both are equal. |
+	// | `price_max` | number | | Highest price across all variants. If omitted, derived from variant prices. Used alongside `price_min` for budget filtering and price display. |
+	// | `currency` | string | | ISO 4217 currency code (e.g. `"USD"`, `"EUR"`, `"GBP"`). Defaults to USD if omitted. Used to format prices with the correct symbol in Fin's responses and product cards. |
+	// | `in_stock` | boolean | | Whether the product is available to purchase. If omitted, derived from variant stock — the product is in stock if at least one variant has `in_stock: true`. Products with no in-stock variants are hidden from Fin entirely. |
+	// | `category_path` | string or string[] | Strongly recommended | Hierarchical category breadcrumb (e.g. `["Clothing", "Outerwear", "Jackets"]`). Fin understands the hierarchy — a shopper asking about "Clothing" sees products from all subcategories underneath it. The most specific category is shown in search results. |
+	// | `collections` | string[] | Strongly recommended | Collections or groupings this product belongs to in your store. Fin uses collections to understand your catalog's structure and answer questions like "what's in the sale collection?". |
+	// | `tags` | string[] | | Free-form keywords matching how shoppers phrase needs in chat (e.g. `["waterproof", "gift", "plus-size"]`). Complements `category_path` and `collections`. |
+	// | `available_options` | object[] | | Option types and their possible values (e.g. `{"name": "Size", "values": ["S", "M", "L"]}`). Fin uses these to understand what choices a shopper can make and to correctly filter variants when asked for a specific size, colour, or other attribute. |
+	// | `additional_data` | object | | Custom attributes for your business. Fin uses these to show each customer only relevant products. All keys must be consistent across all products in your catalog — the attribute schema is read from the first product in the file. |
+	// | `variants` | object[] | | Individual purchasable variants. Fin recommends specific variants (not just products), so populating variants with accurate stock, price, and option data leads to more precise recommendations. See the variant table below. |
+	//
+	// ### Variant object structure
+	//
+	// Each object in the `variants` array may contain:
+	//
+	// | Field | Type | Required | Description |
+	// |---|---|---|---|
+	// | `id` | string | ✓ | Unique identifier for this variant within the product. |
+	// | `title` | string | | Variant display name shown to shoppers (e.g. `"Small / Blue"`). |
+	// | `price` | number | | Price of this specific variant. Fin uses variant prices for precise budget filtering and displays the variant price in recommendation cards. |
+	// | `compare_at_price` | number | | Original price before a discount. When provided, Fin will naturally mention the saving (e.g. "down from $129 to $99"). |
+	// | `in_stock` | boolean | | Whether this variant is currently available. Out-of-stock variants are not shown in Fin's recommendation cards and Fin will not suggest them to shoppers. |
+	// | `image_url` | string | | Image specific to this variant. Takes precedence over the product's `featured_image_url`. Falls back to `featured_image_url`, then `image_urls`. If no valid image can be resolved, this variant's recommendation card will not be shown. |
+	// | `selected_options` | object[] | | The specific option values that define this variant (e.g. `[{"name": "Size", "value": "Small"}, {"name": "Color", "value": "Blue"}]`). Fin uses these to match shopper requests like "do you have this in medium?" to the correct variant. |
+	// | `url` | string | | Direct link to this variant's page. Takes precedence over the product URL in recommendation cards. If omitted, constructed automatically as `{product_url}?variant={id}`. |
+	//
+	// ### Example catalog file
+	//
+	// ```json
+	// [
+	//   {
+	//     "id": "prod-12345",
+	//     "title": "Classic Cotton T-Shirt",
+	//     "url": "https://example.com/products/classic-cotton-t-shirt",
+	//     "description": "A comfortable everyday t-shirt.",
+	//     "featured_image_url": "https://cdn.example.com/images/t-shirt.jpg",
+	//     "price_min": 19.99,
+	//     "price_max": 29.99,
+	//     "currency": "USD",
+	//     "in_stock": true,
+	//     "tags": ["organic", "bestseller"],
+	//     "collections": ["Summer Collection"],
+	//     "category_path": "Clothing > T-Shirts",
+	//     "available_options": [
+	//       {"name": "Size", "values": ["S", "M", "L"]},
+	//       {"name": "Color", "values": ["White", "Blue"]}
+	//     ],
+	//     "variants": [
+	//       {
+	//         "id": "var-001",
+	//         "title": "S / White",
+	//         "price": 19.99,
+	//         "in_stock": true,
+	//         "selected_options": [
+	//           {"name": "Size", "value": "S"},
+	//           {"name": "Color", "value": "White"}
+	//         ]
+	//       },
+	//       {
+	//         "id": "var-002",
+	//         "title": "M / Blue",
+	//         "price": 29.99,
+	//         "in_stock": true,
+	//         "selected_options": [
+	//           {"name": "Size", "value": "M"},
+	//           {"name": "Color", "value": "Blue"}
+	//         ]
+	//       }
+	//     ],
+	//     "additional_data": {
+	//       "sku": "TSHIRT-WHT-S",
+	//       "vendor": "Acme Apparel"
+	//     }
+	//   }
+	// ]
+	// ```
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with POST /ecommerce/connectors/{import_source_id}/catalog (the `UploadEcommerceCatalog` operationId).
+	UploadEcommerceCatalogWithBody(ctx context.Context, importSourceId string, params *UploadEcommerceCatalogParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SubmitEcommerceProductEventWithBody Submit a product event
+	//
+	// Send a single product change to an ecommerce connector. Use product events to keep
+	// Fin's product knowledge current between full catalog uploads. Each request carries
+	// one event.
+	//
+	// A full catalog must be uploaded with
+	// [Upload a product catalog](/docs/references/rest-api/api.intercom.io/ecommerce-connectors/uploadecommercecatalog)
+	// before you send events. Until then, this endpoint returns `409 Conflict`.
+	//
+	// ## Event types
+	//
+	// | `type` | `data` | Effect |
+	// |---|---|---|
+	// | `product.created` | `product` | Adds the product, or updates it if a product with the same `id` already exists. |
+	// | `product.updated` | `product` | Updates the product with the same `id`, or adds it if it does not exist yet. |
+	// | `product.deleted` | `product_id` | Removes the product from Fin's knowledge. |
+	//
+	// For `product.created` and `product.updated`, send the full product object, not only the
+	// fields that changed. It uses the same fields as a catalog product
+	// ([`ecommerce_catalog_product`](/docs/references/rest-api/api.intercom.io/models/ecommerce_catalog_product)),
+	// plus a required `updated_at` timestamp. The product is matched by `id`. The serialized
+	// product must be 60 KB or smaller.
+	//
+	// For `product.deleted`, send only `data.product_id`.
+	//
+	// `occurred_at` is required on every event and must be an ISO 8601 timestamp.
+	//
+	// ## Processing
+	//
+	// The endpoint returns `202 Accepted` with an `event_id` once the event is queued.
+	// Processing is asynchronous, so the change may take a short time to reach Fin.
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with POST /ecommerce/connectors/{import_source_id}/events (the `SubmitEcommerceProductEvent` operationId).
+	SubmitEcommerceProductEventWithBody(ctx context.Context, importSourceId string, params *SubmitEcommerceProductEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SubmitEcommerceProductEvent Submit a product event
+	//
+	// Send a single product change to an ecommerce connector. Use product events to keep
+	// Fin's product knowledge current between full catalog uploads. Each request carries
+	// one event.
+	//
+	// A full catalog must be uploaded with
+	// [Upload a product catalog](/docs/references/rest-api/api.intercom.io/ecommerce-connectors/uploadecommercecatalog)
+	// before you send events. Until then, this endpoint returns `409 Conflict`.
+	//
+	// ## Event types
+	//
+	// | `type` | `data` | Effect |
+	// |---|---|---|
+	// | `product.created` | `product` | Adds the product, or updates it if a product with the same `id` already exists. |
+	// | `product.updated` | `product` | Updates the product with the same `id`, or adds it if it does not exist yet. |
+	// | `product.deleted` | `product_id` | Removes the product from Fin's knowledge. |
+	//
+	// For `product.created` and `product.updated`, send the full product object, not only the
+	// fields that changed. It uses the same fields as a catalog product
+	// ([`ecommerce_catalog_product`](/docs/references/rest-api/api.intercom.io/models/ecommerce_catalog_product)),
+	// plus a required `updated_at` timestamp. The product is matched by `id`. The serialized
+	// product must be 60 KB or smaller.
+	//
+	// For `product.deleted`, send only `data.product_id`.
+	//
+	// `occurred_at` is required on every event and must be an ISO 8601 timestamp.
+	//
+	// ## Processing
+	//
+	// The endpoint returns `202 Accepted` with an `event_id` once the event is queued.
+	// Processing is asynchronous, so the change may take a short time to reach Fin.
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with POST /ecommerce/connectors/{import_source_id}/events (the `SubmitEcommerceProductEvent` operationId).
+	SubmitEcommerceProductEvent(ctx context.Context, importSourceId string, params *SubmitEcommerceProductEventParams, body SubmitEcommerceProductEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListEmails List all email settings
 	//
@@ -19801,6 +21675,26 @@ type ClientInterface interface {
 	//
 	// Corresponds with POST /phone_call_redirects (the `CreatePhoneSwitch` operationId).
 	CreatePhoneSwitch(ctx context.Context, params *CreatePhoneSwitchParams, body CreatePhoneSwitchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListRoles List all roles
+	//
+	// You can fetch a list of all roles in the workspace.
+	//
+	// Roles define what a teammate can do in a workspace. The teammates endpoint
+	// returns the role a teammate holds, but only the roles that are currently
+	// assigned, and only their id and name. This endpoint lists every role in the
+	// workspace, each with its description.
+	//
+	// Corresponds with GET /roles (the `ListRoles` operationId).
+	ListRoles(ctx context.Context, params *ListRolesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RetrieveRole Retrieve a role
+	//
+	// You can fetch the details of a single role by its id, including its
+	// description, which the teammates endpoint does not return.
+	//
+	// Corresponds with GET /roles/{id} (the `RetrieveRole` operationId).
+	RetrieveRole(ctx context.Context, id string, params *RetrieveRoleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListSegments List all segments
 	//

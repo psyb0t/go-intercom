@@ -227,9 +227,7 @@ func TestShowContactUnauthorized(t *testing.T) {
 	assert.Equal(t, "error.list", res.JSON401.Type)
 	require.Len(t, res.JSON401.Errors, 1)
 
-	code, err := res.JSON401.Errors[0].Code.AsErrorErrorsCode0()
-	require.NoError(t, err)
-	assert.Equal(t, "unauthorized", code)
+	assert.Equal(t, "unauthorized", res.JSON401.Errors[0].Code)
 }
 
 func TestIdentifyAdminMalformedResponse(t *testing.T) {

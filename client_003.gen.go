@@ -1179,6 +1179,116 @@ func (c *Client) UpdateAudience(ctx context.Context, id string, params *UpdateAu
 	return c.Client.Do(req)
 }
 
+// ListAuthTokens List all auth tokens
+//
+// Returns a paginated list of the workspace's stored third-party credentials. Use this to discover the id of a credential you want a data connector to authenticate with — that id is not otherwise available over REST. Only metadata is returned; credential values are never exposed. The list is not exhaustive: credentials a teammate created are listed, as are those created by some Intercom integrations, but credentials installed by an app package, those created by most other integrations, and those minted for an individual teammate's MCP access are not.
+//
+// Corresponds with GET /auth_tokens (the `ListAuthTokens` operationId).
+func (c *Client) ListAuthTokens(ctx context.Context, params *ListAuthTokensParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAuthTokensRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateAuthTokenWithBody Create an auth token
+//
+// Stores a third-party credential in your workspace so a data connector can authenticate outbound requests with it. Set `token_type` to `text` (the default) to send the credential value as a request header yourself, or to `oauth` to have Intercom exchange OAuth client credentials for an access token and keep it refreshed. The value you supply is stored encrypted and is never returned by any endpoint, including this one.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /auth_tokens (the `CreateAuthToken` operationId).
+func (c *Client) CreateAuthTokenWithBody(ctx context.Context, params *CreateAuthTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAuthTokenRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateAuthToken Create an auth token
+//
+// Stores a third-party credential in your workspace so a data connector can authenticate outbound requests with it. Set `token_type` to `text` (the default) to send the credential value as a request header yourself, or to `oauth` to have Intercom exchange OAuth client credentials for an access token and keep it refreshed. The value you supply is stored encrypted and is never returned by any endpoint, including this one.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /auth_tokens (the `CreateAuthToken` operationId).
+func (c *Client) CreateAuthToken(ctx context.Context, params *CreateAuthTokenParams, body CreateAuthTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAuthTokenRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RetrieveAuthToken Retrieve an auth token
+//
+// Returns the metadata for a single stored third-party credential. A credential that the list endpoint does not return is also not retrievable here, and responds with 404.
+//
+// Corresponds with GET /auth_tokens/{id} (the `RetrieveAuthToken` operationId).
+func (c *Client) RetrieveAuthToken(ctx context.Context, id string, params *RetrieveAuthTokenParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetrieveAuthTokenRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateAuthTokenWithBody Update an auth token
+//
+// Updates the metadata of a stored third-party credential. A field you omit keeps its current value. The credential value itself cannot be changed here and is never returned. The `domain` is read-only, and `request_header_key` cannot be changed on a credential that has a domain. Only credentials with a `token_type` of `text` can be updated; any other type responds with `400`. A credential the list endpoint does not return is also not updatable, and responds with `404`.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PATCH /auth_tokens/{id} (the `UpdateAuthToken` operationId).
+func (c *Client) UpdateAuthTokenWithBody(ctx context.Context, id string, params *UpdateAuthTokenParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAuthTokenRequestWithBody(c.Server, id, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateAuthToken Update an auth token
+//
+// Updates the metadata of a stored third-party credential. A field you omit keeps its current value. The credential value itself cannot be changed here and is never returned. The `domain` is read-only, and `request_header_key` cannot be changed on a credential that has a domain. Only credentials with a `token_type` of `text` can be updated; any other type responds with `400`. A credential the list endpoint does not return is also not updatable, and responds with `404`.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PATCH /auth_tokens/{id} (the `UpdateAuthToken` operationId).
+func (c *Client) UpdateAuthToken(ctx context.Context, id string, params *UpdateAuthTokenParams, body UpdateAuthTokenJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAuthTokenRequest(c.Server, id, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // ListAwayStatusReasons List all away status reasons
 //
 // Returns a list of all away status reasons configured for the workspace, including deleted ones.
@@ -1338,7 +1448,7 @@ func (c *Client) ShowCallRecording(ctx context.Context, callId string, params *S
 
 // ShowCallTranscript Get call transcript by call id
 //
-// Returns the transcript for the specified call as a JSON array of turns.
+// Returns the transcript for the specified call as a JSON array of turns. Each turn carries a `speaker_name` when the speaker could be resolved. Clients should fall back to `speaker_label` when `speaker_name` is absent.
 //
 // Requires the `read_conversations` OAuth scope.
 //
@@ -2281,9 +2391,17 @@ func (c *Client) ShowContactByExternalId(ctx context.Context, externalId string,
 	return c.Client.Do(req)
 }
 
-// MergeContactWithBody Merge a lead and a user
+// MergeContactWithBody Merge two contacts
 //
-// You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
+// You can merge one contact into another. Both lead-into-user and user-into-user merges are supported: the source contact (`from`) may have a `role` of `lead` or `user`, and the destination contact (`into`) must have a `role` of `user`.
+//
+// {% admonition type="warning" name="User-to-user merges" %}
+//
+//	When you merge a user into another user, the source user's attribute values (standard and custom) are discarded and are not moved onto the target user. The target user keeps its own attribute values. Records associated with the source, such as conversations, notes, and tags, are still reassigned to the target.
+//
+//	Merging a user into another user requires the `merge_users` OAuth scope on your access token, in addition to the scope required for lead-into-user merges. Tokens without this scope receive a `401 Unauthorized` when the source contact is a user.
+//
+// {% /admonition %}
 //
 // {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
 //
@@ -2313,9 +2431,17 @@ func (c *Client) MergeContactWithBody(ctx context.Context, params *MergeContactP
 	return c.Client.Do(req)
 }
 
-// MergeContact Merge a lead and a user
+// MergeContact Merge two contacts
 //
-// You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
+// You can merge one contact into another. Both lead-into-user and user-into-user merges are supported: the source contact (`from`) may have a `role` of `lead` or `user`, and the destination contact (`into`) must have a `role` of `user`.
+//
+// {% admonition type="warning" name="User-to-user merges" %}
+//
+//	When you merge a user into another user, the source user's attribute values (standard and custom) are discarded and are not moved onto the target user. The target user keeps its own attribute values. Records associated with the source, such as conversations, notes, and tags, are still reassigned to the target.
+//
+//	Merging a user into another user requires the `merge_users` OAuth scope on your access token, in addition to the scope required for lead-into-user merges. Tokens without this scope receive a `401 Unauthorized` when the source contact is a user.
+//
+// {% /admonition %}
 //
 // {% admonition type="warning" name="Merged contacts are not retrievable via the API" %}
 //
@@ -2349,7 +2475,7 @@ func (c *Client) MergeContact(ctx context.Context, params *MergeContactParams, b
 //
 // Preview the result of merging one contact into another without applying the merge. This is a read-only dry run: it reports whether the merge is allowed and, if so, exactly what would change, **without modifying any data**.
 //
-// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
+// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). As with the merge endpoint, `from` may have a `role` of `lead` or `user`, and `into` must have a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
 //
 // - When `allowed` is `true`, the response contains a `summary`: every attribute change (with the resulting value on the surviving contact) and, for each object type, two counts — `from`, how many are on the source contact and would move to the destination, and `into`, how many the destination already has. Counts are reported for conversations, tickets, phone calls, notes, and tags. `conversations` counts non-ticket conversations only; tickets are reported separately under `tickets`, and `phone_calls` is present only for phone-channel merges.
 // - When `allowed` is `false`, the response contains `reasons`. Each reason has a stable `code` you can branch on and a human-readable `message` you can display.
@@ -2368,9 +2494,11 @@ func (c *Client) MergeContact(ctx context.Context, params *MergeContactParams, b
 // | `facebook_user` | Facebook contacts can't be merged. |
 // | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
 // | `mailing_list` | Contacts created from a mailing list can't be merged. |
+// | `user_to_lead` | `into` is a lead or visitor. A user can only be merged into another user. |
 // | `whatsapp_data_cannot_be_merged` | The WhatsApp number on the source contact can't be reassigned to the destination. |
 // | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
 // | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
+// | `source_has_telegram_data` | The source contact has Telegram data, which user-into-user merges don't yet support moving. |
 // | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
 //
 // Requires the `read_write_users` OAuth scope.
@@ -2394,7 +2522,7 @@ func (c *Client) PreviewMergeContactWithBody(ctx context.Context, params *Previe
 //
 // Preview the result of merging one contact into another without applying the merge. This is a read-only dry run: it reports whether the merge is allowed and, if so, exactly what would change, **without modifying any data**.
 //
-// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
+// Send the same `from` and `into` contact IDs you would pass to [Merge two contacts](/docs/references/rest-api/api.intercom.io/contacts/mergecontact). As with the merge endpoint, `from` may have a `role` of `lead` or `user`, and `into` must have a `role` of `user`. You can optionally pass `custom_attribute_names` to include specific custom attributes in the previewed attribute changes.
 //
 // - When `allowed` is `true`, the response contains a `summary`: every attribute change (with the resulting value on the surviving contact) and, for each object type, two counts — `from`, how many are on the source contact and would move to the destination, and `into`, how many the destination already has. Counts are reported for conversations, tickets, phone calls, notes, and tags. `conversations` counts non-ticket conversations only; tickets are reported separately under `tickets`, and `phone_calls` is present only for phone-channel merges.
 // - When `allowed` is `false`, the response contains `reasons`. Each reason has a stable `code` you can branch on and a human-readable `message` you can display.
@@ -2413,9 +2541,11 @@ func (c *Client) PreviewMergeContactWithBody(ctx context.Context, params *Previe
 // | `facebook_user` | Facebook contacts can't be merged. |
 // | `external_lead_channel_not_allowed` | The source is an external-channel lead that isn't eligible for merging. |
 // | `mailing_list` | Contacts created from a mailing list can't be merged. |
+// | `user_to_lead` | `into` is a lead or visitor. A user can only be merged into another user. |
 // | `whatsapp_data_cannot_be_merged` | The WhatsApp number on the source contact can't be reassigned to the destination. |
 // | `telegram_data_cannot_be_merged` | The Telegram sender on the source contact can't be reassigned to the destination. |
 // | `ms_teams_data_cannot_be_merged` | The destination contact already has a Microsoft Teams sender for the same team as the source contact, so the source's sender can't be reassigned to it. |
+// | `source_has_telegram_data` | The source contact has Telegram data, which user-into-user merges don't yet support moving. |
 // | `phone_data_cannot_be_merged` | The phone data on the source contact can't be reassigned to the destination. |
 //
 // Requires the `read_write_users` OAuth scope.
@@ -2950,6 +3080,126 @@ func (c *Client) AttachContactToACompany(ctx context.Context, contactId string, 
 // Corresponds with DELETE /contacts/{contact_id}/companies/{company_id} (the `DetachContactFromACompany` operationId).
 func (c *Client) DetachContactFromACompany(ctx context.Context, contactId string, companyId string, params *DetachContactFromACompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDetachContactFromACompanyRequest(c.Server, contactId, companyId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListGrantedCompaniesForAContact List granted companies for a contact
+//
+// List the companies a contact has been granted access to.
+//
+// A granted company lets the contact read that company's tickets in the customer portal. It is separate from company membership — granting a company does not attach the contact to it, and [`GET /contacts/{id}/companies`](/docs/references/rest-api/api.intercom.io/contacts/listcompaniesforacontact) does not include grants.
+//
+// `company_ids` holds the `company_id` values you set on your companies, so the list round-trips with the `company_ids` you send to `PUT /contacts/{contact_id}/granted_companies`. The list is sorted by company id and paginated.
+//
+// Returns an empty list when granted companies are not enabled for the workspace.
+//
+// Requires the `read_users_companies` OAuth scope.
+//
+// Corresponds with GET /contacts/{contact_id}/granted_companies (the `ListGrantedCompaniesForAContact` operationId).
+func (c *Client) ListGrantedCompaniesForAContact(ctx context.Context, contactId string, params *ListGrantedCompaniesForAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListGrantedCompaniesForAContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ReplaceGrantedCompaniesForAContactWithBody Replace granted companies for a contact
+//
+// Replace the full set of companies a contact has been granted access to.
+//
+// This is a replacement, not an append. The `company_ids` you send become the contact's entire granted set — any company id you leave out is dropped. To add a company, send the existing ids plus the new one; to remove one, send the existing ids minus that one; to drop every grant, send an empty array.
+//
+// Identify companies by the `company_id` you set on them, the same values [`GET /contacts/{contact_id}/granted_companies`](/docs/references/rest-api/api.intercom.io/contacts/listgrantedcompaniesforacontact) returns. Duplicates in the request are collapsed. A contact can be granted at most 100 companies.
+//
+// The response echoes the stored set, so a `200` is confirmation of exactly what the contact can now read.
+//
+// {% admonition type="info" name="Requires granted companies to be enabled" %}
+//
+//	This endpoint returns `404` with the code `granted_companies_not_enabled` unless granted companies are enabled for the workspace. Contact Intercom Support to enable it.
+//
+// {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PUT /contacts/{contact_id}/granted_companies (the `ReplaceGrantedCompaniesForAContact` operationId).
+func (c *Client) ReplaceGrantedCompaniesForAContactWithBody(ctx context.Context, contactId string, params *ReplaceGrantedCompaniesForAContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewReplaceGrantedCompaniesForAContactRequestWithBody(c.Server, contactId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ReplaceGrantedCompaniesForAContact Replace granted companies for a contact
+//
+// Replace the full set of companies a contact has been granted access to.
+//
+// This is a replacement, not an append. The `company_ids` you send become the contact's entire granted set — any company id you leave out is dropped. To add a company, send the existing ids plus the new one; to remove one, send the existing ids minus that one; to drop every grant, send an empty array.
+//
+// Identify companies by the `company_id` you set on them, the same values [`GET /contacts/{contact_id}/granted_companies`](/docs/references/rest-api/api.intercom.io/contacts/listgrantedcompaniesforacontact) returns. Duplicates in the request are collapsed. A contact can be granted at most 100 companies.
+//
+// The response echoes the stored set, so a `200` is confirmation of exactly what the contact can now read.
+//
+// {% admonition type="info" name="Requires granted companies to be enabled" %}
+//
+//	This endpoint returns `404` with the code `granted_companies_not_enabled` unless granted companies are enabled for the workspace. Contact Intercom Support to enable it.
+//
+// {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PUT /contacts/{contact_id}/granted_companies (the `ReplaceGrantedCompaniesForAContact` operationId).
+func (c *Client) ReplaceGrantedCompaniesForAContact(ctx context.Context, contactId string, params *ReplaceGrantedCompaniesForAContactParams, body ReplaceGrantedCompaniesForAContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewReplaceGrantedCompaniesForAContactRequest(c.Server, contactId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RemoveGrantedCompanyFromAContact Remove a granted company from a contact
+//
+// Remove a single company from a contact's granted set, leaving the contact's other grants in place.
+//
+// Identify the company by the `company_id` you set on it, the same value [`GET /contacts/{contact_id}/granted_companies`](/docs/references/rest-api/api.intercom.io/contacts/listgrantedcompaniesforacontact) returns. A `company_id` containing a dot or a slash is supported — URL-encode a slash as `%2F`.
+//
+// This endpoint is not idempotent. Removing a company the contact is not currently granted returns `404` with the code `company_not_found`, so repeating a successful call returns `404` rather than `204`. Treat the first `204` as the confirmation.
+//
+// {% admonition type="info" name="Requires granted companies to be enabled" %}
+//
+//	This endpoint returns `404` with the code `granted_companies_not_enabled` unless granted companies are enabled for the workspace. Contact Intercom Support to enable it.
+//
+// {% /admonition %}
+//
+// Requires the `write_users_companies` OAuth scope.
+//
+// Corresponds with DELETE /contacts/{contact_id}/granted_companies/{company_id} (the `RemoveGrantedCompanyFromAContact` operationId).
+func (c *Client) RemoveGrantedCompanyFromAContact(ctx context.Context, contactId string, companyId string, params *RemoveGrantedCompanyFromAContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRemoveGrantedCompanyFromAContactRequest(c.Server, contactId, companyId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -4349,8 +4599,8 @@ func (c *Client) DeleteConversation(ctx context.Context, conversationId int, par
 //
 // This will return a single Conversation model with all its conversation parts.
 //
-// {% admonition type="warning" name="Hard limit of 500 parts" %}
-// The maximum number of conversation parts that can be returned via the API is 500. If you have more than that we will return the 500 most recent conversation parts.
+// {% admonition type="info" name="Conversation parts limit" %}
+// Without `page`, the response returns the 500 most recent conversation parts. If you need more than the 500 most recent parts, send `page` (and optionally `per_page`) to page through every part, oldest first, following `conversation_parts.pages.next`. Part type and `parts_created_after`/`parts_created_before` filters are applied first. `conversation_parts.total_count` counts the parts in this response after filtering, not the conversation's total part count.
 // {% /admonition %}
 //
 // For AI agent conversation metadata, please note that you need to have the agent enabled in your workspace, which is a [paid feature](https://www.intercom.com/help/en/articles/8205718-fin-resolutions#h_97f8c2e671).
@@ -4875,6 +5125,29 @@ func (c *Client) MergeConversation(ctx context.Context, id string, params *Merge
 // Corresponds with GET /conversations/{id}/side_conversations (the `ListSideConversations` operationId).
 func (c *Client) ListSideConversations(ctx context.Context, id string, params *ListSideConversationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListSideConversationsRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListTeamHandlingSegments List team handling segments
+//
+// Shows the time teammates spent actively working on a conversation, and which team the conversation was assigned to while they did. Each period covers a single team assignment, and never continues across a team change. `team` is `null` for time when no team was assigned. The response doesn't say which teammate did the work.
+//
+// Moving a conversation to another team usually unassigns the teammate as well. Their period then ends with an `end_reason` of `assignment`, and the next period starts, with a `start_reason` of `null`, when a teammate picks the conversation up again. You'll only see `team_change` when the team changes and the same teammate keeps working without a break, for example when round robin assigns the conversation back to the teammate who already had it.
+//
+// Periods with no team assigned are returned with `team` set to `null`. `ended_at` is `null` while a period is still open.
+//
+// Requires the `read_conversations` OAuth scope, and the caller must be able to access the conversation.
+//
+// Corresponds with GET /conversations/{id}/team_handling_segments (the `ListTeamHandlingSegments` operationId).
+func (c *Client) ListTeamHandlingSegments(ctx context.Context, id string, params *ListTeamHandlingSegmentsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListTeamHandlingSegmentsRequest(c.Server, id, params)
 	if err != nil {
 		return nil, err
 	}
@@ -5581,6 +5854,241 @@ func (c *Client) UpdateDynamicContentWithBody(ctx context.Context, id string, pa
 // Corresponds with PUT /dynamic_contents/{id} (the `UpdateDynamicContent` operationId).
 func (c *Client) UpdateDynamicContent(ctx context.Context, id string, params *UpdateDynamicContentParams, body UpdateDynamicContentJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateDynamicContentRequest(c.Server, id, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UploadEcommerceCatalogWithBody Upload a product catalog
+//
+// Upload a product catalog to an ecommerce connector. The catalog must be a JSON
+// array of product objects. There are two upload modes:
+//
+// **Single-file upload** — POST a single catalog file (up to 99 MB per request).
+// Omit `finalize` and `import_job_id`. Returns `202 Accepted` when sync has started.
+//
+// **Multipart upload** — For catalogs that must be split across multiple requests:
+//
+//  1. POST the first part with `finalize=false` (no `import_job_id`). The response
+//     returns an `import_job_id` and `next_part_number`.
+//  2. POST each subsequent part with `finalize=false`, the `import_job_id` from step 1,
+//     and the `part_number` from the previous response. Each part must be ≤ 99 MB.
+//  3. POST with `finalize=true` and the `import_job_id` to complete the upload and
+//     start the sync. No catalog file is required in the finalization request.
+//
+// Part uploads are idempotent — retrying the same `part_number` does not create
+// a duplicate. If a response is lost, retry with the same `part_number`.
+//
+// ## Limits
+//
+//   - **Request size:** each request, whether a single-file upload or one part of a multipart
+//     upload, can carry a catalog file of up to 99 MB. A larger file is rejected with
+//     `422 Unprocessable Content` and the `payload_too_large` error code.
+//   - **Part order:** parts must be uploaded in order, starting at `part_number` 1. A part that
+//     is out of sequence is rejected with `422` and the `invalid_part_number` error code.
+//   - **Session expiry:** a multipart upload session expires 7 days after its first part is
+//     uploaded. An expired session cannot be continued or finalized. Start a new upload instead.
+//   - **One upload at a time:** a connector accepts one catalog upload at a time. A new upload
+//     while another is in progress is rejected with `409 Conflict`.
+//
+// ## Product object structure
+//
+// The catalog file must be a JSON array where each element is a product object.
+// Only `id`, `title`, and `url` are required — all other fields are optional.
+//
+// | Field | Type | Required | Description |
+// |---|---|---|---|
+// | `id` | string | ✓ | Your unique product identifier. Used to match products on re-upload so only changed products are re-indexed. Also the delete key — any product ID absent from a new upload is removed from Fin's knowledge. Must be stable across uploads. |
+// | `title` | string | ✓ | Product name. Used by Fin when searching for and recommending products. |
+// | `url` | string | ✓ | Canonical product page URL shown in Fin's product recommendations. Must be a valid `https://` URL. |
+// | `description` | string | | Product description that Fin reads to understand what the product is. HTML formatting is supported and safely sanitized (`description_html` takes precedence if both are provided). This is the primary field Fin uses to match products to shopper questions — a richer description leads to better recommendations. |
+// | `featured_image_url` | string | | Primary product image shown in Fin's recommendation cards. Falls back to the first entry of `image_urls` if not provided. If no valid image can be resolved for a variant, that variant's card is not shown to the shopper. |
+// | `image_urls` | string[] | | Additional product images. Used as a fallback when `featured_image_url` is absent or when a variant has no specific image. |
+// | `price_min` | number | | Lowest price across all variants. If omitted, derived automatically from variant prices. Fin uses this to filter products when a shopper mentions a budget (e.g. "under $100"). Displayed as a range alongside `price_max`, or as a single value if both are equal. |
+// | `price_max` | number | | Highest price across all variants. If omitted, derived from variant prices. Used alongside `price_min` for budget filtering and price display. |
+// | `currency` | string | | ISO 4217 currency code (e.g. `"USD"`, `"EUR"`, `"GBP"`). Defaults to USD if omitted. Used to format prices with the correct symbol in Fin's responses and product cards. |
+// | `in_stock` | boolean | | Whether the product is available to purchase. If omitted, derived from variant stock — the product is in stock if at least one variant has `in_stock: true`. Products with no in-stock variants are hidden from Fin entirely. |
+// | `category_path` | string or string[] | Strongly recommended | Hierarchical category breadcrumb (e.g. `["Clothing", "Outerwear", "Jackets"]`). Fin understands the hierarchy — a shopper asking about "Clothing" sees products from all subcategories underneath it. The most specific category is shown in search results. |
+// | `collections` | string[] | Strongly recommended | Collections or groupings this product belongs to in your store. Fin uses collections to understand your catalog's structure and answer questions like "what's in the sale collection?". |
+// | `tags` | string[] | | Free-form keywords matching how shoppers phrase needs in chat (e.g. `["waterproof", "gift", "plus-size"]`). Complements `category_path` and `collections`. |
+// | `available_options` | object[] | | Option types and their possible values (e.g. `{"name": "Size", "values": ["S", "M", "L"]}`). Fin uses these to understand what choices a shopper can make and to correctly filter variants when asked for a specific size, colour, or other attribute. |
+// | `additional_data` | object | | Custom attributes for your business. Fin uses these to show each customer only relevant products. All keys must be consistent across all products in your catalog — the attribute schema is read from the first product in the file. |
+// | `variants` | object[] | | Individual purchasable variants. Fin recommends specific variants (not just products), so populating variants with accurate stock, price, and option data leads to more precise recommendations. See the variant table below. |
+//
+// ### Variant object structure
+//
+// Each object in the `variants` array may contain:
+//
+// | Field | Type | Required | Description |
+// |---|---|---|---|
+// | `id` | string | ✓ | Unique identifier for this variant within the product. |
+// | `title` | string | | Variant display name shown to shoppers (e.g. `"Small / Blue"`). |
+// | `price` | number | | Price of this specific variant. Fin uses variant prices for precise budget filtering and displays the variant price in recommendation cards. |
+// | `compare_at_price` | number | | Original price before a discount. When provided, Fin will naturally mention the saving (e.g. "down from $129 to $99"). |
+// | `in_stock` | boolean | | Whether this variant is currently available. Out-of-stock variants are not shown in Fin's recommendation cards and Fin will not suggest them to shoppers. |
+// | `image_url` | string | | Image specific to this variant. Takes precedence over the product's `featured_image_url`. Falls back to `featured_image_url`, then `image_urls`. If no valid image can be resolved, this variant's recommendation card will not be shown. |
+// | `selected_options` | object[] | | The specific option values that define this variant (e.g. `[{"name": "Size", "value": "Small"}, {"name": "Color", "value": "Blue"}]`). Fin uses these to match shopper requests like "do you have this in medium?" to the correct variant. |
+// | `url` | string | | Direct link to this variant's page. Takes precedence over the product URL in recommendation cards. If omitted, constructed automatically as `{product_url}?variant={id}`. |
+//
+// ### Example catalog file
+//
+// ```json
+// [
+//
+//	{
+//	  "id": "prod-12345",
+//	  "title": "Classic Cotton T-Shirt",
+//	  "url": "https://example.com/products/classic-cotton-t-shirt",
+//	  "description": "A comfortable everyday t-shirt.",
+//	  "featured_image_url": "https://cdn.example.com/images/t-shirt.jpg",
+//	  "price_min": 19.99,
+//	  "price_max": 29.99,
+//	  "currency": "USD",
+//	  "in_stock": true,
+//	  "tags": ["organic", "bestseller"],
+//	  "collections": ["Summer Collection"],
+//	  "category_path": "Clothing > T-Shirts",
+//	  "available_options": [
+//	    {"name": "Size", "values": ["S", "M", "L"]},
+//	    {"name": "Color", "values": ["White", "Blue"]}
+//	  ],
+//	  "variants": [
+//	    {
+//	      "id": "var-001",
+//	      "title": "S / White",
+//	      "price": 19.99,
+//	      "in_stock": true,
+//	      "selected_options": [
+//	        {"name": "Size", "value": "S"},
+//	        {"name": "Color", "value": "White"}
+//	      ]
+//	    },
+//	    {
+//	      "id": "var-002",
+//	      "title": "M / Blue",
+//	      "price": 29.99,
+//	      "in_stock": true,
+//	      "selected_options": [
+//	        {"name": "Size", "value": "M"},
+//	        {"name": "Color", "value": "Blue"}
+//	      ]
+//	    }
+//	  ],
+//	  "additional_data": {
+//	    "sku": "TSHIRT-WHT-S",
+//	    "vendor": "Acme Apparel"
+//	  }
+//	}
+//
+// ]
+// ```
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /ecommerce/connectors/{import_source_id}/catalog (the `UploadEcommerceCatalog` operationId).
+func (c *Client) UploadEcommerceCatalogWithBody(ctx context.Context, importSourceId string, params *UploadEcommerceCatalogParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUploadEcommerceCatalogRequestWithBody(c.Server, importSourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SubmitEcommerceProductEventWithBody Submit a product event
+//
+// Send a single product change to an ecommerce connector. Use product events to keep
+// Fin's product knowledge current between full catalog uploads. Each request carries
+// one event.
+//
+// A full catalog must be uploaded with
+// [Upload a product catalog](/docs/references/rest-api/api.intercom.io/ecommerce-connectors/uploadecommercecatalog)
+// before you send events. Until then, this endpoint returns `409 Conflict`.
+//
+// ## Event types
+//
+// | `type` | `data` | Effect |
+// |---|---|---|
+// | `product.created` | `product` | Adds the product, or updates it if a product with the same `id` already exists. |
+// | `product.updated` | `product` | Updates the product with the same `id`, or adds it if it does not exist yet. |
+// | `product.deleted` | `product_id` | Removes the product from Fin's knowledge. |
+//
+// For `product.created` and `product.updated`, send the full product object, not only the
+// fields that changed. It uses the same fields as a catalog product
+// ([`ecommerce_catalog_product`](/docs/references/rest-api/api.intercom.io/models/ecommerce_catalog_product)),
+// plus a required `updated_at` timestamp. The product is matched by `id`. The serialized
+// product must be 60 KB or smaller.
+//
+// For `product.deleted`, send only `data.product_id`.
+//
+// `occurred_at` is required on every event and must be an ISO 8601 timestamp.
+//
+// ## Processing
+//
+// The endpoint returns `202 Accepted` with an `event_id` once the event is queued.
+// Processing is asynchronous, so the change may take a short time to reach Fin.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /ecommerce/connectors/{import_source_id}/events (the `SubmitEcommerceProductEvent` operationId).
+func (c *Client) SubmitEcommerceProductEventWithBody(ctx context.Context, importSourceId string, params *SubmitEcommerceProductEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSubmitEcommerceProductEventRequestWithBody(c.Server, importSourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SubmitEcommerceProductEvent Submit a product event
+//
+// Send a single product change to an ecommerce connector. Use product events to keep
+// Fin's product knowledge current between full catalog uploads. Each request carries
+// one event.
+//
+// A full catalog must be uploaded with
+// [Upload a product catalog](/docs/references/rest-api/api.intercom.io/ecommerce-connectors/uploadecommercecatalog)
+// before you send events. Until then, this endpoint returns `409 Conflict`.
+//
+// ## Event types
+//
+// | `type` | `data` | Effect |
+// |---|---|---|
+// | `product.created` | `product` | Adds the product, or updates it if a product with the same `id` already exists. |
+// | `product.updated` | `product` | Updates the product with the same `id`, or adds it if it does not exist yet. |
+// | `product.deleted` | `product_id` | Removes the product from Fin's knowledge. |
+//
+// For `product.created` and `product.updated`, send the full product object, not only the
+// fields that changed. It uses the same fields as a catalog product
+// ([`ecommerce_catalog_product`](/docs/references/rest-api/api.intercom.io/models/ecommerce_catalog_product)),
+// plus a required `updated_at` timestamp. The product is matched by `id`. The serialized
+// product must be 60 KB or smaller.
+//
+// For `product.deleted`, send only `data.product_id`.
+//
+// `occurred_at` is required on every event and must be an ISO 8601 timestamp.
+//
+// ## Processing
+//
+// The endpoint returns `202 Accepted` with an `event_id` once the event is queued.
+// Processing is asynchronous, so the change may take a short time to reach Fin.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /ecommerce/connectors/{import_source_id}/events (the `SubmitEcommerceProductEvent` operationId).
+func (c *Client) SubmitEcommerceProductEvent(ctx context.Context, importSourceId string, params *SubmitEcommerceProductEventParams, body SubmitEcommerceProductEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSubmitEcommerceProductEventRequest(c.Server, importSourceId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -8153,6 +8661,46 @@ func (c *Client) CreatePhoneSwitchWithBody(ctx context.Context, params *CreatePh
 // Corresponds with POST /phone_call_redirects (the `CreatePhoneSwitch` operationId).
 func (c *Client) CreatePhoneSwitch(ctx context.Context, params *CreatePhoneSwitchParams, body CreatePhoneSwitchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreatePhoneSwitchRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListRoles List all roles
+//
+// You can fetch a list of all roles in the workspace.
+//
+// Roles define what a teammate can do in a workspace. The teammates endpoint
+// returns the role a teammate holds, but only the roles that are currently
+// assigned, and only their id and name. This endpoint lists every role in the
+// workspace, each with its description.
+//
+// Corresponds with GET /roles (the `ListRoles` operationId).
+func (c *Client) ListRoles(ctx context.Context, params *ListRolesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListRolesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RetrieveRole Retrieve a role
+//
+// You can fetch the details of a single role by its id, including its
+// description, which the teammates endpoint does not return.
+//
+// Corresponds with GET /roles/{id} (the `RetrieveRole` operationId).
+func (c *Client) RetrieveRole(ctx context.Context, id string, params *RetrieveRoleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetrieveRoleRequest(c.Server, id, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11741,6 +12289,253 @@ func NewUpdateAudienceRequestWithBody(server string, id string, params *UpdateAu
 	return req, nil
 }
 
+// NewListAuthTokensRequest constructs an http.Request for the ListAuthTokens method
+func NewListAuthTokensRequest(server string, params *ListAuthTokensParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/auth_tokens")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAuthTokenRequest calls the generic CreateAuthToken builder with application/json body
+func NewCreateAuthTokenRequest(server string, params *CreateAuthTokenParams, body CreateAuthTokenJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAuthTokenRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateAuthTokenRequestWithBody constructs an http.Request for the CreateAuthToken method, with any body, and a specified content type
+func NewCreateAuthTokenRequestWithBody(server string, params *CreateAuthTokenParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/auth_tokens")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRetrieveAuthTokenRequest constructs an http.Request for the RetrieveAuthToken method
+func NewRetrieveAuthTokenRequest(server string, id string, params *RetrieveAuthTokenParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/auth_tokens/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateAuthTokenRequest calls the generic UpdateAuthToken builder with application/json body
+func NewUpdateAuthTokenRequest(server string, id string, params *UpdateAuthTokenParams, body UpdateAuthTokenJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateAuthTokenRequestWithBody(server, id, params, "application/json", bodyReader)
+}
+
+// NewUpdateAuthTokenRequestWithBody constructs an http.Request for the UpdateAuthToken method, with any body, and a specified content type
+func NewUpdateAuthTokenRequestWithBody(server string, id string, params *UpdateAuthTokenParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/auth_tokens/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListAwayStatusReasonsRequest constructs an http.Request for the ListAwayStatusReasons method
 func NewListAwayStatusReasonsRequest(server string, params *ListAwayStatusReasonsParams) (*http.Request, error) {
 	var err error
@@ -14469,6 +15264,224 @@ func NewDetachContactFromACompanyRequest(server string, contactId string, compan
 	}
 
 	operationPath := fmt.Sprintf("/contacts/%s/companies/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListGrantedCompaniesForAContactRequest constructs an http.Request for the ListGrantedCompaniesForAContact method
+func NewListGrantedCompaniesForAContactRequest(server string, contactId string, params *ListGrantedCompaniesForAContactParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "contact_id", contactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/contacts/%s/granted_companies", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewReplaceGrantedCompaniesForAContactRequest calls the generic ReplaceGrantedCompaniesForAContact builder with application/json body
+func NewReplaceGrantedCompaniesForAContactRequest(server string, contactId string, params *ReplaceGrantedCompaniesForAContactParams, body ReplaceGrantedCompaniesForAContactJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewReplaceGrantedCompaniesForAContactRequestWithBody(server, contactId, params, "application/json", bodyReader)
+}
+
+// NewReplaceGrantedCompaniesForAContactRequestWithBody constructs an http.Request for the ReplaceGrantedCompaniesForAContact method, with any body, and a specified content type
+func NewReplaceGrantedCompaniesForAContactRequestWithBody(server string, contactId string, params *ReplaceGrantedCompaniesForAContactParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "contact_id", contactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/contacts/%s/granted_companies", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRemoveGrantedCompanyFromAContactRequest constructs an http.Request for the RemoveGrantedCompanyFromAContact method
+func NewRemoveGrantedCompanyFromAContactRequest(server string, contactId string, companyId string, params *RemoveGrantedCompanyFromAContactParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "contact_id", contactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "company_id", companyId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/contacts/%s/granted_companies/%s", pathParam0, pathParam1)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -17281,6 +18294,54 @@ func NewRetrieveConversationRequest(server string, conversationId int, params *R
 
 		}
 
+		if params.IncludePartTypes != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "include_part_types", *params.IncludePartTypes, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ExcludePartTypes != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "exclude_part_types", *params.ExcludePartTypes, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -18070,6 +19131,55 @@ func NewListSideConversationsRequest(server string, id string, params *ListSideC
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
 		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListTeamHandlingSegmentsRequest constructs an http.Request for the ListTeamHandlingSegments method
+func NewListTeamHandlingSegmentsRequest(server string, id string, params *ListTeamHandlingSegmentsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/conversations/%s/team_handling_segments", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
@@ -18909,1077 +20019,6 @@ func NewListDataConnectorExecutionResultsRequest(server string, dataConnectorId 
 		if params.IncludeBodies != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_bodies", *params.IncludeBodies, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewShowDataConnectorExecutionResultRequest constructs an http.Request for the ShowDataConnectorExecutionResult method
-func NewShowDataConnectorExecutionResultRequest(server string, dataConnectorId string, id string, params *ShowDataConnectorExecutionResultParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "data_connector_id", dataConnectorId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/data_connectors/%s/execution_results/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewDeleteDataConnectorRequest constructs an http.Request for the DeleteDataConnector method
-func NewDeleteDataConnectorRequest(server string, id string, params *DeleteDataConnectorParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/data_connectors/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRetrieveDataConnectorRequest constructs an http.Request for the RetrieveDataConnector method
-func NewRetrieveDataConnectorRequest(server string, id string, params *RetrieveDataConnectorParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/data_connectors/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.StateVersion != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "state_version", *params.StateVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewUpdateDataConnectorRequest calls the generic UpdateDataConnector builder with application/json body
-func NewUpdateDataConnectorRequest(server string, id string, params *UpdateDataConnectorParams, body UpdateDataConnectorJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateDataConnectorRequestWithBody(server, id, params, "application/json", bodyReader)
-}
-
-// NewUpdateDataConnectorRequestWithBody constructs an http.Request for the UpdateDataConnector method, with any body, and a specified content type
-func NewUpdateDataConnectorRequestWithBody(server string, id string, params *UpdateDataConnectorParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/data_connectors/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListDataConnectorVersionsRequest constructs an http.Request for the ListDataConnectorVersions method
-func NewListDataConnectorVersionsRequest(server string, id string, params *ListDataConnectorVersionsParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/data_connectors/%s/versions", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.PerPage != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.StartingAfter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRetrieveDataConnectorVersionRequest constructs an http.Request for the RetrieveDataConnectorVersion method
-func NewRetrieveDataConnectorVersionRequest(server string, id string, versionId int, params *RetrieveDataConnectorVersionParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/data_connectors/%s/versions/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewUpdateDataConnectorVersionRequest calls the generic UpdateDataConnectorVersion builder with application/json body
-func NewUpdateDataConnectorVersionRequest(server string, id string, versionId int, params *UpdateDataConnectorVersionParams, body UpdateDataConnectorVersionJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateDataConnectorVersionRequestWithBody(server, id, versionId, params, "application/json", bodyReader)
-}
-
-// NewUpdateDataConnectorVersionRequestWithBody constructs an http.Request for the UpdateDataConnectorVersion method, with any body, and a specified content type
-func NewUpdateDataConnectorVersionRequestWithBody(server string, id string, versionId int, params *UpdateDataConnectorVersionParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/data_connectors/%s/versions/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewDownloadDataExportRequest constructs an http.Request for the DownloadDataExport method
-func NewDownloadDataExportRequest(server string, jobIdentifier string, params *DownloadDataExportParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "job_identifier", jobIdentifier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/download/content/data/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetDownloadReportingDataJobIdentifierRequest constructs an http.Request for the GetDownloadReportingDataJobIdentifier method
-func NewGetDownloadReportingDataJobIdentifierRequest(server string, jobIdentifier string, params *GetDownloadReportingDataJobIdentifierParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "job_identifier", jobIdentifier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/download/reporting_data/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-		var headerParam1 string
-
-		headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Accept", params.Accept, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("Accept", headerParam1)
-
-	}
-
-	return req, nil
-}
-
-// NewListDynamicContentsRequest constructs an http.Request for the ListDynamicContents method
-func NewListDynamicContentsRequest(server string, params *ListDynamicContentsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/dynamic_contents")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.Page != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.PerPage != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreateDynamicContentRequest calls the generic CreateDynamicContent builder with application/json body
-func NewCreateDynamicContentRequest(server string, params *CreateDynamicContentParams, body CreateDynamicContentJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreateDynamicContentRequestWithBody(server, params, "application/json", bodyReader)
-}
-
-// NewCreateDynamicContentRequestWithBody constructs an http.Request for the CreateDynamicContent method, with any body, and a specified content type
-func NewCreateDynamicContentRequestWithBody(server string, params *CreateDynamicContentParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/dynamic_contents")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewDeleteDynamicContentRequest constructs an http.Request for the DeleteDynamicContent method
-func NewDeleteDynamicContentRequest(server string, id string, params *DeleteDynamicContentParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/dynamic_contents/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetDynamicContentRequest constructs an http.Request for the GetDynamicContent method
-func NewGetDynamicContentRequest(server string, id string, params *GetDynamicContentParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/dynamic_contents/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewUpdateDynamicContentRequest calls the generic UpdateDynamicContent builder with application/json body
-func NewUpdateDynamicContentRequest(server string, id string, params *UpdateDynamicContentParams, body UpdateDynamicContentJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateDynamicContentRequestWithBody(server, id, params, "application/json", bodyReader)
-}
-
-// NewUpdateDynamicContentRequestWithBody constructs an http.Request for the UpdateDynamicContent method, with any body, and a specified content type
-func NewUpdateDynamicContentRequestWithBody(server string, id string, params *UpdateDynamicContentParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/dynamic_contents/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListEmailsRequest constructs an http.Request for the ListEmails method
-func NewListEmailsRequest(server string, params *ListEmailsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/emails")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewRetrieveEmailRequest constructs an http.Request for the RetrieveEmail method
-func NewRetrieveEmailRequest(server string, id string, params *RetrieveEmailParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/emails/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.IntercomVersion != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Intercom-Version", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewLisDataEventsRequest constructs an http.Request for the LisDataEvents method
-func NewLisDataEventsRequest(server string, params *LisDataEventsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/events")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "filter", params.Filter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "object", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
-			}
-		}
-
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "type", params.Type, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
-			}
-		}
-
-		if params.PerPage != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.Since != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "since", *params.Since, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int64"}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.Before != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "before", *params.Before, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int64"}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.Summary != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "summary", *params.Summary, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

@@ -2,6 +2,21 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.9.0, 2026-11-10
+
+- Breaking: `Error_Errors_Code`, `ErrorErrorsCode0` and `ErrorErrorsCode1` are removed. The error `Code` field is now a plain `string`, so calls to `AsErrorErrorsCode0` must be replaced by reading `Code` directly.
+- Breaking: `CreateHelpCenterRedirectRequest.TargetId` changes from `string` to `*string`. The constant `CreateHelpCenterRedirectRequestTargetTypeHelpCenter` is added.
+- Breaking: `ConversationScorecard.ScorecardVersionId` and `ConversationScorecardEvaluatorResult.ReasonIds` are removed.
+- Breaking: the `JSON200` field and `GetJSON200` method change type on `CreateContactResponse`, `MergeContactResponse`, `ShowContactResponse`, `ShowContactByExternalIdResponse` and `UpdateContactResponse`. `ListCallsWithTranscriptsResponse` changes the same way, and so does `BulkUpdateContactsRequest.Contacts`.
+- Added auth token endpoints: `Client.ListAuthTokens`, `CreateAuthToken`, `CreateAuthTokenWithBody`, `RetrieveAuthToken`, `UpdateAuthToken` and `UpdateAuthTokenWithBody`, with the types `AuthToken`, `AuthTokenList`, `CreateAuthTokenRequest` and `CreateAuthTokenParams`.
+- Added `Client.ListRoles` and `RetrieveRole`, `ListTeamHandlingSegments`, and the granted company methods `ListGrantedCompaniesForAContact`, `ReplaceGrantedCompaniesForAContact`, `ReplaceGrantedCompaniesForAContactWithBody` and `RemoveGrantedCompanyFromAContact`.
+- Added e-commerce methods `SubmitEcommerceProductEvent`, `SubmitEcommerceProductEventWithBody` and `UploadEcommerceCatalogWithBody`, with `EcommerceCatalogProduct` and `EcommerceCatalogUploadConflictError`.
+- Added the matching `ClientWithResponses` methods. `ClientInterface` and `ClientWithResponsesInterface` gain all new methods, so custom implementations must add them.
+- Added fields `Contact.WhatsappNumber`, `Email` on `ContactArchived`, `ContactBlocked`, `ContactDeleted`, `ContactReference` and `ContactUnarchived`, `CallTranscriptTurn.SpeakerName`, `ConversationPart.Receipts`, `ConversationPart.UserIp`, `ConversationParts.Pages` and `ConversationSource.UserIp`, plus the receipt state and error code constants.
+- Added `EventDetails.FromStandalonePlatformHandoff` and `MergeStandalonePlatformHandoff`.
+- Added `IntercomVersionN218` for Intercom API version 2.18. The spec moves from 2.17 to 2.18.
+- Updated `TestShowContactUnauthorized` to compare `Errors[0].Code` with `"unauthorized"` directly.
+
 ## v0.8.2, 2026-11-07
 
 - Added `Client.CreateConversationStreamToken` and `CreateConversationStreamTokenWithBody`, which issue a conversation stream token for a contact by `external_id`. The request body is `CreateConversationStreamTokenRequest`, also available as `CreateConversationStreamTokenJSONRequestBody`.
