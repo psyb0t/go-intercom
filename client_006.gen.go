@@ -14,6 +14,199 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// AskFinWithResponse Ask Fin
+//
+// Ask Fin a single, self-contained question and receive one informational answer.
+//
+// Unlike a conversation, `/fin/ask` is non-conversational: Fin will not ask follow-up
+// questions, will not run procedures, and will not decide to hand over to a human itself.
+// Escalation rules can still match, and the conversation can still be routed to a team or
+// finish without resolution. You can also escalate one yourself with `POST /fin/escalate`;
+// the ask conversation is already closed after its one-shot answer, and escalation leaves
+// it closed while routing the handoff separately.
+//
+// Fin's answer is delivered asynchronously via the `fin_replied` event. The conversation
+// ends with a `complete` status — there is no `awaiting_user_reply` cycle.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/ask (the `AskFin` operationId).
+func (c *ClientWithResponses) AskFinWithResponse(ctx context.Context, params *AskFinParams, body AskFinJSONRequestBody, reqEditors ...RequestEditorFn) (*AskFinResponse, error) {
+	rsp, err := c.AskFin(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseAskFinResponse(rsp)
+}
+
+// ListFinCapabilitiesWithBodyWithResponse Discover Fin's capabilities
+//
+// Return a machine-readable, per-user list of what Fin can do for a given end user, so an
+// orchestrating agent can decide which endpoint to call.
+//
+// The response is audience-matched to the supplied user: each live, API-triggerable
+// procedure is checked against that user before being included, alongside the static
+// `reply`, `ask`, and `escalate` actions.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/capabilities (the `ListFinCapabilities` operationId).
+func (c *ClientWithResponses) ListFinCapabilitiesWithBodyWithResponse(ctx context.Context, params *ListFinCapabilitiesParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListFinCapabilitiesResponse, error) {
+	rsp, err := c.ListFinCapabilitiesWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListFinCapabilitiesResponse(rsp)
+}
+
+// ListFinCapabilitiesWithResponse Discover Fin's capabilities
+//
+// Return a machine-readable, per-user list of what Fin can do for a given end user, so an
+// orchestrating agent can decide which endpoint to call.
+//
+// The response is audience-matched to the supplied user: each live, API-triggerable
+// procedure is checked against that user before being included, alongside the static
+// `reply`, `ask`, and `escalate` actions.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/capabilities (the `ListFinCapabilities` operationId).
+func (c *ClientWithResponses) ListFinCapabilitiesWithResponse(ctx context.Context, params *ListFinCapabilitiesParams, body ListFinCapabilitiesJSONRequestBody, reqEditors ...RequestEditorFn) (*ListFinCapabilitiesResponse, error) {
+	rsp, err := c.ListFinCapabilities(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListFinCapabilitiesResponse(rsp)
+}
+
+// SubmitFinCsatWithBodyWithResponse Submit a CSAT rating
+//
+// Record a customer's satisfaction rating for a conversation, with an optional free-text
+// remark.
+//
+// Fin decides *when* to ask for a rating — this reuses the CSAT settings on your Fin
+// workflow, not this API. When Fin asks, it fires a `csat_requested` event over webhooks
+// carrying the rating options to show the user. Present those options, then submit the
+// user's choice here.
+//
+// Submitting the same rating again, with no new remark, is a no-op and stays successful,
+// so an at-least-once client can safely retry. Submitting a *different* rating updates the
+// stored rating while the update window is still open, and a first remark can be added to
+// an already-rated survey. Once a remark has been recorded the rating is locked and can no
+// longer be changed.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/csat (the `SubmitFinCsat` operationId).
+func (c *ClientWithResponses) SubmitFinCsatWithBodyWithResponse(ctx context.Context, params *SubmitFinCsatParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SubmitFinCsatResponse, error) {
+	rsp, err := c.SubmitFinCsatWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSubmitFinCsatResponse(rsp)
+}
+
+// SubmitFinCsatWithResponse Submit a CSAT rating
+//
+// Record a customer's satisfaction rating for a conversation, with an optional free-text
+// remark.
+//
+// Fin decides *when* to ask for a rating — this reuses the CSAT settings on your Fin
+// workflow, not this API. When Fin asks, it fires a `csat_requested` event over webhooks
+// carrying the rating options to show the user. Present those options, then submit the
+// user's choice here.
+//
+// Submitting the same rating again, with no new remark, is a no-op and stays successful,
+// so an at-least-once client can safely retry. Submitting a *different* rating updates the
+// stored rating while the update window is still open, and a first remark can be added to
+// an already-rated survey. Once a remark has been recorded the rating is locked and can no
+// longer be changed.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/csat (the `SubmitFinCsat` operationId).
+func (c *ClientWithResponses) SubmitFinCsatWithResponse(ctx context.Context, params *SubmitFinCsatParams, body SubmitFinCsatJSONRequestBody, reqEditors ...RequestEditorFn) (*SubmitFinCsatResponse, error) {
+	rsp, err := c.SubmitFinCsat(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSubmitFinCsatResponse(rsp)
+}
+
+// EscalateFinConversationWithBodyWithResponse Escalate to a human
+//
+// Hand a conversation off to a human teammate. If you use the Intercom Helpdesk, the
+// handoff lands in your team inbox.
+//
+// Provide either `conversation_id` or `user`:
+//
+//   - `conversation_id` — escalate an existing agent conversation, including one started
+//     with `/fin/ask`. On the Intercom Helpdesk, Fin by default summarises the conversation
+//     and opens a new Helpdesk conversation that carries the summary as an internal note.
+//     Configure an escalation Operator Workflow to change this default. Escalation closes the
+//     original agent conversation if it is open.
+//   - `user` — escalate on behalf of a user with no prior agent conversation. Fin creates an
+//     agent conversation for the escalation and closes it once the handoff completes. On the
+//     Intercom Helpdesk, the teammate works in a separate new Helpdesk conversation. Not
+//     supported on Fin for Platforms — see below.
+//
+// In both cases, pass the optional `context` to give the receiving teammate background your
+// orchestrating agent has and Fin does not. On the Intercom Helpdesk, it appears above the
+// summary in the internal note of the new conversation the teammate picks up. It is never
+// shown to the end user.
+//
+// Escalating an existing conversation also sets its AI Agent resolution state to
+// `escalated`, readable as `ai_agent.resolution_state` on the Conversations API. This is a
+// resolution state, not a billable resolution.
+//
+// On Fin for Platforms, `conversation_id` is required — `user` is not supported and is
+// rejected, because there is no Intercom Helpdesk in which to create a conversation. There
+// is no Intercom inbox either, so an escalation that no workflow handles does not open a
+// Helpdesk conversation for a teammate. `context` is not surfaced. The conversation is closed,
+// as on the Intercom Helpdesk, and your platform hands the user off to a human.
+//
+// You are notified via webhooks with an `escalated` status
+// followed by `complete`. The `complete` status signals that Fin is done. By then the
+// original agent conversation has been closed. An escalation Operator Workflow may act
+// on it afterwards, but it is closed again once the workflow's first steps have run, so
+// only steps that run later (for example after a wait) can reopen it. On the Intercom
+// Helpdesk, the new human conversation remains open.
+//
+// {% admonition type="warning" %}
+// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
+// {% /admonition %}
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /fin/escalate (the `EscalateFinConversation` operationId).
+func (c *ClientWithResponses) EscalateFinConversationWithBodyWithResponse(ctx context.Context, params *EscalateFinConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EscalateFinConversationResponse, error) {
+	rsp, err := c.EscalateFinConversationWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseEscalateFinConversationResponse(rsp)
+}
+
 // EscalateFinConversationWithResponse Escalate to a human
 //
 // Hand a conversation off to a human teammate. If you use the Intercom Helpdesk, the
@@ -9931,6 +10124,67 @@ func ParseManageConversationResponse(rsp *http.Response) (*ManageConversationRes
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest Conversation
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRateConversationResponse parses an HTTP response from a RateConversationWithResponse call
+func ParseRateConversationResponse(rsp *http.Response) (*RateConversationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RateConversationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RatedConversation
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

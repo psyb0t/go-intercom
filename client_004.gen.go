@@ -16,6 +16,154 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// NewListDataConnectorExecutionResultsRequest constructs an http.Request for the ListDataConnectorExecutionResults method
+func NewListDataConnectorExecutionResultsRequest(server string, dataConnectorId string, params *ListDataConnectorExecutionResultsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "data_connector_id", dataConnectorId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/data_connectors/%s/execution_results", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Success != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "success", *params.Success, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ErrorType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "error_type", *params.ErrorType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartTs != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "start_ts", *params.StartTs, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndTs != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "end_ts", *params.EndTs, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeBodies != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_bodies", *params.IncludeBodies, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IntercomVersion != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Intercom-Version", *params.IntercomVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Intercom-Version", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewShowDataConnectorExecutionResultRequest constructs an http.Request for the ShowDataConnectorExecutionResult method
 func NewShowDataConnectorExecutionResultRequest(server string, dataConnectorId string, id string, params *ShowDataConnectorExecutionResultParams) (*http.Request, error) {
 	var err error
@@ -10797,6 +10945,36 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with POST /conversations/{conversation_id}/parts (the `ManageConversation` operationId).
 	ManageConversationWithResponse(ctx context.Context, conversationId string, params *ManageConversationParams, body ManageConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*ManageConversationResponse, error)
 
+	// RateConversationWithBodyWithResponse Rate a conversation
+	//
+	// Record a contact's CSAT rating, and an optional remark, on the latest rating request Intercom sent for a conversation. The rating counts in your CSAT reports for the teammate, Fin or workflow that was rated.
+	//
+	// Only the contact the request was sent to can answer. Pass their Intercom ID as `intercom_user_id`.
+	//
+	// Sending the same rating and remark again returns the current rating without changing it, so it is safe to retry. A different `rating` replaces the earlier one while the rating request still accepts answers. A `remark` can be added to a rating that has none. Once a remark is set, the rating and the remark can no longer be changed.
+	//
+	// Requires the `write_conversations` permission.
+	//
+	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /conversations/{conversation_id}/rating (the `RateConversation` operationId).
+	RateConversationWithBodyWithResponse(ctx context.Context, conversationId string, params *RateConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RateConversationResponse, error)
+
+	// RateConversationWithResponse Rate a conversation
+	//
+	// Record a contact's CSAT rating, and an optional remark, on the latest rating request Intercom sent for a conversation. The rating counts in your CSAT reports for the teammate, Fin or workflow that was rated.
+	//
+	// Only the contact the request was sent to can answer. Pass their Intercom ID as `intercom_user_id`.
+	//
+	// Sending the same rating and remark again returns the current rating without changing it, so it is safe to retry. A different `rating` replaces the earlier one while the rating request still accepts answers. A `remark` can be added to a rating that has none. Once a remark is set, the rating and the remark can no longer be changed.
+	//
+	// Requires the `write_conversations` permission.
+	//
+	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /conversations/{conversation_id}/rating (the `RateConversation` operationId).
+	RateConversationWithResponse(ctx context.Context, conversationId string, params *RateConversationParams, body RateConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*RateConversationResponse, error)
+
 	// ReplyConversationWithBodyWithResponse Reply to a conversation
 	//
 	// You can reply to a conversation with a message from an admin or on behalf of a contact, or with a note for admins.
@@ -19984,37 +20162,4 @@ func (r MergeContactResponse) GetJSON200() *struct {
 	WorkspaceId *string `json:"workspace_id,omitempty"`
 } {
 	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r MergeContactResponse) GetJSON400() *Error {
-	return r.JSON400
-}
-
-// GetJSON401 returns the response for an HTTP 401 `application/json` response
-func (r MergeContactResponse) GetJSON401() *Error {
-	return r.JSON401
-}
-
-// GetJSON404 returns the response for an HTTP 404 `application/json` response
-func (r MergeContactResponse) GetJSON404() *Error {
-	return r.JSON404
-}
-
-// GetJSON409 returns the response for an HTTP 409 `application/json` response
-func (r MergeContactResponse) GetJSON409() *Error {
-	return r.JSON409
-}
-
-// GetBody returns the raw response body bytes
-func (r MergeContactResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r MergeContactResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
 }

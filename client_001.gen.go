@@ -6193,6 +6193,63 @@ func (e PhoneSwitchType) Valid() bool {
 	}
 }
 
+// Defines values for RatedConversationCustomerType.
+const (
+	RatedConversationCustomerTypeLead    RatedConversationCustomerType = "lead"
+	RatedConversationCustomerTypeUser    RatedConversationCustomerType = "user"
+	RatedConversationCustomerTypeVisitor RatedConversationCustomerType = "visitor"
+)
+
+// Valid indicates whether the value is a known member of the RatedConversationCustomerType enum.
+func (e RatedConversationCustomerType) Valid() bool {
+	switch e {
+	case RatedConversationCustomerTypeLead:
+		return true
+	case RatedConversationCustomerTypeUser:
+		return true
+	case RatedConversationCustomerTypeVisitor:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RatedConversationTeammateType.
+const (
+	RatedConversationTeammateTypeAdmin    RatedConversationTeammateType = "admin"
+	RatedConversationTeammateTypeBot      RatedConversationTeammateType = "bot"
+	RatedConversationTeammateTypeWorkflow RatedConversationTeammateType = "workflow"
+)
+
+// Valid indicates whether the value is a known member of the RatedConversationTeammateType enum.
+func (e RatedConversationTeammateType) Valid() bool {
+	switch e {
+	case RatedConversationTeammateTypeAdmin:
+		return true
+	case RatedConversationTeammateTypeBot:
+		return true
+	case RatedConversationTeammateTypeWorkflow:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RatedConversationType.
+const (
+	RatedConversationTypeConversationRating RatedConversationType = "conversation_rating"
+)
+
+// Valid indicates whether the value is a known member of the RatedConversationType enum.
+func (e RatedConversationType) Valid() bool {
+	switch e {
+	case RatedConversationTypeConversationRating:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RecipientType.
 const (
 	RecipientTypeLead RecipientType = "lead"
@@ -14546,7 +14603,7 @@ type ConversationPart struct {
 	// Example: 1663597260
 	NotifiedAt *int `json:"notified_at,omitempty"`
 
-	// PartType The type of conversation part. On the Preview version a part type the API does not recognise is returned as `unknown`; on earlier versions those parts are returned as `comment`. Every value other than `unknown` is also accepted by the `include_part_types` and `exclude_part_types` query parameters when retrieving a conversation.
+	// PartType The type of conversation part. A part type this version does not recognise is returned as `unknown`; versions before 2.18 return `comment` for those parts. Every value other than `unknown` is also accepted by the `include_part_types` and `exclude_part_types` query parameters when retrieving a conversation.
 	//
 	// Example: comment
 	PartType *string `json:"part_type,omitempty"`
@@ -19964,128 +20021,4 @@ type GroupContent struct {
 	//
 	// Example: group_content
 	Type *GroupContentType `json:"type,omitempty"`
-}
-
-// GroupContentType The type of object - `group_content` .
-//
-// Example: group_content
-type GroupContentType string
-
-// GroupTranslatedContent The Translated Content of an Group. The keys are the locale codes and the values are the translated content of the Group.
-type GroupTranslatedContent struct {
-	// Ar The Content of a Group.
-	Ar *GroupContent `json:"ar,omitempty"`
-
-	// Bg The Content of a Group.
-	Bg *GroupContent `json:"bg,omitempty"`
-
-	// Bs The Content of a Group.
-	Bs *GroupContent `json:"bs,omitempty"`
-
-	// Ca The Content of a Group.
-	Ca *GroupContent `json:"ca,omitempty"`
-
-	// Cs The Content of a Group.
-	Cs *GroupContent `json:"cs,omitempty"`
-
-	// Da The Content of a Group.
-	Da *GroupContent `json:"da,omitempty"`
-
-	// De The Content of a Group.
-	De *GroupContent `json:"de,omitempty"`
-
-	// El The Content of a Group.
-	El *GroupContent `json:"el,omitempty"`
-
-	// En The Content of a Group.
-	En *GroupContent `json:"en,omitempty"`
-
-	// Es The Content of a Group.
-	Es *GroupContent `json:"es,omitempty"`
-
-	// Et The Content of a Group.
-	Et *GroupContent `json:"et,omitempty"`
-
-	// Fi The Content of a Group.
-	Fi *GroupContent `json:"fi,omitempty"`
-
-	// Fr The Content of a Group.
-	Fr *GroupContent `json:"fr,omitempty"`
-
-	// He The Content of a Group.
-	He *GroupContent `json:"he,omitempty"`
-
-	// Hr The Content of a Group.
-	Hr *GroupContent `json:"hr,omitempty"`
-
-	// Hu The Content of a Group.
-	Hu *GroupContent `json:"hu,omitempty"`
-
-	// Id The Content of a Group.
-	Id *GroupContent `json:"id,omitempty"`
-
-	// It The Content of a Group.
-	It *GroupContent `json:"it,omitempty"`
-
-	// Ja The Content of a Group.
-	Ja *GroupContent `json:"ja,omitempty"`
-
-	// Ko The Content of a Group.
-	Ko *GroupContent `json:"ko,omitempty"`
-
-	// Lt The Content of a Group.
-	Lt *GroupContent `json:"lt,omitempty"`
-
-	// Lv The Content of a Group.
-	Lv *GroupContent `json:"lv,omitempty"`
-
-	// Mn The Content of a Group.
-	Mn *GroupContent `json:"mn,omitempty"`
-
-	// Nb The Content of a Group.
-	Nb *GroupContent `json:"nb,omitempty"`
-
-	// Nl The Content of a Group.
-	Nl *GroupContent `json:"nl,omitempty"`
-
-	// Pl The Content of a Group.
-	Pl *GroupContent `json:"pl,omitempty"`
-
-	// Pt The Content of a Group.
-	Pt *GroupContent `json:"pt,omitempty"`
-
-	// PtBR The Content of a Group.
-	PtBR *GroupContent `json:"pt-BR,omitempty"`
-
-	// Ro The Content of a Group.
-	Ro *GroupContent `json:"ro,omitempty"`
-
-	// Ru The Content of a Group.
-	Ru *GroupContent `json:"ru,omitempty"`
-
-	// Sl The Content of a Group.
-	Sl *GroupContent `json:"sl,omitempty"`
-
-	// Sr The Content of a Group.
-	Sr *GroupContent `json:"sr,omitempty"`
-
-	// Sv The Content of a Group.
-	Sv *GroupContent `json:"sv,omitempty"`
-
-	// Tr The Content of a Group.
-	Tr *GroupContent `json:"tr,omitempty"`
-
-	// Type The type of object - group_translated_content.
-	//
-	// Example: group_translated_content
-	Type *GroupTranslatedContentType `json:"type,omitempty"`
-
-	// Vi The Content of a Group.
-	Vi *GroupContent `json:"vi,omitempty"`
-
-	// ZhCN The Content of a Group.
-	ZhCN *GroupContent `json:"zh-CN,omitempty"`
-
-	// ZhTW The Content of a Group.
-	ZhTW *GroupContent `json:"zh-TW,omitempty"`
 }

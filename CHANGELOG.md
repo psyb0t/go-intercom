@@ -2,6 +2,14 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.9.1, 2026-11-11
+
+- Added the conversation rating endpoint: `Client.RateConversation` and `RateConversationWithBody`, with the `ClientWithResponses` methods `RateConversationWithResponse` and `RateConversationWithBodyWithResponse`.
+- Added `RateConversationRequest`, also available as `RateConversationJSONRequestBody`. It has `IntercomUserId`, `Rating` and `Remark`. Added `RateConversationParams`, `RateConversationResponse`, `NewRateConversationRequest`, `NewRateConversationRequestWithBody` and `ParseRateConversationResponse`.
+- Added `RatedConversation`, the CSAT rating recorded on a conversation, with the enum types `RatedConversationType`, `RatedConversationCustomerType` and `RatedConversationTeammateType` and their constants, for example `RatedConversationTypeConversationRating` and `RatedConversationTeammateTypeBot`.
+- `ClientInterface` and `ClientWithResponsesInterface` gain the new methods and their `WithBody` and `WithResponse` variants. Custom implementations of these interfaces must add them.
+- Generated code in `client_001.gen.go` to `client_006.gen.go` is reordered, which makes the diff large. Behavior is the same.
+
 ## v0.9.0, 2026-11-10
 
 - Breaking: `Error_Errors_Code`, `ErrorErrorsCode0` and `ErrorErrorsCode1` are removed. The error `Code` field is now a plain `string`, so calls to `AsErrorErrorsCode0` must be replaced by reading `Code` directly.

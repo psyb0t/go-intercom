@@ -17,6 +17,130 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// GroupContentType The type of object - `group_content` .
+//
+// Example: group_content
+type GroupContentType string
+
+// GroupTranslatedContent The Translated Content of an Group. The keys are the locale codes and the values are the translated content of the Group.
+type GroupTranslatedContent struct {
+	// Ar The Content of a Group.
+	Ar *GroupContent `json:"ar,omitempty"`
+
+	// Bg The Content of a Group.
+	Bg *GroupContent `json:"bg,omitempty"`
+
+	// Bs The Content of a Group.
+	Bs *GroupContent `json:"bs,omitempty"`
+
+	// Ca The Content of a Group.
+	Ca *GroupContent `json:"ca,omitempty"`
+
+	// Cs The Content of a Group.
+	Cs *GroupContent `json:"cs,omitempty"`
+
+	// Da The Content of a Group.
+	Da *GroupContent `json:"da,omitempty"`
+
+	// De The Content of a Group.
+	De *GroupContent `json:"de,omitempty"`
+
+	// El The Content of a Group.
+	El *GroupContent `json:"el,omitempty"`
+
+	// En The Content of a Group.
+	En *GroupContent `json:"en,omitempty"`
+
+	// Es The Content of a Group.
+	Es *GroupContent `json:"es,omitempty"`
+
+	// Et The Content of a Group.
+	Et *GroupContent `json:"et,omitempty"`
+
+	// Fi The Content of a Group.
+	Fi *GroupContent `json:"fi,omitempty"`
+
+	// Fr The Content of a Group.
+	Fr *GroupContent `json:"fr,omitempty"`
+
+	// He The Content of a Group.
+	He *GroupContent `json:"he,omitempty"`
+
+	// Hr The Content of a Group.
+	Hr *GroupContent `json:"hr,omitempty"`
+
+	// Hu The Content of a Group.
+	Hu *GroupContent `json:"hu,omitempty"`
+
+	// Id The Content of a Group.
+	Id *GroupContent `json:"id,omitempty"`
+
+	// It The Content of a Group.
+	It *GroupContent `json:"it,omitempty"`
+
+	// Ja The Content of a Group.
+	Ja *GroupContent `json:"ja,omitempty"`
+
+	// Ko The Content of a Group.
+	Ko *GroupContent `json:"ko,omitempty"`
+
+	// Lt The Content of a Group.
+	Lt *GroupContent `json:"lt,omitempty"`
+
+	// Lv The Content of a Group.
+	Lv *GroupContent `json:"lv,omitempty"`
+
+	// Mn The Content of a Group.
+	Mn *GroupContent `json:"mn,omitempty"`
+
+	// Nb The Content of a Group.
+	Nb *GroupContent `json:"nb,omitempty"`
+
+	// Nl The Content of a Group.
+	Nl *GroupContent `json:"nl,omitempty"`
+
+	// Pl The Content of a Group.
+	Pl *GroupContent `json:"pl,omitempty"`
+
+	// Pt The Content of a Group.
+	Pt *GroupContent `json:"pt,omitempty"`
+
+	// PtBR The Content of a Group.
+	PtBR *GroupContent `json:"pt-BR,omitempty"`
+
+	// Ro The Content of a Group.
+	Ro *GroupContent `json:"ro,omitempty"`
+
+	// Ru The Content of a Group.
+	Ru *GroupContent `json:"ru,omitempty"`
+
+	// Sl The Content of a Group.
+	Sl *GroupContent `json:"sl,omitempty"`
+
+	// Sr The Content of a Group.
+	Sr *GroupContent `json:"sr,omitempty"`
+
+	// Sv The Content of a Group.
+	Sv *GroupContent `json:"sv,omitempty"`
+
+	// Tr The Content of a Group.
+	Tr *GroupContent `json:"tr,omitempty"`
+
+	// Type The type of object - group_translated_content.
+	//
+	// Example: group_translated_content
+	Type *GroupTranslatedContentType `json:"type,omitempty"`
+
+	// Vi The Content of a Group.
+	Vi *GroupContent `json:"vi,omitempty"`
+
+	// ZhCN The Content of a Group.
+	ZhCN *GroupContent `json:"zh-CN,omitempty"`
+
+	// ZhTW The Content of a Group.
+	ZhTW *GroupContent `json:"zh-TW,omitempty"`
+}
+
 // GroupTranslatedContentType The type of object - group_translated_content.
 //
 // Example: group_translated_content
@@ -1713,6 +1837,98 @@ type QuickReplyOption struct {
 	// Uuid A unique identifier for this quick reply option. This value will be available within the metadata of the comment conversation part that is created when a user clicks on this reply option.
 	Uuid openapi_types.UUID `json:"uuid"`
 }
+
+// RateConversationRequest defines model for rate_conversation_request.
+type RateConversationRequest struct {
+	// IntercomUserId The unique identifier for the contact the rating request was sent to.
+	//
+	// Example: 6541f0a2c3d4e5f607182930
+	IntercomUserId string `json:"intercom_user_id"`
+
+	// Rating The rating, from 1 to 5.
+	//
+	// Example: 4
+	Rating int `json:"rating"`
+
+	// Remark Free text from the contact to go with the rating.
+	//
+	// Example: Fast and friendly
+	Remark *string `json:"remark,omitempty"`
+}
+
+// RatedConversation The CSAT rating recorded on a conversation.
+type RatedConversation struct {
+	// ConversationId The unique identifier for the conversation.
+	//
+	// Example: 215471234567890
+	ConversationId *string `json:"conversation_id,omitempty"`
+
+	// CreatedAt The time the rating request was created, as a UNIX timestamp.
+	//
+	// Example: 1793664000
+	CreatedAt *int `json:"created_at,omitempty"`
+
+	// Customer The contact who answered.
+	Customer *struct {
+		// Id The unique identifier for the contact.
+		//
+		// Example: 6541f0a2c3d4e5f607182930
+		Id *string `json:"id,omitempty"`
+
+		// Type The type of contact.
+		//
+		// Example: user
+		Type *RatedConversationCustomerType `json:"type,omitempty"`
+	} `json:"customer,omitempty"`
+
+	// Rating The rating, from 1 to 5.
+	//
+	// Example: 4
+	Rating *int `json:"rating,omitempty"`
+
+	// Remark The free text left with the rating.
+	//
+	// Example: Fast and friendly
+	Remark *string `json:"remark,omitempty"`
+
+	// Teammate Who was rated.
+	Teammate *struct {
+		// Id The unique identifier for the teammate, Fin or workflow. For a deleted workflow, this is the identifier recorded with the rating.
+		//
+		// Example: 12345
+		Id *string `json:"id,omitempty"`
+
+		// Type `admin` for a teammate, `bot` for Fin, or `workflow` for a workflow.
+		//
+		// Example: admin
+		Type *RatedConversationTeammateType `json:"type,omitempty"`
+	} `json:"teammate,omitempty"`
+
+	// Type String representing the object's type. Always has the value `conversation_rating`.
+	//
+	// Example: conversation_rating
+	Type *RatedConversationType `json:"type,omitempty"`
+
+	// UpdatedAt The time the rating or remark last changed, as a UNIX timestamp.
+	//
+	// Example: 1793664120
+	UpdatedAt *int `json:"updated_at,omitempty"`
+}
+
+// RatedConversationCustomerType The type of contact.
+//
+// Example: user
+type RatedConversationCustomerType string
+
+// RatedConversationTeammateType `admin` for a teammate, `bot` for Fin, or `workflow` for a workflow.
+//
+// Example: admin
+type RatedConversationTeammateType string
+
+// RatedConversationType String representing the object's type. Always has the value `conversation_rating`.
+//
+// Example: conversation_rating
+type RatedConversationType string
 
 // Recipient A recipient of a message
 type Recipient struct {
@@ -6317,6 +6533,11 @@ type ManageConversationParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
 }
 
+// RateConversationParams defines parameters for RateConversation.
+type RateConversationParams struct {
+	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
+}
+
 // ReplyConversationParams defines parameters for ReplyConversation.
 type ReplyConversationParams struct {
 	IntercomVersion *IntercomVersion `json:"Intercom-Version,omitempty"`
@@ -8065,6 +8286,9 @@ type DetachContactFromConversationJSONRequestBody = DetachContactFromConversatio
 
 // ManageConversationJSONRequestBody defines body for ManageConversation for application/json ContentType.
 type ManageConversationJSONRequestBody = ClientBodyManageConversation
+
+// RateConversationJSONRequestBody defines body for RateConversation for application/json ContentType.
+type RateConversationJSONRequestBody = RateConversationRequest
 
 // ReplyConversationJSONRequestBody defines body for ReplyConversation for application/json ContentType.
 type ReplyConversationJSONRequestBody = ReplyConversationRequest
@@ -19427,6 +19651,36 @@ type ClientInterface interface {
 	//
 	// Corresponds with POST /conversations/{conversation_id}/parts (the `ManageConversation` operationId).
 	ManageConversation(ctx context.Context, conversationId string, params *ManageConversationParams, body ManageConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RateConversationWithBody Rate a conversation
+	//
+	// Record a contact's CSAT rating, and an optional remark, on the latest rating request Intercom sent for a conversation. The rating counts in your CSAT reports for the teammate, Fin or workflow that was rated.
+	//
+	// Only the contact the request was sent to can answer. Pass their Intercom ID as `intercom_user_id`.
+	//
+	// Sending the same rating and remark again returns the current rating without changing it, so it is safe to retry. A different `rating` replaces the earlier one while the rating request still accepts answers. A `remark` can be added to a rating that has none. Once a remark is set, the rating and the remark can no longer be changed.
+	//
+	// Requires the `write_conversations` permission.
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with POST /conversations/{conversation_id}/rating (the `RateConversation` operationId).
+	RateConversationWithBody(ctx context.Context, conversationId string, params *RateConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RateConversation Rate a conversation
+	//
+	// Record a contact's CSAT rating, and an optional remark, on the latest rating request Intercom sent for a conversation. The rating counts in your CSAT reports for the teammate, Fin or workflow that was rated.
+	//
+	// Only the contact the request was sent to can answer. Pass their Intercom ID as `intercom_user_id`.
+	//
+	// Sending the same rating and remark again returns the current rating without changing it, so it is safe to retry. A different `rating` replaces the earlier one while the rating request still accepts answers. A `remark` can be added to a rating that has none. Once a remark is set, the rating and the remark can no longer be changed.
+	//
+	// Requires the `write_conversations` permission.
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with POST /conversations/{conversation_id}/rating (the `RateConversation` operationId).
+	RateConversation(ctx context.Context, conversationId string, params *RateConversationParams, body RateConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ReplyConversationWithBody Reply to a conversation
 	//

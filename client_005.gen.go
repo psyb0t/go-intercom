@@ -10,6 +10,39 @@ import (
 	"time"
 )
 
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r MergeContactResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r MergeContactResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r MergeContactResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON409 returns the response for an HTTP 409 `application/json` response
+func (r MergeContactResponse) GetJSON409() *Error {
+	return r.JSON409
+}
+
+// GetBody returns the raw response body bytes
+func (r MergeContactResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r MergeContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
 // StatusCode returns HTTPResponse.StatusCode
 func (r MergeContactResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
@@ -4621,6 +4654,82 @@ func (r ManageConversationResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r ManageConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RateConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *RatedConversation
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *Error
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *Error
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *Error
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r RateConversationResponse) GetJSON200() *RatedConversation {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r RateConversationResponse) GetJSON400() *Error {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r RateConversationResponse) GetJSON401() *Error {
+	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r RateConversationResponse) GetJSON403() *Error {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r RateConversationResponse) GetJSON404() *Error {
+	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r RateConversationResponse) GetJSON422() *Error {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r RateConversationResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RateConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RateConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RateConversationResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -18350,6 +18459,48 @@ func (c *ClientWithResponses) ManageConversationWithResponse(ctx context.Context
 	return ParseManageConversationResponse(rsp)
 }
 
+// RateConversationWithBodyWithResponse Rate a conversation
+//
+// Record a contact's CSAT rating, and an optional remark, on the latest rating request Intercom sent for a conversation. The rating counts in your CSAT reports for the teammate, Fin or workflow that was rated.
+//
+// Only the contact the request was sent to can answer. Pass their Intercom ID as `intercom_user_id`.
+//
+// Sending the same rating and remark again returns the current rating without changing it, so it is safe to retry. A different `rating` replaces the earlier one while the rating request still accepts answers. A `remark` can be added to a rating that has none. Once a remark is set, the rating and the remark can no longer be changed.
+//
+// Requires the `write_conversations` permission.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /conversations/{conversation_id}/rating (the `RateConversation` operationId).
+func (c *ClientWithResponses) RateConversationWithBodyWithResponse(ctx context.Context, conversationId string, params *RateConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RateConversationResponse, error) {
+	rsp, err := c.RateConversationWithBody(ctx, conversationId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRateConversationResponse(rsp)
+}
+
+// RateConversationWithResponse Rate a conversation
+//
+// Record a contact's CSAT rating, and an optional remark, on the latest rating request Intercom sent for a conversation. The rating counts in your CSAT reports for the teammate, Fin or workflow that was rated.
+//
+// Only the contact the request was sent to can answer. Pass their Intercom ID as `intercom_user_id`.
+//
+// Sending the same rating and remark again returns the current rating without changing it, so it is safe to retry. A different `rating` replaces the earlier one while the rating request still accepts answers. A `remark` can be added to a rating that has none. Once a remark is set, the rating and the remark can no longer be changed.
+//
+// Requires the `write_conversations` permission.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /conversations/{conversation_id}/rating (the `RateConversation` operationId).
+func (c *ClientWithResponses) RateConversationWithResponse(ctx context.Context, conversationId string, params *RateConversationParams, body RateConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*RateConversationResponse, error) {
+	rsp, err := c.RateConversation(ctx, conversationId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRateConversationResponse(rsp)
+}
+
 // ReplyConversationWithBodyWithResponse Reply to a conversation
 //
 // You can reply to a conversation with a message from an admin or on behalf of a contact, or with a note for admins.
@@ -19858,197 +20009,4 @@ func (c *ClientWithResponses) AskFinWithBodyWithResponse(ctx context.Context, pa
 		return nil, err
 	}
 	return ParseAskFinResponse(rsp)
-}
-
-// AskFinWithResponse Ask Fin
-//
-// Ask Fin a single, self-contained question and receive one informational answer.
-//
-// Unlike a conversation, `/fin/ask` is non-conversational: Fin will not ask follow-up
-// questions, will not run procedures, and will not decide to hand over to a human itself.
-// Escalation rules can still match, and the conversation can still be routed to a team or
-// finish without resolution. You can also escalate one yourself with `POST /fin/escalate`;
-// the ask conversation is already closed after its one-shot answer, and escalation leaves
-// it closed while routing the handoff separately.
-//
-// Fin's answer is delivered asynchronously via the `fin_replied` event. The conversation
-// ends with a `complete` status — there is no `awaiting_user_reply` cycle.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/ask (the `AskFin` operationId).
-func (c *ClientWithResponses) AskFinWithResponse(ctx context.Context, params *AskFinParams, body AskFinJSONRequestBody, reqEditors ...RequestEditorFn) (*AskFinResponse, error) {
-	rsp, err := c.AskFin(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseAskFinResponse(rsp)
-}
-
-// ListFinCapabilitiesWithBodyWithResponse Discover Fin's capabilities
-//
-// Return a machine-readable, per-user list of what Fin can do for a given end user, so an
-// orchestrating agent can decide which endpoint to call.
-//
-// The response is audience-matched to the supplied user: each live, API-triggerable
-// procedure is checked against that user before being included, alongside the static
-// `reply`, `ask`, and `escalate` actions.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/capabilities (the `ListFinCapabilities` operationId).
-func (c *ClientWithResponses) ListFinCapabilitiesWithBodyWithResponse(ctx context.Context, params *ListFinCapabilitiesParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ListFinCapabilitiesResponse, error) {
-	rsp, err := c.ListFinCapabilitiesWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListFinCapabilitiesResponse(rsp)
-}
-
-// ListFinCapabilitiesWithResponse Discover Fin's capabilities
-//
-// Return a machine-readable, per-user list of what Fin can do for a given end user, so an
-// orchestrating agent can decide which endpoint to call.
-//
-// The response is audience-matched to the supplied user: each live, API-triggerable
-// procedure is checked against that user before being included, alongside the static
-// `reply`, `ask`, and `escalate` actions.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/capabilities (the `ListFinCapabilities` operationId).
-func (c *ClientWithResponses) ListFinCapabilitiesWithResponse(ctx context.Context, params *ListFinCapabilitiesParams, body ListFinCapabilitiesJSONRequestBody, reqEditors ...RequestEditorFn) (*ListFinCapabilitiesResponse, error) {
-	rsp, err := c.ListFinCapabilities(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListFinCapabilitiesResponse(rsp)
-}
-
-// SubmitFinCsatWithBodyWithResponse Submit a CSAT rating
-//
-// Record a customer's satisfaction rating for a conversation, with an optional free-text
-// remark.
-//
-// Fin decides *when* to ask for a rating — this reuses the CSAT settings on your Fin
-// workflow, not this API. When Fin asks, it fires a `csat_requested` event over webhooks
-// carrying the rating options to show the user. Present those options, then submit the
-// user's choice here.
-//
-// Submitting the same rating again, with no new remark, is a no-op and stays successful,
-// so an at-least-once client can safely retry. Submitting a *different* rating updates the
-// stored rating while the update window is still open, and a first remark can be added to
-// an already-rated survey. Once a remark has been recorded the rating is locked and can no
-// longer be changed.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/csat (the `SubmitFinCsat` operationId).
-func (c *ClientWithResponses) SubmitFinCsatWithBodyWithResponse(ctx context.Context, params *SubmitFinCsatParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SubmitFinCsatResponse, error) {
-	rsp, err := c.SubmitFinCsatWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSubmitFinCsatResponse(rsp)
-}
-
-// SubmitFinCsatWithResponse Submit a CSAT rating
-//
-// Record a customer's satisfaction rating for a conversation, with an optional free-text
-// remark.
-//
-// Fin decides *when* to ask for a rating — this reuses the CSAT settings on your Fin
-// workflow, not this API. When Fin asks, it fires a `csat_requested` event over webhooks
-// carrying the rating options to show the user. Present those options, then submit the
-// user's choice here.
-//
-// Submitting the same rating again, with no new remark, is a no-op and stays successful,
-// so an at-least-once client can safely retry. Submitting a *different* rating updates the
-// stored rating while the update window is still open, and a first remark can be added to
-// an already-rated survey. Once a remark has been recorded the rating is locked and can no
-// longer be changed.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/csat (the `SubmitFinCsat` operationId).
-func (c *ClientWithResponses) SubmitFinCsatWithResponse(ctx context.Context, params *SubmitFinCsatParams, body SubmitFinCsatJSONRequestBody, reqEditors ...RequestEditorFn) (*SubmitFinCsatResponse, error) {
-	rsp, err := c.SubmitFinCsat(ctx, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSubmitFinCsatResponse(rsp)
-}
-
-// EscalateFinConversationWithBodyWithResponse Escalate to a human
-//
-// Hand a conversation off to a human teammate. If you use the Intercom Helpdesk, the
-// handoff lands in your team inbox.
-//
-// Provide either `conversation_id` or `user`:
-//
-//   - `conversation_id` — escalate an existing agent conversation, including one started
-//     with `/fin/ask`. On the Intercom Helpdesk, Fin by default summarises the conversation
-//     and opens a new Helpdesk conversation that carries the summary as an internal note.
-//     Configure an escalation Operator Workflow to change this default. Escalation closes the
-//     original agent conversation if it is open.
-//   - `user` — escalate on behalf of a user with no prior agent conversation. Fin creates an
-//     agent conversation for the escalation and closes it once the handoff completes. On the
-//     Intercom Helpdesk, the teammate works in a separate new Helpdesk conversation. Not
-//     supported on Fin for Platforms — see below.
-//
-// In both cases, pass the optional `context` to give the receiving teammate background your
-// orchestrating agent has and Fin does not. On the Intercom Helpdesk, it appears above the
-// summary in the internal note of the new conversation the teammate picks up. It is never
-// shown to the end user.
-//
-// Escalating an existing conversation also sets its AI Agent resolution state to
-// `escalated`, readable as `ai_agent.resolution_state` on the Conversations API. This is a
-// resolution state, not a billable resolution.
-//
-// On Fin for Platforms, `conversation_id` is required — `user` is not supported and is
-// rejected, because there is no Intercom Helpdesk in which to create a conversation. There
-// is no Intercom inbox either, so an escalation that no workflow handles does not open a
-// Helpdesk conversation for a teammate. `context` is not surfaced. The conversation is closed,
-// as on the Intercom Helpdesk, and your platform hands the user off to a human.
-//
-// You are notified via webhooks with an `escalated` status
-// followed by `complete`. The `complete` status signals that Fin is done. By then the
-// original agent conversation has been closed. An escalation Operator Workflow may act
-// on it afterwards, but it is closed again once the workflow's first steps have run, so
-// only steps that run later (for example after a wait) can reopen it. On the Intercom
-// Helpdesk, the new human conversation remains open.
-//
-// {% admonition type="warning" %}
-// To request access to the Fin Agent API, go to **Settings > Integrations > Fin Agent API** in your workspace and tell us about your use case. Once access is granted, **Fin Agent API** appears under **Fin AI Agent > Deploy**.
-// {% /admonition %}
-//
-// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
-//
-// Corresponds with POST /fin/escalate (the `EscalateFinConversation` operationId).
-func (c *ClientWithResponses) EscalateFinConversationWithBodyWithResponse(ctx context.Context, params *EscalateFinConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EscalateFinConversationResponse, error) {
-	rsp, err := c.EscalateFinConversationWithBody(ctx, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseEscalateFinConversationResponse(rsp)
 }
