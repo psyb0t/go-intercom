@@ -14641,7 +14641,7 @@ func (c *ClientWithResponses) UpdateExternalPageWithResponse(ctx context.Context
 // >
 // > Articles will be returned in descending order on the `updated_at` attribute. This means if you need to iterate through results then we'll show the most recently updated articles first.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -14662,7 +14662,7 @@ func (c *ClientWithResponses) ListArticlesWithResponse(ctx context.Context, para
 // >
 // > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -14683,7 +14683,7 @@ func (c *ClientWithResponses) CreateArticleWithBodyWithResponse(ctx context.Cont
 // >
 // > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -14702,7 +14702,7 @@ func (c *ClientWithResponses) CreateArticleWithResponse(ctx context.Context, par
 //
 // If no articles match the search, `data` is an empty array rather than an object.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -14736,7 +14736,7 @@ func (c *ClientWithResponses) DeleteArticleWithResponse(ctx context.Context, art
 //
 // You can fetch the details of a single article by making a GET request to `https://api.intercom.io/articles/<id>`.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -14757,7 +14757,7 @@ func (c *ClientWithResponses) RetrieveArticleWithResponse(ctx context.Context, a
 // >
 // > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -14778,7 +14778,7 @@ func (c *ClientWithResponses) UpdateArticleWithBodyWithResponse(ctx context.Cont
 // >
 // > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -14799,7 +14799,7 @@ func (c *ClientWithResponses) UpdateArticleWithResponse(ctx context.Context, art
 // and the authenticating teammate must have the `manage_knowledge_base_content`
 // permission.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -14820,7 +14820,7 @@ func (c *ClientWithResponses) AttachTagToArticleWithBodyWithResponse(ctx context
 // and the authenticating teammate must have the `manage_knowledge_base_content`
 // permission.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -14841,7 +14841,7 @@ func (c *ClientWithResponses) AttachTagToArticleWithResponse(ctx context.Context
 // The authenticating teammate must have the `manage_knowledge_base_content`
 // permission.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -14865,7 +14865,7 @@ func (c *ClientWithResponses) DetachTagFromArticleWithResponse(ctx context.Conte
 // A `404` has an empty response body, whether the article or its content
 // isn't found.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -14888,7 +14888,7 @@ func (c *ClientWithResponses) ListArticleVersionsWithResponse(ctx context.Contex
 // A `404` has an empty response body, whether the article, its content or
 // the version isn't found.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -14912,7 +14912,7 @@ func (c *ClientWithResponses) RetrieveArticleVersionWithResponse(ctx context.Con
 // has no staged draft. An article ID that doesn't exist returns a `404` with
 // the standard error body.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -14944,7 +14944,7 @@ func (c *ClientWithResponses) RetrieveArticleDraftWithResponse(ctx context.Conte
 // scheduling, state and placement notes on the request schema's other fields
 // do not apply to this endpoint, because those fields are not applied.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -14976,7 +14976,7 @@ func (c *ClientWithResponses) StageArticleDraftWithBodyWithResponse(ctx context.
 // scheduling, state and placement notes on the request schema's other fields
 // do not apply to this endpoint, because those fields are not applied.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -15004,7 +15004,7 @@ func (c *ClientWithResponses) StageArticleDraftWithResponse(ctx context.Context,
 // `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
 // `request_id` or `code`. The other `422` errors use the standard error format.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -15032,7 +15032,7 @@ func (c *ClientWithResponses) PublishArticleDraftWithBodyWithResponse(ctx contex
 // `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
 // `request_id` or `code`. The other `422` errors use the standard error format.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //

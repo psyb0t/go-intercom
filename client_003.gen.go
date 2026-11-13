@@ -572,7 +572,7 @@ func (c *Client) UpdateExternalPage(ctx context.Context, pageId string, params *
 // >
 // > Articles will be returned in descending order on the `updated_at` attribute. This means if you need to iterate through results then we'll show the most recently updated articles first.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with GET /articles (the `ListArticles` operationId).
 func (c *Client) ListArticles(ctx context.Context, params *ListArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -595,7 +595,7 @@ func (c *Client) ListArticles(ctx context.Context, params *ListArticlesParams, r
 // >
 // > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -620,7 +620,7 @@ func (c *Client) CreateArticleWithBody(ctx context.Context, params *CreateArticl
 // >
 // > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -643,7 +643,7 @@ func (c *Client) CreateArticle(ctx context.Context, params *CreateArticleParams,
 //
 // If no articles match the search, `data` is an empty array rather than an object.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with GET /articles/search (the `SearchArticles` operationId).
 func (c *Client) SearchArticles(ctx context.Context, params *SearchArticlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -681,7 +681,7 @@ func (c *Client) DeleteArticle(ctx context.Context, articleId int, params *Delet
 //
 // You can fetch the details of a single article by making a GET request to `https://api.intercom.io/articles/<id>`.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with GET /articles/{article_id} (the `RetrieveArticle` operationId).
 func (c *Client) RetrieveArticle(ctx context.Context, articleId int, params *RetrieveArticleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -704,7 +704,7 @@ func (c *Client) RetrieveArticle(ctx context.Context, articleId int, params *Ret
 // >
 // > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -729,7 +729,7 @@ func (c *Client) UpdateArticleWithBody(ctx context.Context, articleId int, param
 // >
 // > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -754,7 +754,7 @@ func (c *Client) UpdateArticle(ctx context.Context, articleId int, params *Updat
 // and the authenticating teammate must have the `manage_knowledge_base_content`
 // permission.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -779,7 +779,7 @@ func (c *Client) AttachTagToArticleWithBody(ctx context.Context, articleId int, 
 // and the authenticating teammate must have the `manage_knowledge_base_content`
 // permission.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -804,7 +804,7 @@ func (c *Client) AttachTagToArticle(ctx context.Context, articleId int, params *
 // The authenticating teammate must have the `manage_knowledge_base_content`
 // permission.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with DELETE /articles/{article_id}/tags/{id} (the `DetachTagFromArticle` operationId).
 func (c *Client) DetachTagFromArticle(ctx context.Context, articleId int, id string, params *DetachTagFromArticleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -830,7 +830,7 @@ func (c *Client) DetachTagFromArticle(ctx context.Context, articleId int, id str
 // A `404` has an empty response body, whether the article or its content
 // isn't found.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with GET /articles/{article_id}/versions (the `ListArticleVersions` operationId).
 func (c *Client) ListArticleVersions(ctx context.Context, articleId int, params *ListArticleVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -855,7 +855,7 @@ func (c *Client) ListArticleVersions(ctx context.Context, articleId int, params 
 // A `404` has an empty response body, whether the article, its content or
 // the version isn't found.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with GET /articles/{article_id}/versions/{id} (the `RetrieveArticleVersion` operationId).
 func (c *Client) RetrieveArticleVersion(ctx context.Context, articleId int, id string, params *RetrieveArticleVersionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -881,7 +881,7 @@ func (c *Client) RetrieveArticleVersion(ctx context.Context, articleId int, id s
 // has no staged draft. An article ID that doesn't exist returns a `404` with
 // the standard error body.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with GET /articles/{id}/draft (the `RetrieveArticleDraft` operationId).
 func (c *Client) RetrieveArticleDraft(ctx context.Context, id int, params *RetrieveArticleDraftParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -915,7 +915,7 @@ func (c *Client) RetrieveArticleDraft(ctx context.Context, id int, params *Retri
 // scheduling, state and placement notes on the request schema's other fields
 // do not apply to this endpoint, because those fields are not applied.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -951,7 +951,7 @@ func (c *Client) StageArticleDraftWithBody(ctx context.Context, id int, params *
 // scheduling, state and placement notes on the request schema's other fields
 // do not apply to this endpoint, because those fields are not applied.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -983,7 +983,7 @@ func (c *Client) StageArticleDraft(ctx context.Context, id int, params *StageArt
 // `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
 // `request_id` or `code`. The other `422` errors use the standard error format.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -1015,7 +1015,7 @@ func (c *Client) PublishArticleDraftWithBody(ctx context.Context, id int, params
 // `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
 // `request_id` or `code`. The other `422` errors use the standard error format.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -7362,7 +7362,7 @@ func (c *Client) UpdateFolder(ctx context.Context, id int, params *UpdateFolderP
 //
 // You can fetch a list of all collections by making a GET request to `https://api.intercom.io/help_center/collections`.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with GET /help_center/collections (the `ListAllCollections` operationId).
 func (c *Client) ListAllCollections(ctx context.Context, params *ListAllCollectionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -7381,7 +7381,7 @@ func (c *Client) ListAllCollections(ctx context.Context, params *ListAllCollecti
 //
 // You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -7402,7 +7402,7 @@ func (c *Client) CreateCollectionWithBody(ctx context.Context, params *CreateCol
 //
 // You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -7442,7 +7442,7 @@ func (c *Client) DeleteCollection(ctx context.Context, collectionId int, params 
 //
 // You can fetch the details of a single collection by making a GET request to `https://api.intercom.io/help_center/collections/<id>`.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with GET /help_center/collections/{collection_id} (the `RetrieveCollection` operationId).
 func (c *Client) RetrieveCollection(ctx context.Context, collectionId int, params *RetrieveCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -7463,7 +7463,7 @@ func (c *Client) RetrieveCollection(ctx context.Context, collectionId int, param
 //
 // `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type.
 //
@@ -7486,7 +7486,7 @@ func (c *Client) UpdateCollectionWithBody(ctx context.Context, collectionId int,
 //
 // `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -7507,7 +7507,7 @@ func (c *Client) UpdateCollection(ctx context.Context, collectionId int, params 
 //
 // You can list all Help Centers by making a GET request to `https://api.intercom.io/help_center/help_centers`.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with GET /help_center/help_centers (the `ListHelpCenters` operationId).
 func (c *Client) ListHelpCenters(ctx context.Context, params *ListHelpCentersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -7526,7 +7526,7 @@ func (c *Client) ListHelpCenters(ctx context.Context, params *ListHelpCentersPar
 //
 // You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_centers/<id>`.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Corresponds with GET /help_center/help_centers/{help_center_id} (the `RetrieveHelpCenter` operationId).
 func (c *Client) RetrieveHelpCenter(ctx context.Context, helpCenterId int, params *RetrieveHelpCenterParams, reqEditors ...RequestEditorFn) (*http.Response, error) {

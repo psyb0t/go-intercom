@@ -2,6 +2,11 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.9.2, 2026-11-13
+
+- Documentation: the OAuth scope comments on the article and help center methods in `Client` and `ClientWithResponses` now say `create_update_articles` is accepted as an alternative to `read_articles_scope` or `read_write_articles_scope`. No exported API changes.
+- Raised the pinned Go toolchain from 1.26.10 to 1.26.11 in `go.mod`, `Dockerfile.dev` and the setup reference, because 1.26.10 had the `net/http` vulnerability GO-2026-6859. Builds now need Go 1.26.11 or newer.
+
 ## v0.9.1, 2026-11-11
 
 - Added the conversation rating endpoint: `Client.RateConversation` and `RateConversationWithBody`, with the `ClientWithResponses` methods `RateConversationWithResponse` and `RateConversationWithBodyWithResponse`.

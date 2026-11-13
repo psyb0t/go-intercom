@@ -652,7 +652,7 @@ func (c *ClientWithResponses) UpdateFolderWithResponse(ctx context.Context, id i
 //
 // You can fetch a list of all collections by making a GET request to `https://api.intercom.io/help_center/collections`.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -669,7 +669,7 @@ func (c *ClientWithResponses) ListAllCollectionsWithResponse(ctx context.Context
 //
 // You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -686,7 +686,7 @@ func (c *ClientWithResponses) CreateCollectionWithBodyWithResponse(ctx context.C
 //
 // You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -720,7 +720,7 @@ func (c *ClientWithResponses) DeleteCollectionWithResponse(ctx context.Context, 
 //
 // You can fetch the details of a single collection by making a GET request to `https://api.intercom.io/help_center/collections/<id>`.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -739,7 +739,7 @@ func (c *ClientWithResponses) RetrieveCollectionWithResponse(ctx context.Context
 //
 // `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -758,7 +758,7 @@ func (c *ClientWithResponses) UpdateCollectionWithBodyWithResponse(ctx context.C
 //
 // `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
 //
-// Requires the `read_write_articles_scope` OAuth scope.
+// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -775,7 +775,7 @@ func (c *ClientWithResponses) UpdateCollectionWithResponse(ctx context.Context, 
 //
 // You can list all Help Centers by making a GET request to `https://api.intercom.io/help_center/help_centers`.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -792,7 +792,7 @@ func (c *ClientWithResponses) ListHelpCentersWithResponse(ctx context.Context, p
 //
 // You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_centers/<id>`.
 //
-// Requires the `read_articles_scope` OAuth scope.
+// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //

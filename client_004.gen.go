@@ -8125,7 +8125,7 @@ type ClientWithResponsesInterface interface {
 	// >
 	// > Articles will be returned in descending order on the `updated_at` attribute. This means if you need to iterate through results then we'll show the most recently updated articles first.
 	//
-	// Requires the `read_articles_scope` OAuth scope.
+	// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -8140,7 +8140,7 @@ type ClientWithResponsesInterface interface {
 	// >
 	// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -8155,7 +8155,7 @@ type ClientWithResponsesInterface interface {
 	// >
 	// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -8168,7 +8168,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// If no articles match the search, `data` is an empty array rather than an object.
 	//
-	// Requires the `read_articles_scope` OAuth scope.
+	// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -8190,7 +8190,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch the details of a single article by making a GET request to `https://api.intercom.io/articles/<id>`.
 	//
-	// Requires the `read_articles_scope` OAuth scope.
+	// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -8205,7 +8205,7 @@ type ClientWithResponsesInterface interface {
 	// >
 	// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -8220,7 +8220,7 @@ type ClientWithResponsesInterface interface {
 	// >
 	// > Tags are returned in article responses but cannot be set in the request body. To add or remove an article's tags, use the `POST /articles/{article_id}/tags` and `DELETE /articles/{article_id}/tags/{id}` endpoints.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -8235,7 +8235,7 @@ type ClientWithResponsesInterface interface {
 	// and the authenticating teammate must have the `manage_knowledge_base_content`
 	// permission.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -8250,7 +8250,7 @@ type ClientWithResponsesInterface interface {
 	// and the authenticating teammate must have the `manage_knowledge_base_content`
 	// permission.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -8265,7 +8265,7 @@ type ClientWithResponsesInterface interface {
 	// The authenticating teammate must have the `manage_knowledge_base_content`
 	// permission.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -8283,7 +8283,7 @@ type ClientWithResponsesInterface interface {
 	// A `404` has an empty response body, whether the article or its content
 	// isn't found.
 	//
-	// Requires the `read_articles_scope` OAuth scope.
+	// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -8300,7 +8300,7 @@ type ClientWithResponsesInterface interface {
 	// A `404` has an empty response body, whether the article, its content or
 	// the version isn't found.
 	//
-	// Requires the `read_articles_scope` OAuth scope.
+	// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -8318,7 +8318,7 @@ type ClientWithResponsesInterface interface {
 	// has no staged draft. An article ID that doesn't exist returns a `404` with
 	// the standard error body.
 	//
-	// Requires the `read_articles_scope` OAuth scope.
+	// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -8344,7 +8344,7 @@ type ClientWithResponsesInterface interface {
 	// scheduling, state and placement notes on the request schema's other fields
 	// do not apply to this endpoint, because those fields are not applied.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -8370,7 +8370,7 @@ type ClientWithResponsesInterface interface {
 	// scheduling, state and placement notes on the request schema's other fields
 	// do not apply to this endpoint, because those fields are not applied.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -8392,7 +8392,7 @@ type ClientWithResponsesInterface interface {
 	// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
 	// `request_id` or `code`. The other `422` errors use the standard error format.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -8414,7 +8414,7 @@ type ClientWithResponsesInterface interface {
 	// `{ "errors": [{ "message": "...", "status": 422 }] }`, with no `type`,
 	// `request_id` or `code`. The other `422` errors use the standard error format.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -12578,7 +12578,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch a list of all collections by making a GET request to `https://api.intercom.io/help_center/collections`.
 	//
-	// Requires the `read_articles_scope` OAuth scope.
+	// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -12589,7 +12589,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -12600,7 +12600,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can create a new collection by making a POST request to `https://api.intercom.io/help_center/collections`.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -12622,7 +12622,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch the details of a single collection by making a GET request to `https://api.intercom.io/help_center/collections/<id>`.
 	//
-	// Requires the `read_articles_scope` OAuth scope.
+	// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -12635,7 +12635,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -12648,7 +12648,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// `help_center_id` is checked but never applied. It must match the help center of the collection's articles and sub-collections, or the request returns a `400`. A collection with no content rejects any `help_center_id`, so leave it out. Moving a collection to another help center isn't supported.
 	//
-	// Requires the `read_write_articles_scope` OAuth scope.
+	// Requires the `read_write_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -12659,7 +12659,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can list all Help Centers by making a GET request to `https://api.intercom.io/help_center/help_centers`.
 	//
-	// Requires the `read_articles_scope` OAuth scope.
+	// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -12670,7 +12670,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_centers/<id>`.
 	//
-	// Requires the `read_articles_scope` OAuth scope.
+	// Requires the `read_articles_scope` or `create_update_articles` OAuth scope.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
