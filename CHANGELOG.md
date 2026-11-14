@@ -2,6 +2,14 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.10.0, 2026-11-14
+
+- Breaking: `CreateMessageRequest.From` is an inline struct type that now has a `WhatsappNumber` field (`*string`), the WhatsApp number of the workspace to send from. Code that builds or assigns that anonymous struct type must add the field.
+- Added `CreateMessageResponse.JSON500` and `GetJSON500`, a typed `Error` body for HTTP 500 responses. `ParseCreateMessageResponse` now fills it.
+- Documentation: the comments on `CreateMessageRequest.From`, `Template`, `CreateConversationWithoutContactReply`, `CreateMessageRequestTo1` and `CreateMessageRequestTo2` now describe `whatsapp` messages, and say `from` is required.
+- Documentation: the message response comments now say that for `whatsapp` messages the conversation is created on send and its id is returned as `conversation_id`.
+- Generated code in `client_001.gen.go` to `client_006.gen.go` has `GroupContent` moved, which makes part of the diff larger. Behavior is the same.
+
 ## v0.9.2, 2026-11-13
 
 - Documentation: the OAuth scope comments on the article and help center methods in `Client` and `ClientWithResponses` now say `create_update_articles` is accepted as an alternative to `read_articles_scope` or `read_write_articles_scope`. No exported API changes.

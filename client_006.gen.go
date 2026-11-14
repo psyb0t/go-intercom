@@ -1280,7 +1280,9 @@ func (c *ClientWithResponses) IdentifyAdminWithResponse(ctx context.Context, par
 //
 // > 🚧 Retrieving Associated Conversations
 // >
-// > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
+// > For in-app and email messages, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
+// >
+// > For `whatsapp` messages, the conversation is created when the message is sent, and its id is returned as `conversation_id`.
 //
 // {% admonition type="warning" name="Messages from contacts" %}
 // `from` should be an admin. A request with a user or lead as `from` is not rejected: it creates a conversation initiated by that contact, as the Create a conversation endpoint (`POST /conversations`) does, and the `to`, `cc` and `bcc` fields are ignored. To create a conversation initiated by a contact, use `POST /conversations`.
@@ -1309,7 +1311,9 @@ func (c *ClientWithResponses) CreateMessageWithBodyWithResponse(ctx context.Cont
 //
 // > 🚧 Retrieving Associated Conversations
 // >
-// > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
+// > For in-app and email messages, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
+// >
+// > For `whatsapp` messages, the conversation is created when the message is sent, and its id is returned as `conversation_id`.
 //
 // {% admonition type="warning" name="Messages from contacts" %}
 // `from` should be an admin. A request with a user or lead as `from` is not rejected: it creates a conversation initiated by that contact, as the Create a conversation endpoint (`POST /conversations`) does, and the `to`, `cc` and `bcc` fields are ignored. To create a conversation initiated by a contact, use `POST /conversations`.
@@ -14675,6 +14679,13 @@ func ParseCreateMessageResponse(rsp *http.Response) (*CreateMessageResponse, err
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest Error
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 

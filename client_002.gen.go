@@ -17,6 +17,24 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// GroupContent The Content of a Group.
+type GroupContent struct {
+	// Description The description of the collection. Only available for collections.
+	//
+	// Example:  Collection description
+	Description *string `json:"description,omitempty"`
+
+	// Name The name of the collection or section.
+	//
+	// Example: Collection name
+	Name *string `json:"name,omitempty"`
+
+	// Type The type of object - `group_content` .
+	//
+	// Example: group_content
+	Type *GroupContentType `json:"type,omitempty"`
+}
+
 // GroupContentType The type of object - `group_content` .
 //
 // Example: group_content
@@ -21609,7 +21627,9 @@ type ClientInterface interface {
 	//
 	// > 🚧 Retrieving Associated Conversations
 	// >
-	// > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
+	// > For in-app and email messages, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
+	// >
+	// > For `whatsapp` messages, the conversation is created when the message is sent, and its id is returned as `conversation_id`.
 	//
 	// {% admonition type="warning" name="Messages from contacts" %}
 	// `from` should be an admin. A request with a user or lead as `from` is not rejected: it creates a conversation initiated by that contact, as the Create a conversation endpoint (`POST /conversations`) does, and the `to`, `cc` and `bcc` fields are ignored. To create a conversation initiated by a contact, use `POST /conversations`.
@@ -21632,7 +21652,9 @@ type ClientInterface interface {
 	//
 	// > 🚧 Retrieving Associated Conversations
 	// >
-	// > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
+	// > For in-app and email messages, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
+	// >
+	// > For `whatsapp` messages, the conversation is created when the message is sent, and its id is returned as `conversation_id`.
 	//
 	// {% admonition type="warning" name="Messages from contacts" %}
 	// `from` should be an admin. A request with a user or lead as `from` is not rejected: it creates a conversation initiated by that contact, as the Create a conversation endpoint (`POST /conversations`) does, and the `to`, `cc` and `bcc` fields are ignored. To create a conversation initiated by a contact, use `POST /conversations`.

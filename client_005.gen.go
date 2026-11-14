@@ -10752,6 +10752,8 @@ type CreateMessageResponse struct {
 	JSON404 *Error
 	// JSON422 the response for an HTTP 422 `application/json` response
 	JSON422 *Error
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -10782,6 +10784,11 @@ func (r CreateMessageResponse) GetJSON404() *Error {
 // GetJSON422 returns the response for an HTTP 422 `application/json` response
 func (r CreateMessageResponse) GetJSON422() *Error {
 	return r.JSON422
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r CreateMessageResponse) GetJSON500() *Error {
+	return r.JSON500
 }
 
 // GetBody returns the raw response body bytes

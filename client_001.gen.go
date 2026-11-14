@@ -16628,7 +16628,7 @@ type CreateMessageRequest struct {
 	// Example: [{"parameters":[{"text":"Username 123","type":"text"}],"type":"BODY"}]
 	Components *[]map[string]interface{} `json:"components,omitempty"`
 
-	// CreateConversationWithoutContactReply Whether a conversation should be opened in the inbox for the message without the contact replying. Defaults to false if not provided.
+	// CreateConversationWithoutContactReply Whether a conversation should be opened in the inbox for the message without the contact replying. Defaults to false if not provided. For `whatsapp` messages, a conversation is always opened and this field is ignored.
 	//
 	// Example: true
 	CreateConversationWithoutContactReply *bool `json:"create_conversation_without_contact_reply,omitempty"`
@@ -16638,7 +16638,7 @@ type CreateMessageRequest struct {
 	// Example: 1590000000
 	CreatedAt *int `json:"created_at,omitempty"`
 
-	// From The sender of the message. If not provided, the default sender will be used.
+	// From The sender of the message. Required. A request without `from` returns a `400` error.
 	From *struct {
 		// Id The identifier for the admin which is given by Intercom.
 		//
@@ -16649,6 +16649,11 @@ type CreateMessageRequest struct {
 		//
 		// Example: admin
 		Type CreateMessageRequestFromType `json:"type"`
+
+		// WhatsappNumber For `whatsapp` messages, the WhatsApp number of your workspace to send from, in international format. If you leave it out, a WhatsApp number in your workspace that has the template is used. A number that isn't valid, or isn't registered in your workspace, returns a `400` error.
+		//
+		// Example: +14155550123
+		WhatsappNumber *string `json:"whatsapp_number,omitempty"`
 	} `json:"from,omitempty"`
 
 	// Locale The locale of the WhatsApp template to send, such as `en`. If you leave it out, the contact's messenger locale is used, then the workspace locale. A template that isn't available in the locale returns a `400` error.
@@ -16666,7 +16671,7 @@ type CreateMessageRequest struct {
 	// Example: Thanks for everything
 	Subject *string `json:"subject,omitempty"`
 
-	// Template The style of the outgoing message. Possible values `plain` or `personal`.
+	// Template For `email` messages, the style of the outgoing message. Possible values `plain` or `personal`. For `whatsapp` messages, the name of the WhatsApp message template to send. A template that doesn't exist returns a `400` error.
 	//
 	// Example: plain
 	Template *string                  `json:"template,omitempty"`
@@ -16704,12 +16709,12 @@ type CreateMessageRequestFromType string
 // Example: in_app
 type CreateMessageRequestMessageType string
 
-// CreateMessageRequestTo1 The recipients of the message.
+// CreateMessageRequestTo1 The recipients of the message. Not accepted for `whatsapp` messages, which take a single recipient. An array returns a `400` error.
 //
 // Example: [{"id":"536e564f316c83104c000020","type":"user"},{"id":"536e564f316c83104c000021","type":"lead"}]
 type CreateMessageRequestTo1 = []Recipient
 
-// CreateMessageRequestTo2 The recipient of a `whatsapp` message, identified by phone number. Required form for `whatsapp` messages. A contact is created for the number if there isn't one.
+// CreateMessageRequestTo2 The recipient of a `whatsapp` message, identified by phone number. Required form for `whatsapp` messages. A contact is created for the number if there isn't one. Only `phone` and `name` are used. Other keys are ignored.
 type CreateMessageRequestTo2 struct {
 	// Name The name to give the contact if one is created.
 	//
@@ -20004,21 +20009,3 @@ type GrantedCompanyList struct {
 //
 // Example: list
 type GrantedCompanyListType string
-
-// GroupContent The Content of a Group.
-type GroupContent struct {
-	// Description The description of the collection. Only available for collections.
-	//
-	// Example:  Collection description
-	Description *string `json:"description,omitempty"`
-
-	// Name The name of the collection or section.
-	//
-	// Example: Collection name
-	Name *string `json:"name,omitempty"`
-
-	// Type The type of object - `group_content` .
-	//
-	// Example: group_content
-	Type *GroupContentType `json:"type,omitempty"`
-}
