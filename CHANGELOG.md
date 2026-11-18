@@ -2,6 +2,11 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.10.1, 2026-11-18
+
+- Documentation: the comment on `ListDataConnectorExecutionResultsParams.IncludeBodies` now says it is ignored for third-party apps, meaning apps owned by another workspace, which never receive bodies.
+- Documentation: the comments on `ListDataConnectorExecutionResults` and `ShowDataConnectorExecutionResult` in `Client`, `ClientWithResponses` and both interfaces, plus the `WithResponse` variants, now say that request and response bodies are omitted for third-party apps. No exported API changes.
+
 ## v0.10.0, 2026-11-14
 
 - Breaking: `CreateMessageRequest.From` is an inline struct type that now has a `WhatsappNumber` field (`*string`), the WhatsApp number of the workspace to send from. Code that builds or assigns that anonymous struct type must add the field.

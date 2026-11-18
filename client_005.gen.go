@@ -19018,7 +19018,7 @@ func (c *ClientWithResponses) CreateDataConnectorWithResponse(ctx context.Contex
 // Retrieve paginated execution logs for a specific data connector.
 // Results from the last hour are returned by default. Use `start_ts` and `end_ts` to customize the time range.
 //
-// Request/response bodies are excluded by default. Use `include_bodies=true` to include them.
+// Request/response bodies are excluded by default. Use `include_bodies=true` to include them. Apps owned by another workspace never receive them.
 //
 // OAuth tokens must have the `read_workflow_connector_execution_result` or `read_write_data_connectors` scope.
 //
@@ -19036,7 +19036,7 @@ func (c *ClientWithResponses) ListDataConnectorExecutionResultsWithResponse(ctx 
 // ShowDataConnectorExecutionResultWithResponse Retrieve an execution result
 //
 // Retrieve details for a specific data connector execution result.
-// Includes the request/response bodies and sanitised request URL when they are available.
+// Includes the sanitised request URL, and the request/response bodies when they are available. Bodies are omitted when the request comes from a third-party app (an app owned by another workspace).
 //
 // OAuth tokens must have the `read_workflow_connector_execution_result` or `read_write_data_connectors` scope.
 //
