@@ -17550,7 +17550,7 @@ type ClientInterface interface {
 	//   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details.
 	// {% /admonition %}
 	//
-	// Requires the `write_users_companies` OAuth scope. A token with only read scopes cannot call this endpoint.
+	// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
 	//
 	// Corresponds with POST /companies/list (the `ListAllCompanies` operationId).
 	ListAllCompanies(ctx context.Context, params *ListAllCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error)

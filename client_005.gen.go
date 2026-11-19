@@ -15524,7 +15524,7 @@ func (c *ClientWithResponses) CreateOrUpdateCompanyWithResponse(ctx context.Cont
 //
 // {% /admonition %}
 //
-// Requires the `write_users_companies` OAuth scope. A token with only read scopes cannot call this endpoint.
+// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
 //
 // Returns a wrapper object for the known response body format(s).
 //

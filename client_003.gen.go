@@ -1578,7 +1578,7 @@ func (c *Client) CreateOrUpdateCompany(ctx context.Context, params *CreateOrUpda
 //
 // {% /admonition %}
 //
-// Requires the `write_users_companies` OAuth scope. A token with only read scopes cannot call this endpoint.
+// Requires the `read_users_companies` or `write_users_companies` OAuth scope.
 //
 // Corresponds with POST /companies/list (the `ListAllCompanies` operationId).
 func (c *Client) ListAllCompanies(ctx context.Context, params *ListAllCompaniesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {

@@ -2,6 +2,10 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.10.2, 2026-11-19
+
+- Documentation: the OAuth scope comment on `ListAllCompanies` in `Client`, `ClientWithResponses` and both interfaces, plus the `ListAllCompaniesWithResponse` variant, now says the `read_users_companies` or `write_users_companies` scope is accepted. It no longer says a token with only read scopes cannot call the endpoint. No exported API changes.
+
 ## v0.10.1, 2026-11-18
 
 - Documentation: the comment on `ListDataConnectorExecutionResultsParams.IncludeBodies` now says it is ignored for third-party apps, meaning apps owned by another workspace, which never receive bodies.
