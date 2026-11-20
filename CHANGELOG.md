@@ -2,6 +2,10 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.10.3, 2026-11-20
+
+- Documentation: the warning on `DeleteConversation` in `Client`, `ClientWithResponses` and both interfaces, plus the `DeleteConversationWithResponse` variant, now says deletion is permanent with `retain_metrics=false`. With the default `retain_metrics=true`, the data is kept for 7 days before deletion, and the API cannot recover it in that window. No exported API changes.
+
 ## v0.10.2, 2026-11-19
 
 - Documentation: the OAuth scope comment on `ListAllCompanies` in `Client`, `ClientWithResponses` and both interfaces, plus the `ListAllCompaniesWithResponse` variant, now says the `read_users_companies` or `write_users_companies` scope is accepted. It no longer says a token with only read scopes cannot call the endpoint. No exported API changes.
