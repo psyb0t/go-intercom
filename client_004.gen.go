@@ -14217,6 +14217,8 @@ type ListActivityLogsResponse struct {
 	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -14232,6 +14234,11 @@ func (r ListActivityLogsResponse) GetJSON400() *Error {
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r ListActivityLogsResponse) GetJSON401() *Error {
 	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r ListActivityLogsResponse) GetJSON403() *Error {
+	return r.JSON403
 }
 
 // GetBody returns the raw response body bytes
@@ -14272,6 +14279,8 @@ type SearchActivityLogsResponse struct {
 	JSON400 *Error
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *Error
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *Error
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -14287,6 +14296,11 @@ func (r SearchActivityLogsResponse) GetJSON400() *Error {
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r SearchActivityLogsResponse) GetJSON401() *Error {
 	return r.JSON401
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r SearchActivityLogsResponse) GetJSON403() *Error {
+	return r.JSON403
 }
 
 // GetBody returns the raw response body bytes

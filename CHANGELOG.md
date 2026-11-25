@@ -2,6 +2,11 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.10.4, 2026-11-25
+
+- Added a `JSON403` field and a `GetJSON403` method on `ListActivityLogsResponse` and `SearchActivityLogsResponse`.
+- `ParseListActivityLogsResponse` and `ParseSearchActivityLogsResponse` now decode a JSON 403 response body into `JSON403` as `Error`.
+
 ## v0.10.3, 2026-11-20
 
 - Documentation: the warning on `DeleteConversation` in `Client`, `ClientWithResponses` and both interfaces, plus the `DeleteConversationWithResponse` variant, now says deletion is permanent with `retain_metrics=false`. With the default `retain_metrics=true`, the data is kept for 7 days before deletion, and the API cannot recover it in that window. No exported API changes.
