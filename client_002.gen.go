@@ -17,6 +17,11 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// GrantedCompanyListType The type of object
+//
+// Example: list
+type GrantedCompanyListType string
+
 // GroupContent The Content of a Group.
 type GroupContent struct {
 	// Description The description of the collection. Only available for collections.

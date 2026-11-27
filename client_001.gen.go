@@ -178,6 +178,7 @@ const (
 	ActivityLogActivityTypeFinIngestionConsent                       ActivityLogActivityType = "fin_ingestion_consent"
 	ActivityLogActivityTypeFinOptIn                                  ActivityLogActivityType = "fin_opt_in"
 	ActivityLogActivityTypeFinPersistedDataContextAttributeChange    ActivityLogActivityType = "fin_persisted_data_context_attribute_change"
+	ActivityLogActivityTypeFinProcedureTeammateInputSubmitted        ActivityLogActivityType = "fin_procedure_teammate_input_submitted"
 	ActivityLogActivityTypeFinProceduresHitlAccessTokenRotated       ActivityLogActivityType = "fin_procedures_hitl_access_token_rotated"
 	ActivityLogActivityTypeFinProceduresHitlSettingsChange           ActivityLogActivityType = "fin_procedures_hitl_settings_change"
 	ActivityLogActivityTypeFinSdrConnectorActivated                  ActivityLogActivityType = "fin_sdr_connector_activated"
@@ -186,6 +187,7 @@ const (
 	ActivityLogActivityTypeFinSdrMarketoDisconnected                 ActivityLogActivityType = "fin_sdr_marketo_disconnected"
 	ActivityLogActivityTypeFinSdrMarketoPartitionSelected            ActivityLogActivityType = "fin_sdr_marketo_partition_selected"
 	ActivityLogActivityTypeFinSdrPlaybookUpdated                     ActivityLogActivityType = "fin_sdr_playbook_updated"
+	ActivityLogActivityTypeFinSkillTeammateInputSubmitted            ActivityLogActivityType = "fin_skill_teammate_input_submitted"
 	ActivityLogActivityTypeGenericEcommerceConnectorCreation         ActivityLogActivityType = "generic_ecommerce_connector_creation"
 	ActivityLogActivityTypeGithubSyncCleanupDeletedFolder            ActivityLogActivityType = "github_sync_cleanup_deleted_folder"
 	ActivityLogActivityTypeGithubSyncConnectorCloned                 ActivityLogActivityType = "github_sync_connector_cloned"
@@ -736,6 +738,8 @@ func (e ActivityLogActivityType) Valid() bool {
 		return true
 	case ActivityLogActivityTypeFinPersistedDataContextAttributeChange:
 		return true
+	case ActivityLogActivityTypeFinProcedureTeammateInputSubmitted:
+		return true
 	case ActivityLogActivityTypeFinProceduresHitlAccessTokenRotated:
 		return true
 	case ActivityLogActivityTypeFinProceduresHitlSettingsChange:
@@ -751,6 +755,8 @@ func (e ActivityLogActivityType) Valid() bool {
 	case ActivityLogActivityTypeFinSdrMarketoPartitionSelected:
 		return true
 	case ActivityLogActivityTypeFinSdrPlaybookUpdated:
+		return true
+	case ActivityLogActivityTypeFinSkillTeammateInputSubmitted:
 		return true
 	case ActivityLogActivityTypeGenericEcommerceConnectorCreation:
 		return true
@@ -20004,8 +20010,3 @@ type GrantedCompanyList struct {
 	// Example: list
 	Type *GrantedCompanyListType `json:"type,omitempty"`
 }
-
-// GrantedCompanyListType The type of object
-//
-// Example: list
-type GrantedCompanyListType string

@@ -2,6 +2,11 @@
 
 All notable changes per release. Versions follow [semver](https://semver.org).
 
+## v0.10.5, 2026-11-27
+
+- Added the `ActivityLogActivityTypeFinProcedureTeammateInputSubmitted` constant (`fin_procedure_teammate_input_submitted`) and the `ActivityLogActivityTypeFinSkillTeammateInputSubmitted` constant (`fin_skill_teammate_input_submitted`) to `ActivityLogActivityType`. `Valid` now returns true for both.
+- Generated code: the `GrantedCompanyListType` declaration moved from `client_001.gen.go` to `client_002.gen.go`. Behavior is the same.
+
 ## v0.10.4, 2026-11-25
 
 - Added a `JSON403` field and a `GetJSON403` method on `ListActivityLogsResponse` and `SearchActivityLogsResponse`.
